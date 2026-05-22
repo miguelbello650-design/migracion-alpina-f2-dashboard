@@ -177,6 +177,38 @@ Se restaura al cargar la página.
 ### Día actual
 Usa `new Date()` en cada carga. No hay fechas fijas.
 
+## Admin Chat
+
+Panel protegido con contraseña para modificar tareas desde el navegador.
+
+### Acceso
+- Click en **⚙** (esquina superior derecha del dashboard)
+- Contraseña por defecto: `admin123`
+- Se puede cambiar con el comando `/pwd NUEVA`
+
+### Comandos
+
+| Comando | Formato | Ejemplo |
+|---------|---------|---------|
+| Estado | `/estado "bot" "tarea" estado` | `/estado "robotina" "Pruebas unitarias" completado` |
+| Extender | `/extender "bot" "tarea" +N` | `/extender "nova" "Pruebas UAT" +2` |
+| Mover | `/mover "bot" "tarea" a "DD-MMM"` | `/mover "robotina" "UAT" a "28-may"` |
+| Agregar | `/agregar "bot" "fase" "tarea" horas dias` | `/agregar "nova" "Cierre" "Nueva tarea" 8 1` |
+| Listar | `/listar [bot]` | `/listar robotina` |
+| Guardar | `/save` | Guarda cambios en el navegador |
+| Restaurar | `/load` | Restaura desde el navegador |
+| Ayuda | `/ayuda` | Muestra todos los comandos |
+
+### Estados válidos
+- `completado` — ✅ barra verde, progreso 100%
+- `en_curso` — 🔄 barra azul, progreso parcial por días transcurridos
+- `pendiente` — ⏳ barra gris, progreso 0%
+
+### Persistencia
+- Los cambios se guardan en `localStorage` (comando `/save`)
+- Se restauran automáticamente al cargar la página (comando `/load` en startup)
+- Para persistencia permanente: editar `index.html` y el script de las 8 AM lo sincroniza a GitHub
+
 ## Sincronización Automática
 
 - **Script**: `sync-github.ps1`
