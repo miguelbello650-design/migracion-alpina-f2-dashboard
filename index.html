@@ -201,6 +201,32 @@
     .alert { margin: 0 20px 20px; }
     .main-footer { margin: 20px; }
   }
+
+  /* Admin chat */
+  #admin-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:1000; justify-content:center; align-items:center; }
+  #admin-overlay.show { display:flex; }
+  #admin-modal { background:#fff; border-radius:12px; width:500px; max-width:90vw; max-height:80vh; display:flex; flex-direction:column; box-shadow:0 8px 32px rgba(0,0,0,0.2); }
+  #admin-modal .head { padding:16px 20px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #d1d9e6; }
+  #admin-modal .head h3 { font-size:15px; color:#1e3a5f; }
+  #admin-modal .head .close { cursor:pointer; font-size:20px; color:#94a3b8; line-height:1; }
+  #admin-modal .head .close:hover { color:#ef4444; }
+  #admin-chat { flex:1; overflow-y:auto; padding:12px 20px; font-size:13px; line-height:1.5; min-height:200px; max-height:300px; }
+  #admin-chat .msg { margin-bottom:8px; }
+  #admin-chat .msg.system { color:#5b6f8c; font-style:italic; }
+  #admin-chat .msg.success { color:#10b981; }
+  #admin-chat .msg.error { color:#ef4444; }
+  #admin-chat .msg.cmd { color:#1e3a5f; font-weight:600; }
+  #admin-chat .msg.cmd::before { content:'> '; color:#94a3b8; }
+  #admin-input-area { display:flex; border-top:1px solid #d1d9e6; padding:10px 20px; gap:8px; }
+  #admin-input { flex:1; border:1px solid #d1d9e6; border-radius:6px; padding:8px 12px; font-size:13px; outline:none; }
+  #admin-input:focus { border-color:#0033a0; }
+  #admin-send { background:#0033a0; color:#fff; border:none; border-radius:6px; padding:8px 16px; font-size:13px; cursor:pointer; font-weight:600; }
+  #admin-send:hover { background:#002a80; }
+  #admin-login { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px; gap:16px; }
+  #admin-login input { border:1px solid #d1d9e6; border-radius:6px; padding:10px 14px; font-size:14px; width:200px; outline:none; text-align:center; }
+  #admin-login input:focus { border-color:#0033a0; }
+  #admin-login button { background:#0033a0; color:#fff; border:none; border-radius:6px; padding:10px 24px; font-size:14px; cursor:pointer; font-weight:600; }
+  #admin-login button:hover { background:#002a80; }
 </style>
 </head>
 <body>
@@ -214,6 +240,7 @@
   <div class="topbar-right">
     <span class="badge">Migración F2</span>
     <span class="date" id="fecha-label"></span>
+    <span id="admin-btn" style="cursor:pointer;font-size:18px;color:rgba(255,255,255,0.4);transition:color .15s" title="Admin" onclick="showAdminLogin()">⚙</span>
   </div>
 </div>
 
@@ -303,6 +330,27 @@
 </div>
 
 <div class="main-footer">Migración Alpina F2 · Proyecto trackeado con IA</div>
+
+<div id="admin-overlay">
+  <div id="admin-modal">
+    <div class="head">
+      <h3>⚙ Admin · Chat de Comandos</h3>
+      <span class="close" onclick="closeAdmin()">✕</span>
+    </div>
+    <div id="admin-login">
+      <div style="font-size:14px;color:#334155">Ingresa la contraseña de administrador</div>
+      <input type="password" id="admin-pwd" placeholder="Contraseña" onkeydown="if(event.key==='Enter')checkAdminPwd()">
+      <button onclick="checkAdminPwd()">Acceder</button>
+    </div>
+    <div id="admin-panel" style="display:none;flex-direction:column;flex:1">
+      <div id="admin-chat"></div>
+      <div id="admin-input-area">
+        <input type="text" id="admin-input" placeholder="Escribe un comando... (/ayuda)" onkeydown="if(event.key==='Enter')sendAdminCmd()">
+        <button id="admin-send" onclick="sendAdminCmd()">Enviar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 // Tabs
@@ -571,7 +619,6 @@ function renderNovaCard() {
   if (footerTotals[0]) footerTotals[0].textContent = totalHours + ' h';
   if (footerTotals[1]) footerTotals[1].textContent = result.phases.length;
   document.querySelector('.card.nova .card-footer.total .value').textContent = result.total + '%';
-  // Milestone
   const novaMile = GANTT_ROWS.find(r => r.milestone);
   if (novaMile && novaMile.fixedEndIdx !== undefined) {
     const d = GANTT_DATES[novaMile.fixedEndIdx];
@@ -632,7 +679,6 @@ function calcPhaseProgress(rows, dates) {
   if (!dates.length) return { phases: [], total: 0, totalHours: 0 };
   assignDates(rows, dates);
   const now = new Date(); now.setHours(0,0,0,0);
-
   const phaseMap = {};
   let currentPhase = '';
   rows.forEach(r => {
@@ -641,13 +687,10 @@ function calcPhaseProgress(rows, dates) {
     if (!phaseMap[currentPhase]) phaseMap[currentPhase] = [];
     phaseMap[currentPhase].push(r);
   });
-
   const phaseNames = Object.keys(phaseMap);
-
   const phases = phaseNames.map(name => {
     const tasks = phaseMap[name];
     let phaseSum = 0, total = 0;
-
     tasks.forEach(t => {
       if (t.fixedIdx === undefined) return;
       const start = t.fixedIdx;
@@ -657,7 +700,6 @@ function calcPhaseProgress(rows, dates) {
       const effectiveDays = totalSpan - skipCount;
       if (effectiveDays <= 0) return;
       total++;
-
       let taskPct;
       if (t.inProgress) {
         const skipSet = t.skipIndices ? new Set(t.skipIndices) : new Set();
@@ -680,19 +722,15 @@ function calcPhaseProgress(rows, dates) {
         }
         taskPct = Math.min(100, Math.round(completed / effectiveDays * 100));
       }
-
       phaseSum += taskPct;
     });
-
     const avg = total > 0 ? Math.round(phaseSum / total) : 0;
     return [name, avg];
   });
-
   return { phases, total: phaseNames.length > 0 ? Math.round(phases.reduce((s, p) => s + p[1], 0) / phaseNames.length) : 0 };
 }
 
 function assignDates(rows, dates) {
-  // Only assign dates for tasks that have fixedIdx explicitamente definido
   rows.forEach(r => {
     if (r.fixedIdx !== undefined) {
       r.startIdx = r.fixedIdx;
@@ -719,13 +757,9 @@ function cellBg(d, isToday, isWeekend, grayDays) {
 
 function buildGantt(rows, dates, title, grayDays, notes) {
   if (!dates.length) return '<p style="padding:20px;color:#5b6f8c">No hay datos disponibles</p>';
-
   assignDates(rows, dates);
   const nMap = notes || {};
-
   const totalDays = dates.length;
-
-  // Month groups for headers
   const monthLabels = [];
   let curMonth = '';
   dates.forEach((d,i) => {
@@ -733,22 +767,17 @@ function buildGantt(rows, dates, title, grayDays, notes) {
     if (m !== curMonth) { curMonth = m; monthLabels.push({ label: m, start: i, count: 1 }); }
     else monthLabels[monthLabels.length-1].count++;
   });
-
-  // Completed phases (verde) vs in-progress (azul)
-  // Completed (green) if end date passed, else in progress (blue)
   const COLOR_DONE = '#10b981';
   const COLOR_PROG = '#2563eb';
   const COLOR_PEND = '#94a3b8';
   const COLOR_MILESTONE = '#f59e0b';
   const cutDate = new Date(); cutDate.setHours(0,0,0,0);
-
   const legendItems = [
     { color: COLOR_DONE, label: 'Finalizada' },
     { color: COLOR_PROG, label: 'En curso' },
     { color: COLOR_PEND, label: 'Pendiente' },
     { color: COLOR_MILESTONE, label: 'Salida a Producción 🚩' }
   ];
-
   let html = '<div class="gantt-header"><h2>Diagrama Gantt - ' + title + '</h2><div class="stats">' + dates.length + ' días · ' + rows.filter(r=>r.task).length + ' actividades</div></div>';
   html += '<div style="display:flex;gap:16px;margin-bottom:12px;font-size:12px;align-items:center">';
   legendItems.forEach(l => {
@@ -757,8 +786,6 @@ function buildGantt(rows, dates, title, grayDays, notes) {
   html += '</div>';
   html += '<div style="min-width:' + (totalDays*26 + 400) + 'px">';
   html += '<table class="gantt-table"><thead>';
-
-  // Header: months
   html += '<tr class="month-row">';
   html += '<th class="col-task" style="min-width:220px">Actividad</th>';
   html += '<th class="col-resp" style="min-width:50px">Resp.</th>';
@@ -768,8 +795,6 @@ function buildGantt(rows, dates, title, grayDays, notes) {
     html += '<th colspan="' + m.count + '" style="text-align:center;font-size:10px;font-weight:700;color:#1e3a5f;background:#dce6f2;padding:4px 2px;border:1px solid #c8d2e0">' + m.label + '</th>';
   });
   html += '</tr>';
-
-  // Header: days
   html += '<tr class="day-row">';
   html += '<th class="col-task" style="background:#1e3a5f;color:#fff;padding:6px">Actividad / Tarea</th>';
   html += '<th class="col-resp" style="background:#1e3a5f;color:#fff;padding:6px">Resp.</th>';
@@ -782,7 +807,6 @@ function buildGantt(rows, dates, title, grayDays, notes) {
     html += '<th' + (isToday?' class="today-header"':isGrayDay?' class="gray-header"':'') + ' style="background:' + (isToday?'#ef4444':isGrayDay?'#94a3b8':isWeekend?'#e8eef6':'#1e3a5f') + ';color:' + (isToday||isGrayDay?'#fff':isWeekend?'#5b6f8c':'#fff') + ';font-size:9px;padding:4px 1px;border:1px solid #c8d2e0;' + (isToday?'font-weight:800;':'') + '">' + d.getDate() + '</th>';
   });
   html += '</tr></thead><tbody>';
-
   let currentPhase = '';
   rows.forEach(r => {
     if (r.phase && r.phase !== currentPhase) {
@@ -806,19 +830,13 @@ function buildGantt(rows, dates, title, grayDays, notes) {
     html += '<td style="font-size:10px;padding:4px">' + respShort + '</td>';
     html += '<td style="font-size:10px;padding:4px">' + r.hours + '</td>';
     html += '<td style="font-size:10px;padding:4px">' + r.days + '</td>';
-
     if (hasDates) {
       const fmtDate = d => d.toLocaleDateString('es-CO', { day:'numeric', month:'short', year:'numeric' });
       const startStr = fmtDate(dates[r.startIdx]);
       const endStr = fmtDate(dates[r.endIdx]);
       const tooltip = r.task + ' | ' + startStr + ' → ' + endStr + (r.note ? ' ⚠ ' + r.note : '');
-      const barHTML = '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + tooltip + '</span>' + (r.note ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px">⚠</span>' : '') + (r.milestone ? '<span style="position:absolute;top:-6px;right:2px;font-size:14px">🚩</span>' : '') + '</div>';
       const skipSet = r.skipIndices ? new Set(r.skipIndices) : null;
-
-      // Check if we can use colspan (no skips) or need per-day rendering
       const needsSplit = skipSet && skipSet.size > 0;
-
-      // Empty cells before bar
       for (let d = 0; d < r.startIdx; d++) {
         const isWeekend = dates[d].getDay() === 0 || dates[d].getDay() === 6;
         const isToday = isSameDay(dates[d], new Date());
@@ -827,24 +845,20 @@ function buildGantt(rows, dates, title, grayDays, notes) {
         if (hasNoteBefore) html += '<span style="display:inline-block;cursor:help;font-size:11px;color:#ef4444;padding:0 2px" title="' + nMap[d] + '">⚠</span>';
         html += '</td>';
       }
-
       if (needsSplit) {
-        // Split into continuous segments, skipping gaps
         let segStart = -1;
         for (let d = r.startIdx; d <= r.endIdx + 1; d++) {
           const active = d <= r.endIdx && !skipSet.has(d);
           if (active && segStart === -1) segStart = d;
           if (!active && segStart !== -1) {
             const segLen = d - segStart;
-            // Check if any day in this segment has a note
             const segNotes = [];
             for (let n = segStart; n < d; n++) {
               if (r.notesIdx && r.notesIdx.includes(n) && nMap[n]) segNotes.push(nMap[n]);
             }
-            const segTooltip = tooltip + (segNotes.length ? ' ⚠ ' + segNotes.join(' | ') : '');
-            const segHTML = '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + segTooltip + '</span>' + (segNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div>';
+            const segTip = tooltip + (segNotes.length ? ' ⚠ ' + segNotes.join(' | ') : '');
             html += '<td colspan="' + segLen + '" style="border:1px solid #d1d9e6;padding:1px 0;background:#fff">';
-            html += segHTML + '</td>';
+            html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + segTip + '</span>' + (segNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + (r.milestone ? '<span style="position:absolute;top:-6px;right:2px;font-size:14px">🚩</span>' : '') + '</div></td>';
             segStart = -1;
           }
           if (!active && d <= r.endIdx) {
@@ -857,10 +871,8 @@ function buildGantt(rows, dates, title, grayDays, notes) {
           }
         }
       } else {
-        // Continuous bar (colspan)
         const todayIdx = dates.findIndex(d => isSameDay(d, new Date()));
         const hasTodayInBar = todayIdx >= r.startIdx && todayIdx <= r.endIdx;
-
         if (hasTodayInBar) {
           const before = todayIdx - r.startIdx;
           if (before > 0) {
@@ -869,13 +881,11 @@ function buildGantt(rows, dates, title, grayDays, notes) {
               if (r.notesIdx && r.notesIdx.includes(n) && nMap[n]) bNotes.push(nMap[n]);
             }
             const bTip = tooltip + (bNotes.length ? ' ⚠ ' + bNotes.join(' | ') : '');
-            const bHTML = '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + bTip + '</span>' + (bNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div>';
             html += '<td colspan="' + before + '" style="border:1px solid #d1d9e6;padding:1px 0;background:#fff">';
-            html += bHTML + '</td>';
+            html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + bTip + '</span>' + (bNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
           }
           html += '<td class="today-col" style="border:1px solid #d1d9e6;padding:1px 0;background:rgba(239,68,68,0.25)">';
-          const hasNoteToday = r.notesIdx && r.notesIdx.includes(todayIdx);
-          const todayNote = hasNoteToday && nMap[todayIdx] ? ' ⚠ ' + nMap[todayIdx] : '';
+          const todayNote = r.notesIdx && r.notesIdx.includes(todayIdx) && nMap[todayIdx] ? ' ⚠ ' + nMap[todayIdx] : '';
           html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;opacity:.4"><span class="tooltip">' + tooltip + todayNote + '</span></div></td>';
           const after = r.endIdx - todayIdx;
           if (after > 0) {
@@ -884,9 +894,8 @@ function buildGantt(rows, dates, title, grayDays, notes) {
               if (r.notesIdx && r.notesIdx.includes(n) && nMap[n]) aNotes.push(nMap[n]);
             }
             const aTip = tooltip + (aNotes.length ? ' ⚠ ' + aNotes.join(' | ') : '');
-            const aHTML = '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + aTip + '</span>' + (aNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div>';
             html += '<td colspan="' + after + '" style="border:1px solid #d1d9e6;padding:1px 0;background:#fff">';
-            html += aHTML + '</td>';
+            html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + aTip + '</span>' + (aNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
           }
         } else {
           const dur = r.endIdx - r.startIdx + 1;
@@ -895,20 +904,16 @@ function buildGantt(rows, dates, title, grayDays, notes) {
             if (r.notesIdx && r.notesIdx.includes(n) && nMap[n]) cNotes.push(nMap[n]);
           }
           const cTip = tooltip + (cNotes.length ? ' ⚠ ' + cNotes.join(' | ') : '');
-          const cHTML = '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + cTip + '</span>' + (cNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div>';
           html += '<td colspan="' + dur + '" style="border:1px solid #d1d9e6;padding:1px 0;background:#fff">';
-          html += cHTML + '</td>';
+          html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + cTip + '</span>' + (cNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + (r.milestone ? '<span style="position:absolute;top:-6px;right:2px;font-size:14px">🚩</span>' : '') + '</div></td>';
         }
       }
-
-      // Remaining cells after bar
       for (let d = r.endIdx + 1; d < totalDays; d++) {
         const isWeekend = dates[d].getDay() === 0 || dates[d].getDay() === 6;
         const isToday = isSameDay(dates[d], new Date());
         html += '<td class="' + cellClass(d,isToday,grayDays) + '" style="border:1px solid #d1d9e6;padding:0;background:' + cellBg(d,isToday,isWeekend,grayDays) + '"></td>';
       }
     } else {
-      // No dates assigned - empty cells
       for (let d = 0; d < totalDays; d++) {
         const isWeekend = dates[d].getDay() === 0 || dates[d].getDay() === 6;
         const isToday = isSameDay(dates[d], new Date());
@@ -917,9 +922,7 @@ function buildGantt(rows, dates, title, grayDays, notes) {
     }
     html += '</tr>';
   });
-
   html += '</tbody></table></div>';
-
   return html;
 }
 
@@ -951,9 +954,153 @@ function renderGanttRobotina() {
   container.innerHTML = '<div class="gantt-wrap" id="gantt-wrap-robotina">' + innerHtml + '</div>';
 }
 
-renderGantt();
-renderGanttFeli();
-renderGanttRobotina();
+// ---- Admin Chat ----
+const ADMIN_PWD = (localStorage.getItem('admin_pwd') || 'admin123');
+function showAdminLogin() { document.getElementById('admin-overlay').classList.add('show'); }
+function closeAdmin() { document.getElementById('admin-overlay').classList.remove('show'); document.getElementById('admin-login').style.display='flex'; document.getElementById('admin-panel').style.display='none'; }
+function checkAdminPwd() {
+  if (document.getElementById('admin-pwd').value === ADMIN_PWD) {
+    document.getElementById('admin-login').style.display='none';
+    document.getElementById('admin-panel').style.display='flex';
+    document.getElementById('admin-chat').innerHTML = '<div class="msg system">Admin conectado. Escribe /ayuda para ver comandos.</div>';
+  } else {
+    alert('Contraseña incorrecta');
+  }
+}
+function addMsg(t,c) { const d=document.createElement('div'); d.className='msg '+t; d.textContent=c; document.getElementById('admin-chat').appendChild(d); document.getElementById('admin-chat').scrollTop = document.getElementById('admin-chat').scrollHeight; }
+function sendAdminCmd() {
+  const inp = document.getElementById('admin-input');
+  const cmd = inp.value.trim(); inp.value = '';
+  if (!cmd) return;
+  addMsg('cmd', cmd);
+  execAdminCmd(cmd);
+}
+function findTask(name, rows) {
+  const n = name.toLowerCase();
+  for (let r of rows) { if (r.task && r.task.toLowerCase().includes(n)) return r; }
+  return null;
+}
+function getBotRows(bot) {
+  if (bot==='nova') return GANTT_ROWS;
+  if (bot==='feli') return GANTT_ROWS_FELI;
+  if (bot==='robotina') return GANTT_ROWS_ROBOTINA;
+  return null;
+}
+function getBotName(bot) {
+  return { nova:'NOVA', feli:'FELI', robotina:'ROBOTINA' }[bot] || bot;
+}
+function saveState() {
+  localStorage.setItem('gantt_nova', JSON.stringify(GANTT_ROWS.map(r=>({task:r.task,fixedIdx:r.fixedIdx,fixedEndIdx:r.fixedEndIdx,inProgress:r.inProgress,notesIdx:r.notesIdx,skipIndices:r.skipIndices}))));
+  localStorage.setItem('gantt_feli', JSON.stringify(GANTT_ROWS_FELI.map(r=>({task:r.task,fixedIdx:r.fixedIdx,fixedEndIdx:r.fixedEndIdx,inProgress:r.inProgress,notesIdx:r.notesIdx,skipIndices:r.skipIndices}))));
+  localStorage.setItem('gantt_robotina', JSON.stringify(GANTT_ROWS_ROBOTINA.map(r=>({task:r.task,fixedIdx:r.fixedIdx,fixedEndIdx:r.fixedEndIdx,inProgress:r.inProgress,notesIdx:r.notesIdx,skipIndices:r.skipIndices}))));
+  addMsg('success', 'Estado guardado en el navegador');
+}
+function loadState() {
+  ['nova','feli','robotina'].forEach(b => {
+    const saved = localStorage.getItem('gantt_'+b);
+    if (!saved) return;
+    const arr = JSON.parse(saved);
+    const rows = getBotRows(b);
+    arr.forEach(s => {
+      const r = rows.find(x => x.task && x.task === s.task);
+      if (!r) return;
+      if (s.fixedIdx !== undefined) r.fixedIdx = s.fixedIdx;
+      if (s.fixedEndIdx !== undefined) r.fixedEndIdx = s.fixedEndIdx;
+      if (s.inProgress !== undefined) r.inProgress = s.inProgress;
+      if (s.notesIdx) r.notesIdx = s.notesIdx;
+      if (s.skipIndices) r.skipIndices = s.skipIndices;
+    });
+  });
+}
+function renderAll() {
+  renderNovaCard(); renderFeliCard(); renderRobotinaCard();
+  renderGantt(); renderGanttFeli(); renderGanttRobotina();
+}
+function execAdminCmd(cmd) {
+  const parts = cmd.split(/\s+/);
+  const cmdName = parts[0].toLowerCase();
+  switch (cmdName) {
+    case '/ayuda':
+      addMsg('system', 'Comandos disponibles:\n/estado "bot" "tarea" completado|en_curso|pendiente\n/extender "bot" "tarea" +N (días)\n/mover "bot" "tarea" a "DD-MMM" (ej: 10-jun)\n/agregar "bot" "fase" "tarea" horas dias\n/listar "bot"\n/save\n/load\n/pwd NUEVA');
+      break;
+    case '/estado': {
+      const m = cmd.match(/\/estado\s+"([^"]+)"\s+"([^"]+)"\s+(.+)/);
+      if (!m) { addMsg('error','Formato: /estado "bot" "tarea" completado|en_curso|pendiente'); break; }
+      const rows = getBotRows(m[1].toLowerCase());
+      if (!rows) { addMsg('error','Bot no encontrado. Usa: nova, feli, robotina'); break; }
+      const t = findTask(m[2], rows);
+      if (!t) { addMsg('error','Tarea no encontrada en '+getBotName(m[1])); break; }
+      const st = m[3].trim();
+      if (st==='completado') { t.inProgress = false; if (t.fixedEndIdx===undefined) t.fixedEndIdx = t.fixedIdx; }
+      else if (st==='en_curso') t.inProgress = true;
+      else if (st==='pendiente') { t.inProgress = false; if (t.fixedEndIdx!==undefined) delete t.fixedEndIdx; }
+      else { addMsg('error','Estado no válido. Usa: completado, en_curso, pendiente'); break; }
+      renderAll(); addMsg('success','✓ '+t.task+' → '+st); break;
+    }
+    case '/extender': {
+      const m = cmd.match(/\/extender\s+"([^"]+)"\s+"([^"]+)"\s+\+?(\d+)/);
+      if (!m) { addMsg('error','Formato: /extender "bot" "tarea" +N'); break; }
+      const rows = getBotRows(m[1].toLowerCase());
+      if (!rows) { addMsg('error','Bot no encontrado'); break; }
+      const t = findTask(m[2], rows);
+      if (!t) { addMsg('error','Tarea no encontrada'); break; }
+      const days = parseInt(m[3]);
+      if (t.fixedEndIdx !== undefined) t.fixedEndIdx += days;
+      renderAll(); addMsg('success','✓ '+t.task+' extendida +'+days+' días'); break;
+    }
+    case '/mover': {
+      const m = cmd.match(/\/mover\s+"([^"]+)"\s+"([^"]+)"\s+a\s+"([^"]+)"/);
+      if (!m) { addMsg('error','Formato: /mover "bot" "tarea" a "DD-MMM" (ej: 10-jun)'); break; }
+      const rows = getBotRows(m[1].toLowerCase());
+      if (!rows) { addMsg('error','Bot no encontrado'); break; }
+      const t = findTask(m[2], rows);
+      if (!t) { addMsg('error','Tarea no encontrada'); break; }
+      const dp = m[3].split('-');
+      const target = new Date(2026, ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'].indexOf(dp[1].toLowerCase().substring(0,3)), parseInt(dp[0]));
+      const idx = GANTT_DATES.findIndex(d => isSameDay(d, target));
+      if (idx===-1) { addMsg('error','Fecha no encontrada en el calendario'); break; }
+      const dur = t.fixedEndIdx !== undefined ? t.fixedEndIdx - t.fixedIdx : 0;
+      t.fixedIdx = idx;
+      t.fixedEndIdx = idx + dur;
+      renderAll(); addMsg('success','✓ '+t.task+' movida a '+m[3]); break;
+    }
+    case '/agregar': {
+      const m = cmd.match(/\/agregar\s+"([^"]+)"\s+"([^"]+)"\s+"([^"]+)"\s+(\d+)\s+(\d+)/);
+      if (!m) { addMsg('error','Formato: /agregar "bot" "fase" "tarea" horas dias'); break; }
+      const rows = getBotRows(m[1].toLowerCase());
+      if (!rows) { addMsg('error','Bot no encontrado'); break; }
+      const newTask = { phase:m[2], task:m[3], resp:'2NV', hours:parseInt(m[4]), days:parseInt(m[5]) };
+      rows.push(newTask);
+      renderAll(); addMsg('success','✓ Tarea "'+m[3]+'" agregada a '+getBotName(m[1])); break;
+    }
+    case '/listar': {
+      const bot = parts[1] ? parts[1].toLowerCase() : null;
+      const bots = bot ? [bot] : ['nova','feli','robotina'];
+      bots.forEach(b => {
+        const rows = getBotRows(b);
+        if (!rows) return;
+        addMsg('system', '━━━ '+getBotName(b)+' ━━━');
+        rows.forEach((r,i) => {
+          if (!r.task) return;
+          const st = r.inProgress ? '🔄' : (r.fixedEndIdx!==undefined && GANTT_DATES[r.fixedEndIdx] <= new Date() ? '✅' : '⏳');
+          addMsg('system', st+' ['+i+'] '+r.task+(r.fixedIdx!==undefined?' ('+r.fixedIdx+'-'+r.fixedEndIdx+')':''));
+        });
+      });
+      break;
+    }
+    case '/save': saveState(); break;
+    case '/load': loadState(); renderAll(); addMsg('success','Estado restaurado'); break;
+    case '/pwd': {
+      if (parts.length<2) { addMsg('error','Especifica la nueva contraseña'); break; }
+      localStorage.setItem('admin_pwd', parts[1]);
+      addMsg('success','✓ Contraseña actualizada'); break;
+    }
+    default: addMsg('error','Comando no reconocido. Escribe /ayuda');
+  }
+}
+// Load saved state on startup
+loadState();
+renderAll();
 </script>
 </body>
 </html>
