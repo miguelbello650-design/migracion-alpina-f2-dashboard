@@ -1,0 +1,26 @@
+{
+  "proyecto": "Migración Alpina F2",
+  "fecha_actualizacion": "2026-05-22",
+  "total_avance": 96.59,
+  "horas_desarrollo": 452,
+  "nova": [
+    { "fase": "Fase 0 - Levantamiento", "avance": 100 },
+    { "fase": "Estructura Base", "avance": 100 },
+    { "fase": "Gestión Outlook", "avance": 100 },
+    { "fase": "Gestión documental (Local): rutas, movimientos, plantillas y control de estado", "avance": 100 },
+    { "fase": "SAP VA01", "avance": 100 },
+    { "fase": "SAP ZSD_NC_Valor", "avance": 100 },
+    { "fase": "SAP VA02", "avance": 100 },
+    { "fase": "SAP VF01", "avance": 100 },
+    { "fase": "Grabación + Consolidado", "avance": 100 },
+    { "fase": "Reporte ejecución + Insight", "avance": 100 },
+    { "fase": "Cierre", "avance": 63 }
+  ],
+  "feli": [
+    { "fase": "Estructura Base" },
+    { "fase": "FELI" },
+    { "fase": "Pruebas" },
+    { "fase": "Documentación" },
+    { "fase": "Producción" }
+  ]
+}
