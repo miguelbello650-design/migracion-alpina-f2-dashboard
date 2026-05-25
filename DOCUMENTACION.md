@@ -15,6 +15,9 @@ Dashboard web para tracking de proyectos RPA (NOVA, FELI, ROBOTINA) con tres vis
 ```
 C:\Users\2NV\Desktop\Prueba de IPM\
 ├── index.html              # Dashboard completo (único archivo)
+├── server.js               # Servidor local Node.js (persistencia bidireccional)
+├── start.ps1               # Atajo para iniciar el servidor
+├── state.json              # Estado persistente (se genera automáticamente)
 ├── GANTT NOVA.csv          # Datos fuente NOVA (not usado directamente)
 ├── GANTT FELI.csv          # Datos fuente FELI (notas extraídas manualmente)
 ├── GANTT ROBOTINA.csv      # Datos fuente ROBOTINA (notas extraídas manualmente)
@@ -205,9 +208,41 @@ Panel protegido con contraseña para modificar tareas desde el navegador.
 - `pendiente` — ⏳ barra gris, progreso 0%
 
 ### Persistencia
-- Los cambios se guardan en `localStorage` (comando `/save`)
-- Se restauran automáticamente al cargar la página (comando `/load` en startup)
-- Para persistencia permanente: editar `index.html` y el script de las 8 AM lo sincroniza a GitHub
+- **Sin servidor** (file://): cambios en `localStorage` con `/save` y `/load`
+- **Con servidor** (localhost:3000): `/save` persiste en disco (`index.html`) + hace push a GitHub
+
+## Servidor Local (Node.js)
+
+Para que los cambios del admin chat persistan en disco y se reflejen en GitHub:
+
+### Inicio
+```powershell
+# Doble click en start.ps1, o:
+C:\nodejs\node-v22.9.0-win-x64\node.exe server.js
+```
+Luego abrir: `http://localhost:3000`
+
+### Qué hace
+- Sirve `index.html` con el estado más reciente
+- `GET /api/state` → devuelve las tareas actuales
+- `POST /api/sync` → recibe cambios, escribe `index.html` y `state.json`, hace `git push`
+- Cuando se abre `localhost:3000`, `IS_SERVER=true` activa:
+  - `loadServerState()`: carga desde el servidor al iniciar (sin usar localStorage)
+  - `saveState()`: además de localStorage, hace POST a `/api/sync`
+
+### Flujo de trabajo
+1. Abrir `http://localhost:3000`
+2. Usar admin chat (⚙) para modificar fechas/estados
+3. Ejecutar `/save` → persiste en disco + GitHub
+4. Recargar la página → los cambios se mantienen
+5. La versión pública en GitHub Pages se actualiza automáticamente
+
+### Archivos
+| Archivo | Descripción |
+|---------|-------------|
+| `server.js` | Servidor Node.js (puerto 3000) |
+| `state.json` | Estado persistente (se crea al primer `/save`) |
+| `start.ps1` | Atajo para iniciar el servidor |
 
 ## Sincronización Automática
 
