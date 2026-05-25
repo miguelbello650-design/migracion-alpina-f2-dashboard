@@ -1,7 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, exec } = require('child_process');
 
 const PORT = 3000;
 const ROOT = process.cwd();
@@ -126,19 +126,16 @@ function saveState(state, res, sendResponse) {
   html = replaceArray(html, 'GANTT_ROWS_ROBOTINA', state.robotina);
   fs.writeFileSync(path.join(ROOT, 'index.html'), html, 'utf8');
 
-  // Git push
-  try {
-    execSync('git add -A', { cwd: ROOT, timeout: 10000 });
-    execSync('git commit --allow-empty -m "Auto-sync from dashboard"', { cwd: ROOT, timeout: 10000 });
-    execSync('git push', { cwd: ROOT, timeout: 30000 });
-  } catch (e) {
-    // Git push failure is non-fatal
-  }
-
+  // Respond quickly, then do git async
   if (sendResponse !== false) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ ok: true }));
   }
+
+  // Git push (async, don't block response)
+  exec('git add -A && git commit --allow-empty -m "Auto-sync from dashboard" && git push', { cwd: ROOT, timeout: 30000 }, (err) => {
+    if (err) console.error('Git sync error:', err.message);
+  });
 }
 
 // MIME types

@@ -497,7 +497,6 @@ let GANTT_ROWS_FELI = [
 
 // ---- ROBOTINA Gantt ----
 let GANTT_ROWS_ROBOTINA = [
-  // Fase 1: Estructura Base | Core/Framework (first group - 7 environment review tasks)
   { phase:"Estructura Base | Core/Framework",task:"Revisión documentación actual",resp:"2NV",hours:8,days:1,fixedIdx:11,fixedEndIdx:11 },
   { phase:"",task:"Revisión de ambiente: accesos, roles, pruebas de login",resp:"2NV",hours:4,days:0.5,fixedIdx:12,fixedEndIdx:12 },
   { phase:"",task:"Revisión de ambiente: SAP Logon, SNC/SSO, pruebas de login",resp:"2NV",hours:4,days:0.5,fixedIdx:13,fixedEndIdx:13 },
@@ -505,7 +504,6 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Revisión de ambiente: acceso web, grupo resolutor, roles",resp:"2NV",hours:4,days:0.5,fixedIdx:14,fixedEndIdx:14 },
   { phase:"",task:"Revisión de ambiente: buzón, permisos, licencia E3 y envío cifrado",resp:"2NV",hours:4,days:0.5,fixedIdx:14,fixedEndIdx:14 },
   { phase:"",task:"Lectura de parámetros (Ingresos + Reglas + Maestro País/Sede)",resp:"2NV",hours:8,days:1,fixedIdx:15,fixedEndIdx:15 },
-  // second group - 15 core/framework tasks
   { phase:"",task:"Creación estructura de directorios y plantillas internas",resp:"2NV",hours:6,days:0.8,fixedIdx:16,fixedEndIdx:16 },
   { phase:"",task:"Mantenimiento directorios y limpieza automática",resp:"2NV",hours:3,days:0.4,fixedIdx:17,fixedEndIdx:17 },
   { phase:"",task:"Rutina de logs e indicadores",resp:"2NV",hours:5,days:0.6,fixedIdx:18,fixedEndIdx:18 },
@@ -521,7 +519,6 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Consultas SU01D (jefe / validaciones)",resp:"2NV",hours:20,days:2.5,fixedIdx:24,fixedEndIdx:42,skipIndices:[25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40] },
   { phase:"",task:"Crear/activar usuario con reglas PDD",resp:"2NV",hours:22,days:2.8,fixedIdx:43,fixedEndIdx:45 },
   { phase:"",task:"Asignar permiso BMC Helix (membresía)",resp:"2NV",hours:8,days:1,fixedIdx:46,fixedEndIdx:46 },
-  // Fase 2: Gestión Usuarios | Active Directory
   { phase:"Gestión Usuarios | Active Directory",task:"Actualizar correo en AD para licencias E3/E5",resp:"2NV",hours:4,days:0.5,fixedIdx:47,fixedEndIdx:47 },
   { phase:"",task:"Creación de usuario en SUSI",resp:"2NV",hours:32,days:4,fixedIdx:48,fixedEndIdx:61,skipIndices:[51,52,53,54,55,56,57,58,59,60],notesIdx:[50,60,61] },
   { phase:"",task:"Manejo de errores AD/SAP/DWP + evidencias",resp:"2NV",hours:12,days:1.5,fixedIdx:51,fixedEndIdx:52 },
@@ -531,7 +528,6 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Enviar credenciales (2 correos) + notificación finalización",resp:"2NV",hours:10,days:1.3,fixedIdx:57,fixedEndIdx:57 },
   { phase:"",task:"Elaboración documentación SDD + manual usuario",resp:"2NV",hours:18,days:2.3,fixedIdx:58,fixedEndIdx:59,inProgress:true },
   { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:56,days:7,fixedIdx:65,fixedEndIdx:71,notesIdx:[71] },
-  // Fase 3: Cierre
   { phase:"Cierre",task:"UAT",resp:"2NV - ALPINA",hours:4,days:0.5,fixedIdx:72,fixedEndIdx:72 },
   { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:32,days:4,fixedIdx:73,fixedEndIdx:76 },
   { phase:"",task:"Aprobación de documentación (manual técnico y funcional y PDD)",resp:"2NV",hours:2,days:0.3,fixedIdx:77,fixedEndIdx:77 },
@@ -999,7 +995,7 @@ function saveState() {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({nova:GANTT_ROWS, feli:GANTT_ROWS_FELI, robotina:GANTT_ROWS_ROBOTINA})
-    }).then(r=>r.json()).then(d=>{ if(d.ok) addMsg('success','✓ Sincronizado con servidor + GitHub'); }).catch(()=>{});
+    }).then(r=>r.json()).then(d=>{ if(d.ok) addMsg('success','✓ Sincronizado con servidor + GitHub'); }).catch(()=>addMsg('error','Error al sincronizar con el servidor'));
   } else {
     addMsg('success', 'Estado guardado en el navegador (abre con servidor local para persistir en disco)');
   }
@@ -1054,7 +1050,7 @@ function execAdminCmd(cmd) {
       else if (st==='en_curso') t.inProgress = true;
       else if (st==='pendiente') { t.inProgress = false; if (t.fixedEndIdx!==undefined) delete t.fixedEndIdx; }
       else { addMsg('error','Estado no válido. Usa: completado, en_curso, pendiente'); break; }
-      renderAll(); addMsg('success','✓ '+t.task+' → '+st); break;
+      renderAll(); if (IS_SERVER) saveState(); addMsg('success','✓ '+t.task+' → '+st); break;
     }
     case '/extender': {
       const m = cmd.match(/\/extender\s+"([^"]+)"\s+"([^"]+)"\s+\+?\s*(\d+)/);
@@ -1067,7 +1063,7 @@ function execAdminCmd(cmd) {
       if (t.fixedEndIdx !== undefined) t.fixedEndIdx += days;
       const newEnd = GANTT_DATES[t.fixedEndIdx];
       const fecha = newEnd ? newEnd.toLocaleDateString('es-CO',{day:'numeric',month:'short'}) : '?';
-      renderAll(); addMsg('success','✓ '+t.task+' → fin '+fecha+' (+'+days+' días)'); break;
+      renderAll(); if (IS_SERVER) saveState(); addMsg('success','✓ '+t.task+' → fin '+fecha+' (+'+days+' días)'); break;
     }
     case '/mover': {
       const m = cmd.match(/\/mover\s+"([^"]+)"\s+"([^"]+)"\s+a\s+"([^"]+)"/);
@@ -1083,7 +1079,7 @@ function execAdminCmd(cmd) {
       const dur = t.fixedEndIdx !== undefined ? t.fixedEndIdx - t.fixedIdx : 0;
       t.fixedIdx = idx;
       t.fixedEndIdx = idx + dur;
-      renderAll(); addMsg('success','✓ '+t.task+' movida a '+m[3]); break;
+      renderAll(); if (IS_SERVER) saveState(); addMsg('success','✓ '+t.task+' movida a '+m[3]); break;
     }
     case '/agregar': {
       const m = cmd.match(/\/agregar\s+"([^"]+)"\s+"([^"]+)"\s+"([^"]+)"\s+(\d+)\s+(\d+)/);
@@ -1092,7 +1088,7 @@ function execAdminCmd(cmd) {
       if (!rows) { addMsg('error','Bot no encontrado'); break; }
       const newTask = { phase:m[2], task:m[3], resp:'2NV', hours:parseInt(m[4]), days:parseInt(m[5]) };
       rows.push(newTask);
-      renderAll(); addMsg('success','✓ Tarea "'+m[3]+'" agregada a '+getBotName(m[1])); break;
+      renderAll(); if (IS_SERVER) saveState(); addMsg('success','✓ Tarea "'+m[3]+'" agregada a '+getBotName(m[1])); break;
     }
     case '/listar': {
       const bot = parts[1] ? parts[1].toLowerCase() : null;
