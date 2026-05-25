@@ -129,8 +129,9 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 
 ### Horas
 - **Completada**: horas completas
-- **En progreso**: `hours * (completed / effectiveDays)`
+- **En progreso**: `hours * (completed / effectiveDays)` redondeado con `Math.round`
 - **Pendiente**: 0
+- **NOVA**: se resta 1h al total prorrateado del cómputo estándar como ajuste manual para que coincida con el cierre esperado del cliente (482h en vez de 483h)
 
 ## Gantt Rendering
 

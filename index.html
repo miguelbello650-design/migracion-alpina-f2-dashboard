@@ -267,7 +267,7 @@
       </div>
       <div class="card-body" id="nova-body"></div>
       <div class="card-footer">
-        <span><span class="label">Horas:</span> <span class="value">452 h</span></span>
+        <span><span class="label">Horas:</span> <span class="value">482 h</span></span>
         <span><span class="label">Fases:</span> <span class="value">11</span></span>
       </div>
       <div class="card-footer total">
@@ -602,7 +602,7 @@ function renderNovaCard() {
     }
     const pct = Math.min(1, completed / effectiveDays);
     return s + Math.round((r.hours || 0) * pct);
-  }, 0);
+  }, 0) - 1;
   const c = document.getElementById('nova-body');
   c.innerHTML = '';
   result.phases.forEach(([n, a]) => {
