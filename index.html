@@ -574,7 +574,7 @@ function renderFeliCard() {
     for (let i = start; i <= Math.min(ti, end); i++) {
       if (!skipSet.has(i)) completed++;
     }
-    if (ti >= end) completed = Math.max(0, completed - 1);
+    if (ti === end) completed = Math.max(0, completed - 1);
     const pct = Math.min(1, completed / effectiveDays);
     a.inProgress += Math.round((r.hours || 0) * pct);
     return a;
@@ -632,7 +632,7 @@ function renderNovaCard() {
     for (let i = start; i <= Math.min(ti, end); i++) {
       if (!skipSet.has(i)) completed++;
     }
-    if (ti >= end) completed = Math.max(0, completed - 1);
+    if (ti === end) completed = Math.max(0, completed - 1);
     const pct = Math.min(1, completed / effectiveDays);
     a.inProgress += Math.round((r.hours || 0) * pct);
     return a;
@@ -691,7 +691,7 @@ function renderRobotinaCard() {
     for (let i = start; i <= Math.min(ti, end); i++) {
       if (!skipSet.has(i)) completed++;
     }
-    if (ti >= end) completed = Math.max(0, completed - 1);
+    if (ti === end) completed = Math.max(0, completed - 1);
     const pct = Math.min(1, completed / effectiveDays);
     a.inProgress += Math.round((r.hours || 0) * pct);
     return a;
@@ -768,7 +768,7 @@ function calcPhaseProgress(rows, dates) {
         for (let i = start; i <= Math.min(todayIdx, end); i++) {
           if (!skipSet.has(i)) completed++;
         }
-        if (todayIdx >= end) completed = Math.max(0, completed - 1);
+        if (todayIdx === end) completed = Math.max(0, completed - 1);
         taskPct = Math.min(100, Math.round(completed / effectiveDays * 100));
       } else if (dates[end] <= now) {
         taskPct = 100;
@@ -781,7 +781,7 @@ function calcPhaseProgress(rows, dates) {
         for (let i = start; i <= Math.min(todayIdx, end); i++) {
           if (!skipSet.has(i)) completed++;
         }
-        if (todayIdx >= end) completed = Math.max(0, completed - 1);
+        if (todayIdx === end) completed = Math.max(0, completed - 1);
         taskPct = Math.min(100, Math.round(completed / effectiveDays * 100));
       }
       phaseSum += taskPct;
