@@ -1,0 +1,13 @@
+{
+  "nova": [
+    {
+      "hours": 8,
+      "days": 1,
+      "task": "test",
+      "fixedEndIdx": 0,
+      "fixedIdx": 0
+    }
+  ],
+  "feli": [],
+  "robotina": []
+}
