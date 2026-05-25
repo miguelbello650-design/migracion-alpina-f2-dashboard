@@ -145,6 +145,10 @@
   .card.nova .card-footer.total .pct-value { color: var(--color-alpina); }
   .card.feli .card-footer.total .pct-value { color: #6366f1; }
   .card.robotina .card-footer.total .pct-value { color: #0891b2; }
+  .card-curso { border-top: 1px solid var(--card-border); padding: 8px 20px 10px; }
+  .curso-header { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-bottom: 5px; }
+  .curso-body { display: flex; flex-wrap: wrap; gap: 4px; }
+  .curso-task { font-size: 11px; background: #e2e8f0; padding: 3px 10px; border-radius: 4px; color: var(--text); white-space: nowrap; }
 
   .alert {
     margin: 0 40px 24px;
@@ -275,6 +279,10 @@
         <span><span class="label">Fases:</span> <span class="value" id="nova-fases">11</span></span>
         <span><span class="label">% Total de Avance</span> <span class="value pct-value">97%</span></span>
       </div>
+      <div class="card-curso" id="nova-curso-section" style="display:none">
+        <div class="curso-header">🔄 En Curso</div>
+        <div class="curso-body" id="nova-curso-tasks"></div>
+      </div>
     </div>
     <div class="card feli">
       <div class="card-header">
@@ -291,6 +299,10 @@
         <span><span class="label">Fases:</span> <span class="value" id="feli-fases">5</span></span>
         <span><span class="label">% Total de Avance</span> <span class="value pct-value">47%</span></span>
       </div>
+      <div class="card-curso" id="feli-curso-section" style="display:none">
+        <div class="curso-header">🔄 En Curso</div>
+        <div class="curso-body" id="feli-curso-tasks"></div>
+      </div>
     </div>
     <div class="card robotina">
       <div class="card-header">
@@ -306,6 +318,10 @@
       <div class="card-footer total">
         <span><span class="label">Fases:</span> <span class="value" id="robotina-fases">4</span></span>
         <span><span class="label">% Total de Avance</span> <span class="value pct-value">58%</span></span>
+      </div>
+      <div class="card-curso" id="robotina-curso-section" style="display:none">
+        <div class="curso-header">🔄 En Curso</div>
+        <div class="curso-body" id="robotina-curso-tasks"></div>
       </div>
     </div>
   </div>
@@ -582,6 +598,17 @@ function renderFeliCard() {
     const d = GANTT_DATES[feliMile.fixedEndIdx];
     document.getElementById('feli-milestone').textContent = '🚩 Salida a Producción: ' + d.toLocaleDateString('es-CO', { day:'numeric', month:'short', year:'numeric' });
   }
+  const curFeli = GANTT_ROWS_FELI.filter(r => {
+    if (!r.task || r.fixedIdx === undefined) return false;
+    const s = r.fixedIdx, e = r.fixedEndIdx !== undefined ? r.fixedEndIdx : r.fixedIdx;
+    if (GANTT_DATES[e] <= nowH && !r.inProgress) return false;
+    if (GANTT_DATES[s] > nowH) return false;
+    return true;
+  });
+  const sf = document.getElementById('feli-curso-section');
+  const bf = document.getElementById('feli-curso-tasks');
+  if (curFeli.length) { sf.style.display = ''; bf.innerHTML = curFeli.map(t => '<span class="curso-task">' + t.task + '</span>').join(''); }
+  else { sf.style.display = 'none'; }
 }
 
 renderFeliCard();
@@ -629,6 +656,17 @@ function renderNovaCard() {
     const d = GANTT_DATES[novaMile.fixedEndIdx];
     document.getElementById('nova-milestone').textContent = '🚩 Salida a Producción: ' + d.toLocaleDateString('es-CO', { day:'numeric', month:'short', year:'numeric' });
   }
+  const curNova = GANTT_ROWS.filter(r => {
+    if (!r.task || r.fixedIdx === undefined) return false;
+    const s = r.fixedIdx, e = r.fixedEndIdx !== undefined ? r.fixedEndIdx : r.fixedIdx;
+    if (GANTT_DATES[e] <= nowH && !r.inProgress) return false;
+    if (GANTT_DATES[s] > nowH) return false;
+    return true;
+  });
+  const sn = document.getElementById('nova-curso-section');
+  const bn = document.getElementById('nova-curso-tasks');
+  if (curNova.length) { sn.style.display = ''; bn.innerHTML = curNova.map(t => '<span class="curso-task">' + t.task + '</span>').join(''); }
+  else { sn.style.display = 'none'; }
 }
 
 renderNovaCard();
@@ -675,6 +713,17 @@ function renderRobotinaCard() {
     const d = GANTT_DATES[robotinaMile.fixedEndIdx];
     document.getElementById('robotina-milestone').textContent = '🚩 Salida a Producción: ' + d.toLocaleDateString('es-CO', { day:'numeric', month:'short', year:'numeric' });
   }
+  const curRobotina = GANTT_ROWS_ROBOTINA.filter(r => {
+    if (!r.task || r.fixedIdx === undefined) return false;
+    const s = r.fixedIdx, e = r.fixedEndIdx !== undefined ? r.fixedEndIdx : r.fixedIdx;
+    if (GANTT_DATES[e] <= nowH && !r.inProgress) return false;
+    if (GANTT_DATES[s] > nowH) return false;
+    return true;
+  });
+  const sr = document.getElementById('robotina-curso-section');
+  const br = document.getElementById('robotina-curso-tasks');
+  if (curRobotina.length) { sr.style.display = ''; br.innerHTML = curRobotina.map(t => '<span class="curso-task">' + t.task + '</span>').join(''); }
+  else { sr.style.display = 'none'; }
 }
 
 renderRobotinaCard();
