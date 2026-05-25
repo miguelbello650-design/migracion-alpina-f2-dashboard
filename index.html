@@ -976,7 +976,7 @@ function sendAdminCmd() {
   execAdminCmd(cmd);
 }
 function findTask(name, rows) {
-  const n = name.toLowerCase();
+  const n = name.toLowerCase().trim();
   for (let r of rows) { if (r.task && r.task.toLowerCase().includes(n)) return r; }
   return null;
 }
@@ -1038,15 +1038,17 @@ function execAdminCmd(cmd) {
       renderAll(); addMsg('success','✓ '+t.task+' → '+st); break;
     }
     case '/extender': {
-      const m = cmd.match(/\/extender\s+"([^"]+)"\s+"([^"]+)"\s+\+?(\d+)/);
+      const m = cmd.match(/\/extender\s+"([^"]+)"\s+"([^"]+)"\s+\+?\s*(\d+)/);
       if (!m) { addMsg('error','Formato: /extender "bot" "tarea" +N'); break; }
       const rows = getBotRows(m[1].toLowerCase());
       if (!rows) { addMsg('error','Bot no encontrado'); break; }
       const t = findTask(m[2], rows);
-      if (!t) { addMsg('error','Tarea no encontrada'); break; }
+      if (!t) { addMsg('error','Tarea no encontrada para "'+m[2]+'"'); break; }
       const days = parseInt(m[3]);
       if (t.fixedEndIdx !== undefined) t.fixedEndIdx += days;
-      renderAll(); addMsg('success','✓ '+t.task+' extendida +'+days+' días'); break;
+      const newEnd = GANTT_DATES[t.fixedEndIdx];
+      const fecha = newEnd ? newEnd.toLocaleDateString('es-CO',{day:'numeric',month:'short'}) : '?';
+      renderAll(); addMsg('success','✓ '+t.task+' → fin '+fecha+' (+'+days+' días)'); break;
     }
     case '/mover': {
       const m = cmd.match(/\/mover\s+"([^"]+)"\s+"([^"]+)"\s+a\s+"([^"]+)"/);
