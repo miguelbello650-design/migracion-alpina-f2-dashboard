@@ -118,10 +118,10 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
   - Se cuentan desde `startIdx` hasta `min(todayIdx, endIdx)` excluyendo `skipIndices`
 
 ### Cálculo por Fase
-- Promedio simple de los % de todas las tareas en esa fase
+- Promedio simple de los % de todas las tareas en esa fase (redondeado con `Math.round`)
 
 ### Cálculo Total
-- Promedio simple de los % de todas las fases
+- Promedio simple de los % de todas las fases (truncado con `Math.floor` para no mostrar 100% anticipadamente)
 
 ### Horas
 - **Completada**: horas completas
