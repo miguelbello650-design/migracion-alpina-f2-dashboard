@@ -120,6 +120,7 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 - **Pendiente** (fecha inicio > today): 0%
 - **En progreso**: % = `(días hábiles transcurridos / días hábiles efectivos) * 100`
   - Se cuentan desde `startIdx` hasta `min(todayIdx, endIdx)` excluyendo `skipIndices`
+  - Si `todayIdx >= endIdx` (tarea en curso con fecha fin vencida o igual a hoy), se descuenta 1 día completado para evitar 100% prematuro
 
 ### Cálculo por Fase
 - Promedio simple de los % de todas las tareas en esa fase (redondeado con `Math.round`)
