@@ -291,7 +291,7 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ### FELI (GANTT_ROWS_FELI)
 - 29 tareas en 5 fases
 - Fases: Estructura Base, FELI, Pruebas, Documentación, Producción
-- **En Curso**: UAT usuario funcional (32h), Documentación técnica (14h), Documentación funcional (20h) → 66h total
+- **En Curso**: UAT usuario funcional (40h, 11-13 may + 25-26 may), Documentación técnica (14h), Documentación funcional (20h) → 74h total
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA)
 - 38 tareas en 3 fases
