@@ -18,6 +18,7 @@ C:\Users\2NV\Desktop\Prueba de IPM\
 ├── server.js               # Servidor local Node.js (persistencia bidireccional)
 ├── start.ps1               # Atajo para iniciar el servidor
 ├── state.json              # Estado persistente (se genera automáticamente)
+├── .gitignore              # Ignora state.json
 ├── GANTT NOVA.csv          # Datos fuente NOVA (not usado directamente)
 ├── GANTT FELI.csv          # Datos fuente FELI (notas extraídas manualmente)
 ├── GANTT ROBOTINA.csv      # Datos fuente ROBOTINA (notas extraídas manualmente)
@@ -209,7 +210,7 @@ Panel protegido con contraseña para modificar tareas desde el navegador.
 
 ### Persistencia
 - **Sin servidor** (file://): cambios en `localStorage` con `/save` y `/load`
-- **Con servidor** (localhost:3000): `/save` persiste en disco (`index.html`) + hace push a GitHub
+- **Con servidor** (localhost:3000): cambios se guardan **automáticamente** al ejecutar cualquier comando (`/estado`, `/extender`, `/mover`, `/agregar`). No necesita `/save` manual.
 
 ## Servidor Local (Node.js)
 
@@ -233,16 +234,20 @@ Luego abrir: `http://localhost:3000`
 ### Flujo de trabajo
 1. Abrir `http://localhost:3000`
 2. Usar admin chat (⚙) para modificar fechas/estados
-3. Ejecutar `/save` → persiste en disco + GitHub
-4. Recargar la página → los cambios se mantienen
-5. La versión pública en GitHub Pages se actualiza automáticamente
+3. Los cambios se guardan **automáticamente** en disco + GitHub (no necesita `/save` manual)
+4. Recargar la página → los cambios persisten
+5. La versión pública en GitHub Pages se actualiza con cada push automático
+
+> **Nota**: `state.json` se genera automáticamente y está en `.gitignore` para no subirse a GitHub.  
+> Si existe un `state.json` corrupto o con datos viejos, simplemente borrarlo y reiniciar el servidor.
 
 ### Archivos
 | Archivo | Descripción |
 |---------|-------------|
 | `server.js` | Servidor Node.js (puerto 3000) |
-| `state.json` | Estado persistente (se crea al primer `/save`) |
+| `state.json` | Estado persistente (se crea automáticamente, ignorado por git) |
 | `start.ps1` | Atajo para iniciar el servidor |
+| `.gitignore` | Ignora `state.json` para no contaminar el repo |
 
 ## Sincronización Automática
 
