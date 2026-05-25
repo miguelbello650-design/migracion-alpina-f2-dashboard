@@ -203,6 +203,7 @@ Panel protegido con contraseña para modificar tareas desde el navegador.
 
 ### Acceso
 - Click en **⚙** (esquina superior derecha del dashboard)
+- **Solo visible en local** (`localhost:3000`), oculto en GitHub Pages público
 - Contraseña por defecto: `admin123`
 - Se puede cambiar con el comando `/pwd NUEVA`
 

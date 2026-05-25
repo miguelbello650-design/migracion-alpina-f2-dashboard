@@ -244,7 +244,7 @@
   <div class="topbar-right">
     <span class="badge">Migración F2</span>
     <span class="date" id="fecha-label"></span>
-    <span id="admin-btn" style="cursor:pointer;font-size:18px;color:rgba(255,255,255,0.4);transition:color .15s" title="Admin" onclick="showAdminLogin()">⚙</span>
+    
   </div>
 </div>
 
@@ -1183,6 +1183,13 @@ function execAdminCmd(cmd) {
 }
 // Load saved state on startup
 if (IS_SERVER) {
+  const btn = document.createElement('span');
+  btn.id = 'admin-btn';
+  btn.style.cssText = 'cursor:pointer;font-size:18px;color:rgba(255,255,255,0.4);transition:color .15s';
+  btn.title = 'Admin';
+  btn.textContent = '⚙';
+  btn.onclick = showAdminLogin;
+  document.querySelector('.topbar-right').appendChild(btn);
   loadServerState().then(() => renderAll());
 } else {
   loadState();
