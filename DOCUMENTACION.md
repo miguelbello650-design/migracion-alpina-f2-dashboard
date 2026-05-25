@@ -120,7 +120,7 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 - **Pendiente** (fecha inicio > today): 0%
 - **En progreso**: % = `(días hábiles transcurridos / días hábiles efectivos) * 100`
   - Se cuentan desde `startIdx` hasta `min(todayIdx, endIdx)` excluyendo `skipIndices`
-  - Si `todayIdx >= endIdx` (tarea en curso con fecha fin vencida o igual a hoy), se descuenta 1 día completado para evitar 100% prematuro
+  - Si `todayIdx === endIdx` (tarea en curso que finaliza hoy), se descuenta 1 día completado para no dar 100% prematuro
 
 ### Cálculo por Fase
 - Promedio simple de los % de todas las tareas en esa fase (redondeado con `Math.round`)
@@ -133,6 +133,9 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 - **En Curso**: horas prorrateadas de tareas en progreso (`hours * (completed / effectiveDays)` redondeado con `Math.round`)
 - **Total**: suma de Ejecutadas + En Curso
 - **NOVA**: se resta 1h al subtotal "En Curso" como ajuste manual para que coincida con el cierre esperado del cliente (482h en vez de 483h)
+
+### Tareas en Curso (debajo de cada tarjeta)
+- Cada tarjeta muestra una sección `🔄 En Curso` con el nombre de las tareas actualmente en progreso (filtro: `start <= today <= end` o `inProgress:true`)
 
 ## Gantt Rendering
 
@@ -167,12 +170,23 @@ Aparecen en:
 ## Funciones Auxiliares
 
 ```js
-isSameDay(a, b)       // Compara dos fechas (año, mes, día)
-assignDates(rows)     // Copia fixedIdx/fixedEndIdx a startIdx/endIdx
-calcPhaseProgress()   // Calcula % por fase y total
+isSameDay(a, b)           // Compara dos fechas (año, mes, día)
+assignDates(rows)         // Copia fixedIdx/fixedEndIdx a startIdx/endIdx
+calcPhaseProgress()       // Calcula % por fase y total
+renderAll()               // Renderiza las 3 tarjetas + los 3 Gantts
+renderNovaCard()          // Renderiza tarjeta NOVA (fases + horas ejecutadas/en curso/total)
+renderFeliCard()          // Renderiza tarjeta FELI
+renderRobotinaCard()      // Renderiza tarjeta ROBOTINA
 cellClass(d, isToday, grayDays)  // CSS class para celda
 cellBg(d, isToday, isWeekend, grayDays)  // Color de fondo para celda
 ```
+
+### Tarjetas (% Avance)
+Cada tarjeta renderiza:
+1. **Fases** con barra de progreso (porcentaje individual)
+2. **Footer línea 1**: Ejecutadas N h | En Curso N h | Total N h
+3. **Footer línea 2**: Fases N | % Total de Avance N%
+4. **Sección 🔄 En Curso**: lista de tareas en progreso (nombre + badge)
 
 ## Persistencia
 
@@ -269,18 +283,22 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ## Datos por Bot
 
 ### NOVA (GANTT_ROWS)
-- 30+ tareas en 12 fases
+- 39 tareas en 12 fases
 - Fases: Levantamiento, Estructura Base, Gestión Outlook, Gestión documental, SAP VA01, SAP ZSD, SAP VA02, SAP VF01, Grabación+Consolidado, Reporte ejecución, Cierre
+- **En Curso**: Estabilización (40h), Aprobación documentación (2h) → 18h total (ajuste -1h)
+- **Total ejecutadas + en curso**: 482h
 
 ### FELI (GANTT_ROWS_FELI)
 - 29 tareas en 5 fases
 - Fases: Estructura Base, FELI, Pruebas, Documentación, Producción
+- **En Curso**: UAT usuario funcional (32h), Documentación técnica (14h), Documentación funcional (20h) → 66h total
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA)
 - 38 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (7 tareas)
 - Milestone: Salida a Producción 🚩 (índice 82 = 10-Jun-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71
+- **En Curso**: Pruebas unitarias (56h), Elaboración documentación SDD (18h) → 74h total
 
 ## Convenciones de Código
 - Sin comentarios en JS
