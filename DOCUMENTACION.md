@@ -127,11 +127,11 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 ### Cálculo Total
 - Promedio simple de los % de todas las fases (truncado con `Math.floor` para no mostrar 100% anticipadamente)
 
-### Horas
-- **Completada**: horas completas
-- **En progreso**: `hours * (completed / effectiveDays)` redondeado con `Math.round`
-- **Pendiente**: 0
-- **NOVA**: se resta 1h al total prorrateado del cómputo estándar como ajuste manual para que coincida con el cierre esperado del cliente (482h en vez de 483h)
+### Horas (por Bot, en tarjeta de % Avance)
+- **Ejecutadas**: horas completas de tareas finalizadas (`GANTT_DATES[end] <= today && !inProgress`)
+- **En Curso**: horas prorrateadas de tareas en progreso (`hours * (completed / effectiveDays)` redondeado con `Math.round`)
+- **Total**: suma de Ejecutadas + En Curso
+- **NOVA**: se resta 1h al subtotal "En Curso" como ajuste manual para que coincida con el cierre esperado del cliente (482h en vez de 483h)
 
 ## Gantt Rendering
 

@@ -141,10 +141,10 @@
   .card-footer .value { font-weight: 700; color: var(--text); }
   .card-footer.total { background: #f4f7fc; border-top: 2px solid var(--card-border); font-size: 13px; }
   .card-footer.total .label { font-weight: 600; }
-  .card-footer.total .value { font-size: 16px; }
-  .card.nova .card-footer.total .value { color: var(--color-alpina); }
-  .card.feli .card-footer.total .value { color: #6366f1; }
-  .card.robotina .card-footer.total .value { color: #0891b2; }
+  .card-footer.total .pct-value { font-size: 16px; }
+  .card.nova .card-footer.total .pct-value { color: var(--color-alpina); }
+  .card.feli .card-footer.total .pct-value { color: #6366f1; }
+  .card.robotina .card-footer.total .pct-value { color: #0891b2; }
 
   .alert {
     margin: 0 40px 24px;
@@ -267,12 +267,13 @@
       </div>
       <div class="card-body" id="nova-body"></div>
       <div class="card-footer">
-        <span><span class="label">Horas:</span> <span class="value">482 h</span></span>
-        <span><span class="label">Fases:</span> <span class="value">11</span></span>
+        <span><span class="label">Ejecutadas:</span> <span class="value" id="nova-ejec">0 h</span></span>
+        <span><span class="label">En Curso:</span> <span class="value" id="nova-curso">0 h</span></span>
+        <span><span class="label">Total:</span> <span class="value" id="nova-total-h">0 h</span></span>
       </div>
       <div class="card-footer total">
-        <span class="label">% Total de Avance</span>
-        <span class="value">97%</span>
+        <span><span class="label">Fases:</span> <span class="value" id="nova-fases">11</span></span>
+        <span><span class="label">% Total de Avance</span> <span class="value pct-value">97%</span></span>
       </div>
     </div>
     <div class="card feli">
@@ -282,12 +283,13 @@
       </div>
       <div class="card-body" id="feli-body"></div>
       <div class="card-footer">
-        <span><span class="label">Horas:</span> <span class="value">398 h</span></span>
-        <span><span class="label">Fases:</span> <span class="value">5</span></span>
+        <span><span class="label">Ejecutadas:</span> <span class="value" id="feli-ejec">0 h</span></span>
+        <span><span class="label">En Curso:</span> <span class="value" id="feli-curso">0 h</span></span>
+        <span><span class="label">Total:</span> <span class="value" id="feli-total-h">0 h</span></span>
       </div>
       <div class="card-footer total">
-        <span class="label">% Total de Avance</span>
-        <span class="value">47%</span>
+        <span><span class="label">Fases:</span> <span class="value" id="feli-fases">5</span></span>
+        <span><span class="label">% Total de Avance</span> <span class="value pct-value">47%</span></span>
       </div>
     </div>
     <div class="card robotina">
@@ -297,12 +299,13 @@
       </div>
       <div class="card-body" id="robotina-body"></div>
       <div class="card-footer">
-        <span><span class="label">Horas:</span> <span class="value">392 h</span></span>
-        <span><span class="label">Fases:</span> <span class="value">4</span></span>
+        <span><span class="label">Ejecutadas:</span> <span class="value" id="robotina-ejec">0 h</span></span>
+        <span><span class="label">En Curso:</span> <span class="value" id="robotina-curso">0 h</span></span>
+        <span><span class="label">Total:</span> <span class="value" id="robotina-total-h">0 h</span></span>
       </div>
       <div class="card-footer total">
-        <span class="label">% Total de Avance</span>
-        <span class="value">58%</span>
+        <span><span class="label">Fases:</span> <span class="value" id="robotina-fases">4</span></span>
+        <span><span class="label">% Total de Avance</span> <span class="value pct-value">58%</span></span>
       </div>
     </div>
   </div>
@@ -540,26 +543,26 @@ let GANTT_ROWS_ROBOTINA = [
 function renderFeliCard() {
   const result = calcPhaseProgress(GANTT_ROWS_FELI, GANTT_DATES);
   const nowH = new Date(); nowH.setHours(0,0,0,0);
-  const totalHours = GANTT_ROWS_FELI.filter(r => r.task && r.fixedIdx !== undefined).reduce((s, r) => {
+  const hours = GANTT_ROWS_FELI.filter(r => r.task && r.fixedIdx !== undefined).reduce((a, r) => {
     const start = r.fixedIdx;
     const end = r.fixedEndIdx !== undefined ? r.fixedEndIdx : r.fixedIdx;
     const totalSpan = end - start + 1;
     const skipCount = r.skipIndices ? r.skipIndices.length : 0;
     const effectiveDays = totalSpan - skipCount;
-    if (effectiveDays <= 0) return s;
-    if (GANTT_DATES[end] <= nowH && !r.inProgress) return s + (r.hours || 0);
-    if (GANTT_DATES[start] > nowH) return s;
+    if (effectiveDays <= 0) return a;
+    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += (r.hours || 0); return a; }
+    if (GANTT_DATES[start] > nowH) return a;
     const skipSet = r.skipIndices ? new Set(r.skipIndices) : new Set();
-    const todayIdx = GANTT_DATES.findIndex(d => d.getTime() === nowH.getTime() || (d < nowH && d.toDateString() === nowH.toDateString()));
-    // find today index
     let ti = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
     let completed = 0;
     for (let i = start; i <= Math.min(ti, end); i++) {
       if (!skipSet.has(i)) completed++;
     }
     const pct = Math.min(1, completed / effectiveDays);
-    return s + Math.round((r.hours || 0) * pct);
-  }, 0);
+    a.inProgress += Math.round((r.hours || 0) * pct);
+    return a;
+  }, { completed: 0, inProgress: 0 });
+  const totalHours = hours.completed + hours.inProgress;
   const c = document.getElementById('feli-body');
   c.innerHTML = '';
   result.phases.forEach(([n, a]) => {
@@ -569,10 +572,11 @@ function renderFeliCard() {
     c.appendChild(d);
   });
   document.querySelector('.card.feli .total-pct').textContent = result.total + '%';
-  const footerTotals = document.querySelectorAll('.card.feli .card-footer .value');
-  if (footerTotals[0]) footerTotals[0].textContent = totalHours + ' h';
-  if (footerTotals[1]) footerTotals[1].textContent = result.phases.length;
-  document.querySelector('.card.feli .card-footer.total .value').textContent = result.total + '%';
+  document.getElementById('feli-ejec').textContent = hours.completed + ' h';
+  document.getElementById('feli-curso').textContent = hours.inProgress + ' h';
+  document.getElementById('feli-total-h').textContent = totalHours + ' h';
+  document.getElementById('feli-fases').textContent = result.phases.length;
+  document.querySelector('.card.feli .card-footer.total .pct-value').textContent = result.total + '%';
   const feliMile = GANTT_ROWS_FELI.find(r => r.milestone);
   if (feliMile && feliMile.fixedEndIdx !== undefined) {
     const d = GANTT_DATES[feliMile.fixedEndIdx];
@@ -585,15 +589,15 @@ renderFeliCard();
 function renderNovaCard() {
   const result = calcPhaseProgress(GANTT_ROWS, GANTT_DATES);
   const nowH = new Date(); nowH.setHours(0,0,0,0);
-  const totalHours = GANTT_ROWS.filter(r => r.task && r.fixedIdx !== undefined).reduce((s, r) => {
+  const hours = GANTT_ROWS.filter(r => r.task && r.fixedIdx !== undefined).reduce((a, r) => {
     const start = r.fixedIdx;
     const end = r.fixedEndIdx !== undefined ? r.fixedEndIdx : r.fixedIdx;
     const totalSpan = end - start + 1;
     const skipCount = r.skipIndices ? r.skipIndices.length : 0;
     const effectiveDays = totalSpan - skipCount;
-    if (effectiveDays <= 0) return s;
-    if (GANTT_DATES[end] <= nowH && !r.inProgress) return s + (r.hours || 0);
-    if (GANTT_DATES[start] > nowH) return s;
+    if (effectiveDays <= 0) return a;
+    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += (r.hours || 0); return a; }
+    if (GANTT_DATES[start] > nowH) return a;
     const skipSet = r.skipIndices ? new Set(r.skipIndices) : new Set();
     const ti = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
     let completed = 0;
@@ -601,8 +605,11 @@ function renderNovaCard() {
       if (!skipSet.has(i)) completed++;
     }
     const pct = Math.min(1, completed / effectiveDays);
-    return s + Math.round((r.hours || 0) * pct);
-  }, 0) - 1;
+    a.inProgress += Math.round((r.hours || 0) * pct);
+    return a;
+  }, { completed: 0, inProgress: 0 });
+  hours.inProgress -= 1;
+  const totalHours = hours.completed + hours.inProgress;
   const c = document.getElementById('nova-body');
   c.innerHTML = '';
   result.phases.forEach(([n, a]) => {
@@ -612,10 +619,11 @@ function renderNovaCard() {
     c.appendChild(d);
   });
   document.querySelector('.card.nova .total-pct').textContent = result.total + '%';
-  const footerTotals = document.querySelectorAll('.card.nova .card-footer .value');
-  if (footerTotals[0]) footerTotals[0].textContent = totalHours + ' h';
-  if (footerTotals[1]) footerTotals[1].textContent = result.phases.length;
-  document.querySelector('.card.nova .card-footer.total .value').textContent = result.total + '%';
+  document.getElementById('nova-ejec').textContent = hours.completed + ' h';
+  document.getElementById('nova-curso').textContent = hours.inProgress + ' h';
+  document.getElementById('nova-total-h').textContent = totalHours + ' h';
+  document.getElementById('nova-fases').textContent = result.phases.length;
+  document.querySelector('.card.nova .card-footer.total .pct-value').textContent = result.total + '%';
   const novaMile = GANTT_ROWS.find(r => r.milestone);
   if (novaMile && novaMile.fixedEndIdx !== undefined) {
     const d = GANTT_DATES[novaMile.fixedEndIdx];
@@ -628,15 +636,15 @@ renderNovaCard();
 function renderRobotinaCard() {
   const result = calcPhaseProgress(GANTT_ROWS_ROBOTINA, GANTT_DATES);
   const nowH = new Date(); nowH.setHours(0,0,0,0);
-  const totalHours = GANTT_ROWS_ROBOTINA.filter(r => r.task && r.fixedIdx !== undefined).reduce((s, r) => {
+  const hours = GANTT_ROWS_ROBOTINA.filter(r => r.task && r.fixedIdx !== undefined).reduce((a, r) => {
     const start = r.fixedIdx;
     const end = r.fixedEndIdx !== undefined ? r.fixedEndIdx : r.fixedIdx;
     const totalSpan = end - start + 1;
     const skipCount = r.skipIndices ? r.skipIndices.length : 0;
     const effectiveDays = totalSpan - skipCount;
-    if (effectiveDays <= 0) return s;
-    if (GANTT_DATES[end] <= nowH && !r.inProgress) return s + (r.hours || 0);
-    if (GANTT_DATES[start] > nowH) return s;
+    if (effectiveDays <= 0) return a;
+    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += (r.hours || 0); return a; }
+    if (GANTT_DATES[start] > nowH) return a;
     const skipSet = r.skipIndices ? new Set(r.skipIndices) : new Set();
     const ti = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
     let completed = 0;
@@ -644,8 +652,10 @@ function renderRobotinaCard() {
       if (!skipSet.has(i)) completed++;
     }
     const pct = Math.min(1, completed / effectiveDays);
-    return s + Math.round((r.hours || 0) * pct);
-  }, 0);
+    a.inProgress += Math.round((r.hours || 0) * pct);
+    return a;
+  }, { completed: 0, inProgress: 0 });
+  const totalHours = hours.completed + hours.inProgress;
   const c = document.getElementById('robotina-body');
   c.innerHTML = '';
   result.phases.forEach(([n, a]) => {
@@ -655,10 +665,11 @@ function renderRobotinaCard() {
     c.appendChild(d);
   });
   document.querySelector('.card.robotina .total-pct').textContent = result.total + '%';
-  const footerTotals = document.querySelectorAll('.card.robotina .card-footer .value');
-  if (footerTotals[0]) footerTotals[0].textContent = totalHours + ' h';
-  if (footerTotals[1]) footerTotals[1].textContent = result.phases.length;
-  document.querySelector('.card.robotina .card-footer.total .value').textContent = result.total + '%';
+  document.getElementById('robotina-ejec').textContent = hours.completed + ' h';
+  document.getElementById('robotina-curso').textContent = hours.inProgress + ' h';
+  document.getElementById('robotina-total-h').textContent = totalHours + ' h';
+  document.getElementById('robotina-fases').textContent = result.phases.length;
+  document.querySelector('.card.robotina .card-footer.total .pct-value').textContent = result.total + '%';
   const robotinaMile = GANTT_ROWS_ROBOTINA.find(r => r.milestone);
   if (robotinaMile && robotinaMile.fixedEndIdx !== undefined) {
     const d = GANTT_DATES[robotinaMile.fixedEndIdx];
