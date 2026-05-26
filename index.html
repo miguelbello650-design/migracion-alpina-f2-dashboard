@@ -229,6 +229,20 @@
   .reporte-table tr:last-child td { border-bottom: none; }
   .reporte-table .total-row td { font-weight: 700; background: #f1f5f9; font-size: 14px; }
   .reporte-table .badge-report { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
+  .reporte-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .reporte-block { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 16px; }
+  .reporte-block h3 { font-size: 14px; font-weight: 700; color: #1e3a5f; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
+  .reporte-item { margin-bottom: 12px; }
+  .reporte-item:last-child { margin-bottom: 0; }
+  .reporte-item-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .reporte-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .reporte-name { font-size: 13px; font-weight: 600; color: #1e293b; flex: 1; }
+  .reporte-total { font-size: 13px; font-weight: 700; color: #1e3a5f; }
+  .reporte-bar { height: 6px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 4px; }
+  .reporte-bar-fill { height: 100%; border-radius: 4px; transition: width .3s; }
+  .reporte-stats { display: flex; gap: 12px; font-size: 11px; color: #64748b; }
+  .reporte-stats span { display: flex; align-items: center; gap: 2px; }
+  .reporte-empty { font-size: 12px; color: #94a3b8; text-align: center; padding: 20px 0; margin: 0; }
 
   /* Gantt */
   .gantt-wrap { padding: 24px 40px 20px; overflow-x: auto; position: relative; }
@@ -1393,33 +1407,27 @@ function renderProyectosChart() {
 function renderReporte() {
   const el = document.getElementById('reporte-container');
   if (!el) return;
-  const ahora = new Date(); ahora.setHours(0,0,0,0);
-  const items = [];
-  let granTotal = 0;
-  PROYECTOS.forEach(p => {
-    let compl = 0, cur = 0;
-    if (p.staticData && p.staticData.hours !== undefined) { compl = p.staticData.hours; cur = 0; }
-    else if (p.rows) {
-      const hrs = calcBotHours(p.rows);
-      compl = hrs.completed;
-      cur = hrs.inProgress;
-      if (p.key === 'nova') cur -= 1;
-    }
-    const tot = compl + cur;
-    if (tot > 0) {
-      const colors = { optimus:'#7c3aed', lamonita:'#dc2626', horasextra:'#b45309', nova:'#0033a0', feli:'#6366f1', robotina:'#0891b2' };
-      items.push({ name: p.name, color: colors[p.key]||'#2563eb', completed: compl, inProgress: cur, total: tot });
-      granTotal += tot;
-    }
-  });
+  const botKeys = ['nova','feli','robotina'];
+  const colors = { nova:'#0033a0', feli:'#6366f1', robotina:'#0891b2' };
   let html = '<h2 style="font-size:18px;color:#1e3a5f;margin:0 0 16px;font-weight:700">Reporte de Horas de Desarrollo</h2>';
-  html += '<table class="reporte-table"><thead><tr><th>Proyecto</th><th>Horas Completadas</th><th>Horas en Curso</th><th>Total</th><th>% del Total</th></tr></thead><tbody>';
-  items.forEach(i => {
-    const pct = granTotal > 0 ? Math.round((i.total / granTotal) * 100) : 0;
-    html += `<tr><td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${i.color};margin-right:8px;vertical-align:middle"></span>${i.name}</td><td>${i.completed}h</td><td>${i.inProgress}h</td><td><strong>${i.total}h</strong></td><td>${pct}%</td></tr>`;
+  html += '<div class="reporte-grid">';
+  html += '<div class="reporte-block"><h3>Desarrollo</h3>';
+  botKeys.forEach(k => {
+    const p = PROYECTOS.find(x => x.key === k);
+    if (!p || !p.rows) return;
+    const hrs = calcBotHours(p.rows);
+    let cur = hrs.inProgress;
+    if (k === 'nova') cur -= 1;
+    const tot = hrs.completed + cur;
+    const maxH = tot || 1;
+    const barW = Math.min(100, Math.round((tot / 600) * 100));
+    html += `<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:${colors[k]}"></span><span class="reporte-name">${p.name}</span><span class="reporte-total">${tot}h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:${barW}%;background:${colors[k]}"></div></div><div class="reporte-stats"><span>✅ ${hrs.completed}h ejecutadas</span><span>🔄 ${cur}h en curso</span></div></div>`;
   });
-  html += `<tr class="total-row"><td><strong>TOTAL</strong></td><td>${items.reduce((s,i)=>s+i.completed,0)}h</td><td>${items.reduce((s,i)=>s+i.inProgress,0)}h</td><td><strong>${granTotal}h</strong></td><td>100%</td></tr>`;
-  html += '</tbody></table>';
+  html += '</div>';
+  ['Soporte','Actualización PDD','Actividades adicionales'].forEach(t => {
+    html += `<div class="reporte-block"><h3>${t}</h3><p class="reporte-empty">Sin datos registrados</p></div>`;
+  });
+  html += '</div>';
   el.innerHTML = html;
 }
 function execAdminCmd(cmd) {
