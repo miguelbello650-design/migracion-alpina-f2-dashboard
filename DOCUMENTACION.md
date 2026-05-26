@@ -1,9 +1,10 @@
 # Dashboard Migración Alpina F2 - RPA
 
 ## Descripción
-Dashboard web para tracking de proyectos RPA (NOVA, FELI, ROBOTINA) con tres vistas:
-- **% AVANCE** — Progreso por fase y total por bot
-- **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales
+Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, ROBOTINA) y proyectos históricos/completados:
+- **PROYECTOS ALPINA** — Vista general con proyectos agrupados por estado (Finalizados / En Proceso / Próximos), incluye proyectos activos (con Gantt), estáticos (históricos) y gráfico de dona con horas totales
+- **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
+- **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
 
 ## Stack
 - **Lenguaje**: HTML + CSS + JavaScript (vanilla, un solo archivo `index.html`)
@@ -28,6 +29,44 @@ C:\Users\2NV\Desktop\Prueba de IPM\
 ├── sync-log.txt            # Log de sincronización
 └── DOCUMENTACION.md        # Este archivo
 ```
+
+## PROYECTOS ALPINA (pestaña general)
+
+Agrupa los bots por estado general calculado automáticamente:
+- **✅ Finalizados**: todas las tareas con fecha fin anterior a hoy
+- **🔄 En Proceso**: alguna tarea en curso o activa
+- **📅 Próximos**: todas las tareas con fecha inicio posterior a hoy
+
+Cada proyecto muestra en tarjeta: nombre, responsable, badge de estado, barra de progreso (o link "Ver más detalle" si no tiene datos), conteo de tareas, fecha inicio y fin estimado.
+
+Los proyectos se organizan dentro de cada sección usando el mismo grid que Finalizados/En Proceso (`auto-fill minmax(280px, 1fr)`), con posicionamiento explícito (`grid-column` / `grid-row`) para la sección Próximos, asegurando que todas las tarjetas tengan idénticas dimensiones.
+
+En el lado derecho se muestra un **gráfico de dona** (SVG) con la distribución de horas por proyecto. El centro muestra el total acumulado (finalizados + en curso). Los proyectos sin horas (próximos) no aparecen en el gráfico.
+
+### Proyectos Estáticos (sin Gantt)
+
+Proyectos que no tienen datos en Gantt. Se definen con `staticData` en el array `PROYECTOS`. Pueden ser finalizados, en proceso o próximos.
+
+**Finalizados:**
+| Proyecto | Responsable | Inicio | Fin | Horas |
+|----------|-------------|--------|-----|-------|
+| OPTIMUS | Cristian Bonilla | 20-Nov-2025 | 9-Ene-2026 | 286h |
+| LA MONITA | Johan Sabino | 20-Nov-2025 | 26-Ene-2026 | 373h |
+| HORAS EXTRA | Javier Gonzalez | 9-Dic-2025 | 20-Feb-2026 | 304h |
+
+**Próximos:**
+| Proyecto | Responsable | Color |
+|----------|-------------|-------|
+| Migración Google - BOT NOVA | Johan Sabino | `#4285F4` |
+| BOT FELI - FASE 2 | Cristian Bonilla | `#6366f1` |
+| Migración Google - BOT FELI | Cristian Bonilla | `#4285F4` |
+| BOT ROBOTINA - FASE 2 | Javier Gonzalez | `#0891b2` |
+| Migración Google - BOT ROBOTINA | Javier Gonzalez | `#4285F4` |
+
+Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc }`. 
+- Si `progress` es `undefined`, se muestra "Ver más detalle →" en lugar de barra de progreso.
+- Si `hours`, `startDate` o `endDate` son `undefined`, se omiten esas filas.
+- La barra de progreso usa clase `completed` (verde `#10b981`) cuando `status === 'finalizado'`.
 
 ## Datos Compartidos
 
@@ -96,6 +135,22 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 | NOVA | `#0033a0` (Alpina blue) |
 | FELI | `#4f46e5` (Indigo) |
 | ROBOTINA | `#0d9488` (Teal) |
+
+### Colores de íconos en PROYECTOS ALPINA
+| Proyecto | Color |
+|----------|-------|
+| NOVA | `#0033a0` |
+| FELI | `#6366f1` |
+| ROBOTINA | `#0891b2` |
+| OPTIMUS | `#7c3aed` (púrpura) |
+| LA MONITA | `#dc2626` (rojo) |
+| HORAS EXTRA | `#b45309` (ámbar) |
+| Migración Google - BOT NOVA | `#4285F4` (azul Google) |
+| BOT FELI - FASE 2 | `#6366f1` (índigo) |
+| Migración Google - BOT FELI | `#4285F4` (azul Google) |
+| BOT ROBOTINA - FASE 2 | `#0891b2` (teal) |
+| Migración Google - BOT ROBOTINA | `#4285F4` (azul Google) |
+| Completado (barra) | `#10b981` (verde) |
 
 ### Barras Gantt
 | Estado | Color |
@@ -177,18 +232,32 @@ renderAll()               // Renderiza las 3 tarjetas + los 3 Gantts
 renderNovaCard()          // Renderiza tarjeta NOVA (fases + horas ejecutadas/en curso/total)
 renderFeliCard()          // Renderiza tarjeta FELI
 renderRobotinaCard()      // Renderiza tarjeta ROBOTINA
+renderProyectos()         // Renderiza pestaña PROYECTOS ALPINA (tarjetas + gráfico de dona)
+renderProyectoCard(p, key, gridStyle?)  // Renderiza una tarjeta de proyecto (staticData o Gantt), acepta estilo grid opcional
+renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyecto
+calcBotHours(rows)        // Calcula horas completadas y en curso para un array de tareas
+openTab(id)               // Cambia a una pestaña por ID (activa botón + contenido)
+openGantt(id)             // Cambia a un Gantt por ID (sin botón visible, solo contenido)
 cellClass(d, isToday, grayDays)  // CSS class para celda
 cellBg(d, isToday, isWeekend, grayDays)  // Color de fondo para celda
 ```
 
 ### Tarjetas (% Avance)
 Cada tarjeta renderiza:
-1. **Fases** con barra de progreso (porcentaje individual)
-2. **Footer línea 1**: Ejecutadas N h | En Curso N h | Total N h
-3. **Footer línea 2**: Fases N | % Total de Avance N%
-4. **Sección 🔄 En Curso**: lista de tareas en progreso (nombre + badge)
+1. **Header**: icono + nombre del bot (clickeable, navega al Gantt) + responsable (en línea propia abajo) + % total a la derecha
+2. **Milestone**: 🚩 Salida a Producción centrado en línea separada (si aplica)
+3. **Fases** con barra de progreso (porcentaje individual)
+4. **Footer línea 1**: Ejecutadas N h | En Curso N h | Total N h
+5. **Footer línea 2**: Fases N | % Total de Avance N%
+6. **Sección 🔄 En Curso**: lista de tareas en progreso (nombre + badge)
 
 ## Persistencia
+
+### Navegación a Gantts
+
+Los nombres de los bots en la pestaña **% AVANCE** (NOVA, FELI, ROBOTINA) tienen la clase `clickable` y al hacer clic ejecutan `openGantt(id)` que cambia al tab-content del Gantt correspondiente. Cada Gantt tiene un botón **← Volver a % Avance** que ejecuta `openTab('tab-avance')`.
+
+Las pestañas Gantt no aparecen en la barra de pestañas; solo se acceden desde los nombres en % Avance.
 
 ### Pestaña activa
 Se guarda en `localStorage('activeTab')` al hacer click en una pestaña.
@@ -202,8 +271,8 @@ Usa `new Date()` en cada carga. No hay fechas fijas.
 Panel protegido con contraseña para modificar tareas desde el navegador.
 
 ### Acceso
-- Click en **⚙** (esquina superior derecha del dashboard)
-- **Solo visible en local** (`localhost:3000`), oculto en GitHub Pages público
+- El botón **⚙** solo aparece en `localhost:3000` (se crea dinámicamente desde JS)
+- En GitHub Pages público no existe en el HTML
 - Contraseña por defecto: `admin123`
 - Se puede cambiar con el comando `/pwd NUEVA`
 
@@ -283,18 +352,18 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 
 ## Datos por Bot
 
-### NOVA (GANTT_ROWS)
+### NOVA (GANTT_ROWS) — Responsable: Johan Sabino
 - 39 tareas en 12 fases
 - Fases: Levantamiento, Estructura Base, Gestión Outlook, Gestión documental, SAP VA01, SAP ZSD, SAP VA02, SAP VF01, Grabación+Consolidado, Reporte ejecución, Cierre
 - **En Curso**: Estabilización (40h), Aprobación documentación (2h) → 18h total (ajuste -1h)
 - **Total ejecutadas + en curso**: 482h
 
-### FELI (GANTT_ROWS_FELI)
+### FELI (GANTT_ROWS_FELI) — Responsable: Cristian Bonilla
 - 29 tareas en 5 fases
 - Fases: Estructura Base, FELI, Pruebas, Documentación, Producción
 - **En Curso**: UAT usuario funcional (40h, 11-13 may + 25-26 may), Documentación técnica (14h), Documentación funcional (20h) → 74h total
 
-### ROBOTINA (GANTT_ROWS_ROBOTINA)
+### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 38 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (7 tareas)
 - Milestone: Salida a Producción 🚩 (índice 82 = 10-Jun-26)
