@@ -326,8 +326,8 @@
 
 <div class="tabs">
   <button class="tab" data-tab="tab-proyectos">PROYECTOS ALPINA</button>
-  <button class="tab" data-tab="tab-reporte">REPORTE DE HORAS ALPINA</button>
   <button class="tab active" data-tab="tab-avance">% AVANCE</button>
+  <button class="tab" data-tab="tab-reporte">REPORTE DE HORAS ALPINA</button>
 </div>
 
 <div class="tab-content active" id="tab-avance">
@@ -882,6 +882,7 @@ function calcPhaseProgress(rows, dates) {
         }
         if (todayIdx === end) completed = Math.max(0, completed - 1);
         taskPct = Math.min(100, Math.round(completed / effectiveDays * 100));
+        if (todayIdx > end) taskPct = Math.min(99, taskPct);
       } else if (dates[end] <= now) {
         taskPct = 100;
       } else if (dates[start] > now) {
