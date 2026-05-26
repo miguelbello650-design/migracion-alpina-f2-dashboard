@@ -1564,6 +1564,82 @@ function renderReporte() {
     html += '</div>';
   });
   html += '</div>';
+
+  // Charts
+  const allMonths = getMonthOptions();
+  const blockDefs = [
+    { key:'Desarrollo', color:'#0033a0' },
+    { key:'Soporte', color:'#84cc16' },
+    { key:'Actualización PDD', color:'#06b6d4' },
+    { key:'Actividades adicionales', color:'#f97316' }
+  ];
+  function blockTotal(key, m) {
+    if (key === 'Desarrollo') {
+      let t = 0;
+      botKeys.forEach(k => { const r = getBotRows(k); if (r) { const h = calcBotHoursMonth(r, m); t += h.completed + h.inProgress; if (k==='nova') t = Math.max(0, t-1); } });
+      staticFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (d) t += m !== 'all' ? (d[m]||0) : Object.values(d).reduce((s,v)=>s+v,0); });
+      return t;
+    }
+    if (key === 'Soporte') { const d = STATIC_MONTHLY.soporte; return m !== 'all' ? (d[m]||0) : Object.values(d).reduce((s,v)=>s+v,0); }
+    if (key === 'Actualización PDD') { let t = 0; actualizKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += m !== 'all' ? (d[m]||0) : Object.values(d).reduce((s,v)=>s+v,0); }); return t; }
+    if (key === 'Actividades adicionales') { let t = 0; actividadKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += m !== 'all' ? (d[m]||0) : Object.values(d).reduce((s,v)=>s+v,0); }); return t; }
+    return 0;
+  }
+  const donutTotals = blockDefs.map(b => ({ label: b.key, value: blockTotal(b.key, filter), color: b.color })).filter(d => d.value > 0);
+  const totalAll = donutTotals.reduce((s,d)=>s+d.value, 0);
+  // Donut chart
+  html += '<div style="display:flex;gap:24px;margin-top:24px;flex-wrap:wrap">';
+  html += '<div style="flex:1;min-width:260px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);padding:16px"><h3 style="font-size:14px;font-weight:700;color:#1e3a5f;margin:0 0 12px">Distribución por Bloque</h3>';
+  if (donutTotals.length) {
+    const cx = 90, cy = 90, r = 70, sw = 28;
+    let angle = -90, paths = '';
+    donutTotals.forEach(d => {
+      const deg = (d.value / totalAll) * 360;
+      const sr = (angle * Math.PI) / 180, er = ((angle + deg) * Math.PI) / 180;
+      const x1 = cx + r * Math.cos(sr), y1 = cy + r * Math.sin(sr);
+      const x2 = cx + r * Math.cos(er), y2 = cy + r * Math.sin(er);
+      const large = deg > 180 ? 1 : 0;
+      paths += '<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' A'+r+' '+r+' 0 '+large+' 1 '+x2.toFixed(1)+' '+y2.toFixed(1)+'" fill="none" stroke="'+d.color+'" stroke-width="'+sw+'" stroke-linecap="round"/>';
+      angle += deg;
+    });
+    html += '<div style="display:flex;align-items:center;gap:16px"><div style="position:relative;width:180px;height:180px;flex-shrink:0"><svg viewBox="0 0 180 180" style="width:100%;height:100%">'+paths+'</svg><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:20px;font-weight:700;color:#1e3a5f">'+Math.round(totalAll)+'<small style="display:block;font-size:11px;font-weight:400;color:#64748b">horas totales</small></div></div><div>';
+    donutTotals.forEach(d => {
+      const pct = Math.round((d.value/totalAll)*100);
+      html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px"><span style="width:10px;height:10px;border-radius:50%;background:'+d.color+';flex-shrink:0"></span><span style="color:#475569;flex:1">'+d.label+'</span><span style="font-weight:600;color:#1e293b">'+Math.round(d.value)+'h</span><span style="color:#94a3b8">('+pct+'%)</span></div>';
+    });
+    html += '</div></div>';
+  } else { html += '<p style="text-align:center;color:#94a3b8;padding:30px 0;font-size:13px">Sin datos</p>'; }
+  html += '</div>';
+
+  // Bar chart per month
+  html += '<div style="flex:1;min-width:300px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);padding:16px"><h3 style="font-size:14px;font-weight:700;color:#1e3a5f;margin:0 0 12px">'+(filter==='all'?'Horas por Mes':'Horas — '+monthNames[parseInt(filter.split('-')[1])-1]+' '+filter.split('-')[0])+'</h3>';
+  const barMonths = filter === 'all' ? allMonths : [filter];
+  if (barMonths.length) {
+    const barH = 160, barW = filter === 'all' ? Math.min(40, Math.floor(280 / barMonths.length)) : 50;
+    const maxVal = Math.max(...barMonths.map(m => blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0)), 1);
+    html += '<div style="display:flex;align-items:flex-end;gap:'+(filter==='all'?'4':'8')+'px;height:'+barH+'px;padding:0 8px;border-bottom:1px solid #e2e8f0;position:relative">';
+    barMonths.forEach(m => {
+      if (filter === 'all') {
+        const tot = blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0);
+        const h = (tot/maxVal)*(barH-20);
+        html += '<div style="display:flex;flex-direction:column;align-items:center;flex:1"><div style="width:'+barW+'px;height:'+Math.max(2,h)+'px;background:#1e3a5f;border-radius:4px 4px 0 0;transition:height .3s" title="'+tot.toFixed(1)+'h"></div><span style="font-size:9px;color:#64748b;margin-top:4px;white-space:nowrap">'+monthNames[parseInt(m.split('-')[1])-1].slice(0,3)+'</span></div>';
+      } else {
+        const monthTotal = blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0);
+        let yOff = barH - 20;
+        blockDefs.forEach(b => {
+          const val = blockTotal(b.key, m);
+          const h = (val/maxVal)*(barH-20);
+          if (h > 0) {
+            yOff -= h;
+            html += '<div style="width:'+barW+'px;height:'+Math.max(2,h)+'px;background:'+b.color+';border-radius:2px;position:absolute;bottom:'+yOff+'px;left:'+(barMonths.indexOf(m)*(barW+8)+8)+'px;transition:height .3s" title="'+b.label+': '+val.toFixed(1)+'h ('+Math.round((val/monthTotal)*100)+'%)"></div>';
+          }
+        });
+      }
+    });
+    html += '</div>';
+  } else { html += '<p style="text-align:center;color:#94a3b8;padding:30px 0;font-size:13px">Sin datos</p>'; }
+  html += '</div></div>';
+
   el.innerHTML = html;
   const sel = document.getElementById('reporte-month-select');
   if (sel) sel.addEventListener('change', function() {
