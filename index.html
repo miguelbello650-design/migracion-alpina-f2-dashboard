@@ -757,7 +757,6 @@ function renderNovaCard() {
     for (let i = start; i <= Math.min(ti, end); i++) {
       if (!skipSet.has(i)) completed++;
     }
-    if (ti === end) completed = Math.max(0, completed - 1);
     const pct = Math.min(1, completed / effectiveDays);
     a.inProgress += Math.round((r.hours || 0) * pct);
     return a;
@@ -816,7 +815,6 @@ function renderRobotinaCard() {
     for (let i = start; i <= Math.min(ti, end); i++) {
       if (!skipSet.has(i)) completed++;
     }
-    if (ti === end) completed = Math.max(0, completed - 1);
     const pct = Math.min(1, completed / effectiveDays);
     a.inProgress += Math.round((r.hours || 0) * pct);
     return a;
@@ -1360,7 +1358,6 @@ function calcBotHours(rows) {
     for (let i = start; i <= Math.min(ti, end); i++) {
       if (!skipSet.has(i)) completed++;
     }
-    if (ti === end) completed = Math.max(0, completed - 1);
     const pct = Math.min(1, completed / effectiveDays);
     a.inProgress += Math.round((r.hours || 0) * pct);
     return a;
