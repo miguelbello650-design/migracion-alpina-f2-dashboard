@@ -891,9 +891,9 @@ function calcPhaseProgress(rows, dates) {
         for (let i = start; i <= Math.min(todayIdx, end); i++) {
           if (!skipSet.has(i)) completed++;
         }
-        if (todayIdx === end) completed = Math.max(0, completed - 1);
+        if (todayIdx === end && end > start) completed = Math.max(0, completed - 1);
         taskPct = Math.min(100, Math.round(completed / effectiveDays * 100));
-        if (todayIdx > end) taskPct = Math.min(99, taskPct);
+        if (todayIdx >= end) taskPct = Math.min(99, taskPct);
       } else if (dates[end] <= now) {
         taskPct = 100;
       } else if (dates[start] > now) {
