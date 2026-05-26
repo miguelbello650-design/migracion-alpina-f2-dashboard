@@ -409,7 +409,12 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 | HORAS EXTRA | 6 | 0 | 8 | 0 | 0 | 0 |
 
 ### Actividades adicionales
-Sin datos registrados (0h).
+Sin datos registrados (0h). Las actividades registradas son:
+- Sesión Dudas Feli
+- Sesión Dudas Nova
+- Sesión API Robotina
+- Estimación Nova y Feli
+- Sesión con Infra. Alpina
 
 ## Convenciones de Código
 - Sin comentarios en JS

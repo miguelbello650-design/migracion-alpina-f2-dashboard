@@ -1410,7 +1410,12 @@ const STATIC_MONTHLY = {
   actualizacion_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':8, '2026-3':0, '2026-4':1.5, '2026-5':0, '2026-6':0 },
   actualizacion_optimus: { '2025-11':0, '2025-12':3, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actualizacion_lamonita: { '2025-11':2, '2025-12':1, '2026-1':3, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
-  actualizacion_horasextra: { '2025-11':6, '2025-12':0, '2026-1':8, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 }
+  actualizacion_horasextra: { '2025-11':6, '2025-12':0, '2026-1':8, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
+  actividad_dudas_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
+  actividad_dudas_nova: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
+  actividad_api_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
+  actividad_estimacion: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
+  actividad_infra: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 }
 };
 function getReporteMonthFilter() { return localStorage.getItem(REPORTE_MONTH_KEY) || 'all'; }
 function getMonthOptions() {
@@ -1476,7 +1481,8 @@ function renderReporte() {
   html += '<div class="reporte-block"><h3>Desarrollo</h3>';
   const staticFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
   const actualizKeys = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
-  const maxHrs = [...botKeys, ...staticFin.map(p=>p.key), 'soporte', ...actualizKeys].reduce((mx, k) => {
+  const actividadKeys = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_estimacion','actividad_infra'];
+  const maxHrs = [...botKeys, ...staticFin.map(p=>p.key), 'soporte', ...actualizKeys, ...actividadKeys].reduce((mx, k) => {
     if (k==='nova'||k==='feli'||k==='robotina') {
       const rows = getBotRows(k);
       if (!rows) return mx;
@@ -1531,6 +1537,8 @@ function renderReporte() {
   ];
   const actualizColors = { actualizacion_feli:'#6366f1', actualizacion_robotina:'#0891b2', actualizacion_optimus:'#7c3aed', actualizacion_lamonita:'#dc2626', actualizacion_horasextra:'#b45309' };
   const actualizLabels = { actualizacion_feli:'FELI', actualizacion_robotina:'ROBOTINA', actualizacion_optimus:'OPTIMUS', actualizacion_lamonita:'LA MONITA', actualizacion_horasextra:'HORAS EXTRA' };
+  const actividadColors = { actividad_dudas_feli:'#a855f7', actividad_dudas_nova:'#3b82f6', actividad_api_robotina:'#14b8a6', actividad_estimacion:'#f59e0b', actividad_infra:'#ef4444' };
+  const actividadLabels = { actividad_dudas_feli:'Sesión Dudas Feli', actividad_dudas_nova:'Sesión Dudas Nova', actividad_api_robotina:'Sesión API Robotina', actividad_estimacion:'Estimación Nova y Feli', actividad_infra:'Sesión con Infra. Alpina' };
   otherBlocks.forEach(b => {
     html += '<div class="reporte-block"><h3>'+b.label+'</h3>';
     if (b.key === 'soporte') {
@@ -1543,6 +1551,12 @@ function renderReporte() {
         if (tot === 0 && filter === 'all') return;
         const barW = Math.min(100, Math.round((tot / Math.max(maxHrs,1)) * 100));
         html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+actualizColors[k]+'"></span><span class="reporte-name" style="color:#64748b">'+actualizLabels[k]+'</span><span class="reporte-total">'+(Math.round(tot*10)/10)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+actualizColors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+(Math.round(tot*10)/10)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
+      });
+    } else if (b.key === 'actividades') {
+      actividadKeys.forEach(k => {
+        const tot = filter !== 'all' ? (STATIC_MONTHLY[k][filter] || 0) : Object.values(STATIC_MONTHLY[k]).reduce((s,v)=>s+v,0);
+        const barW = Math.min(100, Math.round((tot / Math.max(maxHrs,1)) * 100));
+        html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+actividadColors[k]+'"></span><span class="reporte-name" style="color:#64748b">'+actividadLabels[k]+'</span><span class="reporte-total">'+(Math.round(tot*10)/10)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+actividadColors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+(Math.round(tot*10)/10)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
       });
     } else {
       html += '<p class="reporte-empty" style="font-size:12px;color:#94a3b8;margin:0">0h registradas</p>';
