@@ -176,11 +176,12 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 - **Pendiente** (fecha inicio > today): 0%
 - **En progreso**: % = `(días hábiles transcurridos / días hábiles efectivos) * 100`
   - Se cuentan desde `startIdx` hasta `min(todayIdx, endIdx)` excluyendo `skipIndices`
-  - Si `todayIdx === endIdx` (tarea en curso que finaliza hoy), se descuenta 1 día completado para no dar 100% prematuro
-  - Si `todayIdx > endIdx` (tarea en curso con fecha fin vencida), se limita el progreso al 99% para indicar que no está completada
+  - Si `todayIdx === endIdx && endIdx > startIdx` (tarea multi-día que finaliza hoy), se descuenta 1 día para no dar 100% prematuro
+  - Si `todayIdx >= endIdx` (tarea que finaliza hoy o vencida), se limita al 99%
+  - Si `todayIdx === endIdx && startIdx === endIdx` (tarea 1-día que inicia hoy): no descuenta, se muestra 99%
 
 ### Cálculo por Fase
-- Promedio simple de los % de todas las tareas en esa fase (redondeado con `Math.round`)
+- Promedio simple de los % de todas las tareas en esa fase (truncado con `Math.floor` para evitar 100% prematuro)
 
 ### Cálculo Total
 - Promedio simple de los % de todas las fases (truncado con `Math.floor` para no mostrar 100% anticipadamente)
@@ -188,6 +189,8 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 ### Horas (por Bot, en tarjeta de % Avance)
 - **Ejecutadas**: horas completas de tareas finalizadas (`GANTT_DATES[end] <= today && !inProgress`)
 - **En Curso**: horas prorrateadas de tareas en progreso (`hours * (completed / effectiveDays)` redondeado con `Math.round`)
+  - A diferencia del progreso de fase, NO descuenta el día cuando `todayIdx === endIdx`
+  - Una tarea que inicia hoy cuenta sus horas completas como "En Curso"
 - **Total**: suma de Ejecutadas + En Curso
 - **NOVA**: se resta 1h al subtotal "En Curso" como ajuste manual para que coincida con el cierre esperado del cliente (482h en vez de 483h)
 
@@ -375,7 +378,8 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (7 tareas)
 - Milestone: Salida a Producción 🚩 (índice 82 = 10-Jun-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71
-- **En Curso**: Pruebas UAT (4h), Elaboración documentación SDD (18h) → 22h total
+- **En Curso**: Pruebas UAT (4h, inicia 26-May → 99%), Elaboración documentación SDD (18h) → 22h total
+- **Cierre fase**: 7 tareas, UAT iniciada hoy (26-May) → ~14% de fase
 
 ## Reporte de Horas — Datos por Mes
 
