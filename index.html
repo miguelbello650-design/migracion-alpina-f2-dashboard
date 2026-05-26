@@ -1409,6 +1409,7 @@ function getReporteMonthFilter() { return localStorage.getItem(REPORTE_MONTH_KEY
 function getMonthOptions() {
   const months = new Set();
   GANTT_DATES.forEach(d => months.add(d.getFullYear()+'-'+(d.getMonth()+1)));
+  months.add('2025-11'); months.add('2025-12'); months.add('2026-1');
   return Array.from(months).sort();
 }
 function calcBotHoursMonth(rows, filter) {
