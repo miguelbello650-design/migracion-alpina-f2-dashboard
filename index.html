@@ -913,7 +913,7 @@ function calcPhaseProgress(rows, dates) {
       }
       phaseSum += taskPct;
     });
-    const avg = total > 0 ? Math.round(phaseSum / total) : 0;
+    const avg = total > 0 ? Math.floor(phaseSum / total) : 0;
     return [name, avg];
   });
   return { phases, total: phaseNames.length > 0 ? Math.floor(phases.reduce((s, p) => s + p[1], 0) / phaseNames.length) : 0 };
