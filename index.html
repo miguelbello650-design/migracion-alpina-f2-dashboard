@@ -1404,32 +1404,92 @@ function renderProyectosChart() {
   }
   el.innerHTML = `<h3>Horas de Desarrollo por Proyecto</h3><div class="chart-donut-wrap"><svg viewBox="0 0 200 200">${paths}</svg><div class="chart-donut-total">${totalHours}<small>horas totales</small></div></div><div class="chart-legend">${legendHtml}</div>`;
 }
+const REPORTE_MONTH_KEY = 'reporteMonthFilter';
+function getReporteMonthFilter() { return localStorage.getItem(REPORTE_MONTH_KEY) || 'all'; }
+function getMonthOptions() {
+  const months = new Set();
+  GANTT_DATES.forEach(d => months.add(d.getFullYear()+'-'+(d.getMonth()+1)));
+  return Array.from(months).sort();
+}
+function calcBotHoursMonth(rows, filter) {
+  if (filter === 'all') return calcBotHours(rows);
+  const [year, month] = filter.split('-').map(Number);
+  let firstIdx = -1, lastIdx = -1;
+  GANTT_DATES.forEach((d, i) => {
+    if (d.getFullYear() === year && d.getMonth() + 1 === month) {
+      if (firstIdx === -1) firstIdx = i;
+      lastIdx = i;
+    }
+  });
+  if (firstIdx === -1) return { completed: 0, inProgress: 0 };
+  const nowH = new Date(); nowH.setHours(0,0,0,0);
+  const todayIdx = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
+  let completed = 0, inProgress = 0;
+  rows.filter(r => r.task && r.fixedIdx !== undefined).forEach(r => {
+    const start = r.fixedIdx;
+    const end = r.fixedEndIdx !== undefined ? r.fixedEndIdx : r.fixedIdx;
+    const totalSpan = end - start + 1;
+    const skipCount = r.skipIndices ? r.skipIndices.length : 0;
+    const effectiveDays = totalSpan - skipCount;
+    if (effectiveDays <= 0) return;
+    const skipSet = r.skipIndices ? new Set(r.skipIndices) : new Set();
+    let daysIn = 0;
+    for (let i = Math.max(start, firstIdx); i <= Math.min(end, lastIdx); i++) { if (!skipSet.has(i)) daysIn++; }
+    if (daysIn <= 0) return;
+    const pct = daysIn / effectiveDays;
+    const taskH = (r.hours || 0) * pct;
+    if (month < nowH.getMonth()+1 || year < nowH.getFullYear()) { completed += taskH; return; }
+    if (month > nowH.getMonth()+1 || year > nowH.getFullYear()) { inProgress += taskH; return; }
+    if (GANTT_DATES[end] <= nowH && !r.inProgress) { completed += taskH; return; }
+    if (GANTT_DATES[start] > nowH) return;
+    let completedDays = 0;
+    for (let i = Math.max(start, firstIdx); i <= Math.min(end, todayIdx, lastIdx); i++) { if (!skipSet.has(i)) completedDays++; }
+    if (todayIdx === end) completedDays = Math.max(0, completedDays - 1);
+    const donePct = Math.min(1, completedDays / daysIn);
+    if (donePct === 1) { completed += taskH; } else { inProgress += taskH * donePct; }
+  });
+  return { completed: Math.round(completed), inProgress: Math.round(inProgress) };
+}
 function renderReporte() {
   const el = document.getElementById('reporte-container');
   if (!el) return;
+  const filter = getReporteMonthFilter();
   const botKeys = ['nova','feli','robotina'];
   const colors = { nova:'#0033a0', feli:'#6366f1', robotina:'#0891b2' };
+  const months = getMonthOptions();
+  const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   let html = '<h2 style="font-size:18px;color:#1e3a5f;margin:0 0 16px;font-weight:700">Reporte de Horas de Desarrollo</h2>';
+  html += '<div style="margin-bottom:16px"><select id="reporte-month-select" style="padding:6px 12px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;background:#fff;color:#1e293b;cursor:pointer">';
+  html += '<option value="all"'+(filter==='all'?' selected':'')+'>Todos los meses</option>';
+  months.forEach(m => {
+    const [y,mo] = m.split('-');
+    html += '<option value="'+m+'"'+(filter===m?' selected':'')+'>'+monthNames[parseInt(mo)-1]+' '+y+'</option>';
+  });
+  html += '</select></div>';
   html += '<div class="reporte-grid">';
   html += '<div class="reporte-block"><h3>Desarrollo</h3>';
   botKeys.forEach(k => {
     const p = PROYECTOS.find(x => x.key === k);
     const rows = getBotRows(k);
     if (!p || !rows) return;
-    const hrs = calcBotHours(rows);
+    const hrs = calcBotHoursMonth(rows, filter);
     let cur = hrs.inProgress;
     if (k === 'nova') cur -= 1;
     const tot = hrs.completed + cur;
-    const maxH = tot || 1;
     const barW = Math.min(100, Math.round((tot / 600) * 100));
-    html += `<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:${colors[k]}"></span><span class="reporte-name">${p.name}</span><span class="reporte-total">${tot}h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:${barW}%;background:${colors[k]}"></div></div><div class="reporte-stats"><span>✅ ${hrs.completed}h ejecutadas</span><span>🔄 ${cur}h en curso</span></div></div>`;
+    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+colors[k]+'"></span><span class="reporte-name">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+colors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+hrs.completed+'h ejecutadas</span><span>🔄 '+cur+'h en curso</span></div></div>';
   });
   html += '</div>';
   ['Soporte','Actualización PDD','Actividades adicionales'].forEach(t => {
-    html += `<div class="reporte-block"><h3>${t}</h3><p class="reporte-empty">Sin datos registrados</p></div>`;
+    html += '<div class="reporte-block"><h3>'+t+'</h3><p class="reporte-empty">Sin datos registrados</p></div>';
   });
   html += '</div>';
   el.innerHTML = html;
+  const sel = document.getElementById('reporte-month-select');
+  if (sel) sel.addEventListener('change', function() {
+    localStorage.setItem(REPORTE_MONTH_KEY, this.value);
+    renderReporte();
+  });
 }
 function execAdminCmd(cmd) {
   const parts = cmd.split(/\s+/);
