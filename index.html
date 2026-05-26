@@ -242,7 +242,7 @@
   .reporte-bar-fill { height: 100%; border-radius: 4px; transition: width .3s; }
   .reporte-stats { display: flex; gap: 12px; font-size: 11px; color: #64748b; }
   .reporte-stats span { display: flex; align-items: center; gap: 2px; }
-  .reporte-empty { font-size: 12px; color: #94a3b8; text-align: center; padding: 20px 0; margin: 0; }
+  .reporte-empty { font-size: 12px; color: #94a3b8; text-align: center; padding: 8px 0; margin: 0; }
 
   /* Gantt */
   .gantt-wrap { padding: 24px 40px 20px; overflow-x: auto; position: relative; }
@@ -1405,6 +1405,11 @@ function renderProyectosChart() {
   el.innerHTML = `<h3>Horas de Desarrollo por Proyecto</h3><div class="chart-donut-wrap"><svg viewBox="0 0 200 200">${paths}</svg><div class="chart-donut-total">${totalHours}<small>horas totales</small></div></div><div class="chart-legend">${legendHtml}</div>`;
 }
 const REPORTE_MONTH_KEY = 'reporteMonthFilter';
+const STATIC_MONTHLY = {
+  optimus: { '2025-11':57.5, '2025-12':182.5, '2026-1':46 },
+  lamonita: { '2025-11':44.5, '2025-12':189.5, '2026-1':139 },
+  horasextra: { '2025-11':0, '2025-12':130, '2026-1':131, '2026-2':43 }
+};
 function getReporteMonthFilter() { return localStorage.getItem(REPORTE_MONTH_KEY) || 'all'; }
 function getMonthOptions() {
   const months = new Set();
@@ -1478,6 +1483,10 @@ function renderReporte() {
       if (k==='nova') cur -= 1;
       return Math.max(mx, hrs.completed + cur);
     }
+    if (filter !== 'all') {
+      const mh = STATIC_MONTHLY[k];
+      return Math.max(mx, mh && mh[filter] ? mh[filter] : 0);
+    }
     const p = PROYECTOS.find(x => x.key === k);
     return Math.max(mx, p && p.staticData ? p.staticData.hours : 0);
   }, 1);
@@ -1494,13 +1503,23 @@ function renderReporte() {
   });
   staticFin.forEach(p => {
     if (!p.staticData || !p.staticData.hours) return;
-    const tot = p.staticData.hours;
+    let tot, label;
+    if (filter !== 'all' && STATIC_MONTHLY[p.key] && STATIC_MONTHLY[p.key][filter] !== undefined) {
+      tot = STATIC_MONTHLY[p.key][filter];
+      label = tot+'h en el mes';
+    } else if (filter !== 'all') {
+      tot = 0;
+      label = '0h en el mes';
+    } else {
+      tot = p.staticData.hours;
+      label = tot+'h ejecutadas';
+    }
     const barW = Math.min(100, Math.round((tot / maxHrs) * 100));
-    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name" style="color:#64748b">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+tot+'h ejecutadas</span><span style="color:#94a3b8">—</span></div></div>';
+    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name" style="color:#64748b">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+label+'</span><span style="color:#94a3b8">—</span></div></div>';
   });
   html += '</div>';
   ['Soporte','Actualización PDD','Actividades adicionales'].forEach(t => {
-    html += '<div class="reporte-block"><h3>'+t+'</h3><p class="reporte-empty">Sin datos registrados</p></div>';
+    html += '<div class="reporte-block"><h3>'+t+'</h3><p class="reporte-empty" style="font-size:12px;color:#94a3b8;margin:0">0h registradas</p></div>';
   });
   html += '</div>';
   el.innerHTML = html;
