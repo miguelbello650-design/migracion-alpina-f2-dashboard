@@ -3,7 +3,7 @@
 ## Descripción
 Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, ROBOTINA) y proyectos históricos/completados:
 - **PROYECTOS ALPINA** — Vista general con proyectos agrupados por estado (Finalizados / En Proceso / Próximos), incluye proyectos activos (con Gantt), estáticos (históricos) y gráfico de dona con horas totales
-- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes: Desarrollo (NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (5 proyectos con horas mensuales) y Actividades adicionales (5 actividades con horas mensuales)
+- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes + 2 gráficos: Desarrollo (NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (5 proyectos con horas mensuales) y Actividades adicionales (5 actividades con horas mensuales). Incluye gráfico de dona (distribución por bloque) y gráfico de barras (horas por mes, apilado por bloque al filtrar un mes específico).
 - **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
 - **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
 
@@ -240,7 +240,7 @@ renderRobotinaCard()      // Renderiza tarjeta ROBOTINA
 renderProyectos()         // Renderiza pestaña PROYECTOS ALPINA (tarjetas + gráfico de dona)
 renderProyectoCard(p, key, gridStyle?)  // Renderiza una tarjeta de proyecto (staticData o Gantt), acepta estilo grid opcional
 renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyecto
-renderReporte()           // Renderiza 4 bloques con filtro por mes en REPORTE DE HORAS ALPINA
+renderReporte()           // Renderiza 4 bloques + gráficos (dona y barras) con filtro por mes en REPORTE DE HORAS ALPINA
 calcBotHours(rows)        // Calcula horas completadas y en curso para un array de tareas
 calcBotHoursMonth(rows, filter) // Calcula horas en un mes específico (prorrateo por días hábiles)
 getMonthOptions()         // Retorna meses disponibles desde Nov 2025
@@ -384,6 +384,10 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 - **Cierre fase**: 7 tareas, UAT iniciada hoy (26-May) → ~14% de fase
 
 ## Reporte de Horas — Datos por Mes
+
+Los datos alimentan dos gráficos al final del Reporte:
+- **Dona**: distribución de horas totales por bloque (Desarrollo, Soporte, Actualización PDD, Actividades adicionales)
+- **Barras**: total de horas por mes; al seleccionar un mes específico, muestra una barra apilada por bloque
 
 ### Desarrollo — Activos
 Los 3 bots activos (NOVA, FELI, ROBOTINA) calculan horas dinámicamente según `calcBotHoursMonth()`, prorrateando por días hábiles en el mes seleccionado.
