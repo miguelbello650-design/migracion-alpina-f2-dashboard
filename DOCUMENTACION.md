@@ -387,7 +387,7 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 
 Los datos alimentan dos gráficos al final del Reporte:
 - **Dona**: distribución de horas totales por bloque (Desarrollo, Soporte, Actualización PDD, Actividades adicionales)
-- **Barras**: total de horas por mes; al seleccionar un mes específico, muestra una barra apilada por bloque
+- **Barras**: total de horas por mes (estático, siempre muestra todos los meses sin importar el filtro)
 
 ### Desarrollo — Activos
 Los 3 bots activos (NOVA, FELI, ROBOTINA) calculan horas dinámicamente según `calcBotHoursMonth()`, prorrateando por días hábiles en el mes seleccionado.
