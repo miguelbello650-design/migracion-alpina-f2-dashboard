@@ -1475,6 +1475,7 @@ function renderReporte() {
   html += '<div class="reporte-grid">';
   html += '<div class="reporte-block"><h3>Desarrollo</h3>';
   const staticFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
+  const actualizKeys = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
   const maxHrs = [...botKeys, ...staticFin.map(p=>p.key), 'soporte', ...actualizKeys].reduce((mx, k) => {
     if (k==='nova'||k==='feli'||k==='robotina') {
       const rows = getBotRows(k);
@@ -1528,7 +1529,6 @@ function renderReporte() {
     { key:'actualizacion', label:'Actualización PDD', color:'#06b6d4' },
     { key:'actividades', label:'Actividades adicionales', color:'#f97316' }
   ];
-  const actualizKeys = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
   const actualizColors = { actualizacion_feli:'#6366f1', actualizacion_robotina:'#0891b2', actualizacion_optimus:'#7c3aed', actualizacion_lamonita:'#dc2626', actualizacion_horasextra:'#b45309' };
   const actualizLabels = { actualizacion_feli:'FELI', actualizacion_robotina:'ROBOTINA', actualizacion_optimus:'OPTIMUS', actualizacion_lamonita:'LA MONITA', actualizacion_horasextra:'HORAS EXTRA' };
   otherBlocks.forEach(b => {
