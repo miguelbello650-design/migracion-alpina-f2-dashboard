@@ -695,12 +695,11 @@ function renderFeliCard() {
     if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += (r.hours || 0); return a; }
     if (GANTT_DATES[start] > nowH) return a;
     const skipSet = r.skipIndices ? new Set(r.skipIndices) : new Set();
-    let ti = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
+    const ti = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
     let completed = 0;
     for (let i = start; i <= Math.min(ti, end); i++) {
       if (!skipSet.has(i)) completed++;
     }
-    if (ti === end) completed = Math.max(0, completed - 1);
     const pct = Math.min(1, completed / effectiveDays);
     a.inProgress += Math.round((r.hours || 0) * pct);
     return a;
@@ -1451,7 +1450,6 @@ function calcBotHoursMonth(rows, filter) {
     if (GANTT_DATES[start] > nowH) return;
     let completedDays = 0;
     for (let i = Math.max(start, firstIdx); i <= Math.min(end, todayIdx, lastIdx); i++) { if (!skipSet.has(i)) completedDays++; }
-    if (todayIdx === end) completedDays = Math.max(0, completedDays - 1);
     const donePct = Math.min(1, completedDays / daysIn);
     if (donePct === 1) { completed += taskH; } else { inProgress += taskH * donePct; }
   });
