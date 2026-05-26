@@ -223,6 +223,12 @@
   .main-footer { margin: auto 40px 0; text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #d1d9e6; padding: 16px 0 24px; }
   .back-btn { background: none; border: 1px solid #c8d2e0; border-radius: 8px; padding: 6px 16px; font-size: 12px; font-weight: 600; color: #1e3a5f; cursor: pointer; transition: all .15s; }
   .back-btn:hover { background: #e8eef6; border-color: #0033a0; color: #0033a0; }
+  .reporte-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+  .reporte-table th { background: #1e3a5f; color: #fff; font-size: 12px; font-weight: 700; padding: 12px 16px; text-align: left; }
+  .reporte-table td { font-size: 13px; padding: 10px 16px; border-bottom: 1px solid #e2e8f0; color: #1e293b; }
+  .reporte-table tr:last-child td { border-bottom: none; }
+  .reporte-table .total-row td { font-weight: 700; background: #f1f5f9; font-size: 14px; }
+  .reporte-table .badge-report { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
 
   /* Gantt */
   .gantt-wrap { padding: 24px 40px 20px; overflow-x: auto; position: relative; }
@@ -320,6 +326,7 @@
 
 <div class="tabs">
   <button class="tab" data-tab="tab-proyectos">PROYECTOS ALPINA</button>
+  <button class="tab" data-tab="tab-reporte">REPORTE DE HORAS ALPINA</button>
   <button class="tab active" data-tab="tab-avance">% AVANCE</button>
 </div>
 
@@ -468,6 +475,10 @@
   </div>
 </div>
 
+<div class="tab-content" id="tab-reporte">
+  <div id="reporte-container" style="padding:24px 40px"></div>
+</div>
+
 <script>
 // Tabs
 document.querySelectorAll('.tab').forEach(t => {
@@ -477,6 +488,7 @@ document.querySelectorAll('.tab').forEach(t => {
     t.classList.add('active');
     document.getElementById(t.dataset.tab).classList.add('active');
     localStorage.setItem('activeTab', t.dataset.tab);
+    if (t.dataset.tab === 'tab-reporte') renderReporte();
   });
 });
 
@@ -492,6 +504,7 @@ if (savedTab && document.getElementById(savedTab)) {
     if (firstTab) firstTab.classList.add('active');
   }
   document.getElementById(savedTab).classList.add('active');
+  if (savedTab === 'tab-reporte') renderReporte();
 }
 
 // Avance dashboard
@@ -1371,10 +1384,42 @@ function renderProyectosChart() {
     angle += degrees;
   });
   if (items.length === 0) {
-    el.innerHTML = '<h3>Horas por Proyecto</h3><p style="text-align:center;color:#94a3b8;padding:40px 0">Sin datos</p>';
+    el.innerHTML = '<h3>Horas de Desarrollo por Proyecto</h3><p style="text-align:center;color:#94a3b8;padding:40px 0">Sin datos</p>';
     return;
   }
-  el.innerHTML = `<h3>Horas por Proyecto</h3><div class="chart-donut-wrap"><svg viewBox="0 0 200 200">${paths}</svg><div class="chart-donut-total">${totalHours}<small>horas totales</small></div></div><div class="chart-legend">${legendHtml}</div>`;
+  el.innerHTML = `<h3>Horas de Desarrollo por Proyecto</h3><div class="chart-donut-wrap"><svg viewBox="0 0 200 200">${paths}</svg><div class="chart-donut-total">${totalHours}<small>horas totales</small></div></div><div class="chart-legend">${legendHtml}</div>`;
+}
+function renderReporte() {
+  const el = document.getElementById('reporte-container');
+  if (!el) return;
+  const ahora = new Date(); ahora.setHours(0,0,0,0);
+  const items = [];
+  let granTotal = 0;
+  PROYECTOS.forEach(p => {
+    let compl = 0, cur = 0;
+    if (p.staticData && p.staticData.hours !== undefined) { compl = p.staticData.hours; cur = 0; }
+    else if (p.rows) {
+      const hrs = calcBotHours(p.rows);
+      compl = hrs.completed;
+      cur = hrs.inProgress;
+      if (p.key === 'nova') cur -= 1;
+    }
+    const tot = compl + cur;
+    if (tot > 0) {
+      const colors = { optimus:'#7c3aed', lamonita:'#dc2626', horasextra:'#b45309', nova:'#0033a0', feli:'#6366f1', robotina:'#0891b2' };
+      items.push({ name: p.name, color: colors[p.key]||'#2563eb', completed: compl, inProgress: cur, total: tot });
+      granTotal += tot;
+    }
+  });
+  let html = '<h2 style="font-size:18px;color:#1e3a5f;margin:0 0 16px;font-weight:700">Reporte de Horas de Desarrollo</h2>';
+  html += '<table class="reporte-table"><thead><tr><th>Proyecto</th><th>Horas Completadas</th><th>Horas en Curso</th><th>Total</th><th>% del Total</th></tr></thead><tbody>';
+  items.forEach(i => {
+    const pct = granTotal > 0 ? Math.round((i.total / granTotal) * 100) : 0;
+    html += `<tr><td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${i.color};margin-right:8px;vertical-align:middle"></span>${i.name}</td><td>${i.completed}h</td><td>${i.inProgress}h</td><td><strong>${i.total}h</strong></td><td>${pct}%</td></tr>`;
+  });
+  html += `<tr class="total-row"><td><strong>TOTAL</strong></td><td>${items.reduce((s,i)=>s+i.completed,0)}h</td><td>${items.reduce((s,i)=>s+i.inProgress,0)}h</td><td><strong>${granTotal}h</strong></td><td>100%</td></tr>`;
+  html += '</tbody></table>';
+  el.innerHTML = html;
 }
 function execAdminCmd(cmd) {
   const parts = cmd.split(/\s+/);
@@ -1481,6 +1526,7 @@ function openTab(id) {
   if (btn) btn.classList.add('active');
   document.getElementById(id).classList.add('active');
   localStorage.setItem('activeTab', id);
+  if (id === 'tab-reporte') renderReporte();
 }
 function openGantt(id) {
   document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));

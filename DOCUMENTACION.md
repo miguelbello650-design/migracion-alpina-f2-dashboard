@@ -3,6 +3,7 @@
 ## Descripción
 Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, ROBOTINA) y proyectos históricos/completados:
 - **PROYECTOS ALPINA** — Vista general con proyectos agrupados por estado (Finalizados / En Proceso / Próximos), incluye proyectos activos (con Gantt), estáticos (históricos) y gráfico de dona con horas totales
+- **REPORTE DE HORAS ALPINA** — Tabla detallada con horas completadas, en curso, totales y porcentaje por proyecto
 - **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
 - **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
 
@@ -235,6 +236,7 @@ renderRobotinaCard()      // Renderiza tarjeta ROBOTINA
 renderProyectos()         // Renderiza pestaña PROYECTOS ALPINA (tarjetas + gráfico de dona)
 renderProyectoCard(p, key, gridStyle?)  // Renderiza una tarjeta de proyecto (staticData o Gantt), acepta estilo grid opcional
 renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyecto
+renderReporte()           // Renderiza tabla detallada de horas en pestaña REPORTE DE HORAS ALPINA
 calcBotHours(rows)        // Calcula horas completadas y en curso para un array de tareas
 openTab(id)               // Cambia a una pestaña por ID (activa botón + contenido)
 openGantt(id)             // Cambia a un Gantt por ID (sin botón visible, solo contenido)
