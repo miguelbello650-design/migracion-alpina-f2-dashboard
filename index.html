@@ -1414,8 +1414,9 @@ function renderReporte() {
   html += '<div class="reporte-block"><h3>Desarrollo</h3>';
   botKeys.forEach(k => {
     const p = PROYECTOS.find(x => x.key === k);
-    if (!p || !p.rows) return;
-    const hrs = calcBotHours(p.rows);
+    const rows = getBotRows(k);
+    if (!p || !rows) return;
+    const hrs = calcBotHours(rows);
     let cur = hrs.inProgress;
     if (k === 'nova') cur -= 1;
     const tot = hrs.completed + cur;
