@@ -400,7 +400,13 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 | 0 | 49 | 29.5 | 42 | 39 | 90 | 0 |
 
 ### Actualización PDD
-Pendiente de carga (FELI, ROBOTINA, OPTIMUS, LA MONITA, HORAS EXTRA).
+| Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 |
+|---|---|---|---|---|---|---|
+| FELI | 0 | 0 | 0 | 1 | 0 | 0 |
+| ROBOTINA | 0 | 0 | 0 | 8 | 0 | 1.5 |
+| OPTIMUS | 0 | 3 | 0 | 0 | 0 | 0 |
+| LA MONITA | 2 | 1 | 3 | 0 | 0 | 0 |
+| HORAS EXTRA | 6 | 0 | 8 | 0 | 0 | 0 |
 
 ### Actividades adicionales
 Sin datos registrados (0h).
