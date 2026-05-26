@@ -1408,7 +1408,8 @@ const REPORTE_MONTH_KEY = 'reporteMonthFilter';
 const STATIC_MONTHLY = {
   optimus: { '2025-11':57.5, '2025-12':182.5, '2026-1':46 },
   lamonita: { '2025-11':44.5, '2025-12':189.5, '2026-1':139 },
-  horasextra: { '2025-11':0, '2025-12':130, '2026-1':131, '2026-2':43 }
+  horasextra: { '2025-11':0, '2025-12':130, '2026-1':131, '2026-2':43 },
+  soporte: { '2025-11':0, '2025-12':49, '2026-1':29.5, '2026-2':42, '2026-3':39, '2026-5':90 }
 };
 function getReporteMonthFilter() { return localStorage.getItem(REPORTE_MONTH_KEY) || 'all'; }
 function getMonthOptions() {
@@ -1474,14 +1475,18 @@ function renderReporte() {
   html += '<div class="reporte-grid">';
   html += '<div class="reporte-block"><h3>Desarrollo</h3>';
   const staticFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
-  const maxHrs = [...botKeys, ...staticFin.map(p=>p.key)].reduce((mx, k) => {
+  const maxHrs = [...botKeys, ...staticFin.map(p=>p.key), 'soporte'].reduce((mx, k) => {
     if (k==='nova'||k==='feli'||k==='robotina') {
       const rows = getBotRows(k);
       if (!rows) return mx;
       const hrs = calcBotHoursMonth(rows, filter);
       let cur = hrs.inProgress;
-      if (k==='nova') cur -= 1;
+      if (k==='nova') cur = Math.max(0, cur - 1);
       return Math.max(mx, hrs.completed + cur);
+    }
+    if (k === 'soporte') {
+      if (filter !== 'all') return Math.max(mx, STATIC_MONTHLY.soporte[filter] || 0);
+      return Math.max(mx, Object.values(STATIC_MONTHLY.soporte).reduce((s,v)=>s+v,0));
     }
     if (filter !== 'all') {
       const mh = STATIC_MONTHLY[k];
@@ -1518,8 +1523,21 @@ function renderReporte() {
     html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name" style="color:#64748b">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+label+'</span><span style="color:#94a3b8">—</span></div></div>';
   });
   html += '</div>';
-  ['Soporte','Actualización PDD','Actividades adicionales'].forEach(t => {
-    html += '<div class="reporte-block"><h3>'+t+'</h3><p class="reporte-empty" style="font-size:12px;color:#94a3b8;margin:0">0h registradas</p></div>';
+  const otherBlocks = [
+    { key:'soporte', label:'Soporte', color:'#84cc16' },
+    { key:'actualizacion', label:'Actualización PDD', color:'#06b6d4' },
+    { key:'actividades', label:'Actividades adicionales', color:'#f97316' }
+  ];
+  otherBlocks.forEach(b => {
+    html += '<div class="reporte-block"><h3>'+b.label+'</h3>';
+    if (b.key === 'soporte') {
+      const tot = filter !== 'all' ? (STATIC_MONTHLY.soporte[filter] || 0) : Object.values(STATIC_MONTHLY.soporte).reduce((s,v)=>s+v,0);
+      const barW = Math.min(100, Math.round((tot / Math.max(maxHrs,1)) * 100));
+      html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+b.color+'"></span><span class="reporte-name" style="color:#64748b">Soporte</span><span class="reporte-total">'+(Math.round(tot*10)/10)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+b.color+'"></div></div><div class="reporte-stats"><span>✅ '+(Math.round(tot*10)/10)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
+    } else {
+      html += '<p class="reporte-empty" style="font-size:12px;color:#94a3b8;margin:0">0h registradas</p>';
+    }
+    html += '</div>';
   });
   html += '</div>';
   el.innerHTML = html;
