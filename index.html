@@ -1455,7 +1455,6 @@ function renderReporte() {
   if (!el) return;
   const filter = getReporteMonthFilter();
   const botKeys = ['nova','feli','robotina'];
-  const colors = { nova:'#0033a0', feli:'#6366f1', robotina:'#0891b2' };
   const months = getMonthOptions();
   const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   let html = '<h2 style="font-size:18px;color:#1e3a5f;margin:0 0 16px;font-weight:700">Reporte de Horas de Desarrollo</h2>';
@@ -1468,6 +1467,19 @@ function renderReporte() {
   html += '</select></div>';
   html += '<div class="reporte-grid">';
   html += '<div class="reporte-block"><h3>Desarrollo</h3>';
+  const staticFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
+  const maxHrs = [...botKeys, ...staticFin.map(p=>p.key)].reduce((mx, k) => {
+    if (k==='nova'||k==='feli'||k==='robotina') {
+      const rows = getBotRows(k);
+      if (!rows) return mx;
+      const hrs = calcBotHoursMonth(rows, filter);
+      let cur = hrs.inProgress;
+      if (k==='nova') cur -= 1;
+      return Math.max(mx, hrs.completed + cur);
+    }
+    const p = PROYECTOS.find(x => x.key === k);
+    return Math.max(mx, p && p.staticData ? p.staticData.hours : 0);
+  }, 1);
   botKeys.forEach(k => {
     const p = PROYECTOS.find(x => x.key === k);
     const rows = getBotRows(k);
@@ -1476,8 +1488,14 @@ function renderReporte() {
     let cur = hrs.inProgress;
     if (k === 'nova') cur -= 1;
     const tot = hrs.completed + cur;
-    const barW = Math.min(100, Math.round((tot / 600) * 100));
-    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+colors[k]+'"></span><span class="reporte-name">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+colors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+hrs.completed+'h ejecutadas</span><span>🔄 '+cur+'h en curso</span></div></div>';
+    const barW = Math.min(100, Math.round((tot / maxHrs) * 100));
+    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+hrs.completed+'h ejecutadas</span><span>🔄 '+cur+'h en curso</span></div></div>';
+  });
+  staticFin.forEach(p => {
+    if (!p.staticData || !p.staticData.hours) return;
+    const tot = p.staticData.hours;
+    const barW = Math.min(100, Math.round((tot / maxHrs) * 100));
+    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name" style="color:#64748b">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+tot+'h ejecutadas</span><span style="color:#94a3b8">—</span></div></div>';
   });
   html += '</div>';
   ['Soporte','Actualización PDD','Actividades adicionales'].forEach(t => {
