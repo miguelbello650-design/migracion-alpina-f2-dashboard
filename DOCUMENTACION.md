@@ -3,7 +3,7 @@
 ## Descripción
 Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, ROBOTINA) y proyectos históricos/completados:
 - **PROYECTOS ALPINA** — Vista general con proyectos agrupados por estado (Finalizados / En Proceso / Próximos), incluye proyectos activos (con Gantt), estáticos (históricos) y gráfico de dona con horas totales
-- **REPORTE DE HORAS ALPINA** — 4 bloques: Desarrollo (NOVA, FELI, ROBOTINA con horas ejecutadas/en curso/totales y barra de progreso), Soporte, Actualización PDD y Actividades adicionales
+- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes: Desarrollo (6 proyectos: NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (pendiente de carga) y Actividades adicionales
 - **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
 - **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
 
@@ -237,8 +237,12 @@ renderRobotinaCard()      // Renderiza tarjeta ROBOTINA
 renderProyectos()         // Renderiza pestaña PROYECTOS ALPINA (tarjetas + gráfico de dona)
 renderProyectoCard(p, key, gridStyle?)  // Renderiza una tarjeta de proyecto (staticData o Gantt), acepta estilo grid opcional
 renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyecto
-renderReporte()           // Renderiza tabla detallada de horas en pestaña REPORTE DE HORAS ALPINA
+renderReporte()           // Renderiza 4 bloques con filtro por mes en REPORTE DE HORAS ALPINA
 calcBotHours(rows)        // Calcula horas completadas y en curso para un array de tareas
+calcBotHoursMonth(rows, filter) // Calcula horas en un mes específico (prorrateo por días hábiles)
+getMonthOptions()         // Retorna meses disponibles desde Nov 2025
+getReporteMonthFilter()   // Retorna filtro activo ('all' o 'YYYY-M') desde localStorage
+STATIC_MONTHLY            // Objeto con horas fijas por mes para proyectos finalizados y soporte
 openTab(id)               // Cambia a una pestaña por ID (activa botón + contenido)
 openGantt(id)             // Cambia a un Gantt por ID (sin botón visible, solo contenido)
 cellClass(d, isToday, grayDays)  // CSS class para celda
@@ -372,6 +376,30 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 - Milestone: Salida a Producción 🚩 (índice 82 = 10-Jun-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71
 - **En Curso**: Pruebas unitarias (56h), Elaboración documentación SDD (18h) → 74h total
+
+## Reporte de Horas — Datos por Mes
+
+### Desarrollo — Activos
+Los 3 bots activos (NOVA, FELI, ROBOTINA) calculan horas dinámicamente según `calcBotHoursMonth()`, prorrateando por días hábiles en el mes seleccionado.
+
+### Desarrollo — Finalizados
+Horas fijas por mes definidas en `STATIC_MONTHLY`:
+| Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 |
+|---|---|---|---|---|
+| OPTIMUS | 57.5 | 182.5 | 46 | — |
+| LA MONITA | 44.5 | 189.5 | 139 | — |
+| HORAS EXTRA | 0 | 130 | 131 | 43 |
+
+### Soporte
+| Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
+|---|---|---|---|---|---|---|
+| 0 | 49 | 29.5 | 42 | 39 | 90 | 0 |
+
+### Actualización PDD
+Pendiente de carga (FELI, ROBOTINA, OPTIMUS, LA MONITA, HORAS EXTRA).
+
+### Actividades adicionales
+Sin datos registrados (0h).
 
 ## Convenciones de Código
 - Sin comentarios en JS
