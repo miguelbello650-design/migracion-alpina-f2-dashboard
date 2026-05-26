@@ -3,7 +3,7 @@
 ## Descripción
 Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, ROBOTINA) y proyectos históricos/completados:
 - **PROYECTOS ALPINA** — Vista general con proyectos agrupados por estado (Finalizados / En Proceso / Próximos), incluye proyectos activos (con Gantt), estáticos (históricos) y gráfico de dona con horas totales
-- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes: Desarrollo (6 proyectos: NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (pendiente de carga) y Actividades adicionales
+- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes: Desarrollo (NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (5 proyectos con horas mensuales) y Actividades adicionales (5 actividades con horas mensuales)
 - **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
 - **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
 
@@ -245,7 +245,9 @@ calcBotHours(rows)        // Calcula horas completadas y en curso para un array 
 calcBotHoursMonth(rows, filter) // Calcula horas en un mes específico (prorrateo por días hábiles)
 getMonthOptions()         // Retorna meses disponibles desde Nov 2025
 getReporteMonthFilter()   // Retorna filtro activo ('all' o 'YYYY-M') desde localStorage
-STATIC_MONTHLY            // Objeto con horas fijas por mes para proyectos finalizados y soporte
+STATIC_MONTHLY            // Objeto con horas fijas por mes (finalizados, soporte, actualización PDD, actividades)
+actualizKeys              // Keys de proyectos en Actualización PDD
+actividadKeys             // Keys de actividades adicionales
 openTab(id)               // Cambia a una pestaña por ID (activa botón + contenido)
 openGantt(id)             // Cambia a un Gantt por ID (sin botón visible, solo contenido)
 cellClass(d, isToday, grayDays)  // CSS class para celda
