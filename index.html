@@ -1496,7 +1496,7 @@ function renderReporte() {
     if (!p || !rows) return;
     const hrs = calcBotHoursMonth(rows, filter);
     let cur = hrs.inProgress;
-    if (k === 'nova') cur -= 1;
+    if (k === 'nova') cur = Math.max(0, cur - 1);
     const tot = hrs.completed + cur;
     const barW = Math.min(100, Math.round((tot / maxHrs) * 100));
     html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+hrs.completed+'h ejecutadas</span><span>🔄 '+cur+'h en curso</span></div></div>';
