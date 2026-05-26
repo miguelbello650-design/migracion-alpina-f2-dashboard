@@ -1612,29 +1612,16 @@ function renderReporte() {
   html += '</div>';
 
   // Bar chart per month
-  html += '<div style="flex:1;min-width:300px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);padding:16px"><h3 style="font-size:14px;font-weight:700;color:#1e3a5f;margin:0 0 12px">'+(filter==='all'?'Horas por Mes':'Horas — '+monthNames[parseInt(filter.split('-')[1])-1]+' '+filter.split('-')[0])+'</h3>';
-  const barMonths = filter === 'all' ? allMonths : [filter];
+  html += '<div style="flex:1;min-width:300px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);padding:16px"><h3 style="font-size:14px;font-weight:700;color:#1e3a5f;margin:0 0 12px">Horas por Mes</h3>';
+  const barMonths = allMonths;
   if (barMonths.length) {
-    const barH = 160, barW = filter === 'all' ? Math.min(40, Math.floor(280 / barMonths.length)) : 50;
+    const barH = 160, barW = Math.min(40, Math.floor(280 / barMonths.length));
     const maxVal = Math.max(...barMonths.map(m => blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0)), 1);
-    html += '<div style="display:flex;align-items:flex-end;gap:'+(filter==='all'?'4':'8')+'px;height:'+barH+'px;padding:0 8px;border-bottom:1px solid #e2e8f0;position:relative">';
+    html += '<div style="display:flex;align-items:flex-end;gap:4px;height:'+barH+'px;padding:0 8px;border-bottom:1px solid #e2e8f0">';
     barMonths.forEach(m => {
-      if (filter === 'all') {
-        const tot = blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0);
-        const h = (tot/maxVal)*(barH-20);
-        html += '<div style="display:flex;flex-direction:column;align-items:center;flex:1"><div style="width:'+barW+'px;height:'+Math.max(2,h)+'px;background:#1e3a5f;border-radius:4px 4px 0 0;transition:height .3s" title="'+tot.toFixed(1)+'h"></div><span style="font-size:9px;color:#64748b;margin-top:4px;white-space:nowrap">'+monthNames[parseInt(m.split('-')[1])-1].slice(0,3)+'</span></div>';
-      } else {
-        const monthTotal = blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0);
-        let yOff = barH - 20;
-        blockDefs.forEach(b => {
-          const val = blockTotal(b.key, m);
-          const h = (val/maxVal)*(barH-20);
-          if (h > 0) {
-            yOff -= h;
-            html += '<div style="width:'+barW+'px;height:'+Math.max(2,h)+'px;background:'+b.color+';border-radius:2px;position:absolute;bottom:'+yOff+'px;left:'+(barMonths.indexOf(m)*(barW+8)+8)+'px;transition:height .3s" title="'+b.label+': '+val.toFixed(1)+'h ('+Math.round((val/monthTotal)*100)+'%)"></div>';
-          }
-        });
-      }
+      const tot = blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0);
+      const h = (tot/maxVal)*(barH-20);
+      html += '<div style="display:flex;flex-direction:column;align-items:center;flex:1"><div style="width:'+barW+'px;height:'+Math.max(2,h)+'px;background:#1e3a5f;border-radius:4px 4px 0 0" title="'+tot.toFixed(1)+'h"></div><span style="font-size:9px;color:#64748b;margin-top:4px;white-space:nowrap">'+monthNames[parseInt(m.split('-')[1])-1].slice(0,3)+'</span></div>';
     });
     html += '</div>';
   } else { html += '<p style="text-align:center;color:#94a3b8;padding:30px 0;font-size:13px">Sin datos</p>'; }
