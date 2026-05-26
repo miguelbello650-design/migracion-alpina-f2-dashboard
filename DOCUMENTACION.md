@@ -375,7 +375,7 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (7 tareas)
 - Milestone: Salida a Producción 🚩 (índice 82 = 10-Jun-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71
-- **En Curso**: Pruebas unitarias (56h), Elaboración documentación SDD (18h) → 74h total
+- **En Curso**: Pruebas UAT (4h), Elaboración documentación SDD (18h) → 22h total
 
 ## Reporte de Horas — Datos por Mes
 
