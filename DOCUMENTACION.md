@@ -444,6 +444,10 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - Template literals para HTML strings
 - Funciones flecha para callbacks
 - Variables globales para datos compartidos (GANTT_DATES, etc.)
+- La restauración de pestaña activa (`openTab`) se ejecuta al final del script, después de definir todos los datos (GANTT_DATES, etc.) para evitar ReferenceError por TDZ
+
+## Bugfixes
+- **Tab restoration TDZ**: La restauración de pestaña `tab-reporte` llamaba `renderReporte()` antes de que `GANTT_DATES` estuviera definido, causando un ReferenceError que detenía todo el script. Se movió al final del script, tras todas las declaraciones de datos/funciones.
 
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard

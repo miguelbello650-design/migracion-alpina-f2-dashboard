@@ -506,21 +506,6 @@ document.querySelectorAll('.tab').forEach(t => {
   });
 });
 
-// Restore last active tab
-const savedTab = localStorage.getItem('activeTab');
-if (savedTab && document.getElementById(savedTab)) {
-  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
-  const tab = document.querySelector(`.tab[data-tab="${savedTab}"]`);
-  if (tab) tab.classList.add('active');
-  else {
-    const firstTab = document.querySelector('.tab');
-    if (firstTab) firstTab.classList.add('active');
-  }
-  document.getElementById(savedTab).classList.add('active');
-  if (savedTab === 'tab-reporte') renderReporte();
-}
-
 // Avance dashboard
 document.getElementById('fecha-label').textContent=new Date().toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
 
@@ -1767,6 +1752,9 @@ function execAdminCmd(cmd) {
     default: addMsg('error','Comando no reconocido. Escribe /ayuda');
   }
 }
+// Restore last active tab
+const savedTab = localStorage.getItem('activeTab');
+if (savedTab && document.getElementById(savedTab)) { openTab(savedTab); } else { const ft = document.querySelector('.tab'); if (ft) openTab(ft.dataset.tab); }
 // Load saved state on startup
 if (IS_SERVER) {
   const btn = document.createElement('span');
