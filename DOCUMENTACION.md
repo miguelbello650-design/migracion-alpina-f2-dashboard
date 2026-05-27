@@ -17,15 +17,15 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 ```
 C:\Users\2NV\Desktop\Prueba de IPM\
 ├── index.html              # Dashboard completo (único archivo)
-├── server.js               # Servidor local Node.js (persistencia bidireccional)
+├── server.js               # Servidor local Node.js (API REST con SQLite)
+├── db.js                   # Capa de base de datos SQLite (better-sqlite3)
+├── database.db             # Base de datos SQLite (se genera automáticamente, ignorada por git)
 ├── start.ps1               # Atajo para iniciar el servidor
-├── state.json              # Estado persistente (se genera automáticamente)
-├── .gitignore              # Ignora state.json
+├── .gitignore              # Ignora state.json y database.db
 ├── GANTT NOVA.csv          # Datos fuente NOVA (not usado directamente)
 ├── GANTT FELI.csv          # Datos fuente FELI (notas extraídas manualmente)
 ├── GANTT ROBOTINA.csv      # Datos fuente ROBOTINA (notas extraídas manualmente)
 ├── % De Avance.csv         # Porcentajes de avance (referencia)
-├── proyectos.json          # Datos auxiliares
 ├── sync-github.ps1         # Script de sincronización automática
 ├── sync-log.txt            # Log de sincronización
 └── DOCUMENTACION.md        # Este archivo
@@ -323,31 +323,45 @@ C:\nodejs\node-v22.9.0-win-x64\node.exe server.js
 ```
 Luego abrir: `http://localhost:3000`
 
-### Qué hace
-- Sirve `index.html` con el estado más reciente
-- `GET /api/state` → devuelve las tareas actuales
-- `POST /api/sync` → recibe cambios, escribe `index.html` y `state.json`, hace `git push`
-- Cuando se abre `localhost:3000`, `IS_SERVER=true` activa:
-  - `loadServerState()`: carga desde el servidor al iniciar (sin usar localStorage)
-  - `saveState()`: además de localStorage, hace POST a `/api/sync`
+### Base de Datos (SQLite)
+El servidor ahora usa SQLite (`better-sqlite3`) como backend de datos:
+- **`db.js`**: capa de base de datos con esquema para `gantt_rows`, `static_monthly`, `proyectos`, `gantt_notes`, `config`
+- **`database.db`**: archivo SQLite (se genera automáticamente en el primer inicio)
+- Al iniciar, si la base está vacía, se siembra automáticamente desde los datos de `index.html`
+- Las modificaciones se guardan en SQLite (no más `state.json`)
+
+### API Endpoints
+| Ruta | Método | Descripción |
+|------|--------|-------------|
+| `/api/data` | GET | Devuelve todos los datos (ganttRows, staticMonthly, proyectos, ganttNotes) |
+| `/api/data/gantt/:bot` | GET | Devuelve las tareas de un bot específico (nova/feli/robotina) |
+| `/api/sync` | POST | Guarda cambios (ganttRows + staticMonthly) en la base de datos |
+| `/api/sync/gantt` | POST | Guarda solo cambios de tareas Gantt |
+| `/api/sync/static` | POST | Guarda solo datos mensuales estáticos |
+| `/api/state` | GET | Legacy, equivalente a `/api/data` |
+
+Cuando se abre `localhost:3000`, `IS_SERVER=true` activa:
+  - `loadServerState()`: carga todos los datos desde `/api/data` al iniciar
+  - `saveState()`: además de localStorage, hace POST a `/api/sync` con todos los datos
 
 ### Flujo de trabajo
 1. Abrir `http://localhost:3000`
 2. Usar admin chat (⚙) para modificar fechas/estados
-3. Los cambios se guardan **automáticamente** en disco + GitHub (no necesita `/save` manual)
+3. Los cambios se guardan **automáticamente** en SQLite + GitHub (no necesita `/save` manual)
 4. Recargar la página → los cambios persisten
 5. La versión pública en GitHub Pages se actualiza con cada push automático
 
-> **Nota**: `state.json` se genera automáticamente y está en `.gitignore` para no subirse a GitHub.  
-> Si existe un `state.json` corrupto o con datos viejos, simplemente borrarlo y reiniciar el servidor.
+> **Nota**: `database.db` se genera automáticamente y está en `.gitignore`.  
+> Si se corrompe, simplemente borrarlo y reiniciar el servidor para que se regenere desde `index.html`.
 
 ### Archivos
 | Archivo | Descripción |
 |---------|-------------|
-| `server.js` | Servidor Node.js (puerto 3000) |
-| `state.json` | Estado persistente (se crea automáticamente, ignorado por git) |
+| `server.js` | Servidor Node.js (puerto 3000), maneja rutas API |
+| `db.js` | Capa de base de datos SQLite (CRUD + seed automático) |
+| `database.db` | Base de datos SQLite (se crea automáticamente, ignorada por git) |
 | `start.ps1` | Atajo para iniciar el servidor |
-| `.gitignore` | Ignora `state.json` para no contaminar el repo |
+| `.gitignore` | Ignora `database.db` y `state.json` |
 
 ## Sincronización Automática
 

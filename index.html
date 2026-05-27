@@ -1183,7 +1183,10 @@ function saveState() {
     fetch('/api/sync', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({nova:clean(GANTT_ROWS), feli:clean(GANTT_ROWS_FELI), robotina:clean(GANTT_ROWS_ROBOTINA)})
+      body:JSON.stringify({
+        ganttRows:{nova:clean(GANTT_ROWS), feli:clean(GANTT_ROWS_FELI), robotina:clean(GANTT_ROWS_ROBOTINA)},
+        staticMonthly: STATIC_MONTHLY
+      })
     }).then(r=>r.json()).then(d=>{ if(d.ok) addMsg('success','✓ Sincronizado con servidor + GitHub'); }).catch(()=>addMsg('error','Error al sincronizar con el servidor'));
   } else {
     addMsg('success', 'Estado guardado en el navegador (abre con servidor local para persistir en disco)');
@@ -1209,12 +1212,16 @@ function loadState() {
 async function loadServerState() {
   if (!IS_SERVER) return;
   try {
-    const r = await fetch('/api/state');
+    const r = await fetch('/api/data');
     const data = await r.json();
-    if (data.nova) { GANTT_ROWS.length = 0; data.nova.forEach(t => GANTT_ROWS.push(t)); }
-    if (data.feli) { GANTT_ROWS_FELI.length = 0; data.feli.forEach(t => GANTT_ROWS_FELI.push(t)); }
-    if (data.robotina) { GANTT_ROWS_ROBOTINA.length = 0; data.robotina.forEach(t => GANTT_ROWS_ROBOTINA.push(t)); }
-  } catch(e) {}
+    if (data.ganttRows) {
+      if (data.ganttRows.nova) { GANTT_ROWS.length = 0; data.ganttRows.nova.forEach(t => GANTT_ROWS.push(t)); }
+      if (data.ganttRows.feli) { GANTT_ROWS_FELI.length = 0; data.ganttRows.feli.forEach(t => GANTT_ROWS_FELI.push(t)); }
+      if (data.ganttRows.robotina) { GANTT_ROWS_ROBOTINA.length = 0; data.ganttRows.robotina.forEach(t => GANTT_ROWS_ROBOTINA.push(t)); }
+    }
+    if (data.staticMonthly) STATIC_MONTHLY = data.staticMonthly;
+    if (data.proyectos) PROYECTOS = data.proyectos;
+  } catch(e) { console.error('loadServerState error', e); }
 }
 function renderAll() {
   renderNovaCard(); renderFeliCard(); renderRobotinaCard();
@@ -1223,7 +1230,7 @@ function renderAll() {
 }
 
 // ── PROYECTOS ALPINA tab ──
-const PROYECTOS = [
+let PROYECTOS = [
   { key:'nova', name:'NOVA', icon:'N', responsable:'Johan Sabino', color:'#0033a0', rows: null },
   { key:'feli', name:'FELI', icon:'F', responsable:'Cristian Bonilla', color:'#6366f1', rows: null },
   { key:'robotina', name:'ROBOTINA', icon:'R', responsable:'Javier Gonzalez', color:'#0891b2', rows: null },
@@ -1400,7 +1407,7 @@ function renderProyectosChart() {
   el.innerHTML = `<h3>Horas de Desarrollo por Proyecto</h3><div class="chart-donut-wrap"><svg viewBox="0 0 200 200">${paths}</svg><div class="chart-donut-total">${totalHours}<small>horas totales</small></div></div><div class="chart-legend">${legendHtml}</div>`;
 }
 const REPORTE_MONTH_KEY = 'reporteMonthFilter';
-const STATIC_MONTHLY = {
+let STATIC_MONTHLY = {
   optimus: { '2025-11':57.5, '2025-12':182.5, '2026-1':46 },
   lamonita: { '2025-11':44.5, '2025-12':189.5, '2026-1':139 },
   horasextra: { '2025-11':0, '2025-12':130, '2026-1':131, '2026-2':43 },
