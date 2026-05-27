@@ -9,6 +9,8 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 
 ## Stack
 - **Lenguaje**: HTML + CSS + JavaScript (vanilla, un solo archivo `index.html`)
+- **Backend**: Node.js con `better-sqlite3` (solo en servidor local `localhost:3000`)
+- **Base de datos**: SQLite (`database.db`) con schema en `db.js`
 - **Hosting**: GitHub Pages (`https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard`)
 - **Sincronización**: Windows Task Scheduler (script `sync-github.ps1`, diario 8:00 AM)
 
@@ -20,8 +22,10 @@ C:\Users\2NV\Desktop\Prueba de IPM\
 ├── server.js               # Servidor local Node.js (API REST con SQLite)
 ├── db.js                   # Capa de base de datos SQLite (better-sqlite3)
 ├── database.db             # Base de datos SQLite (se genera automáticamente, ignorada por git)
+├── package.json            # Dependencias Node.js (better-sqlite3)
+├── package-lock.json       # Lockfile de npm
 ├── start.ps1               # Atajo para iniciar el servidor
-├── .gitignore              # Ignora state.json y database.db
+├── .gitignore              # Ignora state.json, database.db y node_modules/
 ├── GANTT NOVA.csv          # Datos fuente NOVA (not usado directamente)
 ├── GANTT FELI.csv          # Datos fuente FELI (notas extraídas manualmente)
 ├── GANTT ROBOTINA.csv      # Datos fuente ROBOTINA (notas extraídas manualmente)
@@ -311,6 +315,29 @@ Panel protegido con contraseña para modificar tareas desde el navegador.
 ### Persistencia
 - **Sin servidor** (file://): cambios en `localStorage` con `/save` y `/load`
 - **Con servidor** (localhost:3000): cambios se guardan **automáticamente** al ejecutar cualquier comando (`/estado`, `/extender`, `/mover`, `/agregar`). No necesita `/save` manual.
+
+## Base de Datos (SQLite)
+
+### Schema (`db.js`)
+
+| Tabla | Columnas | Propósito |
+|-------|----------|-----------|
+| `gantt_rows` | `id, bot, sort_idx, phase, task, resp, hours, days, fixedIdx, fixedEndIdx, skipIndices, notesIdx, milestone, inProgress` | Tareas de los 3 Gantts (NOVA, FELI, ROBOTINA) |
+| `static_monthly` | `id, skey, month, hours` | Horas fijas mensuales (finalizados, soporte, actualización, actividades, locked_*) |
+| `proyectos` | `pkey, name, icon, responsable, color, status, progress, hours, descr` | Proyectos estáticos (sin Gantt) |
+| `gantt_notes` | `nidx, ntext` | Notas asociadas a días específicos del Gantt |
+| `config` | `ckey, cvalue` | Configuración general (seed flag, etc.) |
+
+### Seed Automático
+
+En el primer inicio, `db.seedFromHtml()` extrae los datos de `index.html`:
+1. Lee el contenido del `<script>` del HTML
+2. Localiza las variables `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`, `STATIC_MONTHLY`, `PROYECTOS`, `GANTT_NOTES`
+3. Convierte la notación JS a JSON (maneja quotes simples, keys sin comillas, `new Date()`, trailing commas)
+4. Inserta todos los registros en SQLite
+5. Marca `config.seeded = '1'` para no repetir el seed en reinicios
+
+Si se borra `database.db`, al reiniciar el servidor se regenera automáticamente desde `index.html`.
 
 ## Servidor Local (Node.js)
 
