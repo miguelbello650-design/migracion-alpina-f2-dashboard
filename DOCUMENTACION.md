@@ -60,16 +60,16 @@ Proyectos que no tienen datos en Gantt. Se definen con `staticData` en el array 
 | HORAS EXTRA | Javier Gonzalez | 9-Dic-2025 | 20-Feb-2026 | 304h |
 
 **Próximos:**
-| Proyecto | Responsable | Color |
-|----------|-------------|-------|
-| Migración Google - BOT NOVA | Johan Sabino | `#4285F4` |
-| BOT FELI - FASE 2 | Cristian Bonilla | `#6366f1` |
-| Migración Google - BOT FELI | Cristian Bonilla | `#4285F4` |
-| BOT ROBOTINA - FASE 2 | Javier Gonzalez | `#0891b2` |
-| Migración Google - BOT ROBOTINA | Javier Gonzalez | `#4285F4` |
+| Proyecto | Responsable | Color | Alcance |
+|----------|-------------|-------|---------|
+| Migración Google - BOT NOVA | Johan Sabino | `#4285F4` | — |
+| BOT FELI - FASE 2 | Cristian Bonilla | `#6366f1` | Inclusión del flujo para crear materiales HALL · Incluir la creación de materiales para Ecuador/otros países (Configuración variable) · Reemplazo de MDG / Data Hub |
+| Migración Google - BOT FELI | Cristian Bonilla | `#4285F4` | — |
+| BOT ROBOTINA - FASE 2 | Javier Gonzalez | `#0891b2` | Generar el "Excel para el Robot" (paso 29 del PDD) · Adjuntar archivo en el cierre del ticket (paso 30.3 del PDD) |
+| Migración Google - BOT ROBOTINA | Javier Gonzalez | `#4285F4` | — |
 
 Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc }`. 
-- Si `progress` es `undefined`, se muestra "Ver más detalle →" en lugar de barra de progreso.
+- Si `progress` es `undefined`, se muestra "Ver más detalle →" que abre un modal con el contenido de `desc` (soporta `<br>` para múltiples líneas).
 - Si `hours`, `startDate` o `endDate` son `undefined`, se omiten esas filas.
 - La barra de progreso usa clase `completed` (verde `#10b981`) cuando `status === 'finalizado'`.
 
@@ -244,6 +244,7 @@ renderRobotinaCard()      // Renderiza tarjeta ROBOTINA
 renderProyectos()         // Renderiza pestaña PROYECTOS ALPINA (tarjetas + gráfico de dona)
 renderProyectoCard(p, key, gridStyle?)  // Renderiza una tarjeta de proyecto (staticData o Gantt), acepta estilo grid opcional
 renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyecto
+showProyectoDetalle(key)  // Abre modal con el alcance del proyecto (staticData.desc con <br>)
 renderReporte()           // Renderiza 4 bloques + gráficos (dona y barras) con filtro por mes en REPORTE DE HORAS ALPINA
 calcBotHours(rows)        // Calcula horas completadas y en curso para un array de tareas
 calcBotHoursMonth(rows, filter) // Calcula horas en un mes específico (prorrateo por días hábiles)
