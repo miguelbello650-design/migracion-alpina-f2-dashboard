@@ -494,9 +494,23 @@
 </div>
 
 <script>
+const REPORTE_PWD = 'reporte2025';
+function checkReporteAuth() {
+  if (sessionStorage.getItem('reporteAuth') === 'true') return true;
+  const pwd = prompt('Ingrese contraseña para acceder al Reporte de Horas:');
+  if (pwd === REPORTE_PWD) { sessionStorage.setItem('reporteAuth', 'true'); return true; }
+  return false;
+}
 // Tabs
 document.querySelectorAll('.tab').forEach(t => {
   t.addEventListener('click', () => {
+    if (t.dataset.tab === 'tab-reporte' && !checkReporteAuth()) {
+      const prev = localStorage.getItem('activeTab');
+      if (prev && document.getElementById(prev)) { openTab(prev); return; }
+      const ft = document.querySelector('.tab:not([data-tab="tab-reporte"])');
+      if (ft) openTab(ft.dataset.tab);
+      return;
+    }
     document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
     t.classList.add('active');
@@ -1503,7 +1517,7 @@ function renderReporte() {
   const botKeys = ['nova','feli','robotina'];
   const months = getMonthOptions();
   const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  let html = '<h2 style="font-size:18px;color:#1e3a5f;margin:0 0 16px;font-weight:700">Reporte de Horas de Desarrollo</h2>';
+  let html = '<div style="display:flex;align-items:center;justify-content:space-between;margin:0 0 16px"><h2 style="font-size:18px;color:#1e3a5f;font-weight:700;margin:0">Reporte de Horas de Desarrollo</h2><button onclick="exportReporte()" style="padding:6px 14px;border:1px solid #1e3a5f;border-radius:6px;background:#fff;color:#1e3a5f;font-size:12px;font-weight:600;cursor:pointer">Export Excel</button></div>';
   html += '<div style="margin-bottom:16px"><select id="reporte-month-select" style="padding:6px 12px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;background:#fff;color:#1e293b;cursor:pointer">';
   html += '<option value="all"'+(filter==='all'?' selected':'')+'>Todos los meses</option>';
   months.forEach(m => {
@@ -1668,6 +1682,47 @@ function renderReporte() {
     renderReporte();
   });
 }
+function exportReporte() {
+  const filter = getReporteMonthFilter();
+  const botK = ['nova','feli','robotina'];
+  const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const stFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
+  const actK = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
+  const actvK = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_estimacion','actividad_infra','actividad_correos_feli'];
+  const actualizLabels = { actualizacion_feli:'FELI', actualizacion_robotina:'ROBOTINA', actualizacion_optimus:'OPTIMUS', actualizacion_lamonita:'LA MONITA', actualizacion_horasextra:'HORAS EXTRA' };
+  const actividadLabels = { actividad_dudas_feli:'Sesión Dudas Feli', actividad_dudas_nova:'Sesión Dudas Nova', actividad_api_robotina:'Sesión API Robotina', actividad_estimacion:'Estimación Nova y Feli', actividad_infra:'Sesión con Infra. Alpina', actividad_correos_feli:'Solución correos Feli' };
+  const filterLabel = filter === 'all' ? 'Todos los meses' : monthNames[parseInt(filter.split('-')[1])-1]+' '+filter.split('-')[0];
+  const months = getMonthOptions();
+  function cell(v) { return '<td style="padding:4px 8px;border:1px solid #ccc;font-size:11px">'+(v??'')+'</td>'; }
+  function hcell(v) { return '<td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700;background:#1e3a5f;color:#fff">'+(v??'')+'</td>'; }
+  function val(k, m) { const locked = lockedBotHours(k, m); if (locked) return locked.completed; const r = getBotRows(k); return r ? calcBotHoursMonth(r, m).completed + calcBotHoursMonth(r, m).inProgress : 0; }
+  let tbl = '<table><tr>'+hcell('Reporte de Horas de Desarrollo - '+filterLabel)+'</tr></table><br>';
+  tbl += '<table><tr>'+hcell('Bloque')+hcell('Proyecto/Actividad')+hcell('Horas')+'</tr>';
+  let gTotal = 0;
+  // Desarrollo
+  botK.forEach(k => { const h = botHours(k, filter); let cur = h.inProgress; if (k==='nova') cur = Math.max(0, cur-1); const t = h.completed+cur; if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell({nova:'NOVA',feli:'FELI',robotina:'ROBOTINA'}[k])+cell(t)+'</tr>'; gTotal += t; }});
+  stFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (!d) return; const t = filter !== 'all' ? (d[filter]||0) : months.reduce((s,m)=>s+(d[m]||0),0); if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell(p.name)+cell(t)+'</tr>'; gTotal += t; }});
+  const sopT = filter !== 'all' ? (STATIC_MONTHLY.soporte[filter]||0) : months.reduce((s,m)=>s+(STATIC_MONTHLY.soporte[m]||0),0);
+  if (sopT>0) { tbl += '<tr>'+cell('Soporte')+cell('Soporte')+cell(sopT)+'</tr>'; gTotal += sopT; }
+  actK.forEach(k => { const t = filter !== 'all' ? (STATIC_MONTHLY[k][filter]||0) : months.reduce((s,m)=>s+(STATIC_MONTHLY[k][m]||0),0); if (t>0) { tbl += '<tr>'+cell('Actualización PDD')+cell(actualizLabels[k])+cell(t)+'</tr>'; gTotal += t; }});
+  actvK.forEach(k => { const t = filter !== 'all' ? (STATIC_MONTHLY[k][filter]||0) : months.reduce((s,m)=>s+(STATIC_MONTHLY[k][m]||0),0); if (t>0) { tbl += '<tr>'+cell('Actividades adicionales')+cell(actividadLabels[k])+cell(t)+'</tr>'; gTotal += t; }});
+  tbl += '<tr><td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700"></td><td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700">TOTAL</td><td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700">'+gTotal+'</td></tr></table>';
+  if (filter === 'all') {
+    tbl += '<br><table><tr>'+hcell('Mes')+hcell('Desarrollo')+hcell('Soporte')+hcell('Actualización PDD')+hcell('Actividades adicionales')+hcell('Total')+'</tr>';
+    months.forEach(m => {
+      const des = botK.reduce((s,k)=>{const h=botHours(k,m);let c=h.inProgress;if(k==='nova')c=Math.max(0,c-1);return s+h.completed+c;},0) + stFin.reduce((s,p)=>{const d=STATIC_MONTHLY[p.key];return s+(d?d[m]||0:0);},0);
+      const sop = STATIC_MONTHLY.soporte[m]||0;
+      const act = actK.reduce((s,k)=>s+(STATIC_MONTHLY[k][m]||0),0);
+      const av = actvK.reduce((s,k)=>s+(STATIC_MONTHLY[k][m]||0),0);
+      const tot = des+sop+act+av;
+      tbl += '<tr>'+cell(monthNames[parseInt(m.split('-')[1])-1]+' '+m.split('-')[0])+cell(des)+cell(sop)+cell(act)+cell(av)+cell(tot)+'</tr>';
+    });
+    tbl += '</table>';
+  }
+  const style = '<style>td{font-family:Arial,sans-serif}br{font-family:Arial,sans-serif}</style>';
+  const blob = new Blob([style+tbl], { type: 'application/vnd.ms-excel' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'Reporte_Horas_Desarrollo_'+(filter==='all'?'Todos_los_meses':filter)+'.xls'; a.click(); URL.revokeObjectURL(a.href);
+}
 function execAdminCmd(cmd) {
   const parts = cmd.split(/\s+/);
   const cmdName = parts[0].toLowerCase();
@@ -1754,7 +1809,10 @@ function execAdminCmd(cmd) {
 }
 // Restore last active tab
 const savedTab = localStorage.getItem('activeTab');
-if (savedTab && document.getElementById(savedTab)) { openTab(savedTab); } else { const ft = document.querySelector('.tab'); if (ft) openTab(ft.dataset.tab); }
+if (savedTab === 'tab-reporte' && !sessionStorage.getItem('reporteAuth')) {
+  const ft = document.querySelector('.tab:not([data-tab="tab-reporte"])');
+  if (ft) openTab(ft.dataset.tab);
+} else if (savedTab && document.getElementById(savedTab)) { openTab(savedTab); } else { const ft = document.querySelector('.tab'); if (ft) openTab(ft.dataset.tab); }
 // Load saved state on startup
 if (IS_SERVER) {
   const btn = document.createElement('span');
@@ -1770,6 +1828,7 @@ if (IS_SERVER) {
   renderAll();
 }
 function openTab(id) {
+  if (id === 'tab-reporte' && !checkReporteAuth()) return;
   document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
   const btn = document.querySelector(`.tab[data-tab="${id}"]`);
