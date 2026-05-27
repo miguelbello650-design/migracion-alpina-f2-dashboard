@@ -192,7 +192,7 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
   - A diferencia del progreso de fase, NO descuenta el día cuando `todayIdx === endIdx`
   - Una tarea que inicia hoy cuenta sus horas completas como "En Curso"
 - **Total**: suma de Ejecutadas + En Curso
-- **NOVA**: se resta 1h al subtotal "En Curso" como ajuste manual para que coincida con el cierre esperado del cliente (482h en vez de 483h)
+- **NOVA**: se resta 1h al subtotal "En Curso" como ajuste manual para que coincida con el cierre esperado del cliente (482h en vez de 483h); en `blockTotal` del reporte se aplica igual solo a `inProgress`, no al total
 
 ### Tareas en Curso (debajo de cada tarjeta)
 - Cada tarjeta muestra una sección `🔄 En Curso` con el nombre de las tareas actualmente en progreso (filtro: `start <= today <= end` o `inProgress:true`)
@@ -243,9 +243,11 @@ renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyect
 renderReporte()           // Renderiza 4 bloques + gráficos (dona y barras) con filtro por mes en REPORTE DE HORAS ALPINA
 calcBotHours(rows)        // Calcula horas completadas y en curso para un array de tareas
 calcBotHoursMonth(rows, filter) // Calcula horas en un mes específico (prorrateo por días hábiles)
+lockedBotHours(key, filter) // Retorna horas fijas de un bot si existen para el filtro (mes ≤ May 2026 o 'all')
+botHours(key, filter)     // Wrapper: usa lockedBotHours si existe, sino calcBotHoursMonth
 getMonthOptions()         // Retorna meses disponibles desde Nov 2025
 getReporteMonthFilter()   // Retorna filtro activo ('all' o 'YYYY-M') desde localStorage
-STATIC_MONTHLY            // Objeto con horas fijas por mes (finalizados, soporte, actualización PDD, actividades)
+STATIC_MONTHLY            // Objeto con horas fijas por mes (finalizados, soporte, actualización PDD, actividades + locked_*)
 actualizKeys              // Keys de proyectos en Actualización PDD
 actividadKeys             // Keys de actividades adicionales
 openTab(id)               // Cambia a una pestaña por ID (activa botón + contenido)
@@ -390,7 +392,14 @@ Los datos alimentan dos gráficos al final del Reporte:
 - **Barras**: total de horas por mes (estático, siempre muestra todos los meses sin importar el filtro)
 
 ### Desarrollo — Activos
-Los 3 bots activos (NOVA, FELI, ROBOTINA) calculan horas dinámicamente según `calcBotHoursMonth()`, prorrateando por días hábiles en el mes seleccionado.
+Los 3 bots activos calculan horas:
+- **NOVA** y **ROBOTINA**: dinámicamente según `calcBotHoursMonth()`, prorrateando por días hábiles en el mes seleccionado
+- **FELI**: usa `locked_feli` en `STATIC_MONTHLY` para meses ≤ May 2026 (valores fijos); desde Jun 2026 usa cálculo dinámico
+
+Horas fijas de FELI por mes:
+| Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
+|---|---|---|---|---|---|---|
+| 0 | 0 | 0 | 99 | 137 | 128 | 128 |
 
 ### Desarrollo — Finalizados
 Horas fijas por mes definidas en `STATIC_MONTHLY`:

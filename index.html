@@ -1415,7 +1415,9 @@ const STATIC_MONTHLY = {
   actividad_dudas_nova: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':3, '2026-3':2, '2026-4':1, '2026-5':0, '2026-6':0 },
   actividad_api_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':1.5, '2026-4':2.8, '2026-5':0, '2026-6':0 },
   actividad_estimacion: { '2025-11':0, '2025-12':0, '2026-1':2, '2026-2':12, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
-  actividad_infra: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1.5, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 }
+  actividad_infra: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1.5, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
+  locked_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':99, '2026-3':137, '2026-4':128, '2026-5':128 },
+  locked_robotina: { '2026-3':130 }
 };
 function getReporteMonthFilter() { return localStorage.getItem(REPORTE_MONTH_KEY) || 'all'; }
 function getMonthOptions() {
@@ -1423,6 +1425,25 @@ function getMonthOptions() {
   GANTT_DATES.forEach(d => months.add(d.getFullYear()+'-'+(d.getMonth()+1)));
   months.add('2025-11'); months.add('2025-12'); months.add('2026-1');
   return Array.from(months).sort();
+}
+function lockedBotHours(key, filter) {
+  const lk = 'locked_'+key;
+  if (!STATIC_MONTHLY[lk]) return null;
+  if (filter === 'all') {
+    const lockedSum = Object.entries(STATIC_MONTHLY[lk]).filter(([m])=>m<='2026-5').reduce((s,[,v])=>s+v,0);
+    const dyn = calcBotHoursMonth(getBotRows(key), '2026-6');
+    return { completed: lockedSum + dyn.completed, inProgress: dyn.inProgress };
+  }
+  if (filter <= '2026-5') {
+    const val = STATIC_MONTHLY[lk][filter] || 0;
+    return { completed: val, inProgress: 0 };
+  }
+  return null;
+}
+function botHours(key, filter) {
+  const locked = lockedBotHours(key, filter);
+  if (locked) return locked;
+  return calcBotHoursMonth(getBotRows(key), filter);
 }
 function calcBotHoursMonth(rows, filter) {
   if (filter === 'all') return calcBotHours(rows);
@@ -1486,7 +1507,7 @@ function renderReporte() {
     if (k==='nova'||k==='feli'||k==='robotina') {
       const rows = getBotRows(k);
       if (!rows) return mx;
-      const hrs = calcBotHoursMonth(rows, filter);
+      const hrs = botHours(k, filter);
       let cur = hrs.inProgress;
       if (k==='nova') cur = Math.max(0, cur - 1);
       return Math.max(mx, hrs.completed + cur);
@@ -1506,7 +1527,7 @@ function renderReporte() {
     const p = PROYECTOS.find(x => x.key === k);
     const rows = getBotRows(k);
     if (!p || !rows) return;
-    const hrs = calcBotHoursMonth(rows, filter);
+    const hrs = botHours(k, filter);
     let cur = hrs.inProgress;
     if (k === 'nova') cur = Math.max(0, cur - 1);
     const tot = hrs.completed + cur;
@@ -1576,7 +1597,7 @@ function renderReporte() {
   function blockTotal(key, m) {
     if (key === 'Desarrollo') {
       let t = 0;
-      botKeys.forEach(k => { const r = getBotRows(k); if (r) { const h = calcBotHoursMonth(r, m); t += h.completed + h.inProgress; if (k==='nova') t = Math.max(0, t-1); } });
+      botKeys.forEach(k => { const h = botHours(k, m); let cur = h.inProgress; if (k==='nova') cur = Math.max(0, cur-1); t += h.completed + cur; });
       staticFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (d) t += m !== 'all' ? (d[m]||0) : Object.values(d).reduce((s,v)=>s+v,0); });
       return t;
     }
