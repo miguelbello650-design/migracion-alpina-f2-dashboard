@@ -72,7 +72,7 @@ Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc
 ## Datos Compartidos
 
 ### GANTT_DATES
-Array de fechas (índice 0-87, 88 fechas total) compartido por los 3 Gantts:
+Array de fechas (índice 0-88, 89 fechas total) compartido por los 3 Gantts:
 
 | Índice | Fecha | Índice | Fecha | Índice | Fecha |
 |--------|-------|--------|-------|--------|-------|
@@ -378,10 +378,10 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 38 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (7 tareas)
-- Milestone: Salida a Producción 🚩 (índice 82 = 10-Jun-26)
+- Milestone: Salida a Producción 🚩 (índice 83 = 11-Jun-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71
-- **En Curso**: Pruebas UAT (4h, inicia 26-May → 99%), Elaboración documentación SDD (18h) → 22h total
-- **Cierre fase**: 7 tareas, UAT iniciada hoy (26-May) → ~14% de fase
+- **En Curso**: Pruebas UAT (16h, 26-27 may), Elaboración documentación SDD (18h) → 34h total
+- **Cierre fase**: 7 tareas, UAT iniciada (26-27 may) → ~14% de fase
 
 ## Reporte de Horas — Datos por Mes
 
