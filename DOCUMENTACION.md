@@ -62,11 +62,11 @@ Proyectos que no tienen datos en Gantt. Se definen con `staticData` en el array 
 **Próximos:**
 | Proyecto | Responsable | Color | Alcance |
 |----------|-------------|-------|---------|
-| Migración Google - BOT NOVA | Johan Sabino | `#4285F4` | — |
+| Migración Google - BOT NOVA | Johan Sabino | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
 | BOT FELI - FASE 2 | Cristian Bonilla | `#6366f1` | Inclusión del flujo para crear materiales HALL · Incluir la creación de materiales para Ecuador/otros países (Configuración variable) · Reemplazo de MDG / Data Hub |
-| Migración Google - BOT FELI | Cristian Bonilla | `#4285F4` | — |
+| Migración Google - BOT FELI | Cristian Bonilla | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
 | BOT ROBOTINA - FASE 2 | Javier Gonzalez | `#0891b2` | Generar el "Excel para el Robot" (paso 29 del PDD) · Adjuntar archivo en el cierre del ticket (paso 30.3 del PDD) |
-| Migración Google - BOT ROBOTINA | Javier Gonzalez | `#4285F4` | — |
+| Migración Google - BOT ROBOTINA | Javier Gonzalez | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
 
 Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc }`. 
 - Si `progress` es `undefined`, se muestra "Ver más detalle →" que abre un modal con el contenido de `desc` (soporta `<br>` para múltiples líneas).
