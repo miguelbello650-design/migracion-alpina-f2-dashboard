@@ -243,9 +243,9 @@ renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyect
 renderReporte()           // Renderiza 4 bloques + gráficos (dona y barras) con filtro por mes en REPORTE DE HORAS ALPINA
 calcBotHours(rows)        // Calcula horas completadas y en curso para un array de tareas
 calcBotHoursMonth(rows, filter) // Calcula horas en un mes específico (prorrateo por días hábiles)
-lockedBotHours(key, filter) // Retorna horas fijas de un bot si existen para el filtro (mes ≤ May 2026 o 'all')
-botHours(key, filter)     // Wrapper: usa lockedBotHours si existe, sino calcBotHoursMonth
-getMonthOptions()         // Retorna meses disponibles desde Nov 2025
+lockedBotHours(key, filter) // Retorna horas fijas de un bot si existen; soporta `_total` para el acumulado 'all'
+botHours(key, filter)     // Wrapper: usa lockedBotHours si existe, sino calcBotHoursMonth; para 'all' suma mes a mes
+getMonthOptions()         // Retorna meses desde Nov 2025 hasta el mes actual (excluye meses futuros)
 getReporteMonthFilter()   // Retorna filtro activo ('all' o 'YYYY-M') desde localStorage
 STATIC_MONTHLY            // Objeto con horas fijas por mes (finalizados, soporte, actualización PDD, actividades + locked_*)
 actualizKeys              // Keys de proyectos en Actualización PDD
@@ -393,13 +393,18 @@ Los datos alimentan dos gráficos al final del Reporte:
 
 ### Desarrollo — Activos
 Los 3 bots activos calculan horas:
-- **NOVA** y **ROBOTINA**: dinámicamente según `calcBotHoursMonth()`, prorrateando por días hábiles en el mes seleccionado
-- **FELI**: usa `locked_feli` en `STATIC_MONTHLY` para meses ≤ May 2026 (valores fijos); desde Jun 2026 usa cálculo dinámico
+- **NOVA** y **ROBOTINA**: dinámicamente según `calcBotHoursMonth()` para meses sin bloqueo; pueden tener `locked_nova`/`locked_robotina` en `STATIC_MONTHLY` con valores fijos por mes y `_total` para el total acumulado
+- **FELI**: usa `locked_feli` en `STATIC_MONTHLY` para todos los meses ≤ May 2026 (valores fijos)
 
-Horas fijas de FELI por mes:
-| Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
-|---|---|---|---|---|---|---|
-| 0 | 0 | 0 | 99 | 137 | 128 | 128 |
+Horas fijas de bots por mes:
+| Bot | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Total (Todos) |
+|-----|----------|----------|----------|----------|--------------|
+| FELI | 99 | 137 | 128 | dinámico | dinámico |
+| NOVA | — | — | 126 | dinámico | 398 |
+| ROBOTINA | — | 130 | 134 | dinámico | 300 |
+
+- Mayo usa cálculo dinámico desde Gantt para los 3 bots
+- Los meses futuros se ocultan del filtro hasta que inicien
 
 ### Desarrollo — Finalizados
 Horas fijas por mes definidas en `STATIC_MONTHLY`:
@@ -415,22 +420,23 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 | 0 | 49 | 29.5 | 42 | 39 | 90 | 0 |
 
 ### Actualización PDD
-| Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 |
-|---|---|---|---|---|---|---|
-| FELI | 0 | 0 | 0 | 1 | 0 | 0 |
-| ROBOTINA | 0 | 0 | 0 | 8 | 0 | 1.5 |
-| OPTIMUS | 0 | 3 | 0 | 0 | 0 | 0 |
-| LA MONITA | 2 | 1 | 3 | 0 | 0 | 0 |
-| HORAS EXTRA | 6 | 0 | 8 | 0 | 0 | 0 |
+| Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
+|---|---|---|---|---|---|---|---|
+| FELI | 0 | 0 | 0 | 1 | 0 | 0 | 1 |
+| ROBOTINA | 0 | 0 | 0 | 8 | 0 | 1.5 | 0 |
+| OPTIMUS | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
+| LA MONITA | 2 | 1 | 3 | 0 | 0 | 0 | 0 |
+| HORAS EXTRA | 6 | 0 | 8 | 0 | 0 | 0 | 0 |
 
 ### Actividades adicionales
-| Actividad | Nov | Dic | Ene | Feb | Mar | Abr |
-|---|---|---|---|---|---|---|
-| Sesión Dudas Feli | 0 | 0 | 1 | 6 | 1 | 2 |
-| Sesión Dudas Nova | 0 | 0 | 0 | 3 | 2 | 1 |
-| Sesión API Robotina | 0 | 0 | 0 | 0 | 1.5 | 2.8 |
-| Estimación Nova y Feli | 0 | 0 | 2 | 12 | 0 | 0 |
-| Sesión con Infra. Alpina | 0 | 0 | 0 | 1.5 | 0 | 0 |
+| Actividad | Nov | Dic | Ene | Feb | Mar | Abr | May |
+|---|---|---|---|---|---|---|---|
+| Sesión Dudas Feli | 0 | 0 | 1 | 6 | 1 | 2 | 0 |
+| Sesión Dudas Nova | 0 | 0 | 0 | 3 | 2 | 1 | 0 |
+| Sesión API Robotina | 0 | 0 | 0 | 0 | 1.5 | 2.8 | 5.3 |
+| Estimación Nova y Feli | 0 | 0 | 2 | 12 | 0 | 0 | 0 |
+| Sesión con Infra. Alpina | 0 | 0 | 0 | 1.5 | 0 | 0 | 0 |
+| Solución correos Feli | 0 | 0 | 0 | 0 | 0 | 0 | 4.5 |
 
 ## Convenciones de Código
 - Sin comentarios en JS

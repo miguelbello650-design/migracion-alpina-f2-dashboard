@@ -1406,47 +1406,75 @@ const STATIC_MONTHLY = {
   lamonita: { '2025-11':44.5, '2025-12':189.5, '2026-1':139 },
   horasextra: { '2025-11':0, '2025-12':130, '2026-1':131, '2026-2':43 },
   soporte: { '2025-11':0, '2025-12':49, '2026-1':29.5, '2026-2':42, '2026-3':39, '2026-4':90, '2026-5':0 },
-  actualizacion_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
+  actualizacion_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1, '2026-3':0, '2026-4':0, '2026-5':1, '2026-6':0 },
   actualizacion_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':8, '2026-3':0, '2026-4':1.5, '2026-5':0, '2026-6':0 },
   actualizacion_optimus: { '2025-11':0, '2025-12':3, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actualizacion_lamonita: { '2025-11':2, '2025-12':1, '2026-1':3, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actualizacion_horasextra: { '2025-11':6, '2025-12':0, '2026-1':8, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actividad_dudas_feli: { '2025-11':0, '2025-12':0, '2026-1':1, '2026-2':6, '2026-3':1, '2026-4':2, '2026-5':0, '2026-6':0 },
   actividad_dudas_nova: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':3, '2026-3':2, '2026-4':1, '2026-5':0, '2026-6':0 },
-  actividad_api_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':1.5, '2026-4':2.8, '2026-5':0, '2026-6':0 },
+  actividad_api_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':1.5, '2026-4':2.8, '2026-5':5.3, '2026-6':0 },
   actividad_estimacion: { '2025-11':0, '2025-12':0, '2026-1':2, '2026-2':12, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actividad_infra: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1.5, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
-  locked_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':99, '2026-3':137, '2026-4':128, '2026-5':128 },
-  locked_robotina: { '2026-3':130 }
+  actividad_correos_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':4.5, '2026-6':0 },
+  locked_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':99, '2026-3':137, '2026-4':128 },
+  locked_nova: { '2026-4':126, _total:398 },
+  locked_robotina: { '2026-3':130, '2026-4':134, _total:300 }
 };
 function getReporteMonthFilter() { return localStorage.getItem(REPORTE_MONTH_KEY) || 'all'; }
 function getMonthOptions() {
   const months = new Set();
   GANTT_DATES.forEach(d => months.add(d.getFullYear()+'-'+(d.getMonth()+1)));
   months.add('2025-11'); months.add('2025-12'); months.add('2026-1');
-  return Array.from(months).sort();
+  const now = new Date(); now.setHours(0,0,0,0);
+  const curKey = now.getFullYear()+'-'+(now.getMonth()+1);
+  return Array.from(months).filter(m => m <= curKey).sort();
 }
 function lockedBotHours(key, filter) {
   const lk = 'locked_'+key;
   if (!STATIC_MONTHLY[lk]) return null;
   if (filter === 'all') {
-    const lockedSum = Object.entries(STATIC_MONTHLY[lk]).filter(([m])=>m<='2026-5').reduce((s,[,v])=>s+v,0);
-    const dyn = calcBotHoursMonth(getBotRows(key), '2026-6');
-    return { completed: lockedSum + dyn.completed, inProgress: dyn.inProgress };
+    if (STATIC_MONTHLY[lk]._total !== undefined) {
+      return { completed: STATIC_MONTHLY[lk]._total, inProgress: 0 };
+    }
+    const avail = getMonthOptions();
+    const allCovered = avail.every(m => STATIC_MONTHLY[lk][m] !== undefined);
+    if (allCovered) {
+      const s = avail.reduce((sum, m) => sum + (STATIC_MONTHLY[lk][m] || 0), 0);
+      return { completed: s, inProgress: 0 };
+    }
+    return null;
   }
-  if (filter <= '2026-5') {
-    const val = STATIC_MONTHLY[lk][filter] || 0;
-    return { completed: val, inProgress: 0 };
+  if (STATIC_MONTHLY[lk][filter] !== undefined) {
+    return { completed: STATIC_MONTHLY[lk][filter], inProgress: 0 };
   }
   return null;
 }
 function botHours(key, filter) {
+  if (filter === 'all') {
+    const months = getMonthOptions();
+    let c = 0, p = 0;
+    months.forEach(m => {
+      const locked = lockedBotHours(key, m);
+      if (locked) { c += locked.completed; return; }
+      const rows = getBotRows(key);
+      if (!rows) return;
+      const h = calcBotHoursMonth(rows, m);
+      c += h.completed; p += h.inProgress;
+    });
+    return { completed: c, inProgress: p };
+  }
   const locked = lockedBotHours(key, filter);
   if (locked) return locked;
   return calcBotHoursMonth(getBotRows(key), filter);
 }
 function calcBotHoursMonth(rows, filter) {
-  if (filter === 'all') return calcBotHours(rows);
+  if (filter === 'all') {
+    const months = getMonthOptions();
+    let c = 0, p = 0;
+    months.forEach(m => { const h = calcBotHoursMonth(rows, m); c += h.completed; p += h.inProgress; });
+    return { completed: c, inProgress: p };
+  }
   const [year, month] = filter.split('-').map(Number);
   let firstIdx = -1, lastIdx = -1;
   GANTT_DATES.forEach((d, i) => {
@@ -1502,7 +1530,7 @@ function renderReporte() {
   html += '<div class="reporte-block"><h3>Desarrollo</h3>';
   const staticFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
   const actualizKeys = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
-  const actividadKeys = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_estimacion','actividad_infra'];
+  const actividadKeys = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_estimacion','actividad_infra','actividad_correos_feli'];
   const maxHrs = [...botKeys, ...staticFin.map(p=>p.key), 'soporte', ...actualizKeys, ...actividadKeys].reduce((mx, k) => {
     if (k==='nova'||k==='feli'||k==='robotina') {
       const rows = getBotRows(k);
@@ -1558,8 +1586,8 @@ function renderReporte() {
   ];
   const actualizColors = { actualizacion_feli:'#6366f1', actualizacion_robotina:'#0891b2', actualizacion_optimus:'#7c3aed', actualizacion_lamonita:'#dc2626', actualizacion_horasextra:'#b45309' };
   const actualizLabels = { actualizacion_feli:'FELI', actualizacion_robotina:'ROBOTINA', actualizacion_optimus:'OPTIMUS', actualizacion_lamonita:'LA MONITA', actualizacion_horasextra:'HORAS EXTRA' };
-  const actividadColors = { actividad_dudas_feli:'#a855f7', actividad_dudas_nova:'#3b82f6', actividad_api_robotina:'#14b8a6', actividad_estimacion:'#f59e0b', actividad_infra:'#ef4444' };
-  const actividadLabels = { actividad_dudas_feli:'Sesión Dudas Feli', actividad_dudas_nova:'Sesión Dudas Nova', actividad_api_robotina:'Sesión API Robotina', actividad_estimacion:'Estimación Nova y Feli', actividad_infra:'Sesión con Infra. Alpina' };
+  const actividadColors = { actividad_dudas_feli:'#a855f7', actividad_dudas_nova:'#3b82f6', actividad_api_robotina:'#14b8a6', actividad_estimacion:'#f59e0b', actividad_infra:'#ef4444', actividad_correos_feli:'#ec4899' };
+  const actividadLabels = { actividad_dudas_feli:'Sesión Dudas Feli', actividad_dudas_nova:'Sesión Dudas Nova', actividad_api_robotina:'Sesión API Robotina', actividad_estimacion:'Estimación Nova y Feli', actividad_infra:'Sesión con Infra. Alpina', actividad_correos_feli:'Solución correos Feli' };
   otherBlocks.forEach(b => {
     html += '<div class="reporte-block"><h3>'+b.label+'</h3>';
     if (b.key === 'soporte') {
@@ -1598,12 +1626,12 @@ function renderReporte() {
     if (key === 'Desarrollo') {
       let t = 0;
       botKeys.forEach(k => { const h = botHours(k, m); let cur = h.inProgress; if (k==='nova') cur = Math.max(0, cur-1); t += h.completed + cur; });
-      staticFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (d) t += m !== 'all' ? (d[m]||0) : Object.values(d).reduce((s,v)=>s+v,0); });
+      staticFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (d) t += m !== 'all' ? (d[m]||0) : getMonthOptions().reduce((s,mo)=>s+(d[mo]||0),0); });
       return t;
     }
-    if (key === 'Soporte') { const d = STATIC_MONTHLY.soporte; return m !== 'all' ? (d[m]||0) : Object.values(d).reduce((s,v)=>s+v,0); }
-    if (key === 'Actualización PDD') { let t = 0; actualizKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += m !== 'all' ? (d[m]||0) : Object.values(d).reduce((s,v)=>s+v,0); }); return t; }
-    if (key === 'Actividades adicionales') { let t = 0; actividadKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += m !== 'all' ? (d[m]||0) : Object.values(d).reduce((s,v)=>s+v,0); }); return t; }
+    if (key === 'Soporte') { const d = STATIC_MONTHLY.soporte; return m !== 'all' ? (d[m]||0) : getMonthOptions().reduce((s,mo)=>s+(d[mo]||0),0); }
+    if (key === 'Actualización PDD') { let t = 0; actualizKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += m !== 'all' ? (d[m]||0) : getMonthOptions().reduce((s,mo)=>s+(d[mo]||0),0); }); return t; }
+    if (key === 'Actividades adicionales') { let t = 0; actividadKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += m !== 'all' ? (d[m]||0) : getMonthOptions().reduce((s,mo)=>s+(d[mo]||0),0); }); return t; }
     return 0;
   }
   const donutTotals = blockDefs.map(b => ({ label: b.key, value: blockTotal(b.key, filter), color: b.color })).filter(d => d.value > 0);
