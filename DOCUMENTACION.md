@@ -422,10 +422,10 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 38 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (7 tareas)
-- Milestone: Salida a Producción 🚩 (índice 83 = 11-Jun-26)
+- Milestone: Salida a Producción 🚩 (índice 84 = 12-Jun-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71
-- **En Curso**: Pruebas UAT (16h, 26-27 may), Elaboración documentación SDD (18h) → 34h total
-- **Cierre fase**: 7 tareas, UAT iniciada (26-27 may) → ~14% de fase
+- **En Curso**: Pruebas UAT (24h, 3d: 26-28 may), Elaboración documentación SDD (18h) → 42h total
+- **Cierre fase**: 7 tareas, UAT iniciada (26-28 may) → ~14% de fase
 
 ## Reporte de Horas — Datos por Mes
 
