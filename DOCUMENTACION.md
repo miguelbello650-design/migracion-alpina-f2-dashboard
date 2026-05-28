@@ -76,7 +76,7 @@ Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc
 ## Datos Compartidos
 
 ### GANTT_DATES
-Array de fechas (índice 0-88, 89 fechas total) compartido por los 3 Gantts:
+Array de fechas (índice 0-89, 90 fechas total) compartido por los 3 Gantts:
 
 | Índice | Fecha | Índice | Fecha | Índice | Fecha |
 |--------|-------|--------|-------|--------|-------|
@@ -90,7 +90,7 @@ Array de fechas (índice 0-88, 89 fechas total) compartido por los 3 Gantts:
 | 9 | 19-Feb-26 | 18 | 4-Mar-26 | 30 | 20-Mar-26 |
 | 10 | 20-Feb-26 | 19 | 5-Mar-26 | 31 | 24-Mar-26 |
 
-**Rango completo**: 6-Feb-26 a 18-Jun-26  
+**Rango completo**: 6-Feb-26 a 22-Jun-26  
 **Findes de semana**: Excluidos del array (solo días laborables)
 
 ### GANTT_NOTES
@@ -195,8 +195,8 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 - **En Curso**: horas prorrateadas de tareas en progreso (`hours * (completed / effectiveDays)` redondeado con `Math.round`)
   - A diferencia del progreso de fase, NO descuenta el día cuando `todayIdx === endIdx`
   - Una tarea que inicia hoy cuenta sus horas completas como "En Curso"
+  - Si la tarea tiene `inProgress:true`, siempre va a "En curso" aunque `donePct === 1` (no se marca como completada hasta que se quite la bandera)
 - **Total**: suma de Ejecutadas + En Curso
-- **NOVA**: se resta 1h al subtotal "En Curso" como ajuste manual para que coincida con el cierre esperado del cliente (482h en vez de 483h); en `blockTotal` del reporte se aplica igual solo a `inProgress`, no al total
 
 ### Tareas en Curso (debajo de cada tarjeta)
 - Cada tarjeta muestra una sección `🔄 En Curso` con el nombre de las tareas actualmente en progreso (filtro: `start <= today <= end` o `inProgress:true`)
@@ -411,8 +411,9 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ### NOVA (GANTT_ROWS) — Responsable: Johan Sabino
 - 39 tareas en 12 fases
 - Fases: Levantamiento, Estructura Base, Gestión Outlook, Gestión documental, SAP VA01, SAP ZSD, SAP VA02, SAP VF01, Grabación+Consolidado, Reporte ejecución, Cierre
-- **En Curso**: Estabilización (40h), Aprobación documentación (2h) → 18h total (ajuste -1h)
-- **Total ejecutadas + en curso**: 482h
+- **En Curso**: Estabilización (56h, 7d, 5 completados → 40h efectivas mayo), Aprobación documentación (2h) → 42h en curso
+- **Mayo (dinámico)**: 94h ejecutadas + 50h en curso = 144h
+- Doc. técnica movida de abril a mayo (índices 45-46 → 57-58)
 
 ### FELI (GANTT_ROWS_FELI) — Responsable: Cristian Bonilla
 - 29 tareas en 5 fases
@@ -445,7 +446,7 @@ Horas fijas de bots por mes:
 | NOVA | — | — | 126 | dinámico | 398 |
 | ROBOTINA | — | 130 | 134 | dinámico | 300 |
 
-- Mayo usa cálculo dinámico desde Gantt para los 3 bots
+- Mayo usa cálculo dinámico desde Gantt para los 3 bots. NOVA en mayo: 144h (94 ejecutadas + 50 en curso)
 - Los meses futuros se ocultan del filtro hasta que inicien
 
 ### Desarrollo — Finalizados
@@ -490,6 +491,10 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 
 ## Bugfixes
 - **Tab restoration TDZ**: La restauración de pestaña `tab-reporte` llamaba `renderReporte()` antes de que `GANTT_DATES` estuviera definido, causando un ReferenceError que detenía todo el script. Se movió al final del script, tras todas las declaraciones de datos/funciones.
+- **calcBotHoursMonth inProgress**: Tareas con `inProgress:true` y fecha pasada se marcaban como completadas porque `donePct === 1`. Se corrigió cambiando `donePct === 1` por `donePct === 1 && !r.inProgress`.
+- **-1 adjustment eliminado**: Se removieron los `hours.inProgress -= 1` en `renderNovaCard` (línea 771) y `if (k === 'nova') cur = Math.max(0, cur - 1)` en `renderReporte` (línea 1585) que restaban 1h fantasmas a NOVA.
+- **Doc. técnica movida a mayo**: Tarea "Documentación técnica (SDD)" de NOVA pasó de índices 45-46 (abril) a 57-58 (mayo) para que su cálculo dinámico (12h) se asigne a mayo.
+- **NOVA Estabilización 56h**: Cambió de 40h a 56h (7 días).
 
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
