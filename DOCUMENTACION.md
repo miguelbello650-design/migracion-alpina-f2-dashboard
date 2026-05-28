@@ -417,7 +417,7 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ### FELI (GANTT_ROWS_FELI) — Responsable: Cristian Bonilla
 - 29 tareas en 5 fases
 - Fases: Estructura Base, FELI, Pruebas, Documentación, Producción
-- **En Curso**: UAT usuario funcional (48h, 6d: 11-13 may + 25-27 may), Documentación técnica (14h), Documentación funcional (20h) → 82h total
+- **En Curso**: UAT usuario funcional (56h, 7d: 8-13 may + 25-28 may), Documentación técnica (14h), Documentación funcional (20h) → 90h total
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 38 tareas en 3 fases
