@@ -1325,7 +1325,7 @@ function renderProyectoCard(p, key, gridStyle) {
     } else {
       h += `<div class="p-detail-link" onclick="showProyectoDetalle('${p.key}')">Ver más detalle →</div>`;
     }
-    if (sd.hours !== undefined) h += `<div class="p-stat"><span class="p-label">Horas</span><span class="p-value">${sd.hours}h totales</span></div>`;
+    if (sd.hours !== undefined) h += `<div class="p-stat"><span class="p-label">Horas</span><span class="p-value">${sd.hours.toFixed(1)}h totales</span></div>`;
     if (sd.startDate) h += `<div class="p-stat"><span class="p-label">Inicio</span><span class="p-value">${sd.startDate.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
     if (sd.endDate) h += `<div class="p-stat"><span class="p-label">Fin</span><span class="p-value">${sd.endDate.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
     h += `</div></div>`;
@@ -1383,7 +1383,7 @@ function calcBotHours(rows) {
       if (!skipSet.has(i)) completed++;
     }
     const pct = Math.min(1, completed / effectiveDays);
-    a.inProgress += Math.round((r.hours || 0) * pct);
+    a.inProgress += (r.hours || 0) * pct;
     return a;
   }, { completed: 0, inProgress: 0 });
 }
@@ -1398,7 +1398,6 @@ function renderProyectosChart() {
     else if (p.rows) {
       const hrs = calcBotHours(p.rows);
       h = hrs.completed + hrs.inProgress;
-      if (p.key === 'nova') h -= 1;
     }
     if (h > 0) { items.push({ name: p.name, hours: h, key: p.key }); totalHours += h; }
   });
@@ -1415,14 +1414,14 @@ function renderProyectosChart() {
     const large = degrees > 180 ? 1 : 0;
     const c = colors[i.key] || '#2563eb';
     paths += `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} A${r} ${r} 0 ${large} 1 ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="${c}" stroke-width="${sw}" stroke-linecap="round"/>`;
-    legendHtml += `<div class="chart-legend-row"><span class="chart-legend-dot" style="background:${c}"></span><span class="chart-legend-name">${i.name}</span><span class="chart-legend-hours">${i.hours}h</span></div>`;
+    legendHtml += `<div class="chart-legend-row"><span class="chart-legend-dot" style="background:${c}"></span><span class="chart-legend-name">${i.name}</span><span class="chart-legend-hours">${i.hours.toFixed(1)}h</span></div>`;
     angle += degrees;
   });
   if (items.length === 0) {
     el.innerHTML = '<h3>Horas de Desarrollo por Proyecto</h3><p style="text-align:center;color:#94a3b8;padding:40px 0">Sin datos</p>';
     return;
   }
-  el.innerHTML = `<h3>Horas de Desarrollo por Proyecto</h3><div class="chart-donut-wrap"><svg viewBox="0 0 200 200">${paths}</svg><div class="chart-donut-total">${totalHours}<small>horas totales</small></div></div><div class="chart-legend">${legendHtml}</div>`;
+  el.innerHTML = `<h3>Horas de Desarrollo por Proyecto</h3><div class="chart-donut-wrap"><svg viewBox="0 0 200 200">${paths}</svg><div class="chart-donut-total">${totalHours.toFixed(1)}<small>horas totales</small></div></div><div class="chart-legend">${legendHtml}</div>`;
 }
 const REPORTE_MONTH_KEY = 'reporteMonthFilter';
 let STATIC_MONTHLY = {
