@@ -1648,7 +1648,7 @@ function renderReporte() {
   function blockTotal(key, m) {
     if (key === 'Desarrollo') {
       let t = 0;
-      botKeys.forEach(k => { const h = botHours(k, m); let cur = h.inProgress; if (k==='nova') cur = Math.max(0, cur-1); t += h.completed + cur; });
+      botKeys.forEach(k => { const h = botHours(k, m); t += h.completed + h.inProgress; });
       staticFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (d) t += m !== 'all' ? (d[m]||0) : getMonthOptions().reduce((s,mo)=>s+(d[mo]||0),0); });
       return t;
     }
@@ -1724,7 +1724,7 @@ function exportReporte() {
   tbl += '<table><tr>'+hcell('Bloque')+hcell('Proyecto/Actividad')+hcell('Horas')+'</tr>';
   let gTotal = 0;
   // Desarrollo
-  botK.forEach(k => { const h = botHours(k, filter); let cur = h.inProgress; if (k==='nova') cur = Math.max(0, cur-1); const t = h.completed+cur; if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell({nova:'NOVA',feli:'FELI',robotina:'ROBOTINA'}[k])+cell(t)+'</tr>'; gTotal += t; }});
+  botK.forEach(k => { const h = botHours(k, filter); const t = h.completed + h.inProgress; if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell({nova:'NOVA',feli:'FELI',robotina:'ROBOTINA'}[k])+cell(t)+'</tr>'; gTotal += t; }});
   stFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (!d) return; const t = filter !== 'all' ? (d[filter]||0) : months.reduce((s,m)=>s+(d[m]||0),0); if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell(p.name)+cell(t)+'</tr>'; gTotal += t; }});
   const sopT = filter !== 'all' ? (STATIC_MONTHLY.soporte[filter]||0) : months.reduce((s,m)=>s+(STATIC_MONTHLY.soporte[m]||0),0);
   if (sopT>0) { tbl += '<tr>'+cell('Soporte')+cell('Soporte')+cell(sopT)+'</tr>'; gTotal += sopT; }
@@ -1734,7 +1734,7 @@ function exportReporte() {
   if (filter === 'all') {
     tbl += '<br><table><tr>'+hcell('Mes')+hcell('Desarrollo')+hcell('Soporte')+hcell('Actualización PDD')+hcell('Actividades adicionales')+hcell('Total')+'</tr>';
     months.forEach(m => {
-      const des = botK.reduce((s,k)=>{const h=botHours(k,m);let c=h.inProgress;if(k==='nova')c=Math.max(0,c-1);return s+h.completed+c;},0) + stFin.reduce((s,p)=>{const d=STATIC_MONTHLY[p.key];return s+(d?d[m]||0:0);},0);
+      const des = botK.reduce((s,k)=>{const h=botHours(k,m);return s+h.completed+h.inProgress;},0) + stFin.reduce((s,p)=>{const d=STATIC_MONTHLY[p.key];return s+(d?d[m]||0:0);},0);
       const sop = STATIC_MONTHLY.soporte[m]||0;
       const act = actK.reduce((s,k)=>s+(STATIC_MONTHLY[k][m]||0),0);
       const av = actvK.reduce((s,k)=>s+(STATIC_MONTHLY[k][m]||0),0);
