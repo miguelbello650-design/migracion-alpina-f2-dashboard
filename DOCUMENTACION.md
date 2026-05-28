@@ -71,6 +71,7 @@ Proyectos que no tienen datos en Gantt. Se definen con `staticData` en el array 
 Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc }`. 
 - Si `progress` es `undefined`, se muestra "Ver más detalle →" que abre un modal con el contenido de `desc` (soporta `<br>` para múltiples líneas).
 - Si `hours`, `startDate` o `endDate` son `undefined`, se omiten esas filas.
+- `startDate` y `endDate` se persisten a través del ciclo SQLite (seed → DB → API → cliente) como strings ISO.
 - La barra de progreso usa clase `completed` (verde `#10b981`) cuando `status === 'finalizado'`.
 
 ## Datos Compartidos
@@ -192,7 +193,7 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 
 ### Horas (por Bot, en tarjeta de % Avance)
 - **Ejecutadas**: horas completas de tareas finalizadas (`GANTT_DATES[end] <= today && !inProgress`)
-- **En Curso**: horas prorrateadas de tareas en progreso (`hours * (completed / effectiveDays)` redondeado con `Math.round`)
+- **En Curso**: horas prorrateadas de tareas en progreso (`hours * (completed / effectiveDays)`, redondeado con `Math.round` en tarjetas % Avance; valores exactos en `calcBotHours` y `calcBotHoursMonth` para reporte y chart)
   - A diferencia del progreso de fase, NO descuenta el día cuando `todayIdx === endIdx`
   - Una tarea que inicia hoy cuenta sus horas completas como "En Curso"
   - Si la tarea tiene `inProgress:true`, siempre va a "En curso" aunque `donePct === 1` (no se marca como completada hasta que se quite la bandera)
@@ -492,9 +493,12 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 ## Bugfixes
 - **Tab restoration TDZ**: La restauración de pestaña `tab-reporte` llamaba `renderReporte()` antes de que `GANTT_DATES` estuviera definido, causando un ReferenceError que detenía todo el script. Se movió al final del script, tras todas las declaraciones de datos/funciones.
 - **calcBotHoursMonth inProgress**: Tareas con `inProgress:true` y fecha pasada se marcaban como completadas porque `donePct === 1`. Se corrigió cambiando `donePct === 1` por `donePct === 1 && !r.inProgress`.
-- **-1 adjustment eliminado**: Se removieron los `hours.inProgress -= 1` en `renderNovaCard` (línea 771) y `if (k === 'nova') cur = Math.max(0, cur - 1)` en `renderReporte` (línea 1585) que restaban 1h fantasmas a NOVA.
+- **-1 adjustment eliminado**: Se removieron los `hours.inProgress -= 1` en `renderNovaCard`, `if (k === 'nova') cur = Math.max(0, cur - 1)` en `renderReporte`, y similares en `exportReporte` y `blockTotal` que restaban 1h fantasmas a NOVA.
 - **Doc. técnica movida a mayo**: Tarea "Documentación técnica (SDD)" de NOVA pasó de índices 45-46 (abril) a 57-58 (mayo) para que su cálculo dinámico (12h) se asigne a mayo.
 - **NOVA Estabilización 56h**: Cambió de 40h a 56h (7 días).
+- **calcBotHoursMonth exacto / sin Math.round**: Se eliminó `Math.round` del return en `calcBotHoursMonth`; ahora retorna valores decimales exactos. `renderReporte` muestra con `.toFixed(1)`.
+- **PROYECTOS ALPINA exacto**: `calcBotHours` ya no redondea con `Math.round`. Todas las horas en chart y tarjetas estáticas se muestran con `.toFixed(1)`. Eliminado `h -= 1` para NOVA en el chart.
+- **startDate/endDate persisten en SQLite**: `jsLiteralToJSON` convierte `new Date(y,m,d)` a ISO string en lugar de `null`, el INSERT almacena los valores reales, y `getProyectos()` los retorna al cliente. El render usa `new Date(val + 'T12:00:00')` para soportar tanto strings del servidor como Date objects locales.
 
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
