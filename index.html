@@ -768,7 +768,6 @@ function renderNovaCard() {
     a.inProgress += Math.round((r.hours || 0) * pct);
     return a;
   }, { completed: 0, inProgress: 0 });
-  hours.inProgress -= 1;
   const totalHours = hours.completed + hours.inProgress;
   const c = document.getElementById('nova-body');
   c.innerHTML = '';
@@ -1582,7 +1581,6 @@ function renderReporte() {
     if (!p || !rows) return;
     const hrs = botHours(k, filter);
     let cur = hrs.inProgress;
-    if (k === 'nova') cur = Math.max(0, cur - 1);
     const tot = hrs.completed + cur;
     const barW = Math.min(100, Math.round((tot / maxHrs) * 100));
     html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+hrs.completed+'h ejecutadas</span><span>🔄 '+cur+'h en curso</span></div></div>';
