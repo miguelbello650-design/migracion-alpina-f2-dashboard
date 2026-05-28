@@ -121,8 +121,11 @@ function jsLiteralToJSON(str) {
   }
   // Remove trailing commas
   out = out.replace(/,(\s*[}\]])/g, '$1');
-  // Replace new Date(...) with null
-  out = out.replace(/new Date\([^)]+\)/g, 'null');
+  // Replace new Date(...) with its ISO string representation
+  out = out.replace(/new Date\((\d{4}),(\d{1,2}),(\d{1,2})(?:,\d+,\d+,\d+)?\)/g, (m, y, mo, d) => {
+    const dt = new Date(parseInt(y), parseInt(mo), parseInt(d));
+    return '"' + dt.toISOString().split('T')[0] + '"';
+  });
   return out;
 }
 
@@ -202,7 +205,7 @@ function seedFromHtml() {
     const tx = d.transaction(() => {
       proys.forEach(p => {
         const sd = p.staticData || {};
-        insP.run(p.key, p.name, p.icon, p.responsable, p.color, sd.status||'', sd.progress, null, null, sd.hours, sd.desc||'');
+        insP.run(p.key, p.name, p.icon, p.responsable, p.color, sd.status||'', sd.progress, sd.startDate||null, sd.endDate||null, sd.hours, sd.desc||'');
       });
     });
     tx();
@@ -325,6 +328,8 @@ function getProyectos() {
       if (p.progress !== null && p.progress !== undefined) result.staticData.progress = p.progress;
       if (p.hours !== null && p.hours !== undefined) result.staticData.hours = p.hours;
       if (p.descr) result.staticData.desc = p.descr;
+      if (p.startDate) result.staticData.startDate = p.startDate;
+      if (p.endDate) result.staticData.endDate = p.endDate;
     }
     return result;
   });

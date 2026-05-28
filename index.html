@@ -1326,8 +1326,14 @@ function renderProyectoCard(p, key, gridStyle) {
       h += `<div class="p-detail-link" onclick="showProyectoDetalle('${p.key}')">Ver más detalle →</div>`;
     }
     if (sd.hours !== undefined) h += `<div class="p-stat"><span class="p-label">Horas</span><span class="p-value">${sd.hours.toFixed(1)}h totales</span></div>`;
-    if (sd.startDate) h += `<div class="p-stat"><span class="p-label">Inicio</span><span class="p-value">${sd.startDate.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
-    if (sd.endDate) h += `<div class="p-stat"><span class="p-label">Fin</span><span class="p-value">${sd.endDate.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
+    if (sd.startDate) {
+      const d = typeof sd.startDate === 'string' ? new Date(sd.startDate + 'T12:00:00') : new Date(sd.startDate);
+      h += `<div class="p-stat"><span class="p-label">Inicio</span><span class="p-value">${d.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
+    }
+    if (sd.endDate) {
+      const d = typeof sd.endDate === 'string' ? new Date(sd.endDate + 'T12:00:00') : new Date(sd.endDate);
+      h += `<div class="p-stat"><span class="p-label">Fin</span><span class="p-value">${d.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
+    }
     h += `</div></div>`;
     return h;
   }
