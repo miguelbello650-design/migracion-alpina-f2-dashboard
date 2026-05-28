@@ -1533,7 +1533,7 @@ function calcBotHoursMonth(rows, filter) {
     const donePct = Math.min(1, completedDays / daysIn);
     if (donePct === 1 && !r.inProgress) { completed += taskH; } else { inProgress += taskH * donePct; }
   });
-  return { completed: Math.round(completed), inProgress: Math.round(inProgress) };
+  return { completed, inProgress };
 }
 function renderReporte() {
   const el = document.getElementById('reporte-container');
@@ -1560,9 +1560,7 @@ function renderReporte() {
       const rows = getBotRows(k);
       if (!rows) return mx;
       const hrs = botHours(k, filter);
-      let cur = hrs.inProgress;
-      if (k==='nova') cur = Math.max(0, cur - 1);
-      return Math.max(mx, hrs.completed + cur);
+      return Math.max(mx, hrs.completed + hrs.inProgress);
     }
     if (k === 'soporte') {
       if (filter !== 'all') return Math.max(mx, STATIC_MONTHLY.soporte[filter] || 0);
@@ -1583,7 +1581,7 @@ function renderReporte() {
     let cur = hrs.inProgress;
     const tot = hrs.completed + cur;
     const barW = Math.min(100, Math.round((tot / maxHrs) * 100));
-    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+hrs.completed+'h ejecutadas</span><span>🔄 '+cur+'h en curso</span></div></div>';
+    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name">'+p.name+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+hrs.completed.toFixed(1)+'h ejecutadas</span><span>🔄 '+cur.toFixed(1)+'h en curso</span></div></div>';
   });
   staticFin.forEach(p => {
     if (!p.staticData || !p.staticData.hours) return;
@@ -1599,7 +1597,7 @@ function renderReporte() {
       label = tot+'h ejecutadas';
     }
     const barW = Math.min(100, Math.round((tot / maxHrs) * 100));
-    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name" style="color:#64748b">'+p.name+'</span><span class="reporte-total">'+tot+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+label+'</span><span style="color:#94a3b8">—</span></div></div>';
+    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name" style="color:#64748b">'+p.name+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+label+'</span><span style="color:#94a3b8">—</span></div></div>';
   });
   html += '</div>';
   const otherBlocks = [
@@ -1616,19 +1614,19 @@ function renderReporte() {
     if (b.key === 'soporte') {
       const tot = filter !== 'all' ? (STATIC_MONTHLY.soporte[filter] || 0) : Object.values(STATIC_MONTHLY.soporte).reduce((s,v)=>s+v,0);
       const barW = Math.min(100, Math.round((tot / Math.max(maxHrs,1)) * 100));
-      html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+b.color+'"></span><span class="reporte-name" style="color:#64748b">Soporte</span><span class="reporte-total">'+(Math.round(tot*10)/10)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+b.color+'"></div></div><div class="reporte-stats"><span>✅ '+(Math.round(tot*10)/10)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
+      html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+b.color+'"></span><span class="reporte-name" style="color:#64748b">Soporte</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+b.color+'"></div></div><div class="reporte-stats"><span>✅ '+tot.toFixed(1)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
     } else if (b.key === 'actualizacion') {
       actualizKeys.forEach(k => {
         const tot = filter !== 'all' ? (STATIC_MONTHLY[k][filter] || 0) : Object.values(STATIC_MONTHLY[k]).reduce((s,v)=>s+v,0);
         if (tot === 0 && filter === 'all') return;
         const barW = Math.min(100, Math.round((tot / Math.max(maxHrs,1)) * 100));
-        html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+actualizColors[k]+'"></span><span class="reporte-name" style="color:#64748b">'+actualizLabels[k]+'</span><span class="reporte-total">'+(Math.round(tot*10)/10)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+actualizColors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+(Math.round(tot*10)/10)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
+        html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+actualizColors[k]+'"></span><span class="reporte-name" style="color:#64748b">'+actualizLabels[k]+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+actualizColors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+tot.toFixed(1)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
       });
     } else if (b.key === 'actividades') {
       actividadKeys.forEach(k => {
         const tot = filter !== 'all' ? (STATIC_MONTHLY[k][filter] || 0) : Object.values(STATIC_MONTHLY[k]).reduce((s,v)=>s+v,0);
         const barW = Math.min(100, Math.round((tot / Math.max(maxHrs,1)) * 100));
-        html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+actividadColors[k]+'"></span><span class="reporte-name" style="color:#64748b">'+actividadLabels[k]+'</span><span class="reporte-total">'+(Math.round(tot*10)/10)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+actividadColors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+(Math.round(tot*10)/10)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
+        html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+actividadColors[k]+'"></span><span class="reporte-name" style="color:#64748b">'+actividadLabels[k]+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+actividadColors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+tot.toFixed(1)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
       });
     } else {
       html += '<p class="reporte-empty" style="font-size:12px;color:#94a3b8;margin:0">0h registradas</p>';
@@ -1674,10 +1672,10 @@ function renderReporte() {
       paths += '<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' A'+r+' '+r+' 0 '+large+' 1 '+x2.toFixed(1)+' '+y2.toFixed(1)+'" fill="none" stroke="'+d.color+'" stroke-width="'+sw+'" stroke-linecap="round"/>';
       angle += deg;
     });
-    html += '<div style="display:flex;align-items:center;gap:16px"><div style="position:relative;width:180px;height:180px;flex-shrink:0"><svg viewBox="0 0 180 180" style="width:100%;height:100%">'+paths+'</svg><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:20px;font-weight:700;color:#1e3a5f">'+Math.round(totalAll)+'<small style="display:block;font-size:11px;font-weight:400;color:#64748b">horas totales</small></div></div><div>';
+    html += '<div style="display:flex;align-items:center;gap:16px"><div style="position:relative;width:180px;height:180px;flex-shrink:0"><svg viewBox="0 0 180 180" style="width:100%;height:100%">'+paths+'</svg><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:20px;font-weight:700;color:#1e3a5f">'+totalAll.toFixed(1)+'<small style="display:block;font-size:11px;font-weight:400;color:#64748b">horas totales</small></div></div><div>';
     donutTotals.forEach(d => {
       const pct = Math.round((d.value/totalAll)*100);
-      html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px"><span style="width:10px;height:10px;border-radius:50%;background:'+d.color+';flex-shrink:0"></span><span style="color:#475569;flex:1">'+d.label+'</span><span style="font-weight:600;color:#1e293b">'+Math.round(d.value)+'h</span><span style="color:#94a3b8">('+pct+'%)</span></div>';
+      html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px"><span style="width:10px;height:10px;border-radius:50%;background:'+d.color+';flex-shrink:0"></span><span style="color:#475569;flex:1">'+d.label+'</span><span style="font-weight:600;color:#1e293b">'+d.value.toFixed(1)+'h</span><span style="color:#94a3b8">('+pct+'%)</span></div>';
     });
     html += '</div></div>';
   } else { html += '<p style="text-align:center;color:#94a3b8;padding:30px 0;font-size:13px">Sin datos</p>'; }
@@ -1719,18 +1717,18 @@ function exportReporte() {
   const months = getMonthOptions();
   function cell(v) { return '<td style="padding:4px 8px;border:1px solid #ccc;font-size:11px">'+(v??'')+'</td>'; }
   function hcell(v) { return '<td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700;background:#1e3a5f;color:#fff">'+(v??'')+'</td>'; }
-  function val(k, m) { const locked = lockedBotHours(k, m); if (locked) return locked.completed; const r = getBotRows(k); return r ? calcBotHoursMonth(r, m).completed + calcBotHoursMonth(r, m).inProgress : 0; }
+  function val(k, m) { const locked = lockedBotHours(k, m); if (locked) return locked.completed; const r = getBotRows(k); if (!r) return 0; const h = calcBotHoursMonth(r, m); return h.completed + h.inProgress; }
   let tbl = '<table><tr>'+hcell('Reporte de Horas de Desarrollo - '+filterLabel)+'</tr></table><br>';
   tbl += '<table><tr>'+hcell('Bloque')+hcell('Proyecto/Actividad')+hcell('Horas')+'</tr>';
   let gTotal = 0;
   // Desarrollo
-  botK.forEach(k => { const h = botHours(k, filter); const t = h.completed + h.inProgress; if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell({nova:'NOVA',feli:'FELI',robotina:'ROBOTINA'}[k])+cell(t)+'</tr>'; gTotal += t; }});
-  stFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (!d) return; const t = filter !== 'all' ? (d[filter]||0) : months.reduce((s,m)=>s+(d[m]||0),0); if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell(p.name)+cell(t)+'</tr>'; gTotal += t; }});
+  botK.forEach(k => { const h = botHours(k, filter); const t = h.completed + h.inProgress; if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell({nova:'NOVA',feli:'FELI',robotina:'ROBOTINA'}[k])+cell(t.toFixed(1))+'</tr>'; gTotal += t; }});
+  stFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (!d) return; const t = filter !== 'all' ? (d[filter]||0) : months.reduce((s,m)=>s+(d[m]||0),0); if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell(p.name)+cell(t.toFixed(1))+'</tr>'; gTotal += t; }});
   const sopT = filter !== 'all' ? (STATIC_MONTHLY.soporte[filter]||0) : months.reduce((s,m)=>s+(STATIC_MONTHLY.soporte[m]||0),0);
-  if (sopT>0) { tbl += '<tr>'+cell('Soporte')+cell('Soporte')+cell(sopT)+'</tr>'; gTotal += sopT; }
-  actK.forEach(k => { const t = filter !== 'all' ? (STATIC_MONTHLY[k][filter]||0) : months.reduce((s,m)=>s+(STATIC_MONTHLY[k][m]||0),0); if (t>0) { tbl += '<tr>'+cell('Actualización PDD')+cell(actualizLabels[k])+cell(t)+'</tr>'; gTotal += t; }});
-  actvK.forEach(k => { const t = filter !== 'all' ? (STATIC_MONTHLY[k][filter]||0) : months.reduce((s,m)=>s+(STATIC_MONTHLY[k][m]||0),0); if (t>0) { tbl += '<tr>'+cell('Actividades adicionales')+cell(actividadLabels[k])+cell(t)+'</tr>'; gTotal += t; }});
-  tbl += '<tr><td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700"></td><td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700">TOTAL</td><td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700">'+gTotal+'</td></tr></table>';
+  if (sopT>0) { tbl += '<tr>'+cell('Soporte')+cell('Soporte')+cell(sopT.toFixed(1))+'</tr>'; gTotal += sopT; }
+  actK.forEach(k => { const t = filter !== 'all' ? (STATIC_MONTHLY[k][filter]||0) : months.reduce((s,m)=>s+(STATIC_MONTHLY[k][m]||0),0); if (t>0) { tbl += '<tr>'+cell('Actualización PDD')+cell(actualizLabels[k])+cell(t.toFixed(1))+'</tr>'; gTotal += t; }});
+  actvK.forEach(k => { const t = filter !== 'all' ? (STATIC_MONTHLY[k][filter]||0) : months.reduce((s,m)=>s+(STATIC_MONTHLY[k][m]||0),0); if (t>0) { tbl += '<tr>'+cell('Actividades adicionales')+cell(actividadLabels[k])+cell(t.toFixed(1))+'</tr>'; gTotal += t; }});
+  tbl += '<tr><td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700"></td><td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700">TOTAL</td><td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;font-weight:700">'+gTotal.toFixed(1)+'</td></tr></table>';
   if (filter === 'all') {
     tbl += '<br><table><tr>'+hcell('Mes')+hcell('Desarrollo')+hcell('Soporte')+hcell('Actualización PDD')+hcell('Actividades adicionales')+hcell('Total')+'</tr>';
     months.forEach(m => {
@@ -1739,7 +1737,7 @@ function exportReporte() {
       const act = actK.reduce((s,k)=>s+(STATIC_MONTHLY[k][m]||0),0);
       const av = actvK.reduce((s,k)=>s+(STATIC_MONTHLY[k][m]||0),0);
       const tot = des+sop+act+av;
-      tbl += '<tr>'+cell(monthNames[parseInt(m.split('-')[1])-1]+' '+m.split('-')[0])+cell(des)+cell(sop)+cell(act)+cell(av)+cell(tot)+'</tr>';
+      tbl += '<tr>'+cell(monthNames[parseInt(m.split('-')[1])-1]+' '+m.split('-')[0])+cell(des.toFixed(1))+cell(sop.toFixed(1))+cell(act.toFixed(1))+cell(av.toFixed(1))+cell(tot.toFixed(1))+'</tr>';
     });
     tbl += '</table>';
   }
