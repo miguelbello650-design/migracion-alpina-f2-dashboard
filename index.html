@@ -567,7 +567,7 @@ let GANTT_ROWS = [
   { phase:"Reporte ejecución + Insight",task:"1. Envío correo final",resp:"2NV",hours:16,days:2,fixedIdx:47,fixedEndIdx:48 },
   { phase:"Cierre",task:"1. Pruebas unitarias + pruebas integrales",resp:"2NV",hours:16,days:2,fixedIdx:57,fixedEndIdx:58,notesIdx:[53,54,55,56] },
   { phase:"",task:"2. Pruebas UAT",resp:"2NV - ALPINA",hours:8,days:1,fixedIdx:59,fixedEndIdx:59 },
-  { phase:"",task:"3. Documentación técnica (SDD + guía instalación + manual usuario)",resp:"2NV",hours:12,days:1.5,fixedIdx:45,fixedEndIdx:46 },
+  { phase:"",task:"3. Documentación técnica (SDD + guía instalación + manual usuario)",resp:"2NV",hours:12,days:1.5,fixedIdx:57,fixedEndIdx:58 },
   { phase:"",task:"4. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,inProgress:true,fixedIdx:60,fixedEndIdx:60 },
   { phase:"",task:"5. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:60,fixedEndIdx:60 },
   { phase:"",task:"6. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:61,fixedEndIdx:66,skipIndices:[63],notesIdx:[63] },
@@ -1443,7 +1443,7 @@ let STATIC_MONTHLY = {
   actividad_infra: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1.5, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actividad_correos_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':4.5, '2026-6':0 },
   locked_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':99, '2026-3':137, '2026-4':128 },
-  locked_nova: { '2026-4':126, '2026-5':144, _total:398 },
+  locked_nova: { '2026-4':126, _total:398 },
   locked_robotina: { '2026-3':130, '2026-4':134, _total:300 }
 };
 function getReporteMonthFilter() { return localStorage.getItem(REPORTE_MONTH_KEY) || 'all'; }
