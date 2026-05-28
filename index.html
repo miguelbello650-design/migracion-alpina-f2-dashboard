@@ -1532,7 +1532,7 @@ function calcBotHoursMonth(rows, filter) {
     let completedDays = 0;
     for (let i = Math.max(start, firstIdx); i <= Math.min(end, todayIdx, lastIdx); i++) { if (!skipSet.has(i)) completedDays++; }
     const donePct = Math.min(1, completedDays / daysIn);
-    if (donePct === 1) { completed += taskH; } else { inProgress += taskH * donePct; }
+    if (donePct === 1 && !r.inProgress) { completed += taskH; } else { inProgress += taskH * donePct; }
   });
   return { completed: Math.round(completed), inProgress: Math.round(inProgress) };
 }
