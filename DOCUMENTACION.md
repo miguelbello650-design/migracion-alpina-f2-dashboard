@@ -77,7 +77,7 @@ Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc
 ## Datos Compartidos
 
 ### GANTT_DATES
-Array de fechas (índice 0-89, 90 fechas total) compartido por los 3 Gantts:
+Array de fechas (índice 0-90, 91 fechas total) compartido por los 3 Gantts:
 
 | Índice | Fecha | Índice | Fecha | Índice | Fecha |
 |--------|-------|--------|-------|--------|-------|
@@ -91,7 +91,7 @@ Array de fechas (índice 0-89, 90 fechas total) compartido por los 3 Gantts:
 | 9 | 19-Feb-26 | 18 | 4-Mar-26 | 30 | 20-Mar-26 |
 | 10 | 20-Feb-26 | 19 | 5-Mar-26 | 31 | 24-Mar-26 |
 
-**Rango completo**: 6-Feb-26 a 22-Jun-26  
+**Rango completo**: 6-Feb-26 a 23-Jun-26  
 **Findes de semana**: Excluidos del array (solo días laborables)
 
 ### GANTT_NOTES
@@ -499,6 +499,8 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **calcBotHoursMonth exacto / sin Math.round**: Se eliminó `Math.round` del return en `calcBotHoursMonth`; ahora retorna valores decimales exactos. `renderReporte` muestra con `.toFixed(1)`.
 - **PROYECTOS ALPINA exacto**: `calcBotHours` ya no redondea con `Math.round`. Todas las horas en chart y tarjetas estáticas se muestran con `.toFixed(1)`. Eliminado `h -= 1` para NOVA en el chart.
 - **startDate/endDate persisten en SQLite**: `jsLiteralToJSON` convierte `new Date(y,m,d)` a ISO string en lugar de `null`, el INSERT almacena los valores reales, y `getProyectos()` los retorna al cliente. El render usa `new Date(val + 'T12:00:00')` para soportar tanto strings del servidor como Date objects locales.
+- **FELI UAT extendida (72h/9d)**: UAT de FELI pasó de 56h/7d a 72h/9d, fin del 28-May al 1-Jun (idx 76). Tareas posteriores desplazadas +2. GANTT_DATES sin cambios (índice 89 ya cubría 22-Jun).
+- **ROBOTINA UAT extendida (32h/4d)**: UAT de ROBOTINA pasó de 24h/3d a 32h/4d, fin del 28-May al 29-May (idx 75). Tareas posteriores desplazadas +1. GANTT_DATES extendido a 91 fechas (0-90), agregado 23-Jun-26.
 
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
