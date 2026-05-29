@@ -572,7 +572,7 @@ let GANTT_ROWS = [
   { phase:"",task:"5. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:60,fixedEndIdx:60 },
   { phase:"",task:"6. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:61,fixedEndIdx:66,skipIndices:[63],notesIdx:[63] },
   { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:16,days:2,fixedIdx:67,fixedEndIdx:68,milestone:true },
-  { phase:"",task:"7. Estabilización y soporte inicial postproducción",resp:"2NV",hours:56,days:7,fixedIdx:69,fixedEndIdx:75,inProgress:true }
+  { phase:"",task:"7. Estabilización y soporte inicial postproducción",resp:"2NV",hours:56,days:7,fixedIdx:69,fixedEndIdx:75 }
 ];
 
 const GANTT_DATES = [];
@@ -1015,7 +1015,7 @@ function buildGantt(rows, dates, title, grayDays, notes) {
     }
     if (!r.task) return;
     const hasDates = r.startIdx !== undefined && r.endIdx !== undefined;
-    const barColor = hasDates ? (r.milestone ? COLOR_MILESTONE : r.inProgress ? COLOR_PROG : dates[r.endIdx] <= cutDate ? COLOR_DONE : dates[r.startIdx] > cutDate ? COLOR_PEND : COLOR_PROG) : COLOR_PROG;
+    const barColor = hasDates ? (r.milestone ? COLOR_MILESTONE : !r.inProgress && dates[r.endIdx] <= cutDate ? COLOR_DONE : dates[r.startIdx] > cutDate ? COLOR_PEND : COLOR_PROG) : COLOR_PROG;
     const respShort = r.resp.includes('ALPINA') ? (r.resp.includes('2NV')?'2NV+ALPINA':'Alpina') : '2NV';
     html += '<tr class="task-row">';
     html += '<td class="col-task" style="padding:4px 8px;font-size:11px;color:#334155">' + r.task + '</td>';
