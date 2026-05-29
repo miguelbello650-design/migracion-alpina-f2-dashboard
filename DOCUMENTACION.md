@@ -501,6 +501,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **startDate/endDate persisten en SQLite**: `jsLiteralToJSON` convierte `new Date(y,m,d)` a ISO string en lugar de `null`, el INSERT almacena los valores reales, y `getProyectos()` los retorna al cliente. El render usa `new Date(val + 'T12:00:00')` para soportar tanto strings del servidor como Date objects locales.
 - **FELI UAT extendida (72h/9d)**: UAT de FELI pasó de 56h/7d a 72h/9d, fin del 28-May al 1-Jun (idx 76). Tareas posteriores desplazadas +2. GANTT_DATES sin cambios (índice 89 ya cubría 22-Jun).
 - **ROBOTINA UAT extendida (32h/4d)**: UAT de ROBOTINA pasó de 24h/3d a 32h/4d, fin del 28-May al 29-May (idx 75). Tareas posteriores desplazadas +1. GANTT_DATES extendido a 91 fechas (0-90), agregado 23-Jun-26.
+- **getBotStatus fix inProgress**: Tareas con `inProgress:true` ahora evitan que el bot se marque como `finalizado` aunque su fecha ya haya pasado. Se agregó `r.inProgress ||` en la condición `allPast`.
 
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard

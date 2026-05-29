@@ -1261,7 +1261,7 @@ function getBotStatus(rows) {
     if (!start || !end) return;
     if (r.inProgress || (start <= now && end >= now)) hasActive = true;
     if (start > now) hasFuture = true;
-    if (end > now) allPast = false;
+    if (r.inProgress || end > now) allPast = false;
   });
   if (allPast) return 'finalizado';
   if (hasActive) return 'en-proceso';
