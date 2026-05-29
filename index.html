@@ -1015,7 +1015,7 @@ function buildGantt(rows, dates, title, grayDays, notes) {
     }
     if (!r.task) return;
     const hasDates = r.startIdx !== undefined && r.endIdx !== undefined;
-    const barColor = hasDates ? (r.milestone ? COLOR_MILESTONE : !r.inProgress && dates[r.endIdx] <= cutDate ? COLOR_DONE : dates[r.startIdx] > cutDate ? COLOR_PEND : COLOR_PROG) : COLOR_PROG;
+    const barColor = hasDates ? (r.milestone ? COLOR_MILESTONE : r.inProgress ? COLOR_PROG : dates[r.endIdx] <= cutDate ? COLOR_DONE : dates[r.startIdx] > cutDate ? COLOR_PEND : COLOR_PROG) : COLOR_PROG;
     const respShort = r.resp.includes('ALPINA') ? (r.resp.includes('2NV')?'2NV+ALPINA':'Alpina') : '2NV';
     html += '<tr class="task-row">';
     html += '<td class="col-task" style="padding:4px 8px;font-size:11px;color:#334155">' + r.task + '</td>';
