@@ -503,7 +503,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **ROBOTINA UAT extendida (32h/4d)**: UAT de ROBOTINA pasó de 24h/3d a 32h/4d, fin del 28-May al 29-May (idx 75). Tareas posteriores desplazadas +1. GANTT_DATES extendido a 91 fechas (0-90), agregado 23-Jun-26.
 - **getBotStatus fix inProgress**: Tareas con `inProgress:true` ahora evitan que el bot se marque como `finalizado` aunque su fecha ya haya pasado. Se agregó `r.inProgress ||` en la condición `allPast`.
 - **Soporte mayo 73h**: Horas de soporte para mayo 2026 actualizadas de 0 a 73.
-
+- **NOVA Estabilización completada**: Se eliminó `inProgress:true` de la tarea (fecha fin 29-May ya cumplida). Ahora se muestra como finalizada (barra verde) y sus horas cuentan como ejecutadas.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
