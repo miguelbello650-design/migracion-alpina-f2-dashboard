@@ -461,7 +461,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 ### Soporte
 | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
 |---|---|---|---|---|---|---|
-| 0 | 49 | 29.5 | 42 | 39 | 90 | 0 |
+| 0 | 49 | 29.5 | 42 | 39 | 90 | 73 |
 
 ### Actualización PDD
 | Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
@@ -502,6 +502,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **FELI UAT extendida (72h/9d)**: UAT de FELI pasó de 56h/7d a 72h/9d, fin del 28-May al 1-Jun (idx 76). Tareas posteriores desplazadas +2. GANTT_DATES sin cambios (índice 89 ya cubría 22-Jun).
 - **ROBOTINA UAT extendida (32h/4d)**: UAT de ROBOTINA pasó de 24h/3d a 32h/4d, fin del 28-May al 29-May (idx 75). Tareas posteriores desplazadas +1. GANTT_DATES extendido a 91 fechas (0-90), agregado 23-Jun-26.
 - **getBotStatus fix inProgress**: Tareas con `inProgress:true` ahora evitan que el bot se marque como `finalizado` aunque su fecha ya haya pasado. Se agregó `r.inProgress ||` en la condición `allPast`.
+- **Soporte mayo 73h**: Horas de soporte para mayo 2026 actualizadas de 0 a 73.
 
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
