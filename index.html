@@ -1355,7 +1355,7 @@ function renderProyectoCard(p, key, gridStyle) {
   const badge = { 'finalizado':'finalizado', 'en-proceso':'en-proceso', 'proximo':'proximo' }[key];
   let h = `<div class="proyecto-card"${gs}>`;
   h += `<div class="p-header"><div class="p-icon ${p.key}">${p.icon}</div><div class="p-info"><h4>${p.name}</h4><div class="p-responsable">${p.responsable}</div></div><span class="p-badge ${badge}">${key==='finalizado'?'Finalizado':key==='en-proceso'?'En Proceso':'Próximo'}</span></div>`;
-  h += `<div class="p-body"><div class="p-stat"><span class="p-label">Progreso</span><span class="p-value">${res.total}%</span></div><div class="p-bar"><div class="p-fill ${p.key}" style="width:${res.total}%"></div></div>`;
+  h += `<div class="p-body"><div class="p-stat"><span class="p-label">Progreso</span><span class="p-value">${res.total}%</span></div><div class="p-bar"><div class="p-fill ${key==='finalizado'?'completed':p.key}" style="width:${res.total}%"></div></div>`;
   h += `<div class="p-stat"><span class="p-label">Tareas</span><span class="p-value">${tasksDone} completadas · ${inProg} en curso · ${tasksTotal} total</span></div>`;
   if (startDate) h += `<div class="p-stat"><span class="p-label">Inicio</span><span class="p-value">${startDate.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
   if (endDate) h += `<div class="p-stat"><span class="p-label">Fin estimado</span><span class="p-value">${endDate.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
