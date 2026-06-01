@@ -681,7 +681,7 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Elaboración documentación SDD + manual usuario",resp:"2NV",hours:18,days:2.3,fixedIdx:58,fixedEndIdx:59,inProgress:true },
    { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:56,days:7,fixedIdx:65,fixedEndIdx:71,notesIdx:[71] },
     { phase:"Cierre",task:"Pruebas UAT",resp:"2NV - ALPINA",hours:32,days:4,fixedIdx:72,fixedEndIdx:75,inProgress:true },
-    { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:32,days:4,fixedIdx:76,fixedEndIdx:79 },
+    { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:32,days:4,fixedIdx:76,fixedEndIdx:79,notesIdx:[76] },
     { phase:"",task:"Aprobación de documentación (manual técnico y funcional y PDD)",resp:"2NV",hours:2,days:0.3,fixedIdx:80,fixedEndIdx:80 },
     { phase:"",task:"Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:80,fixedEndIdx:80 },
     { phase:"",task:"Paso a producción (MDA + TI + validaciones)",resp:"2NV - ALPINA",hours:32,days:4,fixedIdx:81,fixedEndIdx:84 },
@@ -937,13 +937,13 @@ function assignDates(rows, dates) {
 const GRAY_DAYS_NOVA = [5, 6, 31, 32, 35, 51, 54, 55, 56];
 const GRAY_DAYS_FELI = [5, 6, 31, 32, 35, 51, 54, 55, 56];
 function cellClass(d, isToday, grayDays) {
-  if (isToday) return 'today-col';
   if (grayDays && grayDays.includes(d)) return 'gray-col';
+  if (isToday) return 'today-col';
   return '';
 }
 function cellBg(d, isToday, isWeekend, grayDays) {
-  if (isToday) return 'rgba(239,68,68,0.25)';
   if (grayDays && grayDays.includes(d)) return 'rgba(148,163,184,0.25)';
+  if (isToday) return 'rgba(239,68,68,0.25)';
   return isWeekend ? '#f1f5f9' : '#fff';
 }
 
@@ -994,9 +994,9 @@ function buildGantt(rows, dates, title, grayDays, notes) {
   html += '<th class="col-days" style="background:#1e3a5f;color:#fff;padding:6px">Días</th>';
   dates.forEach((d,i) => {
     const isWeekend = d.getDay() === 0 || d.getDay() === 6;
-    const isToday = isSameDay(d, new Date());
     const isGrayDay = grayDays && grayDays.includes(i);
-    html += '<th' + (isToday?' class="today-header"':isGrayDay?' class="gray-header"':'') + ' style="background:' + (isToday?'#ef4444':isGrayDay?'#94a3b8':isWeekend?'#e8eef6':'#1e3a5f') + ';color:' + (isToday||isGrayDay?'#fff':isWeekend?'#5b6f8c':'#fff') + ';font-size:9px;padding:4px 1px;border:1px solid #c8d2e0;' + (isToday?'font-weight:800;':'') + '">' + d.getDate() + '</th>';
+    const isToday = isSameDay(d, new Date());
+    html += '<th' + (isGrayDay?' class="gray-header"':isToday?' class="today-header"':'') + ' style="background:' + (isGrayDay?'#94a3b8':isToday?'#ef4444':isWeekend?'#e8eef6':'#1e3a5f') + ';color:' + (isGrayDay||isToday?'#fff':isWeekend?'#5b6f8c':'#fff') + ';font-size:9px;padding:4px 1px;border:1px solid #c8d2e0;' + (isToday?'font-weight:800;':'') + '">' + d.getDate() + '</th>';
   });
   html += '</tr></thead><tbody>';
   let currentPhase = '';
@@ -1007,9 +1007,9 @@ function buildGantt(rows, dates, title, grayDays, notes) {
       html += '<td class="col-task" style="padding:6px 8px;font-size:12px;font-weight:700;color:#1e3a5f">' + currentPhase + '</td>';
       html += '<td class="col-resp"></td><td class="col-hours"></td><td class="col-days"></td>';
       for (let d = 0; d < totalDays; d++) {
-        const isToday = isSameDay(dates[d], new Date());
         const isGrayDay = grayDays && grayDays.includes(d);
-        html += '<td' + (isToday?' class="today-col"':isGrayDay?' class="gray-col"':'') + ' style="border:1px solid #c8d2e0;padding:0;background:' + (isToday?'rgba(239,68,68,0.25)':isGrayDay?'rgba(148,163,184,0.25)':'') + '"></td>';
+        const isToday = isSameDay(dates[d], new Date());
+        html += '<td' + (isGrayDay?' class="gray-col"':isToday?' class="today-col"':'') + ' style="border:1px solid #c8d2e0;padding:0;background:' + (isGrayDay?'rgba(148,163,184,0.25)':isToday?'rgba(239,68,68,0.25)':'') + '"></td>';
       }
       html += '</tr>';
     }
@@ -1076,7 +1076,8 @@ function buildGantt(rows, dates, title, grayDays, notes) {
             html += '<td colspan="' + before + '" style="border:1px solid #d1d9e6;padding:1px 0;background:#fff">';
             html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + bTip + '</span>' + (bNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
           }
-          html += '<td class="today-col" style="border:1px solid #d1d9e6;padding:1px 0;background:rgba(239,68,68,0.25)">';
+          const isGrayToday = grayDays && grayDays.includes(todayIdx);
+          html += '<td class="' + (isGrayToday?'gray-col':'today-col') + '" style="border:1px solid #d1d9e6;padding:1px 0;background:' + (isGrayToday?'rgba(148,163,184,0.25)':'rgba(239,68,68,0.25)') + '">';
           const todayNote = r.notesIdx && r.notesIdx.includes(todayIdx) && nMap[todayIdx] ? ' ⚠ ' + nMap[todayIdx] : '';
           html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;opacity:.4"><span class="tooltip">' + tooltip + todayNote + '</span></div></td>';
           const after = r.endIdx - todayIdx;
@@ -1132,7 +1133,7 @@ function renderGanttFeli() {
 
 function renderGanttRobotina() {
   const container = document.getElementById('gantt-robotina');
-  const GRAY_DAYS_ROBOTINA = [25, 26, 31, 60];
+  const GRAY_DAYS_ROBOTINA = [25, 26, 31, 60, 76];
   const robotinaNotes = {};
   robotinaNotes[25] = "Retrazo ya que no se entrega Apí de consulta a Helix";
   robotinaNotes[26] = "Retrazo ya que no se entrega Apí de consulta a Helix";
@@ -1142,6 +1143,7 @@ function renderGanttRobotina() {
   robotinaNotes[61] = "Se agrega un día adicional a la actividad creación de usuario Susi ya que se debe realizar una creación de tabla de homologación y probar la API Personas";
   robotinaNotes[64] = "Se requiere 3 días adicionales para completar de configurar la parte final del consumo de la API para dar cierre al ticket, Tener en cuenta que el equipo de Helix generó el espacio para el 12 de mayo a las 4 pm";
   robotinaNotes[71] = "Se requiere 5 días adicionales ya que se han tenido pocos casos para probar 2 en total";
+  robotinaNotes[76] = "No se ha recibido respuesta de la definición de las APIS tanto de flujo inicial, reasignación y tampoco del correo enviado por las pruebas UAT de la semana pasada";
   const innerHtml = buildGantt(GANTT_ROWS_ROBOTINA, GANTT_DATES, 'ROBOTINA', GRAY_DAYS_ROBOTINA, robotinaNotes);
   container.innerHTML = '<div class="gantt-wrap" id="gantt-wrap-robotina">' + innerHtml + '</div>';
 }
