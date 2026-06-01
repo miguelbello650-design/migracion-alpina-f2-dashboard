@@ -1749,7 +1749,7 @@ function exportReporte() {
     tbl += '</table>';
   }
   const style = '<style>td{font-family:Arial,sans-serif}br{font-family:Arial,sans-serif}</style>';
-  const blob = new Blob([style+tbl], { type: 'application/vnd.ms-excel' });
+  const blob = new Blob(['\uFEFF'+style+tbl], { type: 'application/vnd.ms-excel;charset=utf-8' });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'Reporte_Horas_Desarrollo_'+(filter==='all'?'Todos_los_meses':filter)+'.xls'; a.click(); URL.revokeObjectURL(a.href);
 }
 function execAdminCmd(cmd) {
