@@ -169,8 +169,8 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 ### Columnas Especiales
 | Tipo | Fondo |
 |------|-------|
+| Gris (días en `GRAY_DAYS`) | `rgba(148,163,184,0.25)` (gris, tiene prioridad sobre "Hoy") |
 | Hoy (`isSameDay(dates[d], new Date())`) | `rgba(239,68,68,0.25)` (rojo) |
-| Gris (días en `GRAY_DAYS`) | `rgba(148,163,184,0.25)` (gris) |
 | Fin de semana | `#f1f5f9` |
 | Normal | `#fff` |
 
@@ -410,11 +410,10 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ## Datos por Bot
 
 ### NOVA (GANTT_ROWS) — Responsable: Johan Sabino
-- 39 tareas en 12 fases
+- 39 tareas en 12 fases — **✅ Finalizado**
 - Fases: Levantamiento, Estructura Base, Gestión Outlook, Gestión documental, SAP VA01, SAP ZSD, SAP VA02, SAP VF01, Grabación+Consolidado, Reporte ejecución, Cierre
-- **En Curso**: Estabilización (56h, 7d, 5 completados → 40h efectivas mayo), Aprobación documentación (2h) → 42h en curso
-- **Mayo (dinámico)**: 94h ejecutadas + 50h en curso = 144h
-- Doc. técnica movida de abril a mayo (índices 45-46 → 57-58)
+- **Horas totales**: 144h ejecutadas (94h mayo + 50h en curso → 144h ejecutadas al finalizar)
+- Última tarea: Estabilización (idx 69-75, 29-May-26)
 
 ### FELI (GANTT_ROWS_FELI) — Responsable: Cristian Bonilla
 - 29 tareas en 5 fases
@@ -505,6 +504,10 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **getBotStatus fix inProgress**: Tareas con `inProgress:true` ahora evitan que el bot se marque como `finalizado` aunque su fecha ya haya pasado. Se agregó `r.inProgress ||` en la condición `allPast`.
 - **Soporte mayo 73h**: Horas de soporte para mayo 2026 actualizadas de 0 a 73.
 - **NOVA Estabilización completada**: Se eliminó `inProgress:true` de la tarea (fecha fin 29-May ya cumplida). Ahora se muestra como finalizada (barra verde) y sus horas cuentan como ejecutadas.
+- **NOVA finalizado**: Se eliminó `inProgress:true` de "Aprobación de documentación" para que `getBotStatus` retorne `finalizado`. Nova aparece en "✅ Finalizados" de PROYECTOS ALPINA.
+- **Progress bar verde en Finalizados**: La barra de progreso de proyectos dinámicos con status `finalizado` usa clase `completed` (verde) en lugar del color del bot.
+- **Excel export UTF-8 BOM**: Se agregó `\uFEFF` (BOM) y `charset=utf-8` al Blob de exportReporte para que Excel interprete correctamente caracteres especiales (ó, í, á, ñ).
+- **Prioridad grayDay sobre today**: En columnas Gantt, si un día está en GRAY_DAYS se pinta gris aunque sea el día actual (antes primaba el rojo de "hoy").
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
