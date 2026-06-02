@@ -418,7 +418,7 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ### FELI (GANTT_ROWS_FELI) — Responsable: Cristian Bonilla
 - 29 tareas en 5 fases
 - Fases: Estructura Base, FELI, Pruebas, Documentación, Producción
-- **En Curso**: UAT usuario funcional (56h, 7d: 8, 11-12 may + 25-28 may), Documentación técnica (14h), Documentación funcional (20h) → 90h total
+- **En Curso**: UAT usuario funcional (80h, 10d: fin 02-Jun), Documentación técnica (14h), Documentación funcional (20h) → 114h total
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 38 tareas en 3 fases
@@ -498,7 +498,6 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **calcBotHoursMonth exacto / sin Math.round**: Se eliminó `Math.round` del return en `calcBotHoursMonth`; ahora retorna valores decimales exactos. `renderReporte` muestra con `.toFixed(1)`.
 - **PROYECTOS ALPINA exacto**: `calcBotHours` ya no redondea con `Math.round`. Todas las horas en chart y tarjetas estáticas se muestran con `.toFixed(1)`. Eliminado `h -= 1` para NOVA en el chart.
 - **startDate/endDate persisten en SQLite**: `jsLiteralToJSON` convierte `new Date(y,m,d)` a ISO string en lugar de `null`, el INSERT almacena los valores reales, y `getProyectos()` los retorna al cliente. El render usa `new Date(val + 'T12:00:00')` para soportar tanto strings del servidor como Date objects locales.
-- **FELI UAT extendida (72h/9d)**: UAT de FELI pasó de 56h/7d a 72h/9d, fin del 28-May al 1-Jun (idx 76). Tareas posteriores desplazadas +2. GANTT_DATES sin cambios (índice 89 ya cubría 22-Jun).
 - **ROBOTINA UAT extendida (32h/4d)**: UAT de ROBOTINA pasó de 24h/3d a 32h/4d, fin del 28-May al 29-May (idx 75). Tareas posteriores desplazadas +1. GANTT_DATES extendido a 92 fechas (0-91), agregado 23-Jun-26 y 24-Jun-26.
 - **ROBOTINA gray day 76 (01-Jun-26)**: Día sin avance por pendiente definición APIS. Cronograma post-UAT desplazado +1 día. Re mapeo ID SAP inicia 02-Jun (idx 77).
 - **getBotStatus fix inProgress**: Tareas con `inProgress:true` ahora evitan que el bot se marque como `finalizado` aunque su fecha ya haya pasado. Se agregó `r.inProgress ||` en la condición `allPast`.
@@ -508,6 +507,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **Progress bar verde en Finalizados**: La barra de progreso de proyectos dinámicos con status `finalizado` usa clase `completed` (verde) en lugar del color del bot.
 - **Excel export UTF-8 BOM**: Se agregó `\uFEFF` (BOM) y `charset=utf-8` al Blob de exportReporte para que Excel interprete correctamente caracteres especiales (ó, í, á, ñ).
 - **Prioridad grayDay sobre today**: En columnas Gantt, si un día está en GRAY_DAYS se pinta gris aunque sea el día actual (antes primaba el rojo de "hoy").
+- **FELI UAT extendida a 10d/80h**: UAT de FELI pasó de 72h/9d a 80h/10d, fin del 01-Jun (idx 76) al 02-Jun (idx 77). Tareas posteriores desplazadas +1.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
