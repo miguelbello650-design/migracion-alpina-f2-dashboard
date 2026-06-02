@@ -508,6 +508,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **Excel export UTF-8 BOM**: Se agregó `\uFEFF` (BOM) y `charset=utf-8` al Blob de exportReporte para que Excel interprete correctamente caracteres especiales (ó, í, á, ñ).
 - **Prioridad grayDay sobre today**: En columnas Gantt, si un día está en GRAY_DAYS se pinta gris aunque sea el día actual (antes primaba el rojo de "hoy").
 - **FELI UAT extendida a 10d/80h**: UAT de FELI pasó de 72h/9d a 80h/10d, fin del 01-Jun (idx 76) al 02-Jun (idx 77). Tareas posteriores desplazadas +1.
+- **FELI Re mapeo IDS 5 días**: Ajustado a 5 días (fixedEndIdx 81→82). Cronograma posterior desplazado +1. Seguimiento postproducción termina en idx 91 (24-Jun-26).
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
