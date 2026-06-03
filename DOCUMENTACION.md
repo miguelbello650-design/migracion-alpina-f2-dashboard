@@ -77,7 +77,7 @@ Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc
 ## Datos Compartidos
 
 ### GANTT_DATES
-Array de fechas (índice 0-92, 93 fechas total) compartido por los 3 Gantts:
+Array de fechas (índice 0-93, 94 fechas total) compartido por los 3 Gantts:
 
 | Índice | Fecha | Índice | Fecha | Índice | Fecha |
 |--------|-------|--------|-------|--------|-------|
@@ -91,7 +91,7 @@ Array de fechas (índice 0-92, 93 fechas total) compartido por los 3 Gantts:
 | 9 | 19-Feb-26 | 18 | 4-Mar-26 | 30 | 20-Mar-26 |
 | 10 | 20-Feb-26 | 19 | 5-Mar-26 | 31 | 24-Mar-26 |
 
-**Rango completo**: 6-Feb-26 a 25-Jun-26  
+**Rango completo**: 6-Feb-26 a 26-Jun-26  
 **Findes de semana**: Excluidos del array (solo días laborables)
 
 ### GANTT_NOTES
@@ -423,10 +423,11 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 38 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (7 tareas)
-- Milestone: Salida a Producción 🚩 (índice 86 = 12-Jun-26)
-- Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71, 76
-- **En Curso**: Pruebas UAT (24h, 3d: 26-28 may), Elaboración documentación SDD (18h) → 42h total
+- Milestone: Salida a Producción 🚩 (índice 87 = 16-Jun-26)
+- Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71, 76, 78
+- **En Curso**: Pruebas UAT (32h, 4d: 26-29 may) finalizada, Elaboración documentación SDD (18h), Creación ticket BOT (24h, 3d: 17-18 mar + 03 jun)
 - **01-Jun (idx 76)**: día gris — sin avance (pendiente definición APIS)
+- **03-Jun (idx 78)**: Creación ticket BOT en curso — lógica reasignación WO
 
 ## Reporte de Horas — Datos por Mes
 
@@ -511,6 +512,8 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **FELI Re mapeo IDS 5 días**: Ajustado a 5 días (fixedEndIdx 81→82). Cronograma posterior desplazado +1. Seguimiento postproducción termina en idx 91 (24-Jun-26).
 - **FELI UAT gap 02-Jun + shift**: UAT extiende a idx 78 (03-Jun), salta idx 77 (02-Jun, sin avance). Tareas posteriores desplazadas +1. GANTT_DATES extendido a 93 fechas (0-92), agregado 25-Jun-26.
 - **FELI gray day 77 + nota SAP**: 02-Jun (idx 77) agregado a GRAY_DAYS_FELI con nota "El ambiente de SAP Calidad se encuentra caido" y notesIdx en UAT.
+- **ROBOTINA Creación ticket BOT extendido**: Ahora 24h/3d, abarca 17-18 mar (idx 27-28) + 03-jun (idx 78) con skipIndices. Marcado `inProgress:true`.
+- **ROBOTINA Re mapeo IDS + skip 78**: Trabaja 02,04,05,09-jun (77,79,80,81) con skip en 78. Tareas posteriores desplazadas. GANTT_DATES extendido a 94 fechas (0-93), agregado 26-Jun-26.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
