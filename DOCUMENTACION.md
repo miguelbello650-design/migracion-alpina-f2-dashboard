@@ -100,8 +100,8 @@ Mapa global de notas compartido entre NOVA y FELI (Robotina usa su propio mapa).
 ### GRAY_DAYS
 Array por Gantt de días que se renderizan con fondo gris:
 - **NOVA**: GRAY_DAYS_NOVA
-- **FELI**: GRAY_DAYS_FELI
-- **ROBOTINA**: GRAY_DAYS_ROBOTINA
+- **FELI**: GRAY_DAYS_FELI (incluye 77: SAP Calidad caído 02-Jun)
+- **ROBOTINA**: GRAY_DAYS_ROBOTINA (incluye 76: sin avance 01-Jun)
 
 ## Tasks / Data Model
 
@@ -418,7 +418,7 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ### FELI (GANTT_ROWS_FELI) — Responsable: Cristian Bonilla
 - 29 tareas en 5 fases
 - Fases: Estructura Base, FELI, Pruebas, Documentación, Producción
-- **En Curso**: UAT usuario funcional (80h, 10d: fin 02-Jun), Documentación técnica (14h), Documentación funcional (20h) → 114h total
+- **En Curso**: UAT usuario funcional (80h, 10d: fin 03-Jun, salta 02-Jun), Documentación técnica (14h), Documentación funcional (20h) → 114h total
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 38 tareas en 3 fases
@@ -510,6 +510,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **FELI UAT extendida a 10d/80h**: UAT de FELI pasó de 72h/9d a 80h/10d, fin del 01-Jun (idx 76) al 02-Jun (idx 77). Tareas posteriores desplazadas +1.
 - **FELI Re mapeo IDS 5 días**: Ajustado a 5 días (fixedEndIdx 81→82). Cronograma posterior desplazado +1. Seguimiento postproducción termina en idx 91 (24-Jun-26).
 - **FELI UAT gap 02-Jun + shift**: UAT extiende a idx 78 (03-Jun), salta idx 77 (02-Jun, sin avance). Tareas posteriores desplazadas +1. GANTT_DATES extendido a 93 fechas (0-92), agregado 25-Jun-26.
+- **FELI gray day 77 + nota SAP**: 02-Jun (idx 77) agregado a GRAY_DAYS_FELI con nota "El ambiente de SAP Calidad se encuentra caido" y notesIdx en UAT.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
