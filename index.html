@@ -682,7 +682,7 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Elaboración documentación SDD + manual usuario",resp:"2NV",hours:18,days:2.3,fixedIdx:58,fixedEndIdx:59,inProgress:true },
    { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:56,days:7,fixedIdx:65,fixedEndIdx:71,notesIdx:[71] },
     { phase:"Cierre",task:"Pruebas UAT",resp:"2NV - ALPINA",hours:32,days:4,fixedIdx:72,fixedEndIdx:75,inProgress:true },
-    { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:32,days:4,fixedIdx:77,fixedEndIdx:80,notesIdx:[76] },
+     { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:32,days:4,fixedIdx:77,fixedEndIdx:80,notesIdx:[76,78] },
     { phase:"",task:"Aprobación de documentación (manual técnico y funcional y PDD)",resp:"2NV",hours:2,days:0.3,fixedIdx:81,fixedEndIdx:81 },
     { phase:"",task:"Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:81,fixedEndIdx:81 },
     { phase:"",task:"Paso a producción (MDA + TI + validaciones)",resp:"2NV - ALPINA",hours:32,days:4,fixedIdx:82,fixedEndIdx:85 },
@@ -1145,6 +1145,7 @@ function renderGanttRobotina() {
   robotinaNotes[64] = "Se requiere 3 días adicionales para completar de configurar la parte final del consumo de la API para dar cierre al ticket, Tener en cuenta que el equipo de Helix generó el espacio para el 12 de mayo a las 4 pm";
   robotinaNotes[71] = "Se requiere 5 días adicionales ya que se han tenido pocos casos para probar 2 en total";
   robotinaNotes[76] = "No se ha recibido respuesta de la definición de las APIS tanto de flujo inicial, reasignación y tampoco del correo enviado por las pruebas UAT de la semana pasada";
+  robotinaNotes[78] = "Se requiere un día para incluir la logica de reasignación de WO";
   const innerHtml = buildGantt(GANTT_ROWS_ROBOTINA, GANTT_DATES, 'ROBOTINA', GRAY_DAYS_ROBOTINA, robotinaNotes);
   container.innerHTML = '<div class="gantt-wrap" id="gantt-wrap-robotina">' + innerHtml + '</div>';
 }
