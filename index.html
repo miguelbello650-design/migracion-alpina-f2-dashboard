@@ -613,6 +613,7 @@ GANTT_NOTES[55] = "Todavia no se tiene la configuración del correo electronico.
 GANTT_NOTES[56] = "Todavia no se tiene la configuración del correo electronico. Creación de casos en SAP. No funciona la recepción de correos en Outlook";
 GANTT_NOTES[61] = "Se requiere dos dias adicionales de pruebas para controlar los errores que presenta SAP WEB";
 GANTT_NOTES[65] = "Se requieren 5 días para incluir la logica de solicitud de extensión de materiales";
+GANTT_NOTES[77] = "El ambiente de SAP Calidad se encuentra caido";
 
 // ---- FELI Gantt ----
 let GANTT_ROWS_FELI = [
@@ -636,7 +637,7 @@ let GANTT_ROWS_FELI = [
   { phase:"",task:"14. Consolidado resultados y ACI",resp:"2NV",hours:40,days:5,fixedIdx:40,fixedEndIdx:50,skipIndices:[43,44,45,46,47,48],notesIdx:[42,50] },
   { phase:"",task:"15. Notificaciones solicitantes",resp:"2NV - ALPINA",hours:16,days:2,fixedIdx:52,fixedEndIdx:53,notesIdx:[51] },
   { phase:"Pruebas",task:"1. Pruebas unitarias e integración técnica",resp:"2NV",hours:40,days:5,fixedIdx:57,fixedEndIdx:61,notesIdx:[54,55,56,61] },
-     { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:80,days:10,fixedIdx:61,fixedEndIdx:78,skipIndices:[64,65,66,67,68,69,70,77],inProgress:true },
+     { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:80,days:10,fixedIdx:61,fixedEndIdx:78,skipIndices:[64,65,66,67,68,69,70,77],notesIdx:[77],inProgress:true },
      { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:79,fixedEndIdx:83 },
      { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:84,fixedEndIdx:85 },
    { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:14,days:1.8,fixedIdx:43,fixedEndIdx:44,inProgress:true },
@@ -935,7 +936,7 @@ function assignDates(rows, dates) {
 }
 
 const GRAY_DAYS_NOVA = [5, 6, 31, 32, 35, 51, 54, 55, 56];
-const GRAY_DAYS_FELI = [5, 6, 31, 32, 35, 51, 54, 55, 56];
+const GRAY_DAYS_FELI = [5, 6, 31, 32, 35, 51, 54, 55, 56, 77];
 function cellClass(d, isToday, grayDays) {
   if (grayDays && grayDays.includes(d)) return 'gray-col';
   if (isToday) return 'today-col';
