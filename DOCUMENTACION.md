@@ -77,7 +77,7 @@ Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc
 ## Datos Compartidos
 
 ### GANTT_DATES
-Array de fechas (índice 0-91, 92 fechas total) compartido por los 3 Gantts:
+Array de fechas (índice 0-92, 93 fechas total) compartido por los 3 Gantts:
 
 | Índice | Fecha | Índice | Fecha | Índice | Fecha |
 |--------|-------|--------|-------|--------|-------|
@@ -91,7 +91,7 @@ Array de fechas (índice 0-91, 92 fechas total) compartido por los 3 Gantts:
 | 9 | 19-Feb-26 | 18 | 4-Mar-26 | 30 | 20-Mar-26 |
 | 10 | 20-Feb-26 | 19 | 5-Mar-26 | 31 | 24-Mar-26 |
 
-**Rango completo**: 6-Feb-26 a 24-Jun-26  
+**Rango completo**: 6-Feb-26 a 25-Jun-26  
 **Findes de semana**: Excluidos del array (solo días laborables)
 
 ### GANTT_NOTES
@@ -509,6 +509,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **Prioridad grayDay sobre today**: En columnas Gantt, si un día está en GRAY_DAYS se pinta gris aunque sea el día actual (antes primaba el rojo de "hoy").
 - **FELI UAT extendida a 10d/80h**: UAT de FELI pasó de 72h/9d a 80h/10d, fin del 01-Jun (idx 76) al 02-Jun (idx 77). Tareas posteriores desplazadas +1.
 - **FELI Re mapeo IDS 5 días**: Ajustado a 5 días (fixedEndIdx 81→82). Cronograma posterior desplazado +1. Seguimiento postproducción termina en idx 91 (24-Jun-26).
+- **FELI UAT gap 02-Jun + shift**: UAT extiende a idx 78 (03-Jun), salta idx 77 (02-Jun, sin avance). Tareas posteriores desplazadas +1. GANTT_DATES extendido a 93 fechas (0-92), agregado 25-Jun-26.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
