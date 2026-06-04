@@ -3,7 +3,7 @@
 ## Descripción
 Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, ROBOTINA) y proyectos históricos/completados:
 - **PROYECTOS ALPINA** — Vista general con proyectos agrupados por estado (Finalizados / En Proceso / Próximos), incluye proyectos activos (con Gantt), estáticos (históricos) y gráfico de dona con horas totales
-- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes + 2 gráficos: Desarrollo (NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (5 proyectos con horas mensuales) y Actividades adicionales (5 actividades con horas mensuales). Incluye gráfico de dona (distribución por bloque) y gráfico de barras (horas por mes, apilado por bloque al filtrar un mes específico).
+- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes + 3 gráficos: Desarrollo (NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (5 proyectos con horas mensuales) y Actividades adicionales (5 actividades con horas mensuales). Incluye gráfico de dona (distribución por bloque), gráfico de barras (horas por mes) y gráfico final de horas contratadas vs horas restantes.
 - **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
 - **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
 
@@ -12,7 +12,7 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - **Backend**: Node.js con `better-sqlite3` (solo en servidor local `localhost:3000`)
 - **Base de datos**: SQLite (`database.db`) con schema en `db.js`
 - **Hosting**: GitHub Pages (`https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard`)
-- **Sincronización**: Windows Task Scheduler (script `sync-github.ps1`, diario 8:00 AM)
+- **Publicación**: cambios locales y push a `main` solo bajo solicitud explícita del usuario
 
 ## Estructura del Proyecto
 
@@ -30,8 +30,8 @@ C:\Users\2NV\Desktop\Prueba de IPM\
 ├── GANTT FELI.csv          # Datos fuente FELI (notas extraídas manualmente)
 ├── GANTT ROBOTINA.csv      # Datos fuente ROBOTINA (notas extraídas manualmente)
 ├── % De Avance.csv         # Porcentajes de avance (referencia)
-├── sync-github.ps1         # Script de sincronización automática
-├── sync-log.txt            # Log de sincronización
+├── sync-github.ps1         # Script histórico de sincronización
+├── sync-log.txt            # Log local de sincronización (no necesario en main)
 └── DOCUMENTACION.md        # Este archivo
 ```
 
@@ -246,13 +246,14 @@ renderProyectos()         // Renderiza pestaña PROYECTOS ALPINA (tarjetas + gr�
 renderProyectoCard(p, key, gridStyle?)  // Renderiza una tarjeta de proyecto (staticData o Gantt), acepta estilo grid opcional
 renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyecto
 showProyectoDetalle(key)  // Abre modal con el alcance del proyecto (staticData.desc con <br>)
-renderReporte()           // Renderiza 4 bloques + gráficos (dona y barras) con filtro por mes en REPORTE DE HORAS ALPINA
+renderReporte()           // Renderiza 4 bloques + gráficos (dona, barras y horas contratadas/restantes) con filtro por mes en REPORTE DE HORAS ALPINA
 calcBotHours(rows)        // Calcula horas completadas y en curso para un array de tareas
 calcBotHoursMonth(rows, filter) // Calcula horas en un mes específico (prorrateo por días hábiles)
 lockedBotHours(key, filter) // Retorna horas fijas de un bot si existen; soporta `_total` para el acumulado 'all'
 botHours(key, filter)     // Wrapper: usa lockedBotHours si existe, sino calcBotHoursMonth; para 'all' suma mes a mes
 getMonthOptions()         // Retorna meses desde Nov 2025 hasta el mes actual (excluye meses futuros)
 getReporteMonthFilter()   // Retorna filtro activo ('all' o 'YYYY-M') desde localStorage
+REPORTE_HORAS_CONTRATADAS // Total de horas contratadas usado en el gráfico final del reporte
 STATIC_MONTHLY            // Objeto con horas fijas por mes (finalizados, soporte, actualización PDD, actividades + locked_*)
 actualizKeys              // Keys de proyectos en Actualización PDD
 actividadKeys             // Keys de actividades adicionales
@@ -373,12 +374,14 @@ Cuando se abre `localhost:3000`, `IS_SERVER=true` activa:
   - `loadServerState()`: carga todos los datos desde `/api/data` al iniciar
   - `saveState()`: además de localStorage, hace POST a `/api/sync` con todos los datos
 
-### Flujo de trabajo
-1. Abrir `http://localhost:3000`
-2. Usar admin chat (⚙) para modificar fechas/estados
-3. Los cambios se guardan **automáticamente** en SQLite + GitHub (no necesita `/save` manual)
-4. Recargar la página → los cambios persisten
-5. La versión pública en GitHub Pages se actualiza con cada push automático
+### Flujo de trabajo local
+1. El usuario informa los cambios diarios por el chat de Codex.
+2. Codex actualiza los archivos locales necesarios (`index.html`, `db.js`, `server.js` o documentación, según aplique).
+3. Codex verifica el estado local y, cuando sea necesario, prueba el dashboard en `localhost:3000`.
+4. El usuario revisa o confirma el resultado.
+5. Codex hace commit/push a `main` únicamente cuando el usuario lo pida explícitamente.
+
+> No se usará automatización por Excel. Las reglas, fechas, estados y horas se actualizarán manualmente en el proyecto local a partir de las instrucciones dadas en este chat.
 
 > **Nota**: `database.db` se genera automáticamente y está en `.gitignore`.  
 > Si se corrompe, simplemente borrarlo y reiniciar el servidor para que se regenere desde `index.html`.
@@ -390,17 +393,17 @@ Cuando se abre `localhost:3000`, `IS_SERVER=true` activa:
 | `db.js` | Capa de base de datos SQLite (CRUD + seed automático) |
 | `database.db` | Base de datos SQLite (se crea automáticamente, ignorada por git) |
 | `start.ps1` | Atajo para iniciar el servidor |
-| `.gitignore` | Ignora `database.db` y `state.json` |
+| `.gitignore` | Ignora `database.db`, archivos WAL/SHM de SQLite, `state.json`, `node_modules/` y `sync-log.txt` |
 
-## Sincronización Automática
+## Publicación en GitHub
 
-- **Script**: `sync-github.ps1`
-- **Horario**: Todos los días a las 8:00 AM
-- **Acción**: `git add -A && git commit && git push`
-- **Token**: Classic PAT (repo scope) almacenado en la URL remota
-- **Tarea Windows**: `SyncGitHubPages` en Task Scheduler
+- **Flujo actual**: publicación manual bajo solicitud del usuario.
+- **Acción esperada**: revisar cambios, hacer commit y hacer push a `main` cuando el usuario lo indique.
+- **GitHub Pages**: la versión pública se actualiza después del push exitoso a `main`.
+- **Log local**: `sync-log.txt` no es necesario para la rama `main` y debe permanecer ignorado.
+- **Script histórico**: `sync-github.ps1` queda como referencia, pero no debe ejecutarse automáticamente salvo que el usuario lo solicite.
 
-### Configuración Manual (si se pierde)
+### Configuración histórica del script automático
 ```powershell
 schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
   /TR "'powershell.exe' -NoLogo -ExecutionPolicy Bypass -File 'C:\Users\2NV\Desktop\Prueba de IPM\sync-github.ps1'" `
@@ -432,9 +435,10 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 
 ## Reporte de Horas — Datos por Mes
 
-Los datos alimentan dos gráficos al final del Reporte:
+Los datos alimentan tres gráficos al final del Reporte:
 - **Dona**: distribución de horas totales por bloque (Desarrollo, Soporte, Actualización PDD, Actividades adicionales)
 - **Barras**: total de horas por mes (estático, siempre muestra todos los meses sin importar el filtro)
+- **Horas contratadas vs horas restantes**: compara `REPORTE_HORAS_CONTRATADAS = 4320` contra las horas totales acumuladas (`horas restantes = horas contratadas - horas totales`) mediante dona y barra apilada.
 
 ### Desarrollo — Activos
 Los 3 bots activos calculan horas:

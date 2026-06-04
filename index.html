@@ -1435,6 +1435,7 @@ function renderProyectosChart() {
   el.innerHTML = `<h3>Horas de Desarrollo por Proyecto</h3><div class="chart-donut-wrap"><svg viewBox="0 0 200 200">${paths}</svg><div class="chart-donut-total">${totalHours.toFixed(1)}<small>horas totales</small></div></div><div class="chart-legend">${legendHtml}</div>`;
 }
 const REPORTE_MONTH_KEY = 'reporteMonthFilter';
+const REPORTE_HORAS_CONTRATADAS = 4320;
 let STATIC_MONTHLY = {
   optimus: { '2025-11':57.5, '2025-12':182.5, '2026-1':46 },
   lamonita: { '2025-11':44.5, '2025-12':189.5, '2026-1':139 },
@@ -1706,6 +1707,40 @@ function renderReporte() {
     html += '</div>';
   } else { html += '<p style="text-align:center;color:#94a3b8;padding:30px 0;font-size:13px">Sin datos</p>'; }
   html += '</div></div>';
+
+  const horasTotalesContrato = blockDefs.reduce((s,b) => s + blockTotal(b.key, 'all'), 0);
+  const horasContratadas = REPORTE_HORAS_CONTRATADAS;
+  const horasRestantes = Math.max(0, horasContratadas - horasTotalesContrato);
+  html += '<div style="margin-top:24px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);padding:16px"><h3 style="font-size:14px;font-weight:700;color:#1e3a5f;margin:0 0 12px">Horas Contratadas vs Horas Restantes</h3>';
+  if (horasContratadas > 0) {
+    const consumidasPct = Math.min(100, (horasTotalesContrato / horasContratadas) * 100);
+    const restantesPct = Math.min(100, (horasRestantes / horasContratadas) * 100);
+    const cx = 90, cy = 90, r = 70, sw = 28;
+    const consumedDeg = Math.min(359.99, (horasTotalesContrato / horasContratadas) * 360);
+    const remainingDeg = Math.max(0, 360 - consumedDeg);
+    function donutPath(startDeg, deg, color) {
+      if (deg <= 0) return '';
+      const sr = (startDeg * Math.PI) / 180, er = ((startDeg + deg) * Math.PI) / 180;
+      const x1 = cx + r * Math.cos(sr), y1 = cy + r * Math.sin(sr);
+      const x2 = cx + r * Math.cos(er), y2 = cy + r * Math.sin(er);
+      const large = deg > 180 ? 1 : 0;
+      return '<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' A'+r+' '+r+' 0 '+large+' 1 '+x2.toFixed(1)+' '+y2.toFixed(1)+'" fill="none" stroke="'+color+'" stroke-width="'+sw+'" stroke-linecap="round"/>';
+    }
+    html += '<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">';
+    html += '<div style="position:relative;width:200px;height:200px;flex-shrink:0"><svg viewBox="0 0 180 180" style="width:100%;height:100%">'+donutPath(-90, consumedDeg, '#0033a0')+donutPath(-90 + consumedDeg, remainingDeg, '#10b981')+'</svg><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:22px;font-weight:800;color:#1e3a5f">'+consumidasPct.toFixed(1)+'%<small style="display:block;font-size:11px;font-weight:400;color:#64748b">consumido</small></div></div>';
+    html += '<div style="flex:1;min-width:260px"><div style="height:18px;background:#e2e8f0;border-radius:9px;overflow:hidden;display:flex;margin-bottom:14px"><div title="Horas totales: '+horasTotalesContrato.toFixed(1)+'h" style="height:100%;width:'+consumidasPct+'%;background:#0033a0"></div><div title="Horas restantes: '+horasRestantes.toFixed(1)+'h" style="height:100%;width:'+restantesPct+'%;background:#10b981"></div></div>';
+    html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;font-size:12px;color:#475569">';
+    html += '<div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#1e3a5f"></span><span>Contratadas</span><strong style="margin-left:auto;color:#1e293b">'+horasContratadas.toFixed(1)+'h</strong></div>';
+    html += '<div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#0033a0"></span><span>Totales</span><strong style="margin-left:auto;color:#1e293b">'+horasTotalesContrato.toFixed(1)+'h</strong></div>';
+    html += '<div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#10b981"></span><span>Restantes</span><strong style="margin-left:auto;color:#1e293b">'+horasRestantes.toFixed(1)+'h</strong></div>';
+    html += '</div></div></div>';
+    if (horasTotalesContrato > horasContratadas) {
+      html += '<p style="font-size:12px;color:#ef4444;margin:12px 0 0;font-weight:600">Las horas totales superan las horas contratadas por '+(horasTotalesContrato - horasContratadas).toFixed(1)+'h.</p>';
+    }
+  } else {
+    html += '<p style="font-size:13px;color:#64748b;margin:0">Pendiente definir el valor de horas contratadas en <strong>REPORTE_HORAS_CONTRATADAS</strong>. Horas totales acumuladas actuales: <strong>'+horasTotalesContrato.toFixed(1)+'h</strong>.</p>';
+  }
+  html += '</div>';
 
   el.innerHTML = html;
   const sel = document.getElementById('reporte-month-select');
