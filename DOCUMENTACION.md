@@ -100,7 +100,7 @@ Mapa global de notas compartido entre NOVA y FELI (Robotina usa su propio mapa).
 ### GRAY_DAYS
 Array por Gantt de días que se renderizan con fondo gris:
 - **NOVA**: GRAY_DAYS_NOVA
-- **FELI**: GRAY_DAYS_FELI (incluye 77: SAP Calidad caído 02-Jun)
+- **FELI**: GRAY_DAYS_FELI (incluye 77,78: SAP Calidad caído 02-03 Jun)
 - **ROBOTINA**: GRAY_DAYS_ROBOTINA (incluye 76: sin avance 01-Jun)
 
 ## Tasks / Data Model
@@ -418,16 +418,17 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
 ### FELI (GANTT_ROWS_FELI) — Responsable: Cristian Bonilla
 - 29 tareas en 5 fases
 - Fases: Estructura Base, FELI, Pruebas, Documentación, Producción
-- **En Curso**: UAT usuario funcional (80h, 10d: fin 03-Jun, salta 02-Jun), Documentación técnica (14h), Documentación funcional (20h) → 114h total
+- **En Curso**: UAT usuario funcional (80h, 10d: fin 04-Jun, salta 02-03 jun), Documentación técnica (14h), Documentación funcional (20h) → 114h total
+- **02-03 Jun (idx 77,78)**: días grises — SAP Calidad caído
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 38 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (7 tareas)
 - Milestone: Salida a Producción 🚩 (índice 87 = 16-Jun-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71, 76, 78
-- **En Curso**: Pruebas UAT (32h, 4d: 26-29 may) finalizada, Elaboración documentación SDD (18h), Creación ticket BOT (24h, 3d: 17-18 mar + 03 jun)
+- **En Curso**: Pruebas UAT (32h, 4d: 26-29 may) finalizada, Elaboración documentación SDD (18h), Creación ticket BOT (24h, 3d: 17-18 mar + 03 jun) finalizada
 - **01-Jun (idx 76)**: día gris — sin avance (pendiente definición APIS)
-- **03-Jun (idx 78)**: Creación ticket BOT en curso — lógica reasignación WO
+- **03-Jun (idx 78)**: Re mapeo IDS salta — Creación ticket BOT finalizada en este día
 
 ## Reporte de Horas — Datos por Mes
 
@@ -514,6 +515,8 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **FELI gray day 77 + nota SAP**: 02-Jun (idx 77) agregado a GRAY_DAYS_FELI con nota "El ambiente de SAP Calidad se encuentra caido" y notesIdx en UAT.
 - **ROBOTINA Creación ticket BOT extendido**: Ahora 24h/3d, abarca 17-18 mar (idx 27-28) + 03-jun (idx 78) con skipIndices. Marcado `inProgress:true`.
 - **ROBOTINA Re mapeo IDS + skip 78**: Trabaja 02,04,05,09-jun (77,79,80,81) con skip en 78. Tareas posteriores desplazadas. GANTT_DATES extendido a 94 fechas (0-93), agregado 26-Jun-26.
+- **FELI gray day 78 + shift**: 03-Jun (idx 78) agregado a GRAY_DAYS_FELI. UAT extiende a idx 79 (04-Jun) con skip 77+78. Tareas posteriores desplazadas +1.
+- **ROBOTINA Creación ticket BOT finalizada**: Removido `inProgress:true`. La barra ahora es verde (completada) y sus horas cuentan como ejecutadas.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
