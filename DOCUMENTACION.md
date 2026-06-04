@@ -410,6 +410,111 @@ schtasks /Create /SC DAILY /TN "SyncGitHubPages" `
   /ST 08:00 /RU desktop-c2hubqe\2NV /RP <password> /F
 ```
 
+## Correo Semanal de Plan de Trabajo
+
+Correo recurrente para informar el plan general de trabajo por desarrollador al inicio de cada semana.
+
+### Configuración
+
+- **Tipo**: borrador para revisar antes de enviar
+- **Cliente**: Outlook Web
+- **Destinatarios**: `Jesus.c@2nv.co; jm@2nv.co`
+- **Horario de preparación**: 9:00 a. m.
+- **Día objetivo**: lunes al inicio de semana; si el lunes es festivo, martes
+- **Firma**: Outlook debe agregar la firma configurada del usuario
+- **Cierre antes de firma**: `Quedo atento a los comentarios,`
+- **Fuente del cuerpo**: tareas del Gantt en `index.html`
+
+### Generación del cuerpo
+
+El script `generar-correo-semanal.js` lee las fechas (`GANTT_DATES`) y tareas (`GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`) desde `index.html`.
+
+Comando:
+
+```powershell
+npm run correo-semanal
+```
+
+También se puede generar para una fecha específica:
+
+```powershell
+node generar-correo-semanal.js 2026-06-08
+```
+
+Para generar una vista previa HTML visual tipo dashboard:
+
+```powershell
+node generar-correo-semanal.js 2026-06-08 --html
+```
+
+Esto crea `correo-semanal-preview.html`, una plantilla HTML sencilla y alineada a la izquierda con:
+- Saludo y texto introductorio.
+- Tarjetas por desarrollador/bot con colores del dashboard.
+- Actividades principales tomadas del Gantt.
+- Badges de estado (`Planificado`, `En curso`, `Hito`).
+- Bloque final de seguimiento y cierre antes de la firma de Outlook.
+
+La plantilla HTML no debe incluir encabezado grande dentro del cuerpo como `Plan semanal RPA Alpina` ni `Semana del ...`; esa información queda en el asunto del correo.
+
+Reglas para incluir tareas:
+- La tarea inicia dentro de la semana.
+- La tarea termina dentro de la semana.
+- La tarea cruza algún día de la semana.
+- La tarea tiene `inProgress:true`.
+
+Agrupación:
+- **Johan Sabino**: NOVA
+- **Cristian Bonilla**: FELI
+- **Javier Gonzalez**: ROBOTINA
+
+### Flujo en Outlook Web
+
+1. Generar asunto y cuerpo con `npm run correo-semanal`.
+2. Abrir Outlook Web con la sesión autenticada del usuario.
+3. Crear un correo nuevo como borrador.
+4. Usar destinatarios `Jesus.c@2nv.co; jm@2nv.co`.
+5. Pegar el asunto y cuerpo generados. Para una presentación visual, usar la versión HTML de `correo-semanal-preview.html`.
+6. Dejar el correo como borrador para revisión.
+7. Outlook Web debe agregar la firma configurada del usuario debajo de `Quedo atento a los comentarios,`.
+
+Al pegar el cuerpo en Outlook Web, ubicar el cursor al inicio del cuerpo del mensaje antes de la firma. El contenido debe quedar antes de la firma, alineado a la izquierda.
+
+### Estructura del correo
+
+```text
+Asunto: Plan semanal RPA Alpina | Semana del [lunes] al [viernes]
+
+Buen día equipo,
+
+Comparto el plan general de trabajo para la semana del [lunes] al [viernes].
+
+Objetivo general de la semana:
+[Resumen corto de la prioridad principal]
+
+Plan por desarrollador:
+
+Johan Sabino
+Proyecto/Bot: NOVA
+Actividades:
+- [Tareas NOVA del Gantt que aplican a la semana]
+
+Cristian Bonilla
+Proyecto/Bot: FELI
+Actividades:
+- [Tareas FELI del Gantt que aplican a la semana]
+
+Javier Gonzalez
+Proyecto/Bot: ROBOTINA
+Actividades:
+- [Tareas ROBOTINA del Gantt que aplican a la semana]
+
+Seguimiento: el avance será actualizado en el Dashboard durante la semana. Cualquier bloqueo crítico será informado oportunamente.
+
+Quedo atento a los comentarios,
+```
+
+> Nota: el borrador no debe incluir manualmente la firma visual. Outlook agregará la firma configurada al crear o revisar el correo.
+
 ## Datos por Bot
 
 ### NOVA (GANTT_ROWS) — Responsable: Johan Sabino
