@@ -13,7 +13,6 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - **Base de datos**: SQLite (`database.db`) con schema en `db.js`
 - **Hosting**: GitHub Pages (`https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard`)
 - **Publicación**: cambios locales y push a `main` solo bajo solicitud explícita del usuario
-- **Analítica pública**: Plausible Analytics (`data-domain="miguelbello650-design.github.io"`)
 
 ## Estructura del Proyecto
 
@@ -403,27 +402,6 @@ Cuando se abre `localhost:3000`, `IS_SERVER=true` activa:
 - **GitHub Pages**: la versión pública se actualiza después del push exitoso a `main`.
 - **Log local**: `sync-log.txt` no es necesario para la rama `main` y debe permanecer ignorado.
 - **Script histórico**: `sync-github.ps1` queda como referencia, pero no debe ejecutarse automáticamente salvo que el usuario lo solicite.
-
-## Analítica del Dashboard Público
-
-El dashboard público usa Plausible Analytics para medir visitas de forma liviana y anónima.
-
-### Configuración
-
-Snippet instalado en el `<head>` de `index.html`:
-
-```html
-<script defer data-domain="miguelbello650-design.github.io" src="https://plausible.io/js/script.js"></script>
-```
-
-### Alcance
-
-- Permite ver métricas anónimas: visitas, páginas vistas, origen de tráfico, país, navegador, dispositivo y URLs visitadas.
-- No identifica nombres, correos ni usuarios individuales.
-- No permite recuperar visitas históricas anteriores a la instalación del snippet.
-- Para que funcione, el sitio debe existir en Plausible con el dominio `miguelbello650-design.github.io`.
-
-> Nota: el dashboard vive bajo la ruta `/migracion-alpina-f2-dashboard` dentro del dominio GitHub Pages. En Plausible se debe revisar esa ruta en las páginas visitadas para separar este dashboard de otros posibles sitios publicados bajo el mismo dominio.
 
 ### Configuración histórica del script automático
 ```powershell
