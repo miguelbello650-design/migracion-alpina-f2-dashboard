@@ -3,7 +3,7 @@
 ## Descripción
 Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, ROBOTINA) y proyectos históricos/completados:
 - **PROYECTOS ALPINA** — Vista general con proyectos agrupados por estado (Finalizados / En Proceso / Próximos), incluye proyectos activos (con Gantt), estáticos (históricos) y gráfico de dona con horas totales
-- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes + 3 gráficos: Desarrollo (NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (5 proyectos con horas mensuales) y Actividades adicionales (5 actividades con horas mensuales). Incluye gráfico de dona (distribución por bloque), gráfico de barras (horas por mes) y gráfico final de horas contratadas vs horas restantes.
+- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes + 3 gráficos: Desarrollo (NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (5 proyectos con horas mensuales) y Actividades adicionales (8 actividades con horas mensuales). Incluye gráfico de dona (distribución por bloque), gráfico de barras (horas por mes) y gráfico final de horas contratadas vs horas restantes.
 - **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
 - **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
 
@@ -531,13 +531,15 @@ Quedo atento a los comentarios,
 - **Cronograma post-UAT**: Re mapeo ID SAP inicia el 09-Jun (idx 81); Salida a Producción queda el 22-Jun (idx 89); Seguimiento postproducción termina el 30-Jun (idx 94), sin contar el festivo 29-Jun
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
-- 38 tareas en 3 fases
-- Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (7 tareas)
-- Milestone: Salida a Producción 🚩 (índice 87 = 16-Jun-26)
-- Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71, 76, 78
-- **En Curso**: Pruebas UAT (32h, 4d: 26-29 may) finalizada, Elaboración documentación SDD (18h), Creación ticket BOT (24h, 3d: 17-18 mar + 03 jun) finalizada
+- 39 tareas en 3 fases
+- Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (8 tareas)
+- Milestone: Salida a Producción 🚩 (índice 88 = 19-Jun-26)
+- Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71, 76, 78 y notas por tarea en idx 80
+- **En Curso**: Pruebas UAT (32h, 4d: 26-29 may) finalizada, Elaboración documentación SDD (18h), Creación ticket BOT (26.66h, 4d: 17-18 mar + 03 y 05 jun) finalizada
 - **01-Jun (idx 76)**: día gris — sin avance (pendiente definición APIS)
 - **03-Jun (idx 78)**: Re mapeo IDS salta — Creación ticket BOT finalizada en este día
+- **05-Jun (idx 80)**: ocupado por duraciones adicionales en Creación ticket BOT, Creación de usuario en SUSI y la nueva tarea Validación y creación flujo principal API, cada una con nota propia; Re mapeo ID SAP lo salta y el cronograma posterior se desplaza +1 día. Soporte postproducción termina el 26-Jun (idx 93)
+- **En Curso 05-Jun**: Creación ticket BOT, Creación de usuario en SUSI y Validación y creación flujo principal API quedan con `inProgress:true` porque se les dedica tiempo en el día actual
 
 ## Reporte de Horas — Datos por Mes
 
@@ -556,9 +558,9 @@ Horas fijas de bots por mes:
 |-----|----------|----------|----------|----------|--------------|
 | FELI | 99 | 137 | 128 | dinámico | dinámico |
 | NOVA | — | — | 126 | dinámico | 398 |
-| ROBOTINA | — | 130 | 134 | dinámico | 300 |
+| ROBOTINA | — | 130 | 134 | 148 | 300 |
 
-- Mayo usa cálculo dinámico desde Gantt para los 3 bots. NOVA en mayo: 144h (94 ejecutadas + 50 en curso)
+- Mayo usa cálculo dinámico desde Gantt para NOVA y FELI. ROBOTINA en mayo queda bloqueado en 148h mediante `locked_robotina['2026-5']`.
 - Los meses futuros se ocultan del filtro hasta que inicien
 
 ### Desarrollo — Finalizados
@@ -584,14 +586,16 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 | HORAS EXTRA | 6 | 0 | 8 | 0 | 0 | 0 | 0 |
 
 ### Actividades adicionales
-| Actividad | Nov | Dic | Ene | Feb | Mar | Abr | May |
-|---|---|---|---|---|---|---|---|
-| Sesión Dudas Feli | 0 | 0 | 1 | 6 | 1 | 2 | 0 |
-| Sesión Dudas Nova | 0 | 0 | 0 | 3 | 2 | 1 | 0 |
-| Sesión API Robotina | 0 | 0 | 0 | 0 | 1.5 | 2.8 | 5.3 |
-| Estimación Nova y Feli | 0 | 0 | 2 | 12 | 0 | 0 | 0 |
-| Sesión con Infra. Alpina | 0 | 0 | 0 | 1.5 | 0 | 0 | 0 |
-| Solución correos Feli | 0 | 0 | 0 | 0 | 0 | 0 | 4.5 |
+| Actividad | Nov | Dic | Ene | Feb | Mar | Abr | May | Jun |
+|---|---|---|---|---|---|---|---|---|
+| Sesión Dudas Feli | 0 | 0 | 1 | 6 | 1 | 2 | 0 | 0 |
+| Sesión Dudas Nova | 0 | 0 | 0 | 3 | 2 | 1 | 0 | 0 |
+| Sesión API Robotina | 0 | 0 | 0 | 0 | 1.5 | 2.8 | 5.3 | 0 |
+| API Succes SAP Robotina | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
+| Ajustes adicionales Nova | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12 |
+| Estimación Nova y Feli | 0 | 0 | 2 | 12 | 0 | 0 | 0 | 0 |
+| Sesión con Infra. Alpina | 0 | 0 | 0 | 1.5 | 0 | 0 | 0 | 0 |
+| Solución correos Feli | 0 | 0 | 0 | 0 | 0 | 0 | 4.5 | 0 |
 
 ## Convenciones de Código
 - Sin comentarios en JS
@@ -628,6 +632,9 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **FELI gray day 78 + shift**: 03-Jun (idx 78) agregado a GRAY_DAYS_FELI. UAT extiende a idx 79 (04-Jun) con skip 77+78. Tareas posteriores desplazadas +1.
 - **FELI UAT extendida a 11d/88h**: UAT de FELI pasa a terminar el 05-Jun (idx 80). Re mapeo ID SAP y tareas posteriores se desplazan +1 día. GANTT_DATES extendido a 95 fechas (0-94), agregado 30-Jun-26 porque el 29-Jun es festivo y no se cuenta.
 - **ROBOTINA Creación ticket BOT finalizada**: Removido `inProgress:true`. La barra ahora es verde (completada) y sus horas cuentan como ejecutadas.
+- **ROBOTINA sin UAT 05-Jun + shift**: 05-Jun (idx 80) queda fuera de Re mapeo ID SAP mediante `skipIndices`, sin gris global. Re mapeo termina el 10-Jun (idx 82), tareas posteriores se desplazan +1, Salida a Producción queda el 19-Jun (idx 88) y soporte termina el 26-Jun (idx 93).
+- **ROBOTINA duraciones adicionales 05-Jun**: idx 80 se agrega a Creación ticket BOT (26.66h/4d), Creación de usuario en SUSI (34.66h/5d) y a la nueva tarea Validación y creación flujo principal API (2.66h/0.5d), ubicada después de Pruebas unitarias, con notas independientes por tarea.
+- **ROBOTINA tareas en curso 05-Jun**: Las tres tareas con duración en idx 80 se marcaron `inProgress:true` para reflejar dedicación de tiempo durante el día.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
