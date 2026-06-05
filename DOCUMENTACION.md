@@ -77,7 +77,7 @@ Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc
 ## Datos Compartidos
 
 ### GANTT_DATES
-Array de fechas (índice 0-93, 94 fechas total) compartido por los 3 Gantts:
+Array de fechas (índice 0-94, 95 fechas total) compartido por los 3 Gantts:
 
 | Índice | Fecha | Índice | Fecha | Índice | Fecha |
 |--------|-------|--------|-------|--------|-------|
@@ -91,7 +91,7 @@ Array de fechas (índice 0-93, 94 fechas total) compartido por los 3 Gantts:
 | 9 | 19-Feb-26 | 18 | 4-Mar-26 | 30 | 20-Mar-26 |
 | 10 | 20-Feb-26 | 19 | 5-Mar-26 | 31 | 24-Mar-26 |
 
-**Rango completo**: 6-Feb-26 a 26-Jun-26  
+**Rango completo**: 6-Feb-26 a 29-Jun-26  
 **Findes de semana**: Excluidos del array (solo días laborables)
 
 ### GANTT_NOTES
@@ -526,8 +526,9 @@ Quedo atento a los comentarios,
 ### FELI (GANTT_ROWS_FELI) — Responsable: Cristian Bonilla
 - 29 tareas en 5 fases
 - Fases: Estructura Base, FELI, Pruebas, Documentación, Producción
-- **En Curso**: UAT usuario funcional (80h, 10d: fin 04-Jun, salta 02-03 jun), Documentación técnica (14h), Documentación funcional (20h) → 114h total
+- **En Curso**: UAT usuario funcional (88h, 11d: fin 05-Jun, salta 02-03 jun), Documentación técnica (14h), Documentación funcional (20h) → 122h total
 - **02-03 Jun (idx 77,78)**: días grises — SAP Calidad caído
+- **Cronograma post-UAT**: Re mapeo ID SAP inicia el 09-Jun (idx 81); Salida a Producción queda el 22-Jun (idx 89); Seguimiento postproducción termina el 29-Jun (idx 94)
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 38 tareas en 3 fases
@@ -625,6 +626,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **ROBOTINA Creación ticket BOT extendido**: Ahora 24h/3d, abarca 17-18 mar (idx 27-28) + 03-jun (idx 78) con skipIndices. Marcado `inProgress:true`.
 - **ROBOTINA Re mapeo IDS + skip 78**: Trabaja 02,04,05,09-jun (77,79,80,81) con skip en 78. Tareas posteriores desplazadas. GANTT_DATES extendido a 94 fechas (0-93), agregado 26-Jun-26.
 - **FELI gray day 78 + shift**: 03-Jun (idx 78) agregado a GRAY_DAYS_FELI. UAT extiende a idx 79 (04-Jun) con skip 77+78. Tareas posteriores desplazadas +1.
+- **FELI UAT extendida a 11d/88h**: UAT de FELI pasa a terminar el 05-Jun (idx 80). Re mapeo ID SAP y tareas posteriores se desplazan +1 día. GANTT_DATES extendido a 95 fechas (0-94), agregado 29-Jun-26.
 - **ROBOTINA Creación ticket BOT finalizada**: Removido `inProgress:true`. La barra ahora es verde (completada) y sus horas cuentan como ejecutadas.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
