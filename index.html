@@ -742,8 +742,8 @@ let GANTT_ROWS_GOOGLE_NOVA = [
   { phase:"",task:"5. Notificaciones de respuesta al solicitante",resp:"2NV",hours:4,days:0.5,fixedIdx:83,fixedEndIdx:83 },
   { phase:"Reporte ejecucion + Insight",task:"1. Envio correo final",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84 },
   { phase:"Pruebas",task:"Salida a Produccion",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:85,fixedEndIdx:85,milestone:true },
-  { phase:"",task:"1. Funcionamiento operativo y monitorizacion",resp:"2NV",hours:8,days:1,fixedIdx:86,fixedEndIdx:86 },
-  { phase:"Ajuste documentacion",task:"1. Ajuste documentacion",resp:"2NV",hours:2,days:0.25,fixedIdx:87,fixedEndIdx:87 }
+  { phase:"",task:"1. Funcionamiento operativo y monitorizacion",resp:"2NV",hours:8,days:1,fixedIdx:85,fixedEndIdx:85 },
+  { phase:"Ajuste documentacion",task:"1. Ajuste documentacion",resp:"2NV",hours:2,days:0.25,fixedIdx:85,fixedEndIdx:85 }
 ];
 
 function renderFeliCard() {
@@ -1706,7 +1706,7 @@ function renderReporte() {
   const el = document.getElementById('reporte-container');
   if (!el) return;
   const filter = getReporteMonthFilter();
-  const botKeys = ['nova','feli','robotina'];
+  const botKeys = ['nova','feli','robotina','googlenova'];
   const months = getMonthOptions();
   const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   let html = '<div style="display:flex;align-items:center;justify-content:space-between;margin:0 0 16px"><h2 style="font-size:18px;color:#1e3a5f;font-weight:700;margin:0">Reporte de Horas de Desarrollo</h2><button onclick="exportReporte()" style="padding:6px 14px;border:1px solid #1e3a5f;border-radius:6px;background:#fff;color:#1e3a5f;font-size:12px;font-weight:600;cursor:pointer">Export Excel</button></div>';
@@ -1723,7 +1723,7 @@ function renderReporte() {
   const actualizKeys = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
   const actividadKeys = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli'];
   const maxHrs = [...botKeys, ...staticFin.map(p=>p.key), 'soporte', ...actualizKeys, ...actividadKeys].reduce((mx, k) => {
-    if (k==='nova'||k==='feli'||k==='robotina') {
+    if (getBotRows(k)) {
       const rows = getBotRows(k);
       if (!rows) return mx;
       const hrs = botHours(k, filter);
@@ -1907,7 +1907,7 @@ function renderReporte() {
 }
 function exportReporte() {
   const filter = getReporteMonthFilter();
-  const botK = ['nova','feli','robotina'];
+  const botK = ['nova','feli','robotina','googlenova'];
   const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const stFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
   const actK = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
@@ -1923,7 +1923,7 @@ function exportReporte() {
   tbl += '<table><tr>'+hcell('Bloque')+hcell('Proyecto/Actividad')+hcell('Horas')+'</tr>';
   let gTotal = 0;
   // Desarrollo
-  botK.forEach(k => { const h = botHours(k, filter); const t = h.completed + h.inProgress; if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell({nova:'NOVA',feli:'FELI',robotina:'ROBOTINA'}[k])+cell(t.toFixed(1))+'</tr>'; gTotal += t; }});
+  botK.forEach(k => { const h = botHours(k, filter); const t = h.completed + h.inProgress; if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell({nova:'NOVA',feli:'FELI',robotina:'ROBOTINA',googlenova:'Migracion Google - BOT NOVA'}[k])+cell(t.toFixed(1))+'</tr>'; gTotal += t; }});
   stFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (!d) return; const t = filter !== 'all' ? (d[filter]||0) : months.reduce((s,m)=>s+(d[m]||0),0); if (t>0) { tbl += '<tr>'+cell('Desarrollo')+cell(p.name)+cell(t.toFixed(1))+'</tr>'; gTotal += t; }});
   const sopT = filter !== 'all' ? (STATIC_MONTHLY.soporte[filter]||0) : months.reduce((s,m)=>s+(STATIC_MONTHLY.soporte[m]||0),0);
   if (sopT>0) { tbl += '<tr>'+cell('Soporte')+cell('Soporte')+cell(sopT.toFixed(1))+'</tr>'; gTotal += sopT; }

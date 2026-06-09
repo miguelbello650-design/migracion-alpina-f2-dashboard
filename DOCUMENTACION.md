@@ -660,8 +660,12 @@ El CSV no incluye fechas de inicio/fin. Para esta version se asumio inicio el **
 | Gestion Gmail | Guardado .MSG/.EML, correlacion y respuesta final | 4 | 0.5 | 11-Jun-2026 |
 | Gestion Gmail | Notificaciones de respuesta al solicitante | 4 | 0.5 | 11-Jun-2026 |
 | Reporte ejecucion + Insight | Envio correo final | 4 | 0.5 | 12-Jun-2026 |
-| Produccion | Salida a Produccion | 0 | 0 | 16-Jun-2026 |
-| Pruebas | Funcionamiento operativo y monitorizacion | 8 | 1 | 17-Jun-2026 |
-| Ajuste documentacion | Ajuste documentacion | 2 | 0.25 | 18-Jun-2026 |
+| Pruebas | Salida a Produccion | 0 | 0 | 16-Jun-2026 |
+| Pruebas | Funcionamiento operativo y monitorizacion | 8 | 1 | 16-Jun-2026 |
+| Ajuste documentacion | Ajuste documentacion | 2 | 0.25 | 16-Jun-2026 |
 
 Total cargado: **34 horas / 4.25 dias**. El hito **Salida a Produccion** se muestra como barra amarilla con bandera roja en el Gantt.
+
+### Reporte de horas
+
+El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `googlenova` en `botKeys`, por lo que las horas de Migracion Google - BOT NOVA aparecen en el reporte visual, los totales por mes, los graficos y el export a Excel.
