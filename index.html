@@ -1443,23 +1443,9 @@ function renderProyectos() {
   Object.keys(labels).forEach(key => {
     if (!groups[key].length) return;
     html += `<div class="proyectos-section ${key}"><h3>${labels[key]}</h3>`;
-    if (key === 'proximo') {
-      html += `<div class="proyectos-grid" style="align-items:start;grid-template-rows:auto auto">`;
-      groups[key].forEach((p, i) => {
-        let gs = '';
-        if (p.key === 'googlenova') gs = 'grid-column:1;grid-row:1/3';
-        else if (p.key === 'felifase2') gs = 'grid-column:2;grid-row:1';
-        else if (p.key === 'googlefeli') gs = 'grid-column:2;grid-row:2';
-        else if (p.key === 'robotinafase2') gs = 'grid-column:3;grid-row:1';
-        else if (p.key === 'googlerobotina') gs = 'grid-column:3;grid-row:2';
-        html += renderProyectoCard(p, key, gs);
-      });
-      html += `</div>`;
-    } else {
-      html += `<div class="proyectos-grid">`;
-      groups[key].forEach(p => html += renderProyectoCard(p, key));
-      html += `</div>`;
-    }
+    html += `<div class="proyectos-grid">`;
+    groups[key].forEach(p => html += renderProyectoCard(p, key));
+    html += `</div>`;
     html += `</div>`;
   });
   container.innerHTML = html || '<p style="padding:20px;color:#94a3b8">No hay proyectos registrados</p>';
