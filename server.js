@@ -37,7 +37,7 @@ const server = http.createServer((req, res) => {
   // API: GET /api/data/gantt/:bot
   if (req.method === 'GET' && pathname.startsWith('/api/data/gantt/')) {
     const bot = pathname.split('/')[4];
-    if (!['nova','feli','robotina'].includes(bot)) {
+    if (!['nova','feli','robotina','googlenova'].includes(bot)) {
       res.writeHead(400); res.end('Bad bot'); return;
     }
     const rows = db.getGanttRows(bot);
@@ -53,7 +53,7 @@ const server = http.createServer((req, res) => {
     req.on('end', () => {
       try {
         const data = JSON.parse(body);
-        const botMap = { nova:'nova', feli:'feli', robotina:'robotina' };
+        const botMap = { nova:'nova', feli:'feli', robotina:'robotina', googlenova:'googlenova' };
         Object.keys(data).forEach(bot => {
           const realBot = botMap[bot];
           if (!realBot) return;
@@ -101,8 +101,8 @@ const server = http.createServer((req, res) => {
               db.updateGanttRow(bot, idx, row);
             });
           });
-        } else if (data.nova || data.feli || data.robotina) {
-          ['nova','feli','robotina'].forEach(bot => {
+        } else if (data.nova || data.feli || data.robotina || data.googlenova) {
+          ['nova','feli','robotina','googlenova'].forEach(bot => {
             if (data[bot]) data[bot].forEach((row, idx) => db.updateGanttRow(bot, idx, row));
           });
         }

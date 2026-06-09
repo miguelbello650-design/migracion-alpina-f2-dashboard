@@ -2,7 +2,7 @@
 
 ## Descripción
 Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, ROBOTINA) y proyectos históricos/completados:
-- **PROYECTOS ALPINA** — Vista general con proyectos agrupados por estado (Finalizados / En Proceso / Próximos), incluye proyectos activos (con Gantt), estáticos (históricos) y gráfico de dona con horas totales
+- **PROYECTOS ALPINA** — Vista general con proyectos agrupados por estado (Finalizados / En Proceso / Próximos), incluye proyectos activos (con Gantt), estáticos (históricos) y gráfico de dona con horas totales. La tarjeta de NOVA incluye `Ver detalle`, que navega a la pestaña `% AVANCE` y enfoca el bloque de NOVA.
 - **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes + 3 gráficos: Desarrollo (NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (5 proyectos con horas mensuales) y Actividades adicionales (8 actividades con horas mensuales). Incluye gráfico de dona (distribución por bloque), gráfico de barras (horas por mes) y gráfico final de horas contratadas vs horas restantes.
 - **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
 - **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
@@ -77,7 +77,7 @@ Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc
 ## Datos Compartidos
 
 ### GANTT_DATES
-Array de fechas (índice 0-94, 95 fechas total) compartido por los 3 Gantts:
+Array de fechas (índice 0-95, 96 fechas total) compartido por los 3 Gantts:
 
 | Índice | Fecha | Índice | Fecha | Índice | Fecha |
 |--------|-------|--------|-------|--------|-------|
@@ -91,7 +91,7 @@ Array de fechas (índice 0-94, 95 fechas total) compartido por los 3 Gantts:
 | 9 | 19-Feb-26 | 18 | 4-Mar-26 | 30 | 20-Mar-26 |
 | 10 | 20-Feb-26 | 19 | 5-Mar-26 | 31 | 24-Mar-26 |
 
-**Rango completo**: 6-Feb-26 a 30-Jun-26  
+**Rango completo**: 6-Feb-26 a 1-Jul-26  
 **Findes de semana**: Excluidos del array (solo días laborables)
 
 ### GANTT_NOTES
@@ -244,6 +244,7 @@ renderFeliCard()          // Renderiza tarjeta FELI
 renderRobotinaCard()      // Renderiza tarjeta ROBOTINA
 renderProyectos()         // Renderiza pestaña PROYECTOS ALPINA (tarjetas + gráfico de dona)
 renderProyectoCard(p, key, gridStyle?)  // Renderiza una tarjeta de proyecto (staticData o Gantt), acepta estilo grid opcional
+openProyectoAvance(key)   // Navega desde Proyectos Alpina a % Avance y enfoca la tarjeta del bot
 renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyecto
 showProyectoDetalle(key)  // Abre modal con el alcance del proyecto (staticData.desc con <br>)
 renderReporte()           // Renderiza 4 bloques + gráficos (dona, barras y horas contratadas/restantes) con filtro por mes en REPORTE DE HORAS ALPINA
@@ -526,9 +527,9 @@ Quedo atento a los comentarios,
 ### FELI (GANTT_ROWS_FELI) — Responsable: Cristian Bonilla
 - 29 tareas en 5 fases
 - Fases: Estructura Base, FELI, Pruebas, Documentación, Producción
-- **En Curso**: UAT usuario funcional (88h, 11d: fin 05-Jun, salta 02-03 jun), Documentación técnica (14h), Documentación funcional (20h) → 122h total
+- **En Curso**: UAT usuario funcional (96h, 12d: fin 09-Jun, salta 02-03 jun), Documentación técnica (14h), Documentación funcional (20h) → 130h total
 - **02-03 Jun (idx 77,78)**: días grises — SAP Calidad caído
-- **Cronograma post-UAT**: Re mapeo ID SAP inicia el 09-Jun (idx 81); Salida a Producción queda el 22-Jun (idx 89); Seguimiento postproducción termina el 30-Jun (idx 94), sin contar el festivo 29-Jun
+- **Cronograma post-UAT**: Re mapeo ID SAP inicia el 10-Jun (idx 82); Salida a Producción queda el 23-Jun (idx 90); Seguimiento postproducción termina el 01-Jul (idx 95), sin contar el festivo 29-Jun
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 39 tareas en 3 fases
@@ -539,7 +540,7 @@ Quedo atento a los comentarios,
 - **01-Jun (idx 76)**: día gris — sin avance (pendiente definición APIS)
 - **03-Jun (idx 78)**: Re mapeo IDS salta — Creación ticket BOT finalizada en este día
 - **05-Jun (idx 80)**: ocupado por duraciones adicionales en Creación ticket BOT, Creación de usuario en SUSI y la nueva tarea Validación y creación flujo principal API, cada una con nota propia; Re mapeo ID SAP lo salta y el cronograma posterior se desplaza +1 día. Soporte postproducción termina el 26-Jun (idx 93)
-- **En Curso 05-Jun**: Creación ticket BOT, Creación de usuario en SUSI y Validación y creación flujo principal API quedan con `inProgress:true` porque se les dedica tiempo en el día actual
+- **En Curso 05-Jun**: Validación y creación flujo principal API queda con `inProgress:true`; Creación ticket BOT y Creación de usuario en SUSI quedan ejecutadas
 
 ## Reporte de Horas — Datos por Mes
 
@@ -631,10 +632,36 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **ROBOTINA Re mapeo IDS + skip 78**: Trabaja 02,04,05,09-jun (77,79,80,81) con skip en 78. Tareas posteriores desplazadas. GANTT_DATES extendido a 94 fechas (0-93), agregado 26-Jun-26.
 - **FELI gray day 78 + shift**: 03-Jun (idx 78) agregado a GRAY_DAYS_FELI. UAT extiende a idx 79 (04-Jun) con skip 77+78. Tareas posteriores desplazadas +1.
 - **FELI UAT extendida a 11d/88h**: UAT de FELI pasa a terminar el 05-Jun (idx 80). Re mapeo ID SAP y tareas posteriores se desplazan +1 día. GANTT_DATES extendido a 95 fechas (0-94), agregado 30-Jun-26 porque el 29-Jun es festivo y no se cuenta.
+- **FELI UAT extendida a 12d/96h**: UAT de FELI suma el 09-Jun (idx 81), pasa a 96h/12d y tareas posteriores se desplazan +1 día. GANTT_DATES extendido a 96 fechas (0-95), agregado 01-Jul-26.
 - **ROBOTINA Creación ticket BOT finalizada**: Removido `inProgress:true`. La barra ahora es verde (completada) y sus horas cuentan como ejecutadas.
 - **ROBOTINA sin UAT 05-Jun + shift**: 05-Jun (idx 80) queda fuera de Re mapeo ID SAP mediante `skipIndices`, sin gris global. Re mapeo termina el 10-Jun (idx 82), tareas posteriores se desplazan +1, Salida a Producción queda el 19-Jun (idx 88) y soporte termina el 26-Jun (idx 93).
 - **ROBOTINA duraciones adicionales 05-Jun**: idx 80 se agrega a Creación ticket BOT (26.66h/4d), Creación de usuario en SUSI (34.66h/5d) y a la nueva tarea Validación y creación flujo principal API (2.66h/0.5d), ubicada después de Pruebas unitarias, con notas independientes por tarea.
-- **ROBOTINA tareas en curso 05-Jun**: Las tres tareas con duración en idx 80 se marcaron `inProgress:true` para reflejar dedicación de tiempo durante el día.
+- **ROBOTINA tareas 05-Jun**: Creación ticket BOT y Creación de usuario en SUSI se marcaron ejecutadas; Validación y creación flujo principal API permanece `inProgress:true`.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
+## Actualizacion - Migracion Google BOT NOVA (2026-06-09)
+
+- El proyecto **Migracion Google - BOT NOVA** pasa de proximo a **En Proceso** en la pestana **PROYECTOS ALPINA**.
+- Se agrega como proyecto activo en la pestana **% AVANCE** con tarjeta propia y navegacion al Gantt al hacer clic en el nombre.
+- Se agrega el array `GANTT_ROWS_GOOGLE_NOVA` con las actividades tomadas de `GANTT MIGRACION NOVA.csv`.
+- Se agrega soporte de persistencia para `googlenova` en `index.html`, `server.js` y `db.js`.
+- La base SQLite local se sincronizo con 9 filas para `googlenova` (8 actividades con duracion + 1 hito de salida a produccion).
+
+### Agenda cargada desde CSV
+
+El CSV no incluye fechas de inicio/fin. Para esta version se asumio inicio el **9-Jun-2026** y se uso el calendario compartido `GANTT_DATES`, que ya excluye dias no laborables/festivos. Por eso la agenda salta los festivos/no laborables como **15-Jun-2026** y **29-Jun-2026**.
+
+| Fase | Actividad | Horas | Dias | Fecha visual |
+|------|-----------|-------|------|--------------|
+| Gestion Gmail | Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS | 6 | 0.75 | 9-Jun-2026 |
+| Gestion Gmail | Flujo de aprobacion/rechazo | 4 | 0.5 | 10-Jun-2026 |
+| Gestion Gmail | Descarga adjuntos + registro/control de casos | 2 | 0.25 | 10-Jun-2026 |
+| Gestion Gmail | Guardado .MSG/.EML, correlacion y respuesta final | 4 | 0.5 | 11-Jun-2026 |
+| Gestion Gmail | Notificaciones de respuesta al solicitante | 4 | 0.5 | 11-Jun-2026 |
+| Reporte ejecucion + Insight | Envio correo final | 4 | 0.5 | 12-Jun-2026 |
+| Produccion | Salida a Produccion | 0 | 0 | 16-Jun-2026 |
+| Pruebas | Funcionamiento operativo y monitorizacion | 8 | 1 | 17-Jun-2026 |
+| Ajuste documentacion | Ajuste documentacion | 2 | 0.25 | 18-Jun-2026 |
+
+Total cargado: **34 horas / 4.25 dias**. El hito **Salida a Produccion** se muestra como barra amarilla con bandera roja en el Gantt.

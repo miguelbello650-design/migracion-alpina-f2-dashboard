@@ -1,0 +1,10 @@
+BOT,Actividad / Tarea,Responsable,Tiempo Hrs,Días
+Gestión Gmail,1. Búsqueda de correos + validación de adjuntos SKU/FAMILIA/RUTAS,2NV,6,0.75
+,2. Flujo de aprobación/rechazo (incl. reintentos y timeouts),2NV,4,0.5
+,3. Descarga adjuntos + registro/control de casos,2NV,2,0.25
+,"4. Guardado .MSG o.EML, correlación (.xls y .msg), respuesta final en el mismo hilo y eliminación .msg",2NV,4,0.5
+,5. Notificaciones de respuesta al solicitante,2NV,4,0.5
+Reporte ejecución + Insight,1. Envío correo final,2NV,4,0.5
+Pruebas,1. Funcionamiento operativo y monitorización,2NV,8,1
+Ajuste documentación,1. Ajuste documentación,2NV,2,0.25
+Total,,,34,4.25

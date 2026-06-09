@@ -168,7 +168,7 @@ function seedFromHtml() {
   const s = html.indexOf('<script>'), e = html.indexOf('</script>');
   const script = html.substring(s + 8, e);
 
-  const botMap = { GANTT_ROWS:'nova', GANTT_ROWS_FELI:'feli', GANTT_ROWS_ROBOTINA:'robotina' };
+  const botMap = { GANTT_ROWS:'nova', GANTT_ROWS_FELI:'feli', GANTT_ROWS_ROBOTINA:'robotina', GANTT_ROWS_GOOGLE_NOVA:'googlenova' };
   const insRow = d.prepare('INSERT OR REPLACE INTO gantt_rows (bot,sort_idx,phase,task,resp,hours,days,fixedIdx,fixedEndIdx,skipIndices,notesIdx,milestone,inProgress) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)');
   Object.keys(botMap).forEach(varName => {
     const rows = extractJSLiteral(script, varName);
@@ -265,7 +265,7 @@ function updateGanttRow(bot, sortIdx, data) {
 function getAllGanttRows() {
   const d = open();
   const rows = d.prepare('SELECT * FROM gantt_rows ORDER BY bot, sort_idx').all();
-  const result = { nova: [], feli: [], robotina: [] };
+  const result = { nova: [], feli: [], robotina: [], googlenova: [] };
   rows.forEach(r => {
     if (!r.task) return;
     const obj = { phase: r.phase, task: r.task, resp: r.resp, hours: r.hours, days: r.days, fixedIdx: r.fixedIdx, fixedEndIdx: r.fixedEndIdx };
