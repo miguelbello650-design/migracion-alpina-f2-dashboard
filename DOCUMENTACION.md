@@ -531,6 +531,8 @@ Quedo atento a los comentarios,
 - **02-03 Jun (idx 77,78)**: días grises — SAP Calidad caído
 - **Cronograma post-UAT**: Re mapeo ID SAP inicia el 10-Jun (idx 82); Salida a Producción queda el 23-Jun (idx 90); Seguimiento postproducción termina el 01-Jul (idx 95), sin contar el festivo 29-Jun
 
+**Nota vigente FELI 2026-06-09**: el cronograma actualizado de FELI tiene 30 tareas. UAT queda en 88h/11d, termina el 05-Jun, sin contar el 09-Jun y sigue con `inProgress:true`. La tarea Ajuste de Correo Gmail y Notificaciones se trabaja del 09-Jun al 12-Jun y esta en curso. Re mapeo ID SAP inicia el 16-Jun (idx 85), Salida a Produccion queda el 26-Jun (idx 93) y Seguimiento postproduccion termina el 06-Jul (idx 98).
+
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 39 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (8 tareas)
@@ -669,3 +671,16 @@ Total cargado: **34 horas / 4.25 dias**. El hito **Salida a Produccion** se mues
 ### Reporte de horas
 
 El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `googlenova` en `botKeys`, por lo que las horas de Migracion Google - BOT NOVA aparecen en el reporte visual, los totales por mes, los graficos y el export a Excel.
+
+## Actualizacion - FELI pruebas Gmail (2026-06-09)
+
+- Se agrega en el Gantt de **FELI**, dentro de la fase **Pruebas** y antes de **1. Pruebas unitarias e integracion tecnica**, la tarea **Ajuste de Correo Gmail y Notificaciones**.
+- Duracion: **32 horas / 4 dias**.
+- Fechas: **9-Jun-2026 al 12-Jun-2026**.
+- Estado: **En curso** (`inProgress:true`).
+- Nota en el 09-Jun (idx 81): **"Se necesita 4 días para realizar la configuración a Google"**. El icono se muestra sobre la duracion de la tarea.
+- La base SQLite local queda sincronizada con **30 filas** para `feli`.
+- La tarea **2. UAT con usuario funcional** queda en **88 horas / 11 dias**, termina el **5-Jun-2026** y sigue en curso aunque el **9-Jun-2026** no se trabaja en UAT.
+- Las tareas pendientes se corren desde **Re mapeo ID SAP**, que ahora inicia el **16-Jun-2026** y termina el **22-Jun-2026**.
+- El cronograma posterior queda asi: Ajustes finales **23-Jun al 24-Jun**, aprobacion y entrega **25-Jun**, salida a produccion **26-Jun**, seguimiento postproduccion **30-Jun al 6-Jul**.
+- `GANTT_DATES` se extiende hasta **6-Jul-2026** para cubrir el seguimiento postproduccion de FELI.
