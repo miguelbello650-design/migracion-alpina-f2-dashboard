@@ -652,21 +652,21 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 
 ### Agenda cargada desde CSV
 
-El CSV no incluye fechas de inicio/fin. Para esta version se asumio inicio el **9-Jun-2026** y se uso el calendario compartido `GANTT_DATES`, que ya excluye dias no laborables/festivos. Por eso la agenda salta los festivos/no laborables como **15-Jun-2026** y **29-Jun-2026**.
+El CSV no incluye fechas de inicio/fin. Para esta version se asumio inicio el **10-Jun-2026** y se uso el calendario compartido `GANTT_DATES`, que ya excluye dias no laborables/festivos. Por eso la agenda salta los festivos/no laborables como **15-Jun-2026** y **29-Jun-2026**.
 
 | Fase | Actividad | Horas | Dias | Fecha visual |
 |------|-----------|-------|------|--------------|
-| Gestion Gmail | Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS | 6 | 0.75 | 9-Jun-2026 |
-| Gestion Gmail | Flujo de aprobacion/rechazo | 4 | 0.5 | 10-Jun-2026 |
-| Gestion Gmail | Descarga adjuntos + registro/control de casos | 2 | 0.25 | 10-Jun-2026 |
-| Gestion Gmail | Guardado .MSG/.EML, correlacion y respuesta final | 4 | 0.5 | 11-Jun-2026 |
-| Gestion Gmail | Notificaciones de respuesta al solicitante | 4 | 0.5 | 11-Jun-2026 |
-| Reporte ejecucion + Insight | Envio correo final | 4 | 0.5 | 12-Jun-2026 |
-| Pruebas | Salida a Produccion | 0 | 0 | 16-Jun-2026 |
-| Pruebas | Funcionamiento operativo y monitorizacion | 8 | 1 | 16-Jun-2026 |
-| Ajuste documentacion | Ajuste documentacion | 2 | 0.25 | 16-Jun-2026 |
+| Gestion Gmail | Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS | 6 | 0.75 | 10-Jun-2026 |
+| Gestion Gmail | Flujo de aprobacion/rechazo | 4 | 0.5 | 11-Jun-2026 |
+| Gestion Gmail | Descarga adjuntos + registro/control de casos | 2 | 0.25 | 11-Jun-2026 |
+| Gestion Gmail | Guardado .MSG/.EML, correlacion y respuesta final | 4 | 0.5 | 12-Jun-2026 |
+| Gestion Gmail | Notificaciones de respuesta al solicitante | 4 | 0.5 | 12-Jun-2026 |
+| Reporte ejecucion + Insight | Envio correo final | 4 | 0.5 | 16-Jun-2026 |
+| Pruebas | Salida a Produccion | 0 | 0 | 17-Jun-2026 |
+| Pruebas | Funcionamiento operativo y monitorizacion | 8 | 1 | 17-Jun-2026 |
+| Ajuste documentacion | Ajuste documentacion | 8 | 1 | 18-Jun-2026 |
 
-Total cargado: **34 horas / 4.25 dias**. El hito **Salida a Produccion** se muestra como barra amarilla con bandera roja en el Gantt.
+Total cargado: **40 horas / 5 dias**. El hito **Salida a Produccion** se muestra como barra amarilla con bandera roja en el Gantt.
 
 ### Reporte de horas
 
@@ -675,8 +675,8 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 ## Actualizacion - Migracion Google BOT NOVA estados Gantt (2026-06-10)
 
 - Se corrige el estado de las actividades del Gantt de **Migracion Google - BOT NOVA** para que el dashboard diferencie correctamente tareas finalizadas y tareas en curso.
-- La tarea **1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS** queda sin `inProgress:true`; al tener fecha **9-Jun-2026**, el Gantt la muestra como finalizada.
-- Las tareas **2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)** y **3. Descarga adjuntos + registro/control de casos** quedan con `inProgress:true`; ambas corresponden al **10-Jun-2026** y se muestran como en curso.
+- La tarea **1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS** queda con `inProgress:true`; al tener fecha **10-Jun-2026**, el Gantt la muestra como en curso.
+- Las tareas **2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)** y **3. Descarga adjuntos + registro/control de casos** quedan programadas para el **11-Jun-2026**.
 - La base SQLite local se sincronizo para `googlenova`, evitando que el servidor restaure el estado anterior al abrir el dashboard.
 
 ## Actualizacion - FELI pruebas Gmail (2026-06-09)

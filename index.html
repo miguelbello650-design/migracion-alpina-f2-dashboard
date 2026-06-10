@@ -737,15 +737,15 @@ let GANTT_ROWS_ROBOTINA = [
 
 // ---- Migracion Google - BOT NOVA Gantt ----
 let GANTT_ROWS_GOOGLE_NOVA = [
-  { phase:"Gestion Gmail",task:"1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS",resp:"2NV",hours:6,days:0.75,fixedIdx:81,fixedEndIdx:81 },
-  { phase:"",task:"2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)",resp:"2NV",hours:4,days:0.5,fixedIdx:82,fixedEndIdx:82,inProgress:true },
-  { phase:"",task:"3. Descarga adjuntos + registro/control de casos",resp:"2NV",hours:2,days:0.25,fixedIdx:82,fixedEndIdx:82,inProgress:true },
-  { phase:"",task:"4. Guardado .MSG o .EML, correlacion (.xls y .msg), respuesta final en el mismo hilo y eliminacion .msg",resp:"2NV",hours:4,days:0.5,fixedIdx:83,fixedEndIdx:83 },
-  { phase:"",task:"5. Notificaciones de respuesta al solicitante",resp:"2NV",hours:4,days:0.5,fixedIdx:83,fixedEndIdx:83 },
-  { phase:"Reporte ejecucion + Insight",task:"1. Envio correo final",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84 },
-  { phase:"Pruebas",task:"Salida a Produccion",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:85,fixedEndIdx:85,milestone:true },
-  { phase:"",task:"1. Funcionamiento operativo y monitorizacion",resp:"2NV",hours:8,days:1,fixedIdx:85,fixedEndIdx:85 },
-  { phase:"Ajuste documentacion",task:"1. Ajuste documentacion",resp:"2NV",hours:2,days:0.25,fixedIdx:85,fixedEndIdx:85 }
+  { phase:"Gestion Gmail",task:"1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS",resp:"2NV",hours:6,days:0.75,fixedIdx:82,fixedEndIdx:82,inProgress:true },
+  { phase:"",task:"2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)",resp:"2NV",hours:4,days:0.5,fixedIdx:83,fixedEndIdx:83 },
+  { phase:"",task:"3. Descarga adjuntos + registro/control de casos",resp:"2NV",hours:2,days:0.25,fixedIdx:83,fixedEndIdx:83 },
+  { phase:"",task:"4. Guardado .MSG o .EML, correlacion (.xls y .msg), respuesta final en el mismo hilo y eliminacion .msg",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84 },
+  { phase:"",task:"5. Notificaciones de respuesta al solicitante",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84 },
+  { phase:"Reporte ejecucion + Insight",task:"1. Envio correo final",resp:"2NV",hours:4,days:0.5,fixedIdx:85,fixedEndIdx:85 },
+  { phase:"Pruebas",task:"Salida a Produccion",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:86,fixedEndIdx:86,milestone:true },
+  { phase:"",task:"1. Funcionamiento operativo y monitorizacion",resp:"2NV",hours:8,days:1,fixedIdx:86,fixedEndIdx:86 },
+  { phase:"Ajuste documentacion",task:"1. Ajuste documentacion",resp:"2NV",hours:8,days:1,fixedIdx:87,fixedEndIdx:87 }
 ];
 
 function renderFeliCard() {
@@ -1276,7 +1276,7 @@ function renderGanttRobotina() {
 
 function renderGanttGoogleNova() {
   const container = document.getElementById('gantt-googlenova');
-  const startIdx = 81;
+  const startIdx = 82;
   const dates = GANTT_DATES.slice(startIdx);
   const rows = GANTT_ROWS_GOOGLE_NOVA.map(r => {
     const copy = { ...r };
