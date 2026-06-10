@@ -29,8 +29,27 @@ const server = http.createServer((req, res) => {
   // API: GET /api/data - toutes les données
   if (req.method === 'GET' && pathname === '/api/data') {
     const data = db.getAllData();
+    // Incluir fechas del Gantt desde el HTML
+    const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+    const match = /const dateStrs = "([^"]+)"/.exec(html);
+    if (match) {
+      data.ganttDates = match[1].split(',').map(s => s.trim());
+    }
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(data));
+    return;
+  }
+
+  // API: GET /api/dates - fechas del Gantt
+  if (req.method === 'GET' && pathname === '/api/dates') {
+    const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+    const match = /const dateStrs = "([^"]+)"/.exec(html);
+    if (!match) {
+      res.writeHead(404); res.end('Dates not found'); return;
+    }
+    const dates = match[1].split(',').map(s => s.trim());
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(dates));
     return;
   }
 
