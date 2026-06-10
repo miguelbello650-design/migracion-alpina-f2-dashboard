@@ -672,6 +672,13 @@ Total cargado: **34 horas / 4.25 dias**. El hito **Salida a Produccion** se mues
 
 El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `googlenova` en `botKeys`, por lo que las horas de Migracion Google - BOT NOVA aparecen en el reporte visual, los totales por mes, los graficos y el export a Excel.
 
+## Actualizacion - Migracion Google BOT NOVA estados Gantt (2026-06-10)
+
+- Se corrige el estado de las actividades del Gantt de **Migracion Google - BOT NOVA** para que el dashboard diferencie correctamente tareas finalizadas y tareas en curso.
+- La tarea **1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS** queda sin `inProgress:true`; al tener fecha **9-Jun-2026**, el Gantt la muestra como finalizada.
+- Las tareas **2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)** y **3. Descarga adjuntos + registro/control de casos** quedan con `inProgress:true`; ambas corresponden al **10-Jun-2026** y se muestran como en curso.
+- La base SQLite local se sincronizo para `googlenova`, evitando que el servidor restaure el estado anterior al abrir el dashboard.
+
 ## Actualizacion - FELI pruebas Gmail (2026-06-09)
 
 - Se agrega en el Gantt de **FELI**, dentro de la fase **Pruebas** y antes de **1. Pruebas unitarias e integracion tecnica**, la tarea **Ajuste de Correo Gmail y Notificaciones**.
