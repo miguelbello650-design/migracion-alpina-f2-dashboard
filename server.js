@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 const db = require('./db');
+const { calculateReporteHoras } = require('./reporte-horas');
 
 const PORT = 3000;
 const ROOT = process.cwd();
@@ -35,6 +36,14 @@ const server = http.createServer((req, res) => {
     if (match) {
       data.ganttDates = match[1].split(',').map(s => s.trim());
     }
+    // Mismo helper que usa la grafica "Horas Contratadas vs Horas Restantes" del dashboard.
+    data.reporteHoras = calculateReporteHoras({
+      ganttRows: data.ganttRows,
+      staticMonthly: data.staticMonthly,
+      proyectos: data.proyectos,
+      ganttDates: data.ganttDates,
+      contratadas: 4320
+    });
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(data));
     return;

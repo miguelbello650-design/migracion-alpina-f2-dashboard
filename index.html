@@ -473,7 +473,7 @@
         <span><span class="label">% Total de Avance</span> <span class="value pct-value">0%</span></span>
       </div>
       <div class="card-curso" id="googlenova-curso-section" style="display:none">
-        <div class="curso-header">En Curso</div>
+        <div class="curso-header">🔄 En Curso</div>
         <div class="curso-body" id="googlenova-curso-tasks"></div>
       </div>
     </div>
@@ -542,8 +542,12 @@
   <div id="reporte-container" style="padding:24px 40px"></div>
 </div>
 
+<script src="reporte-horas.js"></script>
 <script>
 const REPORTE_PWD = 'reporte2025';
+function formatHours(value) {
+  return Number(value || 0).toFixed(1).replace(/\.0$/, '');
+}
 function checkReporteAuth() {
   if (sessionStorage.getItem('reporteAuth') === 'true') return true;
   const pwd = prompt('Ingrese contraseña para acceder al Reporte de Horas:');
@@ -725,21 +729,21 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Enviar credenciales (2 correos) + notificación finalización",resp:"2NV",hours:10,days:1.3,fixedIdx:57,fixedEndIdx:57 },
   { phase:"",task:"Elaboración documentación SDD + manual usuario",resp:"2NV",hours:18,days:2.3,fixedIdx:58,fixedEndIdx:59,inProgress:true },
    { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:56,days:7,fixedIdx:65,fixedEndIdx:71,notesIdx:[71] },
-   { phase:"",task:"Validación y creación flujo principal API",resp:"2NV",hours:2.66,days:0.5,fixedIdx:80,fixedEndIdx:80,notesIdx:[80],inProgress:true },
+   { phase:"",task:"Validación y creación flujo principal API",resp:"2NV",hours:26.7,days:3.5,fixedIdx:80,fixedEndIdx:84,skipIndices:[81],notesIdx:[80],inProgress:true },
     { phase:"Cierre",task:"Pruebas UAT",resp:"2NV - ALPINA",hours:32,days:4,fixedIdx:72,fixedEndIdx:75,inProgress:true },
-     { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:32,days:4,fixedIdx:77,fixedEndIdx:82,notesIdx:[76],skipIndices:[78,80],inProgress:true },
-     { phase:"",task:"Aprobación de documentación (manual técnico y funcional y PDD)",resp:"2NV",hours:2,days:0.3,fixedIdx:83,fixedEndIdx:83 },
-     { phase:"",task:"Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:83,fixedEndIdx:83 },
-     { phase:"",task:"Paso a producción (MDA + TI + validaciones)",resp:"2NV - ALPINA",hours:32,days:4,fixedIdx:84,fixedEndIdx:87 },
-     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,milestone:true,fixedIdx:88,fixedEndIdx:88 },
-     { phase:"",task:"Soporte postproducción y estabilización",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:89,fixedEndIdx:93 }
+     { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:32,days:4,fixedIdx:77,fixedEndIdx:85,notesIdx:[76],skipIndices:[78,80,82,83,84],inProgress:true },
+     { phase:"",task:"Aprobación de documentación (manual técnico y funcional y PDD)",resp:"2NV",hours:2,days:0.3,fixedIdx:86,fixedEndIdx:86 },
+     { phase:"",task:"Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:86,fixedEndIdx:86 },
+     { phase:"",task:"Paso a producción (MDA + TI + validaciones)",resp:"2NV - ALPINA",hours:32,days:4,fixedIdx:87,fixedEndIdx:90 },
+     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,milestone:true,fixedIdx:91,fixedEndIdx:91 },
+     { phase:"",task:"Soporte postproducción y estabilización",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:92,fixedEndIdx:96 }
 ];
 
 // ---- Migracion Google - BOT NOVA Gantt ----
 let GANTT_ROWS_GOOGLE_NOVA = [
-  { phase:"Gestion Gmail",task:"1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS",resp:"2NV",hours:6,days:0.75,fixedIdx:82,fixedEndIdx:82,inProgress:true },
-  { phase:"",task:"2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)",resp:"2NV",hours:4,days:0.5,fixedIdx:83,fixedEndIdx:83 },
-  { phase:"",task:"3. Descarga adjuntos + registro/control de casos",resp:"2NV",hours:2,days:0.25,fixedIdx:83,fixedEndIdx:83 },
+  { phase:"Gestion Gmail",task:"1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS",resp:"2NV",hours:6,days:0.75,fixedIdx:82,fixedEndIdx:82 },
+  { phase:"",task:"2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)",resp:"2NV",hours:4,days:0.5,fixedIdx:83,fixedEndIdx:83,inProgress:true },
+  { phase:"",task:"3. Descarga adjuntos + registro/control de casos",resp:"2NV",hours:2,days:0.25,fixedIdx:83,fixedEndIdx:83,inProgress:true },
   { phase:"",task:"4. Guardado .MSG o .EML, correlacion (.xls y .msg), respuesta final en el mismo hilo y eliminacion .msg",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84 },
   { phase:"",task:"5. Notificaciones de respuesta al solicitante",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84 },
   { phase:"Reporte ejecucion + Insight",task:"1. Envio correo final",resp:"2NV",hours:4,days:0.5,fixedIdx:85,fixedEndIdx:85 },
@@ -780,9 +784,9 @@ function renderFeliCard() {
     c.appendChild(d);
   });
   document.querySelector('.card.feli .total-pct').textContent = result.total + '%';
-  document.getElementById('feli-ejec').textContent = hours.completed + ' h';
-  document.getElementById('feli-curso').textContent = hours.inProgress + ' h';
-  document.getElementById('feli-total-h').textContent = totalHours + ' h';
+  document.getElementById('feli-ejec').textContent = formatHours(hours.completed) + ' h';
+  document.getElementById('feli-curso').textContent = formatHours(hours.inProgress) + ' h';
+  document.getElementById('feli-total-h').textContent = formatHours(totalHours) + ' h';
   document.getElementById('feli-fases').textContent = result.phases.length;
   document.querySelector('.card.feli .card-footer.total .pct-value').textContent = result.total + '%';
   const feliMile = GANTT_ROWS_FELI.find(r => r.milestone);
@@ -837,9 +841,9 @@ function renderNovaCard() {
     c.appendChild(d);
   });
   document.querySelector('.card.nova .total-pct').textContent = result.total + '%';
-  document.getElementById('nova-ejec').textContent = hours.completed + ' h';
-  document.getElementById('nova-curso').textContent = hours.inProgress + ' h';
-  document.getElementById('nova-total-h').textContent = totalHours + ' h';
+  document.getElementById('nova-ejec').textContent = formatHours(hours.completed) + ' h';
+  document.getElementById('nova-curso').textContent = formatHours(hours.inProgress) + ' h';
+  document.getElementById('nova-total-h').textContent = formatHours(totalHours) + ' h';
   document.getElementById('nova-fases').textContent = result.phases.length;
   document.querySelector('.card.nova .card-footer.total .pct-value').textContent = result.total + '%';
   const novaMile = GANTT_ROWS.find(r => r.milestone);
@@ -894,9 +898,9 @@ function renderRobotinaCard() {
     c.appendChild(d);
   });
   document.querySelector('.card.robotina .total-pct').textContent = result.total + '%';
-  document.getElementById('robotina-ejec').textContent = hours.completed + ' h';
-  document.getElementById('robotina-curso').textContent = hours.inProgress + ' h';
-  document.getElementById('robotina-total-h').textContent = totalHours + ' h';
+  document.getElementById('robotina-ejec').textContent = formatHours(hours.completed) + ' h';
+  document.getElementById('robotina-curso').textContent = formatHours(hours.inProgress) + ' h';
+  document.getElementById('robotina-total-h').textContent = formatHours(totalHours) + ' h';
   document.getElementById('robotina-fases').textContent = result.phases.length;
   document.querySelector('.card.robotina .card-footer.total .pct-value').textContent = result.total + '%';
   const robotinaMile = GANTT_ROWS_ROBOTINA.find(r => r.milestone);
@@ -951,9 +955,9 @@ function renderGoogleNovaCard() {
     c.appendChild(d);
   });
   document.querySelector('.card.googlenova .total-pct').textContent = result.total + '%';
-  document.getElementById('googlenova-ejec').textContent = hours.completed + ' h';
-  document.getElementById('googlenova-curso').textContent = hours.inProgress + ' h';
-  document.getElementById('googlenova-total-h').textContent = totalHours + ' h';
+  document.getElementById('googlenova-ejec').textContent = formatHours(hours.completed) + ' h';
+  document.getElementById('googlenova-curso').textContent = formatHours(hours.inProgress) + ' h';
+  document.getElementById('googlenova-total-h').textContent = formatHours(totalHours) + ' h';
   document.getElementById('googlenova-fases').textContent = result.phases.length;
   document.querySelector('.card.googlenova .card-footer.total .pct-value').textContent = result.total + '%';
   const googleNovaMile = GANTT_ROWS_GOOGLE_NOVA.find(r => r.milestone);
@@ -1591,7 +1595,7 @@ let STATIC_MONTHLY = {
   actividad_dudas_feli: { '2025-11':0, '2025-12':0, '2026-1':1, '2026-2':6, '2026-3':1, '2026-4':2, '2026-5':0, '2026-6':0 },
   actividad_dudas_nova: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':3, '2026-3':2, '2026-4':1, '2026-5':0, '2026-6':0 },
   actividad_api_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':1.5, '2026-4':2.8, '2026-5':5.3, '2026-6':0 },
-  actividad_api_success_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':2 },
+  actividad_api_success_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':6 },
   actividad_ajustes_nova: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':12 },
   actividad_estimacion: { '2025-11':0, '2025-12':0, '2026-1':2, '2026-2':12, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actividad_infra: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1.5, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
@@ -1852,12 +1856,19 @@ function renderReporte() {
   } else { html += '<p style="text-align:center;color:#94a3b8;padding:30px 0;font-size:13px">Sin datos</p>'; }
   html += '</div></div>';
 
-  const horasTotalesContrato = blockDefs.reduce((s,b) => s + blockTotal(b.key, 'all'), 0);
-  const horasContratadas = REPORTE_HORAS_CONTRATADAS;
-  const horasRestantes = Math.max(0, horasContratadas - horasTotalesContrato);
+  const reporteHoras = ReporteHoras.calculateReporteHoras({
+    ganttRows: { nova:GANTT_ROWS, feli:GANTT_ROWS_FELI, robotina:GANTT_ROWS_ROBOTINA, googlenova:GANTT_ROWS_GOOGLE_NOVA },
+    staticMonthly: STATIC_MONTHLY,
+    proyectos: PROYECTOS,
+    ganttDates: GANTT_DATES,
+    contratadas: REPORTE_HORAS_CONTRATADAS
+  });
+  const horasTotalesContrato = reporteHoras.consumidas;
+  const horasContratadas = reporteHoras.contratadas;
+  const horasRestantes = reporteHoras.restantes;
   html += '<div style="margin-top:24px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);padding:16px"><h3 style="font-size:14px;font-weight:700;color:#1e3a5f;margin:0 0 12px">Horas Contratadas vs Horas Restantes</h3>';
   if (horasContratadas > 0) {
-    const consumidasPct = Math.min(100, (horasTotalesContrato / horasContratadas) * 100);
+    const consumidasPct = reporteHoras.porcentaje;
     const restantesPct = Math.min(100, (horasRestantes / horasContratadas) * 100);
     const cx = 90, cy = 90, r = 70, sw = 28;
     const consumedDeg = Math.min(359.99, (horasTotalesContrato / horasContratadas) * 360);

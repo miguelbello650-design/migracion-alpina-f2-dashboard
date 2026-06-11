@@ -536,13 +536,14 @@ Quedo atento a los comentarios,
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 39 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (8 tareas)
-- Milestone: Salida a Producción 🚩 (índice 88 = 19-Jun-26)
+- Milestone: Salida a Producción 🚩 (índice 91 = 24-Jun-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71, 76, 78 y notas por tarea en idx 80
 - **En Curso**: Pruebas UAT (32h, 4d: 26-29 may) finalizada, Elaboración documentación SDD (18h), Creación ticket BOT (26.66h, 4d: 17-18 mar + 03 y 05 jun) finalizada
 - **01-Jun (idx 76)**: día gris — sin avance (pendiente definición APIS)
 - **03-Jun (idx 78)**: Re mapeo IDS salta — Creación ticket BOT finalizada en este día
-- **05-Jun (idx 80)**: ocupado por duraciones adicionales en Creación ticket BOT, Creación de usuario en SUSI y la nueva tarea Validación y creación flujo principal API, cada una con nota propia; Re mapeo ID SAP lo salta y el cronograma posterior se desplaza +1 día. Soporte postproducción termina el 26-Jun (idx 93)
-- **En Curso 05-Jun**: Validación y creación flujo principal API queda con `inProgress:true`; Creación ticket BOT y Creación de usuario en SUSI quedan ejecutadas
+- **05-Jun (idx 80) + 10-12 Jun (idx 82-84)**: Validación y creación flujo principal API queda en **26.7h / 3.5d**, con duración en 05-Jun y días adicionales 10, 11 y 12-Jun. El 09-Jun (idx 81) se salta para esta tarea.
+- **Cronograma posterior Robotina 2026-06-11**: Re mapeo ID SAP conserva `inProgress:true`, salta 10-12 Jun y mueve su cierre al 16-Jun (idx 85). Aprobación y entrega quedan el 17-Jun (idx 86), paso a producción del 18-Jun al 23-Jun (idx 87-90), salida a producción el 24-Jun (idx 91) y soporte postproducción del 25-Jun al 02-Jul (idx 92-96), sin contar el festivo 29-Jun.
+- **En Curso**: Validación y creación flujo principal API y Re mapeo ID SAP permanecen con `inProgress:true`; Creación ticket BOT y Creación de usuario en SUSI quedan ejecutadas.
 
 ## Reporte de Horas — Datos por Mes
 
@@ -594,7 +595,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 | Sesión Dudas Feli | 0 | 0 | 1 | 6 | 1 | 2 | 0 | 0 |
 | Sesión Dudas Nova | 0 | 0 | 0 | 3 | 2 | 1 | 0 | 0 |
 | Sesión API Robotina | 0 | 0 | 0 | 0 | 1.5 | 2.8 | 5.3 | 0 |
-| API Succes SAP Robotina | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
+| API Succes SAP Robotina | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 6 |
 | Ajustes adicionales Nova | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12 |
 | Estimación Nova y Feli | 0 | 0 | 2 | 12 | 0 | 0 | 0 | 0 |
 | Sesión con Infra. Alpina | 0 | 0 | 0 | 1.5 | 0 | 0 | 0 | 0 |
@@ -639,9 +640,28 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **ROBOTINA sin UAT 05-Jun + shift**: 05-Jun (idx 80) queda fuera de Re mapeo ID SAP mediante `skipIndices`, sin gris global. Re mapeo termina el 10-Jun (idx 82), tareas posteriores se desplazan +1, Salida a Producción queda el 19-Jun (idx 88) y soporte termina el 26-Jun (idx 93).
 - **ROBOTINA duraciones adicionales 05-Jun**: idx 80 se agrega a Creación ticket BOT (26.66h/4d), Creación de usuario en SUSI (34.66h/5d) y a la nueva tarea Validación y creación flujo principal API (2.66h/0.5d), ubicada después de Pruebas unitarias, con notas independientes por tarea.
 - **ROBOTINA tareas 05-Jun**: Creación ticket BOT y Creación de usuario en SUSI se marcaron ejecutadas; Validación y creación flujo principal API permanece `inProgress:true`.
+- **ROBOTINA API flujo principal extendida**: Validación y creación flujo principal API pasa a **26.7h / 3.5d**. Mantiene idx 80 (05-Jun), agrega idx 82-84 (10, 11 y 12-Jun) y salta idx 81 (09-Jun). El cronograma posterior se desplaza +3 días hábiles: Re mapeo ID SAP cierra el 16-Jun, salida a producción queda el 24-Jun y soporte termina el 02-Jul.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
+
+## API Local - Reporte de Horas
+
+El endpoint local `GET /api/data` mantiene los campos existentes (`ganttRows`, `staticMonthly`, `proyectos`, `ganttDates`) y agrega `reporteHoras` para automatizaciones externas.
+
+`reporteHoras` usa el helper compartido `reporte-horas.js`, el mismo que consume la grafica **Horas Contratadas vs Horas Restantes** en la pestana **REPORTE DE HORAS ALPINA**. No recalcula con una logica distinta.
+
+Ejemplo de respuesta:
+
+```json
+"reporteHoras": {
+  "contratadas": 4320,
+  "consumidas": 2994.5,
+  "restantes": 1325.5,
+  "porcentaje": 69.3
+}
+```
+
 ## Actualizacion - Migracion Google BOT NOVA (2026-06-09)
 
 - El proyecto **Migracion Google - BOT NOVA** pasa de proximo a **En Proceso** en la pestana **PROYECTOS ALPINA**.
@@ -675,8 +695,8 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 ## Actualizacion - Migracion Google BOT NOVA estados Gantt (2026-06-10)
 
 - Se corrige el estado de las actividades del Gantt de **Migracion Google - BOT NOVA** para que el dashboard diferencie correctamente tareas finalizadas y tareas en curso.
-- La tarea **1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS** queda con `inProgress:true`; al tener fecha **10-Jun-2026**, el Gantt la muestra como en curso.
-- Las tareas **2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)** y **3. Descarga adjuntos + registro/control de casos** quedan programadas para el **11-Jun-2026**.
+- La tarea **1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS** queda finalizada al tener fecha **10-Jun-2026**.
+- Las tareas **2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)** y **3. Descarga adjuntos + registro/control de casos** quedan con `inProgress:true`; ambas corresponden al **11-Jun-2026** y se muestran en curso.
 - La base SQLite local se sincronizo para `googlenova`, evitando que el servidor restaure el estado anterior al abrir el dashboard.
 
 ## Actualizacion - FELI pruebas Gmail (2026-06-09)
