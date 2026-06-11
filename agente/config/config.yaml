@@ -1,0 +1,79 @@
+# =============================================================================
+# Configuración del Agente de Planificación Semanal
+# =============================================================================
+
+# --- Dashboard ---
+dashboard:
+  type: api
+  url: "http://localhost:3000/api/data"
+  api_key: ""
+  timeout_seconds: 30
+
+# --- Mapeo de Bots a Desarrolladores ---
+bots:
+  nova:
+    label: "NOVA"
+    developer: "Johan Sabino"
+    email: "johan.sabino@2nv.co"
+    color: "#0033a0"
+  feli:
+    label: "FELI"
+    developer: "Cristian Bonilla"
+    email: "cristian.bonilla@2nv.co"
+    color: "#6366f1"
+  robotina:
+    label: "ROBOTINA"
+    developer: "Javier Gonzalez"
+    email: "javier.gonzalez@2nv.co"
+    color: "#0891b2"
+  googlenova:
+    label: "Migración Google - NOVA"
+    developer: "Johan Sabino"
+    email: "johan.sabino@2nv.co"
+    color: "#4285F4"
+
+# --- Base de datos (alternativa a API) ---
+database:
+  host: "localhost"
+  port: 5432
+  name: "planificacion"
+  user: "${DB_USER}"
+  password: "${DB_PASSWORD}"
+  query: "SELECT * FROM tareas WHERE semana = date_trunc('week', CURRENT_DATE)"
+
+# --- Outlook ---
+outlook:
+  provider: "graph"            # graph | smtp
+  client_id: "${OUTLOOK_CLIENT_ID}"
+  client_secret: "${OUTLOOK_CLIENT_SECRET}"
+  tenant_id: "${OUTLOOK_TENANT_ID}"
+  user_email: "${OUTLOOK_USER_EMAIL}"
+  # SMTP alternativo:
+  smtp_server: "smtp.office365.com"
+  smtp_port: 587
+  smtp_user: "${SMTP_USER}"
+  smtp_password: "${SMTP_PASSWORD}"
+
+# --- IA ---
+ai:
+  provider: "mock"             # openai | anthropic | mock
+  api_key: "${AI_API_KEY}"
+  model: "gpt-4o-mini"
+  temperature: 0.3
+  max_tokens: 2000
+
+# --- Scheduler ---
+scheduler:
+  day_of_week: "mon"
+  hour: 8
+  minute: 0
+  timezone: "America/Santiago"
+
+# --- General ---
+general:
+  lider_tecnico_email: "Jesus.c@2nv.co"
+  enviar_copia_lider: true
+  max_tareas_resumen_ia: 10
+  dry_run: true
+  log_level: "INFO"
+  log_file: "logs/agente.log"

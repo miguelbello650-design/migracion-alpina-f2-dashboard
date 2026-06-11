@@ -1,0 +1,28 @@
+Buen dia equipo,
+
+Comparto el plan general de trabajo para esta semana:
+
+-- Johan Sabino --
+  Migracion Google - NOVA:
+    - 1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS
+    - 2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)
+    - 3. Descarga adjuntos + registro/control de casos
+    - 4. Guardado .MSG o .EML, correlacion (.xls y .msg), respuesta final en el mismo hilo y eliminacion .msg
+    - 5. Notificaciones de respuesta al solicitante
+
+-- Cristian Bonilla --
+  FELI:
+    - Ajuste de Correo Gmail y Notificaciones
+
+-- Javier Gonzalez --
+  ROBOTINA:
+    - Re mapeo ID SAP a producción
+    - Aprobación de documentación (manual técnico y funcional y PDD)
+    - Entrega de desarrollo al cliente (Capacitación)
+    - Paso a producción (MDA + TI + validaciones)
+
+Seguimiento: el avance sera actualizado en el Dashboard durante la semana.
+Cualquier bloqueo critico sera informado oportunamente.
+
+Quedo atento a los comentarios,
+PMAUTOMATION

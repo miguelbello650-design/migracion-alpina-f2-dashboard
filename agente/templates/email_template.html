@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; color: #333; }
+    .header { border-bottom: 3px solid #3498db; padding-bottom: 10px; margin-bottom: 20px; }
+    .header h1 { color: #2c3e50; font-size: 22px; margin: 0; }
+    .header p { color: #7f8c8d; margin: 4px 0 0; font-size: 14px; }
+    .saludo { font-size: 16px; margin-bottom: 16px; }
+    .tareas { background: #f8f9fa; padding: 18px; border-radius: 8px; margin: 16px 0; }
+    .riesgo { color: #d9534f; font-weight: bold; }
+    .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>📅 Plan de trabajo semanal</h1>
+    <p>Semana del {{semana}}</p>
+  </div>
+  <div class="saludo">
+    Hola <strong>{{nombre}}</strong>,
+  </div>
+  <p>A continuación se detalla la planificación de actividades para esta semana:</p>
+  <div class="tareas">
+    {{tareas}}
+  </div>
+  <div class="riesgo">{{riesgo}}</div>
+  <p>Por favor asegúrate de cumplir con los tiempos establecidos y reportar cualquier bloqueo.</p>
+  <div class="footer">
+    <p>Saludos,<br><strong>Equipo de Desarrollo</strong></p>
+  </div>
+</body>
+</html>

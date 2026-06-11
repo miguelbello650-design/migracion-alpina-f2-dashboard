@@ -1,0 +1,221 @@
+[2026-06-10 12:42:18] === INICIO ===
+[2026-06-10 12:42:19] Intentando con requests...
+[2026-06-10 12:42:19] requests OK
+[2026-06-10 12:42:19] BASE listo: C:\Users\2NV\Desktop\Prueba de IPM\agente
+[2026-06-10 12:42:19] Procesamiento OK: total=3185.6, pct=73.7%
+[2026-06-10 12:42:19] Archivos escritos correctamente
+[2026-06-10 12:42:19] === FIN OK ===
+[2026-06-10 12:44:50] === INICIO ===
+[2026-06-10 12:44:51] Intentando con requests...
+[2026-06-10 12:44:51] requests OK
+[2026-06-10 12:44:51] BASE listo: C:\Users\2NV\Desktop\Prueba de IPM\agente
+[2026-06-10 12:44:51] Procesamiento OK: total=3185.6, pct=73.7%
+[2026-06-10 12:44:51] Archivos escritos correctamente
+[2026-06-10 12:44:51] === FIN OK ===
+[2026-06-10 12:44:51] ERROR en procesamiento: EOF when reading a line
+[2026-06-10 12:44:51] TRACEBACK:
+Traceback (most recent call last):
+  File "C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.py", line 128, in <module>
+    input("Presiona Enter para salir...")
+EOFError: EOF when reading a line
+
+[2026-06-10 12:47:24] === INICIO ===
+[2026-06-10 12:47:24] Intentando con requests...
+[2026-06-10 12:47:24] requests OK
+[2026-06-10 12:47:24] BASE listo: C:\Users\2NV\Desktop\Prueba de IPM\agente
+[2026-06-10 12:47:24] Procesamiento OK: total=3185.6, pct=73.7%
+[2026-06-10 12:47:24] Archivos escritos correctamente
+[2026-06-10 12:47:24] === FIN OK ===
+[2026-06-10 12:49:23] === INICIO ===
+[2026-06-10 12:49:23] Intentando con requests...
+[2026-06-10 12:49:23] requests OK
+[2026-06-10 12:49:24] BASE listo: C:\Users\2NV\Desktop\Prueba de IPM\agente
+[2026-06-10 12:49:24] Procesamiento OK: total=3185.6, pct=73.7%
+[2026-06-10 12:49:24] Archivos escritos correctamente
+[2026-06-10 12:49:24] === FIN OK ===
+[2026-06-10 13:38:39] === INICIO ===
+[2026-06-10 13:38:40] Intentando con requests...
+[2026-06-10 13:38:40] requests OK
+[2026-06-10 13:38:40] BASE listo: C:\Users\2NV\Desktop\Prueba de IPM\agente
+[2026-06-10 13:38:40] Procesamiento OK: total=3185.6, pct=73.7%
+[2026-06-10 13:38:40] Archivos escritos correctamente
+[2026-06-10 13:38:40] === FIN OK ===
+[2026-06-10 13:40:33] === INICIO ===
+[2026-06-10 13:40:38] Intentando con requests...
+[2026-06-10 13:40:38] requests OK
+[2026-06-10 13:40:38] BASE listo: C:\Users\2NV\Desktop\Prueba de IPM\agente
+[2026-06-10 13:40:38] Procesamiento OK: total=3185.6, pct=73.7%
+[2026-06-10 13:40:38] Archivos escritos correctamente
+[2026-06-10 13:40:38] === FIN OK ===
+[2026-06-10 13:43:00] === INICIO ===
+[2026-06-10 13:43:00] Intentando con requests...
+[2026-06-10 13:43:00] requests OK
+[2026-06-10 13:43:00] BASE listo: C:\Users\2NV\Desktop\Prueba de IPM\agente
+[2026-06-10 13:43:00] Procesamiento OK: total=3185.6, pct=73.7%
+[2026-06-10 13:43:00] Archivos escritos correctamente
+[2026-06-10 13:43:00] === FIN OK ===
+[2026-06-10 13:49:11] === INICIO ===
+[2026-06-10 13:49:12] Intentando con requests...
+[2026-06-10 13:49:12] requests OK
+[2026-06-10 13:49:12] BASE listo: C:\Users\2NV\Desktop\Prueba de IPM\agente
+[2026-06-10 13:49:12] Procesamiento OK: total=3185.6, pct=73.7%
+[2026-06-10 13:49:12] Archivos escritos correctamente
+[2026-06-10 13:49:12] === FIN OK ===
+[2026-06-10 14:14:58] === INICIO ===
+[2026-06-10 14:14:58] Usuario ejecutando: 2NV
+[2026-06-10 14:14:58] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 14:14:58] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 14:14:58] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 14:14:59] Intentando con requests...
+[2026-06-10 14:14:59] Status Code: 200
+[2026-06-10 14:14:59] requests OK
+[2026-06-10 14:14:59] Fecha hoy: 2026-06-10
+[2026-06-10 14:14:59] Fecha corte dashboard viernes: 2026-06-12
+[2026-06-10 14:14:59] Cutoff idx dashboard: 84
+[2026-06-10 14:14:59] total_bots_dashboard=1614.0
+[2026-06-10 14:14:59] total_static_fin=963.0
+[2026-06-10 14:14:59] total_soporte=322.5
+[2026-06-10 14:14:59] total_actualiz=34.5
+[2026-06-10 14:14:59] total_actividad=59.6
+[2026-06-10 14:14:59] TOTAL_DASHBOARD=2993.6
+[2026-06-10 14:14:59] HORAS_CONTRATADAS=4320.0
+[2026-06-10 14:14:59] HORAS_RESTANTES=1326.4
+[2026-06-10 14:14:59] PCT_DASHBOARD=69.30%
+[2026-06-10 14:14:59] PCT_USADO_EN_ASUNTO=69.30
+[2026-06-10 14:14:59] ASUNTO_GENERADO=Reporte de consumo de horas RPA Alpina | 69.3% consumido
+[2026-06-10 14:14:59] Archivo asunto anterior eliminado
+[2026-06-10 14:14:59] Archivo html anterior eliminado
+[2026-06-10 14:14:59] ASUNTO_VALIDADO_EN_ARCHIVO=Reporte de consumo de horas RPA Alpina | 69.3% consumido
+[2026-06-10 14:14:59] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
+[2026-06-10 14:14:59] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
+[2026-06-10 14:14:59] === FIN OK ===
+[2026-06-10 14:16:44] === INICIO ===
+[2026-06-10 14:16:44] Usuario ejecutando: 2NV
+[2026-06-10 14:16:44] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 14:16:44] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 14:16:44] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 14:16:44] Intentando con requests...
+[2026-06-10 14:16:44] Status Code: 200
+[2026-06-10 14:16:44] requests OK
+[2026-06-10 14:16:44] Fecha hoy: 2026-06-10
+[2026-06-10 14:16:44] Fecha corte dashboard viernes: 2026-06-12
+[2026-06-10 14:16:44] Cutoff idx dashboard: 84
+[2026-06-10 14:16:44] total_bots_dashboard=1614.0
+[2026-06-10 14:16:44] total_static_fin=963.0
+[2026-06-10 14:16:44] total_soporte=322.5
+[2026-06-10 14:16:44] total_actualiz=34.5
+[2026-06-10 14:16:44] total_actividad=59.6
+[2026-06-10 14:16:44] TOTAL_DASHBOARD=2993.6
+[2026-06-10 14:16:44] HORAS_CONTRATADAS=4320.0
+[2026-06-10 14:16:44] HORAS_RESTANTES=1326.4
+[2026-06-10 14:16:44] PCT_DASHBOARD=69.30%
+[2026-06-10 14:16:44] PCT_USADO_EN_ASUNTO=69.30
+[2026-06-10 14:16:44] ASUNTO_GENERADO=Reporte de consumo de horas RPA Alpina | 69.3% consumido
+[2026-06-10 14:16:44] Archivo asunto anterior eliminado
+[2026-06-10 14:16:44] Archivo html anterior eliminado
+[2026-06-10 14:16:44] ASUNTO_VALIDADO_EN_ARCHIVO=Reporte de consumo de horas RPA Alpina | 69.3% consumido
+[2026-06-10 14:16:44] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
+[2026-06-10 14:16:44] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
+[2026-06-10 14:16:44] === FIN OK ===
+[2026-06-10 14:36:10] === INICIO ===
+[2026-06-10 14:36:10] Usuario ejecutando: 2NV
+[2026-06-10 14:36:10] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 14:36:10] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 14:36:10] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 14:36:11] Intentando con requests...
+[2026-06-10 14:36:11] Status Code: 200
+[2026-06-10 14:36:11] requests OK
+[2026-06-10 14:36:11] Datos tomados directamente de reporteHoras
+[2026-06-10 14:36:11] HORAS_CONTRATADAS=4320.0
+[2026-06-10 14:36:11] HORAS_CONSUMIDAS=2994.5
+[2026-06-10 14:36:11] HORAS_RESTANTES=1325.5
+[2026-06-10 14:36:11] PORCENTAJE=69.3%
+[2026-06-10 14:36:11] ASUNTO_GENERADO=Reporte de consumo de horas RPA Alpina | 69.3% consumido
+[2026-06-10 14:36:11] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
+[2026-06-10 14:36:11] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
+[2026-06-10 14:36:11] === FIN OK ===
+[2026-06-10 14:42:32] === INICIO ===
+[2026-06-10 14:42:32] Usuario ejecutando: 2NV
+[2026-06-10 14:42:32] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 14:42:32] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 14:42:32] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 14:42:33] Intentando con requests...
+[2026-06-10 14:42:33] Status Code: 200
+[2026-06-10 14:42:33] requests OK
+[2026-06-10 14:42:33] Datos tomados directamente de reporteHoras
+[2026-06-10 14:42:33] HORAS_CONTRATADAS=4320.0
+[2026-06-10 14:42:33] HORAS_CONSUMIDAS=2994.5
+[2026-06-10 14:42:33] HORAS_RESTANTES=1325.5
+[2026-06-10 14:42:33] PORCENTAJE=69.3%
+[2026-06-10 14:42:33] ASUNTO_GENERADO=[IMPORTANTE] Reporte de consumo de horas RPA Alpina | 69.3% consumido
+[2026-06-10 14:42:33] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
+[2026-06-10 14:42:33] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
+[2026-06-10 14:42:33] === FIN OK ===
+[2026-06-10 14:43:55] === INICIO ===
+[2026-06-10 14:43:55] Usuario ejecutando: 2NV
+[2026-06-10 14:43:55] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 14:43:55] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 14:43:55] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 14:43:57] Intentando con requests...
+[2026-06-10 14:43:57] Status Code: 200
+[2026-06-10 14:43:57] requests OK
+[2026-06-10 14:43:57] Datos tomados directamente de reporteHoras
+[2026-06-10 14:43:57] HORAS_CONTRATADAS=4320.0
+[2026-06-10 14:43:57] HORAS_CONSUMIDAS=2994.5
+[2026-06-10 14:43:57] HORAS_RESTANTES=1325.5
+[2026-06-10 14:43:57] PORCENTAJE=69.3%
+[2026-06-10 14:43:57] ASUNTO_GENERADO=[IMPORTANTE] Reporte de consumo de horas RPA Alpina | 69.3% consumido
+[2026-06-10 14:43:57] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
+[2026-06-10 14:43:57] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
+[2026-06-10 14:43:57] === FIN OK ===
+[2026-06-10 15:21:52] === INICIO ===
+[2026-06-10 15:21:52] Usuario ejecutando: 2NV
+[2026-06-10 15:21:52] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 15:21:52] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 15:21:52] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 15:21:53] Intentando con requests...
+[2026-06-10 15:21:53] Status Code: 200
+[2026-06-10 15:21:53] requests OK
+[2026-06-10 15:21:53] Datos tomados directamente de reporteHoras
+[2026-06-10 15:21:53] HORAS_CONTRATADAS=4320.0
+[2026-06-10 15:21:53] HORAS_CONSUMIDAS=2994.5
+[2026-06-10 15:21:53] HORAS_RESTANTES=1325.5
+[2026-06-10 15:21:53] PORCENTAJE=69.3%
+[2026-06-10 15:21:53] ASUNTO_GENERADO=[IMPORTANTE] Reporte de consumo de horas RPA Alpina | 69.3% consumido
+[2026-06-10 15:21:53] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
+[2026-06-10 15:21:53] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
+[2026-06-10 15:21:53] === FIN OK ===
+[2026-06-10 15:43:30] === INICIO ===
+[2026-06-10 15:43:30] Usuario ejecutando: 2NV
+[2026-06-10 15:43:30] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 15:43:30] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 15:43:30] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 15:43:30] Intentando con requests...
+[2026-06-10 15:43:30] Status Code: 200
+[2026-06-10 15:43:30] requests OK
+[2026-06-10 15:43:30] Datos tomados directamente de reporteHoras
+[2026-06-10 15:43:30] HORAS_CONTRATADAS=4320.0
+[2026-06-10 15:43:30] HORAS_CONSUMIDAS=2994.5
+[2026-06-10 15:43:30] HORAS_RESTANTES=1325.5
+[2026-06-10 15:43:30] PORCENTAJE=69.3%
+[2026-06-10 15:43:30] ASUNTO_GENERADO=[IMPORTANTE] Reporte de consumo de horas RPA Alpina | 69.3% consumido
+[2026-06-10 15:43:30] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
+[2026-06-10 15:43:30] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
+[2026-06-10 15:43:30] === FIN OK ===
+[2026-06-10 17:00:38] === INICIO ===
+[2026-06-10 17:00:38] Usuario ejecutando: 2NV
+[2026-06-10 17:00:38] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 17:00:38] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 17:00:38] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 17:00:39] Intentando con requests...
+[2026-06-10 17:00:39] Status Code: 200
+[2026-06-10 17:00:39] requests OK
+[2026-06-10 17:00:39] Datos tomados directamente de reporteHoras
+[2026-06-10 17:00:39] HORAS_CONTRATADAS=4320.0
+[2026-06-10 17:00:39] HORAS_CONSUMIDAS=2994.5
+[2026-06-10 17:00:39] HORAS_RESTANTES=1325.5
+[2026-06-10 17:00:39] PORCENTAJE=69.3%
+[2026-06-10 17:00:39] ASUNTO_GENERADO=[IMPORTANTE] Reporte de consumo de horas RPA Alpina | 69.3% consumido
+[2026-06-10 17:00:39] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
+[2026-06-10 17:00:39] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
+[2026-06-10 17:00:39] === FIN OK ===

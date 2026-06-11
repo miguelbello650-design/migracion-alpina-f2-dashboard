@@ -1,0 +1,160 @@
+[2026-06-10 15:02:29] === INICIO REPORTE SEMANAL ===
+[2026-06-10 15:02:29] Usuario ejecutando: 2NV
+[2026-06-10 15:02:29] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 15:02:29] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 15:02:29] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 15:02:30] Intentando con requests...
+[2026-06-10 15:02:30] Status Code: 200
+[2026-06-10 15:02:30] requests OK
+[2026-06-10 15:02:30] Semana desde: 2026-06-08
+[2026-06-10 15:02:30] Semana hasta: 2026-06-12
+[2026-06-10 15:02:30] Total responsables: 3
+[2026-06-10 15:02:30] Total tareas semana: 10
+[2026-06-10 15:02:30] ASUNTO_GENERADO=[IMPORTANTE] Plan semanal RPA Alpina | Semana del 08/06 al 12/06
+[2026-06-10 15:02:30] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_semanal.txt
+[2026-06-10 15:02:30] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_semanal.html
+[2026-06-10 15:02:30] === FIN OK REPORTE SEMANAL ===
+[2026-06-10 15:17:44] === INICIO REPORTE SEMANAL ===
+[2026-06-10 15:17:44] Usuario ejecutando: 2NV
+[2026-06-10 15:17:44] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 15:17:44] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 15:17:44] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 15:17:45] Intentando con requests...
+[2026-06-10 15:17:45] Status Code: 200
+[2026-06-10 15:17:45] requests OK
+[2026-06-10 15:17:45] Semana desde: 2026-06-08
+[2026-06-10 15:17:45] Semana hasta: 2026-06-12
+[2026-06-10 15:17:45] Total responsables: 3
+[2026-06-10 15:17:45] Total tareas semana: 10
+[2026-06-10 15:17:45] ASUNTO_GENERADO=[IMPORTANTE] Plan semanal RPA Alpina | Semana del 08/06 al 12/06
+[2026-06-10 15:17:45] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_semanal.txt
+[2026-06-10 15:17:45] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_semanal.html
+[2026-06-10 15:17:45] === FIN OK REPORTE SEMANAL ===
+[2026-06-10 15:23:07] === INICIO REPORTE SEMANAL ===
+[2026-06-10 15:23:07] Usuario ejecutando: 2NV
+[2026-06-10 15:23:07] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 15:23:07] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 15:23:07] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 15:23:07] Intentando con requests...
+[2026-06-10 15:23:07] Status Code: 200
+[2026-06-10 15:23:07] requests OK
+[2026-06-10 15:23:07] Semana desde: 2026-06-08
+[2026-06-10 15:23:07] Semana hasta: 2026-06-12
+[2026-06-10 15:23:07] Total responsables: 3
+[2026-06-10 15:23:07] Total tareas semana: 10
+[2026-06-10 15:23:07] ASUNTO_GENERADO=[IMPORTANTE] Plan semanal RPA Alpina | Semana del 08/06 al 12/06
+[2026-06-10 15:23:07] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_semanal.txt
+[2026-06-10 15:23:07] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_semanal.html
+[2026-06-10 15:23:07] === FIN OK REPORTE SEMANAL ===
+[2026-06-10 15:24:42] === INICIO REPORTE SEMANAL ===
+[2026-06-10 15:24:42] Usuario ejecutando: 2NV
+[2026-06-10 15:24:42] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 15:24:42] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 15:24:42] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 15:24:42] Intentando con requests...
+[2026-06-10 15:24:42] Status Code: 200
+[2026-06-10 15:24:42] requests OK
+[2026-06-10 15:24:42] Semana desde: 2026-06-08
+[2026-06-10 15:24:42] Semana hasta: 2026-06-12
+[2026-06-10 15:24:42] Total responsables: 3
+[2026-06-10 15:24:42] Total tareas semana: 10
+[2026-06-10 15:24:42] ASUNTO_GENERADO=[IMPORTANTE] Plan semanal RPA Alpina | Semana del 08/06 al 12/06
+[2026-06-10 15:24:42] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_semanal.txt
+[2026-06-10 15:24:42] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_semanal.html
+[2026-06-10 15:24:42] === FIN OK REPORTE SEMANAL ===
+[2026-06-10 15:25:35] === INICIO REPORTE SEMANAL ===
+[2026-06-10 15:25:35] Usuario ejecutando: 2NV
+[2026-06-10 15:25:35] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 15:25:35] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 15:25:35] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 15:25:35] Intentando con requests...
+[2026-06-10 15:25:35] Status Code: 200
+[2026-06-10 15:25:35] requests OK
+[2026-06-10 15:25:35] Semana desde: 2026-06-08
+[2026-06-10 15:25:35] Semana hasta: 2026-06-12
+[2026-06-10 15:25:35] Total responsables: 3
+[2026-06-10 15:25:35] Total tareas semana: 10
+[2026-06-10 15:25:35] ASUNTO_GENERADO=[IMPORTANTE] Plan semanal RPA Alpina | Semana del 08/06 al 12/06
+[2026-06-10 15:25:35] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_semanal.txt
+[2026-06-10 15:25:35] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_semanal.html
+[2026-06-10 15:25:35] === FIN OK REPORTE SEMANAL ===
+[2026-06-10 15:32:36] === INICIO REPORTE SEMANAL ===
+[2026-06-10 15:32:36] Usuario ejecutando: 2NV
+[2026-06-10 15:32:36] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 15:32:36] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 15:32:36] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 15:32:37] Intentando con requests...
+[2026-06-10 15:32:37] Status Code: 200
+[2026-06-10 15:32:37] requests OK
+[2026-06-10 15:32:37] Semana desde: 2026-06-08
+[2026-06-10 15:32:37] Semana hasta: 2026-06-12
+[2026-06-10 15:32:37] Total responsables: 3
+[2026-06-10 15:32:37] Total tareas semana: 10
+[2026-06-10 15:32:37] ASUNTO_GENERADO=[IMPORTANTE] Plan semanal RPA Alpina | Semana del 08/06 al 12/06
+[2026-06-10 15:32:37] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_semanal.txt
+[2026-06-10 15:32:37] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_semanal.html
+[2026-06-10 15:32:37] === FIN OK REPORTE SEMANAL ===
+[2026-06-10 15:41:41] === INICIO REPORTE SEMANAL ===
+[2026-06-10 15:41:41] Usuario ejecutando: 2NV
+[2026-06-10 15:41:41] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 15:41:41] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 15:41:41] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 15:41:42] Intentando con requests...
+[2026-06-10 15:41:42] Status Code: 200
+[2026-06-10 15:41:42] requests OK
+[2026-06-10 15:41:42] Semana desde: 2026-06-08
+[2026-06-10 15:41:42] Semana hasta: 2026-06-12
+[2026-06-10 15:41:42] Total responsables: 3
+[2026-06-10 15:41:42] Total tareas semana: 10
+[2026-06-10 15:41:42] ASUNTO_GENERADO=Plan semanal RPA Alpina | Semana del 8/6 al 12/6
+[2026-06-10 15:41:42] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_semanal.txt
+[2026-06-10 15:41:42] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_semanal.html
+[2026-06-10 15:41:42] === FIN OK REPORTE SEMANAL ===
+[2026-06-10 15:43:23] === INICIO REPORTE SEMANAL ===
+[2026-06-10 15:43:23] Usuario ejecutando: 2NV
+[2026-06-10 15:43:23] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 15:43:23] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 15:43:23] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 15:43:23] Intentando con requests...
+[2026-06-10 15:43:23] Status Code: 200
+[2026-06-10 15:43:23] requests OK
+[2026-06-10 15:43:23] Semana desde: 2026-06-08
+[2026-06-10 15:43:23] Semana hasta: 2026-06-12
+[2026-06-10 15:43:23] Total responsables: 3
+[2026-06-10 15:43:23] Total tareas semana: 10
+[2026-06-10 15:43:23] ASUNTO_GENERADO=Plan semanal RPA Alpina | Semana del 8/6 al 12/6
+[2026-06-10 15:43:23] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_semanal.txt
+[2026-06-10 15:43:23] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_semanal.html
+[2026-06-10 15:43:23] === FIN OK REPORTE SEMANAL ===
+[2026-06-10 16:49:32] === INICIO REPORTE SEMANAL ===
+[2026-06-10 16:49:32] Usuario ejecutando: 2NV
+[2026-06-10 16:49:32] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 16:49:32] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 16:49:32] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 16:49:32] Intentando con requests...
+[2026-06-10 16:49:32] Status Code: 200
+[2026-06-10 16:49:32] requests OK
+[2026-06-10 16:49:32] Semana desde: 2026-06-08
+[2026-06-10 16:49:32] Semana hasta: 2026-06-12
+[2026-06-10 16:49:32] Total responsables: 3
+[2026-06-10 16:49:32] Total tareas semana: 10
+[2026-06-10 16:49:32] ASUNTO_GENERADO=Plan semanal RPA Alpina | Semana del 8/6 al 12/6
+[2026-06-10 16:49:32] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_semanal.txt
+[2026-06-10 16:49:32] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_semanal.html
+[2026-06-10 16:49:32] === FIN OK REPORTE SEMANAL ===
+[2026-06-10 17:00:09] === INICIO REPORTE SEMANAL ===
+[2026-06-10 17:00:09] Usuario ejecutando: 2NV
+[2026-06-10 17:00:09] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-10 17:00:09] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-10 17:00:09] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-10 17:00:09] Intentando con requests...
+[2026-06-10 17:00:09] Status Code: 200
+[2026-06-10 17:00:09] requests OK
+[2026-06-10 17:00:09] Semana desde: 2026-06-08
+[2026-06-10 17:00:09] Semana hasta: 2026-06-12
+[2026-06-10 17:00:09] Total responsables: 3
+[2026-06-10 17:00:09] Total tareas semana: 10
+[2026-06-10 17:00:09] ASUNTO_GENERADO=Plan semanal RPA Alpina | Semana del 8/6 al 12/6
+[2026-06-10 17:00:09] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_semanal.txt
+[2026-06-10 17:00:09] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_semanal.html
+[2026-06-10 17:00:09] === FIN OK REPORTE SEMANAL ===
