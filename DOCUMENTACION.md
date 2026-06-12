@@ -537,13 +537,13 @@ Quedo atento a los comentarios,
 - 39 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (8 tareas)
 - Vista Gantt: se recorta visualmente desde la primera tarea asignada, **23-Feb-2026** (idx 11). Los datos base conservan sus índices globales para no afectar cálculos, tarjetas ni reportes.
-- Milestone: Salida a Producción 🚩 (índice 91 = 24-Jun-26)
+- Milestone: Salida a Producción 🚩 (índice 92 = 25-Jun-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71, 76, 78 y notas por tarea en idx 80
 - **En Curso**: Pruebas UAT (32h, 4d: 26-29 may) finalizada, Elaboración documentación SDD (18h), Creación ticket BOT (26.66h, 4d: 17-18 mar + 03 y 05 jun) finalizada
 - **01-Jun (idx 76)**: día gris — sin avance (pendiente definición APIS)
 - **03-Jun (idx 78)**: Re mapeo IDS salta — Creación ticket BOT finalizada en este día
-- **05-Jun (idx 80) + 10-12 Jun (idx 82-84)**: Validación y creación flujo principal API queda en **26.7h / 3.5d**, con duración en 05-Jun y días adicionales 10, 11 y 12-Jun. El 09-Jun (idx 81) se salta para esta tarea.
-- **Cronograma posterior Robotina 2026-06-11**: Re mapeo ID SAP conserva `inProgress:true`, salta 10-12 Jun y mueve su cierre al 16-Jun (idx 85). Aprobación y entrega quedan el 17-Jun (idx 86), paso a producción del 18-Jun al 23-Jun (idx 87-90), salida a producción el 24-Jun (idx 91) y soporte postproducción del 25-Jun al 02-Jul (idx 92-96), sin contar el festivo 29-Jun.
+- **05-Jun (idx 80) + 10-12 Jun (idx 82-84) + 16-Jun (idx 85)**: Validación y creación flujo principal API queda en **34.7h / 4.5d**, con duración en 05-Jun, 10, 11, 12 y 16-Jun. El 09-Jun (idx 81) se salta para esta tarea.
+- **Cronograma posterior Robotina 2026-06-12**: Re mapeo ID SAP conserva `inProgress:true`, salta 10-12 Jun y 16-Jun, y mueve su cierre al 17-Jun (idx 86). Aprobación y entrega quedan el 18-Jun (idx 87), paso a producción del 19-Jun al 24-Jun (idx 88-91), salida a producción el 25-Jun (idx 92) y soporte postproducción del 26-Jun al 03-Jul (idx 93-97), sin contar el festivo 29-Jun.
 - **En Curso**: Validación y creación flujo principal API y Re mapeo ID SAP permanecen con `inProgress:true`; Creación ticket BOT y Creación de usuario en SUSI quedan ejecutadas.
 
 ## Reporte de Horas — Datos por Mes
@@ -641,7 +641,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **ROBOTINA sin UAT 05-Jun + shift**: 05-Jun (idx 80) queda fuera de Re mapeo ID SAP mediante `skipIndices`, sin gris global. Re mapeo termina el 10-Jun (idx 82), tareas posteriores se desplazan +1, Salida a Producción queda el 19-Jun (idx 88) y soporte termina el 26-Jun (idx 93).
 - **ROBOTINA duraciones adicionales 05-Jun**: idx 80 se agrega a Creación ticket BOT (26.66h/4d), Creación de usuario en SUSI (34.66h/5d) y a la nueva tarea Validación y creación flujo principal API (2.66h/0.5d), ubicada después de Pruebas unitarias, con notas independientes por tarea.
 - **ROBOTINA tareas 05-Jun**: Creación ticket BOT y Creación de usuario en SUSI se marcaron ejecutadas; Validación y creación flujo principal API permanece `inProgress:true`.
-- **ROBOTINA API flujo principal extendida**: Validación y creación flujo principal API pasa a **26.7h / 3.5d**. Mantiene idx 80 (05-Jun), agrega idx 82-84 (10, 11 y 12-Jun) y salta idx 81 (09-Jun). El cronograma posterior se desplaza +3 días hábiles: Re mapeo ID SAP cierra el 16-Jun, salida a producción queda el 24-Jun y soporte termina el 02-Jul.
+- **ROBOTINA API flujo principal extendida**: Validación y creación flujo principal API pasa a **34.7h / 4.5d**. Mantiene idx 80 (05-Jun), agrega idx 82-85 (10, 11, 12 y 16-Jun) y salta idx 81 (09-Jun). El cronograma posterior se desplaza +1 día hábil adicional desde el 16-Jun: Re mapeo ID SAP cierra el 17-Jun, salida a producción queda el 25-Jun y soporte termina el 03-Jul.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
