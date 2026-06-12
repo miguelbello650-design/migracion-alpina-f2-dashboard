@@ -742,10 +742,10 @@ let GANTT_ROWS_ROBOTINA = [
 // ---- Migracion Google - BOT NOVA Gantt ----
 let GANTT_ROWS_GOOGLE_NOVA = [
   { phase:"Gestion Gmail",task:"1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS",resp:"2NV",hours:6,days:0.75,fixedIdx:82,fixedEndIdx:82 },
-  { phase:"",task:"2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)",resp:"2NV",hours:4,days:0.5,fixedIdx:83,fixedEndIdx:83,inProgress:true },
-  { phase:"",task:"3. Descarga adjuntos + registro/control de casos",resp:"2NV",hours:2,days:0.25,fixedIdx:83,fixedEndIdx:83,inProgress:true },
-  { phase:"",task:"4. Guardado .MSG o .EML, correlacion (.xls y .msg), respuesta final en el mismo hilo y eliminacion .msg",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84 },
-  { phase:"",task:"5. Notificaciones de respuesta al solicitante",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84 },
+  { phase:"",task:"2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)",resp:"2NV",hours:4,days:0.5,fixedIdx:83,fixedEndIdx:83 },
+  { phase:"",task:"3. Descarga adjuntos + registro/control de casos",resp:"2NV",hours:2,days:0.25,fixedIdx:83,fixedEndIdx:83 },
+  { phase:"",task:"4. Guardado .MSG o .EML, correlacion (.xls y .msg), respuesta final en el mismo hilo y eliminacion .msg",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84,inProgress:true },
+  { phase:"",task:"5. Notificaciones de respuesta al solicitante",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84,inProgress:true },
   { phase:"Reporte ejecucion + Insight",task:"1. Envio correo final",resp:"2NV",hours:4,days:0.5,fixedIdx:85,fixedEndIdx:85 },
   { phase:"Pruebas",task:"Salida a Produccion",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:86,fixedEndIdx:86,milestone:true },
   { phase:"",task:"1. Funcionamiento operativo y monitorizacion",resp:"2NV",hours:8,days:1,fixedIdx:86,fixedEndIdx:86 },
@@ -1259,6 +1259,8 @@ function renderGanttFeli() {
 
 function renderGanttRobotina() {
   const container = document.getElementById('gantt-robotina');
+  const startIdx = 11;
+  const dates = GANTT_DATES.slice(startIdx);
   const GRAY_DAYS_ROBOTINA = [25, 26, 31, 60, 76];
   const robotinaNotes = {};
   robotinaNotes[25] = "Retrazo ya que no se entrega Apí de consulta a Helix";
@@ -1274,7 +1276,26 @@ function renderGanttRobotina() {
   robotinaNotes["Creación ticket BOT|80"] = "Se requiere un tiempo adicional para ajustar la reasingación de la WO";
   robotinaNotes["Creación de usuario en SUSI|80"] = "Se requiere tiempo para probar los campos faltantes de Helix de la API";
   robotinaNotes["Validación y creación flujo principal API|80"] = "Conexión de API Succes";
-  const innerHtml = buildGantt(GANTT_ROWS_ROBOTINA, GANTT_DATES, 'ROBOTINA', GRAY_DAYS_ROBOTINA, robotinaNotes);
+  const rows = GANTT_ROWS_ROBOTINA.map(r => {
+    const copy = { ...r };
+    if (copy.fixedIdx !== undefined) copy.fixedIdx -= startIdx;
+    if (copy.fixedEndIdx !== undefined) copy.fixedEndIdx -= startIdx;
+    if (copy.skipIndices) copy.skipIndices = copy.skipIndices.map(i => i - startIdx).filter(i => i >= 0);
+    if (copy.notesIdx) copy.notesIdx = copy.notesIdx.map(i => i - startIdx).filter(i => i >= 0);
+    return copy;
+  });
+  const grayDays = GRAY_DAYS_ROBOTINA.map(i => i - startIdx).filter(i => i >= 0);
+  const notes = {};
+  Object.keys(robotinaNotes).forEach(key => {
+    const parts = key.split('|');
+    const rawIdx = Number(parts[parts.length - 1]);
+    if (Number.isNaN(rawIdx)) return;
+    const shiftedIdx = rawIdx - startIdx;
+    if (shiftedIdx < 0) return;
+    if (parts.length === 1) notes[shiftedIdx] = robotinaNotes[key];
+    else notes[parts.slice(0, -1).join('|') + '|' + shiftedIdx] = robotinaNotes[key];
+  });
+  const innerHtml = buildGantt(rows, dates, 'ROBOTINA', grayDays, notes);
   container.innerHTML = '<div class="gantt-wrap" id="gantt-wrap-robotina">' + innerHtml + '</div>';
 }
 

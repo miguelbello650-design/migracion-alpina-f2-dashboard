@@ -536,6 +536,7 @@ Quedo atento a los comentarios,
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 39 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (8 tareas)
+- Vista Gantt: se recorta visualmente desde la primera tarea asignada, **23-Feb-2026** (idx 11). Los datos base conservan sus índices globales para no afectar cálculos, tarjetas ni reportes.
 - Milestone: Salida a Producción 🚩 (índice 91 = 24-Jun-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71, 76, 78 y notas por tarea en idx 80
 - **En Curso**: Pruebas UAT (32h, 4d: 26-29 may) finalizada, Elaboración documentación SDD (18h), Creación ticket BOT (26.66h, 4d: 17-18 mar + 03 y 05 jun) finalizada
@@ -696,7 +697,8 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 
 - Se corrige el estado de las actividades del Gantt de **Migracion Google - BOT NOVA** para que el dashboard diferencie correctamente tareas finalizadas y tareas en curso.
 - La tarea **1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS** queda finalizada al tener fecha **10-Jun-2026**.
-- Las tareas **2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)** y **3. Descarga adjuntos + registro/control de casos** quedan con `inProgress:true`; ambas corresponden al **11-Jun-2026** y se muestran en curso.
+- Las tareas **2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)** y **3. Descarga adjuntos + registro/control de casos** quedan finalizadas al tener fecha **11-Jun-2026**.
+- Las tareas **4. Guardado .MSG o .EML, correlacion (.xls y .msg), respuesta final en el mismo hilo y eliminacion .msg** y **5. Notificaciones de respuesta al solicitante** quedan con `inProgress:true`; ambas corresponden al **12-Jun-2026** y se muestran en curso.
 - La base SQLite local se sincronizo para `googlenova`, evitando que el servidor restaure el estado anterior al abrir el dashboard.
 
 ## Actualizacion - FELI pruebas Gmail (2026-06-09)
