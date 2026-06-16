@@ -1,0 +1,36 @@
+﻿Subject: Plan semanal RPA Alpina | Semana del 15 de junio de 2026 al 19 de junio de 2026
+
+Buen día equipo,
+
+Comparto el plan general de trabajo para esta semana:
+
+Johan Sabino
+- Migración Google - BOT NOVA:
+  - 4. Guardado .MSG o .EML, correlacion (.xls y .msg), respuesta final en el mismo hilo y eliminacion .msg
+  - 5. Notificaciones de respuesta al solicitante
+  - 1. Envio correo final
+  - Salida a Produccion
+  - 1. Funcionamiento operativo y monitorizacion
+  - 1. Ajuste documentacion
+
+Cristian Bonilla
+- FELI:
+  - 2. Documentación técnica (SDD, instalación)
+  - 1. Documentación funcional y manual usuario
+  - Ajuste de Correo Gmail y Notificaciones
+  - 2. UAT con usuario funcional
+  - 3. Re mapeo ID SAP
+
+Javier Gonzalez
+- ROBOTINA:
+  - Elaboración documentación SDD + manual usuario
+  - Pruebas UAT
+  - Re mapeo ID SAP a producción
+  - Validación y creación flujo principal API
+  - Aprobación de documentación (manual técnico y funcional y PDD)
+  - Entrega de desarrollo al cliente (Capacitación)
+  - Paso a producción (MDA + TI + validaciones)
+
+Seguimiento: el avance será actualizado en el Dashboard durante la semana. Cualquier bloqueo crítico será informado oportunamente.
+
+Quedo atento a los comentarios,
