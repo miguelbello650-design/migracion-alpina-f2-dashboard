@@ -534,16 +534,16 @@ Quedo atento a los comentarios,
 **Nota vigente FELI 2026-06-09**: el cronograma actualizado de FELI tiene 30 tareas. UAT queda en 88h/11d, termina el 05-Jun, sin contar el 09-Jun y sigue con `inProgress:true`. La tarea Ajuste de Correo Gmail y Notificaciones se trabaja del 09-Jun al 12-Jun y esta en curso. Re mapeo ID SAP inicia el 16-Jun (idx 85), Salida a Produccion queda el 26-Jun (idx 93) y Seguimiento postproduccion termina el 06-Jul (idx 98).
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
-- 39 tareas en 3 fases
-- Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (8 tareas)
+- 40 tareas en 3 fases
+- Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (9 tareas)
 - Vista Gantt: se recorta visualmente desde la primera tarea asignada, **23-Feb-2026** (idx 11). Los datos base conservan sus índices globales para no afectar cálculos, tarjetas ni reportes.
-- Milestone: Salida a Producción 🚩 (índice 92 = 25-Jun-26)
+- Milestone: Salida a Producción 🚩 (índice 99 = 7-Jul-26)
 - Hitos de notas: índices 25, 26, 31, 50, 60, 61, 64, 71, 76, 78 y notas por tarea en idx 80
-- **En Curso**: Pruebas UAT (32h, 4d: 26-29 may) finalizada, Elaboración documentación SDD (18h), Creación ticket BOT (26.66h, 4d: 17-18 mar + 03 y 05 jun) finalizada
+- **En Curso**: Pruebas UAT (32h, 4d: 26-29 may) finalizada, Elaboración documentación SDD (18h), Creación ticket BOT (40h, 5d: 17-18 mar + 03, 05 y 23-26 jun) en curso
 - **01-Jun (idx 76)**: día gris — sin avance (pendiente definición APIS)
 - **03-Jun (idx 78)**: Re mapeo IDS salta — Creación ticket BOT finalizada en este día
 - **05-Jun (idx 80) + 10-12 Jun (idx 82-84) + 16-Jun (idx 85)**: Validación y creación flujo principal API queda en **34.7h / 4.5d**, con duración en 05-Jun, 10, 11, 12 y 16-Jun. El 09-Jun (idx 81) se salta para esta tarea.
-- **Cronograma posterior Robotina 2026-06-12**: Re mapeo ID SAP conserva `inProgress:true`, salta 10-12 Jun y 16-Jun, y mueve su cierre al 17-Jun (idx 86). Aprobación y entrega quedan el 18-Jun (idx 87), paso a producción del 19-Jun al 24-Jun (idx 88-91), salida a producción el 25-Jun (idx 92) y soporte postproducción del 26-Jun al 03-Jul (idx 93-97), sin contar el festivo 29-Jun.
+- **Cronograma posterior Robotina 2026-06-16**: Re mapeo ID SAP conserva `inProgress:true`, trabaja los días 2, 4, 9, 17 y 18 de junio, y cierra el 18-Jun (idx 87) con 40h/5d. Ajuste Migración Google se programa del 23-Jun al 26-Jun (idx 90-93) con nota en el 23-Jun; Aprobación y entrega quedan el 30-Jun (idx 94), paso a producción del 1-Jul al 6-Jul (idx 95-98), salida a producción el 7-Jul (idx 99) y soporte postproducción del 8-Jul al 14-Jul (idx 100-104), sin contar el festivo 29-Jun.
 - **En Curso**: Validación y creación flujo principal API y Re mapeo ID SAP permanecen con `inProgress:true`; Creación ticket BOT y Creación de usuario en SUSI quedan ejecutadas.
 
 ## Reporte de Horas — Datos por Mes
@@ -632,16 +632,16 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 - **FELI Re mapeo IDS 5 días**: Ajustado a 5 días (fixedEndIdx 81→82). Cronograma posterior desplazado +1. Seguimiento postproducción termina en idx 91 (24-Jun-26).
 - **FELI UAT gap 02-Jun + shift**: UAT extiende a idx 78 (03-Jun), salta idx 77 (02-Jun, sin avance). Tareas posteriores desplazadas +1. GANTT_DATES extendido a 93 fechas (0-92), agregado 25-Jun-26.
 - **FELI gray day 77 + nota SAP**: 02-Jun (idx 77) agregado a GRAY_DAYS_FELI con nota "El ambiente de SAP Calidad se encuentra caido" y notesIdx en UAT.
-- **ROBOTINA Creación ticket BOT extendido**: Ahora 24h/3d, abarca 17-18 mar (idx 27-28) + 03-jun (idx 78) con skipIndices. Marcado `inProgress:true`.
+- **ROBOTINA Creación ticket BOT extendido**: Ahora 40h/5d, abarca 17-18 mar (idx 27-28) + 03, 05 y 19-jun (idx 78, 80 y 88) con skipIndices. Marcado `inProgress:true`.
 - **ROBOTINA Re mapeo IDS + skip 78**: Trabaja 02,04,05,09-jun (77,79,80,81) con skip en 78. Tareas posteriores desplazadas. GANTT_DATES extendido a 94 fechas (0-93), agregado 26-Jun-26.
 - **FELI gray day 78 + shift**: 03-Jun (idx 78) agregado a GRAY_DAYS_FELI. UAT extiende a idx 79 (04-Jun) con skip 77+78. Tareas posteriores desplazadas +1.
 - **FELI UAT extendida a 11d/88h**: UAT de FELI pasa a terminar el 05-Jun (idx 80). Re mapeo ID SAP y tareas posteriores se desplazan +1 día. GANTT_DATES extendido a 95 fechas (0-94), agregado 30-Jun-26 porque el 29-Jun es festivo y no se cuenta.
 - **FELI UAT extendida a 12d/96h**: UAT de FELI suma el 09-Jun (idx 81), pasa a 96h/12d y tareas posteriores se desplazan +1 día. GANTT_DATES extendido a 96 fechas (0-95), agregado 01-Jul-26.
-- **ROBOTINA Creación ticket BOT finalizada**: Removido `inProgress:true`. La barra ahora es verde (completada) y sus horas cuentan como ejecutadas.
+- **ROBOTINA Creación ticket BOT con ajuste de Google**: Mantiene `inProgress:true` y suma la nota del 23-Jun para la reasignación de WO; la barra sigue en curso.
 - **ROBOTINA sin UAT 05-Jun + shift**: 05-Jun (idx 80) queda fuera de Re mapeo ID SAP mediante `skipIndices`, sin gris global. Re mapeo termina el 10-Jun (idx 82), tareas posteriores se desplazan +1, Salida a Producción queda el 19-Jun (idx 88) y soporte termina el 26-Jun (idx 93).
-- **ROBOTINA duraciones adicionales 05-Jun**: idx 80 se agrega a Creación ticket BOT (26.66h/4d), Creación de usuario en SUSI (34.66h/5d) y a la nueva tarea Validación y creación flujo principal API (2.66h/0.5d), ubicada después de Pruebas unitarias, con notas independientes por tarea.
-- **ROBOTINA tareas 05-Jun**: Creación ticket BOT y Creación de usuario en SUSI se marcaron ejecutadas; Validación y creación flujo principal API permanece `inProgress:true`.
-- **ROBOTINA API flujo principal extendida**: Validación y creación flujo principal API pasa a **34.7h / 4.5d**. Mantiene idx 80 (05-Jun), agrega idx 82-85 (10, 11, 12 y 16-Jun) y salta idx 81 (09-Jun). El cronograma posterior se desplaza +1 día hábil adicional desde el 16-Jun: Re mapeo ID SAP cierra el 17-Jun, salida a producción queda el 25-Jun y soporte termina el 03-Jul.
+- **ROBOTINA duraciones adicionales 05-Jun**: idx 80 se agrega a Creación ticket BOT (40h/5d, con nota adicional en 19-Jun), Creación de usuario en SUSI (34.66h/5d) y a la nueva tarea Validación y creación flujo principal API (2.66h/0.5d), ubicada después de Pruebas unitarias, con notas independientes por tarea.
+- **ROBOTINA tareas 05-Jun**: Creación ticket BOT y Creación de usuario en SUSI permanecen con `inProgress:true`; Validación y creación flujo principal API permanece `inProgress:true`.
+- **ROBOTINA API flujo principal extendida**: Validación y creación flujo principal API pasa a **34.7h / 4.5d**. Mantiene idx 80 (05-Jun), agrega idx 82-85 (10, 11, 12 y 16-Jun) y salta idx 81 (09-Jun). El cronograma posterior se desplaza +1 día hábil adicional desde el 16-Jun: Re mapeo ID SAP cierra el 18-Jun, salida a producción queda el 26-Jun y soporte termina el 06-Jul.
 ## URLs
 - **Dashboard**: https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard
 - **Repositorio**: https://github.com/miguelbello650-design/migracion-alpina-f2-dashboard
