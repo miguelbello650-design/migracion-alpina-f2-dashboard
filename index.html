@@ -1583,9 +1583,11 @@ function renderProyectosChart() {
     let h = 0;
     if (p.staticData && p.staticData.hours !== undefined) h = p.staticData.hours;
     else if (p.rows) {
-      const hrs = calcBotHours(p.rows);
+      // La grafica usa la misma fuente del bloque Desarrollo en Reporte de horas.
+      const hrs = botHours(p.key, 'all');
       h = hrs.completed + hrs.inProgress;
     }
+    h = roundHours(h);
     if (h > 0) { items.push({ name: p.name, hours: h, key: p.key }); totalHours += h; }
   });
   const colors = { optimus:'#7c3aed', lamonita:'#dc2626', horasextra:'#b45309', nova:'#0033a0', feli:'#6366f1', robotina:'#0891b2', googlenova:'#4285F4' };

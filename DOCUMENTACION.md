@@ -245,7 +245,7 @@ renderRobotinaCard()      // Renderiza tarjeta ROBOTINA
 renderProyectos()         // Renderiza pestaña PROYECTOS ALPINA (tarjetas + gráfico de dona)
 renderProyectoCard(p, key, gridStyle?)  // Renderiza una tarjeta de proyecto (staticData o Gantt), acepta estilo grid opcional
 openProyectoAvance(key)   // Navega desde Proyectos Alpina a % Avance y enfoca la tarjeta del bot
-renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyecto
+renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyecto; para bots activos usa botHours(key, 'all'), la misma fuente del bloque Desarrollo del Reporte de horas
 showProyectoDetalle(key)  // Abre modal con el alcance del proyecto (staticData.desc con <br>)
 renderReporte()           // Renderiza 4 bloques + gráficos (dona, barras y horas contratadas/restantes) con filtro por mes en REPORTE DE HORAS ALPINA
 calcBotHours(rows)        // Calcula horas completadas y en curso para un array de tareas
@@ -552,6 +552,8 @@ Los datos alimentan tres gráficos al final del Reporte:
 - **Dona**: distribución de horas totales por bloque (Desarrollo, Soporte, Actualización PDD, Actividades adicionales)
 - **Barras**: total de horas por mes (estático, siempre muestra todos los meses sin importar el filtro)
 - **Horas contratadas vs horas restantes**: compara `REPORTE_HORAS_CONTRATADAS = 4320` contra las horas totales acumuladas (`horas restantes = horas contratadas - horas totales`) mediante dona y barra apilada.
+
+La gráfica **Horas de Desarrollo por Proyecto** de la pestaña **PROYECTOS ALPINA** reutiliza `botHours(key, 'all')` para los bots activos, por lo que muestra los mismos valores acumulados que el bloque **Desarrollo** del Reporte de horas. Ejemplo vigente: **NOVA = 550h**.
 
 ### Desarrollo — Activos
 Los 3 bots activos calculan horas:
