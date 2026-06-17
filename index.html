@@ -685,15 +685,15 @@ let GANTT_ROWS_FELI = [
   { phase:"",task:"15. Notificaciones solicitantes",resp:"2NV - ALPINA",hours:16,days:2,fixedIdx:52,fixedEndIdx:53,notesIdx:[51] },
   { phase:"Pruebas",task:"Ajuste de Correo Gmail y Notificaciones",resp:"2NV",hours:32,days:4,fixedIdx:81,fixedEndIdx:84,notesIdx:[81],inProgress:false },
   { phase:"",task:"1. Pruebas unitarias e integración técnica",resp:"2NV",hours:40,days:5,fixedIdx:57,fixedEndIdx:61,notesIdx:[54,55,56,61] },
-     { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:96,days:12,fixedIdx:61,fixedEndIdx:85,skipIndices:[64,65,66,67,68,69,70,77,78,81,82,83,84],notesIdx:[77,78],inProgress:true },
-     { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:86,fixedEndIdx:90 },
-     { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:91,fixedEndIdx:92 },
-   { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:14,days:1.8,fixedIdx:43,fixedEndIdx:44,inProgress:true },
+     { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:96,days:12,fixedIdx:61,fixedEndIdx:86,skipIndices:[64,65,66,67,68,69,70,77,78,81,82,83,84],notesIdx:[77,78],inProgress:true },
+     { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:87,fixedEndIdx:91 },
+     { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:92,fixedEndIdx:93 },
+     { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:14,days:1.8,fixedIdx:43,fixedEndIdx:44,inProgress:true },
    { phase:"Producción",task:"1. Documentación funcional y manual usuario",resp:"2NV",hours:20,days:3,fixedIdx:45,fixedEndIdx:48,skipIndices:[47],inProgress:true },
-     { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:93,fixedEndIdx:93 },
-     { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:93,fixedEndIdx:93 },
-     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:94,fixedEndIdx:94,milestone:true },
-     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:95,fixedEndIdx:98 }
+     { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:94,fixedEndIdx:94 },
+     { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:94,fixedEndIdx:94 },
+     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:95,fixedEndIdx:95,milestone:true },
+     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:96,fixedEndIdx:99 }
 ];
 
 // ---- ROBOTINA Gantt ----
@@ -729,7 +729,7 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Enviar credenciales (2 correos) + notificación finalización",resp:"2NV",hours:10,days:1.3,fixedIdx:57,fixedEndIdx:57 },
   { phase:"",task:"Elaboración documentación SDD + manual usuario",resp:"2NV",hours:24,days:3,fixedIdx:58,fixedEndIdx:96,skipIndices:[60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95],notesIdx:[96],inProgress:true },
    { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:64,days:8,fixedIdx:65,fixedEndIdx:94,skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93],notesIdx:[71,94] },
-   { phase:"",task:"Validación y creación flujo principal API",resp:"2NV",hours:34.7,days:4.5,fixedIdx:80,fixedEndIdx:85,skipIndices:[81],notesIdx:[80],inProgress:true },
+   { phase:"",task:"Validación y creación flujo principal API",resp:"2NV",hours:34.7,days:4.5,fixedIdx:80,fixedEndIdx:85,skipIndices:[81],notesIdx:[80],inProgress:false },
    { phase:"Cierre",task:"Pruebas UAT",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:72,fixedEndIdx:95,skipIndices:[76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94],notesIdx:[95],inProgress:true },
      { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:40,days:5,fixedIdx:77,fixedEndIdx:87,notesIdx:[76],skipIndices:[78,80,82,83,84,85],inProgress:true },
      { phase:"",task:"Ajuste Migración Google",resp:"2NV",hours:32,days:4,fixedIdx:90,fixedEndIdx:93,notesIdx:[90] },
@@ -746,9 +746,9 @@ let GANTT_ROWS_GOOGLE_NOVA = [
   { phase:"",task:"3. Descarga adjuntos + registro/control de casos",resp:"2NV",hours:2,days:0.25,fixedIdx:83,fixedEndIdx:83 },
   { phase:"",task:"4. Guardado .MSG o .EML, correlacion (.xls y .msg), respuesta final en el mismo hilo y eliminacion .msg",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84,inProgress:false },
   { phase:"",task:"5. Notificaciones de respuesta al solicitante",resp:"2NV",hours:4,days:0.5,fixedIdx:84,fixedEndIdx:84,inProgress:false },
-  { phase:"Reporte ejecucion + Insight",task:"1. Envio correo final",resp:"2NV",hours:4,days:0.5,fixedIdx:85,fixedEndIdx:85,inProgress:true },
+  { phase:"Reporte ejecucion + Insight",task:"1. Envio correo final",resp:"2NV",hours:4,days:0.5,fixedIdx:85,fixedEndIdx:85,inProgress:false },
   { phase:"Pruebas",task:"Salida a Produccion",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:86,fixedEndIdx:86,milestone:true },
-  { phase:"",task:"1. Funcionamiento operativo y monitorizacion",resp:"2NV",hours:8,days:1,fixedIdx:86,fixedEndIdx:86 },
+  { phase:"",task:"1. Funcionamiento operativo y monitorizacion",resp:"2NV",hours:8,days:1,fixedIdx:86,fixedEndIdx:86,inProgress:true },
   { phase:"Ajuste documentacion",task:"1. Ajuste documentacion",resp:"2NV",hours:8,days:1,fixedIdx:87,fixedEndIdx:87 }
 ];
 
