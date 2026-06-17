@@ -548,6 +548,9 @@ const REPORTE_PWD = 'reporte2025';
 function formatHours(value) {
   return Number(value || 0).toFixed(1).replace(/\.0$/, '');
 }
+function roundHours(value) {
+  return Number(Number(value || 0).toFixed(1));
+}
 function checkReporteAuth() {
   if (sessionStorage.getItem('reporteAuth') === 'true') return true;
   const pwd = prompt('Ingrese contraseña para acceder al Reporte de Horas:');
@@ -1613,7 +1616,7 @@ let STATIC_MONTHLY = {
   optimus: { '2025-11':57.5, '2025-12':182.5, '2026-1':46 },
   lamonita: { '2025-11':44.5, '2025-12':189.5, '2026-1':139 },
   horasextra: { '2025-11':0, '2025-12':130, '2026-1':131, '2026-2':43 },
-  soporte: { '2025-11':0, '2025-12':49, '2026-1':29.5, '2026-2':42, '2026-3':39, '2026-4':90, '2026-5':73 },
+  soporte: { '2025-11':0, '2025-12':49, '2026-1':29.5, '2026-2':42, '2026-3':39, '2026-4':90, '2026-5':73, '2026-6':87.5 },
   actualizacion_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1, '2026-3':0, '2026-4':0, '2026-5':1, '2026-6':0 },
   actualizacion_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':8, '2026-3':0, '2026-4':1.5, '2026-5':0, '2026-6':0 },
   actualizacion_optimus: { '2025-11':0, '2025-12':3, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
@@ -1627,7 +1630,7 @@ let STATIC_MONTHLY = {
   actividad_estimacion: { '2025-11':0, '2025-12':0, '2026-1':2, '2026-2':12, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actividad_infra: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1.5, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actividad_correos_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':4.5, '2026-6':0 },
-  locked_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':99, '2026-3':137, '2026-4':128 },
+  locked_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':99, '2026-3':137, '2026-4':128, '2026-5':152 },
   locked_nova: { '2026-4':126, _total:398 },
   locked_robotina: { '2026-3':130, '2026-4':134, '2026-5':148, _total:300 }
 };
@@ -1832,7 +1835,7 @@ function renderReporte() {
   function blockTotal(key, m) {
     if (key === 'Desarrollo') {
       let t = 0;
-      botKeys.forEach(k => { const h = botHours(k, m); t += h.completed + h.inProgress; });
+      botKeys.forEach(k => { const h = botHours(k, m); t += roundHours(h.completed + h.inProgress); });
       staticFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (d) t += m !== 'all' ? (d[m]||0) : getMonthOptions().reduce((s,mo)=>s+(d[mo]||0),0); });
       return t;
     }
@@ -1959,7 +1962,7 @@ function exportReporte() {
   if (filter === 'all') {
     tbl += '<br><table><tr>'+hcell('Mes')+hcell('Desarrollo')+hcell('Soporte')+hcell('Actualización PDD')+hcell('Actividades adicionales')+hcell('Total')+'</tr>';
     months.forEach(m => {
-      const des = botK.reduce((s,k)=>{const h=botHours(k,m);return s+h.completed+h.inProgress;},0) + stFin.reduce((s,p)=>{const d=STATIC_MONTHLY[p.key];return s+(d?d[m]||0:0);},0);
+      const des = botK.reduce((s,k)=>{const h=botHours(k,m);return s+roundHours(h.completed+h.inProgress);},0) + stFin.reduce((s,p)=>{const d=STATIC_MONTHLY[p.key];return s+(d?d[m]||0:0);},0);
       const sop = STATIC_MONTHLY.soporte[m]||0;
       const act = actK.reduce((s,k)=>s+(STATIC_MONTHLY[k][m]||0),0);
       const av = actvK.reduce((s,k)=>s+(STATIC_MONTHLY[k][m]||0),0);

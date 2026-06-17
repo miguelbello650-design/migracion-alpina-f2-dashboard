@@ -561,11 +561,11 @@ Los 3 bots activos calculan horas:
 Horas fijas de bots por mes:
 | Bot | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Total (Todos) |
 |-----|----------|----------|----------|----------|--------------|
-| FELI | 99 | 137 | 128 | dinámico | dinámico |
+| FELI | 99 | 137 | 128 | 152 | dinámico |
 | NOVA | — | — | 126 | dinámico | 398 |
 | ROBOTINA | — | 130 | 134 | 148 | 300 |
 
-- Mayo usa cálculo dinámico desde Gantt para NOVA y FELI. ROBOTINA en mayo queda bloqueado en 148h mediante `locked_robotina['2026-5']`.
+- Mayo usa cálculo dinámico desde Gantt para NOVA. FELI en mayo queda bloqueado en 152h mediante `locked_feli['2026-5']`. ROBOTINA en mayo queda bloqueado en 148h mediante `locked_robotina['2026-5']`.
 - Los meses futuros se ocultan del filtro hasta que inicien
 
 ### Desarrollo — Finalizados
@@ -577,9 +577,9 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 | HORAS EXTRA | 0 | 130 | 131 | 43 |
 
 ### Soporte
-| Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
-|---|---|---|---|---|---|---|
-| 0 | 49 | 29.5 | 42 | 39 | 90 | 73 |
+| Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Jun 2026 |
+|---|---|---|---|---|---|---|---|
+| 0 | 49 | 29.5 | 42 | 39 | 90 | 73 | 87.5 |
 
 ### Actualización PDD
 | Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
