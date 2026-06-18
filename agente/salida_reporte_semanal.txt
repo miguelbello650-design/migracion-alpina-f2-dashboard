@@ -1,2 +1,2 @@
 Script semanal iniciado...
-OK | Reporte semanal generado con 11 tareas
+OK | Reporte semanal generado con 12 tareas
