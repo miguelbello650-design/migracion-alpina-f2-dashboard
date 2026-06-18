@@ -533,6 +533,8 @@ Quedo atento a los comentarios,
 
 **Nota vigente FELI 2026-06-09**: el cronograma actualizado de FELI tiene 30 tareas. UAT queda en 88h/11d, termina el 05-Jun, sin contar el 09-Jun y sigue con `inProgress:true`. La tarea Ajuste de Correo Gmail y Notificaciones se trabaja del 09-Jun al 12-Jun y esta en curso. Re mapeo ID SAP inicia el 16-Jun (idx 85), Salida a Produccion queda el 26-Jun (idx 93) y Seguimiento postproduccion termina el 06-Jul (idx 98).
 
+**Nota vigente FELI 2026-06-18**: UAT con usuario funcional suma el dia 18-Jun-2026 (idx 87), queda en **112h / 14d** y sigue `inProgress:true`. El cronograma posterior se corre un dia habil: Re mapeo ID SAP queda del 19-Jun al 25-Jun (idx 88-92), Ajustes finales del 26-Jun al 30-Jun (idx 93-94), aprobacion/entrega el 01-Jul (idx 95), Salida a Produccion el 02-Jul (idx 96) y Seguimiento postproduccion del 03-Jul al 08-Jul (idx 97-100).
+
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 40 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (9 tareas)
@@ -702,6 +704,8 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - Las tareas **2. Flujo de aprobacion/rechazo (incl. reintentos y timeouts)** y **3. Descarga adjuntos + registro/control de casos** quedan finalizadas al tener fecha **11-Jun-2026**.
 - Las tareas **4. Guardado .MSG o .EML, correlacion (.xls y .msg), respuesta final en el mismo hilo y eliminacion .msg** y **5. Notificaciones de respuesta al solicitante** quedan con `inProgress:true`; ambas corresponden al **12-Jun-2026** y se muestran en curso.
 - La base SQLite local se sincronizo para `googlenova`, evitando que el servidor restaure el estado anterior al abrir el dashboard.
+
+**Nota vigente 2026-06-18**: las tareas del **17-Jun-2026** (`Salida a Produccion` y `1. Funcionamiento operativo y monitorizacion`) quedan ejecutadas, sin `inProgress`. La tarea del **18-Jun-2026** (`1. Ajuste documentacion`) queda con `inProgress:true`. La base SQLite local se sincronizo para `googlenova`.
 
 ## Actualizacion - FELI pruebas Gmail (2026-06-09)
 
