@@ -535,6 +535,8 @@ Quedo atento a los comentarios,
 
 **Nota vigente FELI 2026-06-18**: UAT con usuario funcional suma el dia 18-Jun-2026 (idx 87), queda en **112h / 14d** y sigue `inProgress:true`. El cronograma posterior se corre un dia habil: Re mapeo ID SAP queda del 19-Jun al 25-Jun (idx 88-92), Ajustes finales del 26-Jun al 30-Jun (idx 93-94), aprobacion/entrega el 01-Jul (idx 95), Salida a Produccion el 02-Jul (idx 96) y Seguimiento postproduccion del 03-Jul al 08-Jul (idx 97-100).
 
+**Nota vigente FELI 2026-06-19**: UAT con usuario funcional suma el dia 19-Jun-2026 (idx 88), queda en **120h / 15d** y sigue `inProgress:true`. El cronograma posterior se corre un dia habil: Re mapeo ID SAP queda del 22-Jun al 26-Jun (idx 89-93), Ajustes finales del 30-Jun al 01-Jul (idx 94-95), aprobacion/entrega el 02-Jul (idx 96), Salida a Produccion el 03-Jul (idx 97) y Seguimiento postproduccion del 06-Jul al 09-Jul (idx 98-101).
+
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 40 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (9 tareas)
@@ -546,7 +548,8 @@ Quedo atento a los comentarios,
 - **03-Jun (idx 78)**: Re mapeo IDS salta — Creación ticket BOT finalizada en este día
 - **05-Jun (idx 80) + 10-12 Jun (idx 82-84) + 16-Jun (idx 85)**: Validación y creación flujo principal API queda en **34.7h / 4.5d**, con duración en 05-Jun, 10, 11, 12 y 16-Jun. El 09-Jun (idx 81) se salta para esta tarea.
 - **Cronograma posterior Robotina 2026-06-16**: Re mapeo ID SAP conserva `inProgress:true`, trabaja los días 2, 4, 9, 17 y 18 de junio, y cierra el 18-Jun (idx 87) con 40h/5d. Ajuste Migración Google se programa del 23-Jun al 26-Jun (idx 90-93) con nota en el 23-Jun; Aprobación y entrega quedan el 30-Jun (idx 94), paso a producción del 1-Jul al 6-Jul (idx 95-98), salida a producción el 7-Jul (idx 99) y soporte postproducción del 8-Jul al 14-Jul (idx 100-104), sin contar el festivo 29-Jun.
-- **En Curso**: Validación y creación flujo principal API y Re mapeo ID SAP permanecen con `inProgress:true`; Creación ticket BOT y Creación de usuario en SUSI quedan ejecutadas.
+- **En Curso**: Pruebas UAT permanece con `inProgress:true`. Validación y creación flujo principal API, Re mapeo ID SAP, Creación ticket BOT y Creación de usuario en SUSI quedan ejecutadas.
+- **Nota vigente ROBOTINA 2026-06-19**: la tarea **Re mapeo ID SAP a producción** queda ejecutada (`inProgress:false`) y la base SQLite local queda sincronizada.
 
 ## Reporte de Horas — Datos por Mes
 
@@ -706,6 +709,8 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - La base SQLite local se sincronizo para `googlenova`, evitando que el servidor restaure el estado anterior al abrir el dashboard.
 
 **Nota vigente 2026-06-18**: las tareas del **17-Jun-2026** (`Salida a Produccion` y `1. Funcionamiento operativo y monitorizacion`) quedan ejecutadas, sin `inProgress`. La tarea del **18-Jun-2026** (`1. Ajuste documentacion`) queda con `inProgress:true`. La base SQLite local se sincronizo para `googlenova`.
+
+**Nota vigente 2026-06-19**: todas las tareas de **Migracion Google - BOT NOVA** quedan finalizadas. `1. Ajuste documentacion` pasa a `inProgress:false`; `/api/data` no devuelve tareas `googlenova` en curso.
 
 ## Actualizacion - FELI pruebas Gmail (2026-06-09)
 
