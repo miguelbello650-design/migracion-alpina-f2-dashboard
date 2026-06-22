@@ -137,29 +137,11 @@ try:
 
             fixed_ini = r.get("fixedIdx")
             fixed_fin = r.get("fixedEndIdx", fixed_ini)
-            skip_indices = set(r.get("skipIndices", []))
 
-            # Incluye tareas que tengan al menos un día real programado dentro
-            # de la semana del reporte. Se excluyen los índices marcados como
-            # skipIndices para evitar mostrar tareas abiertas pero sin trabajo
-            # planificado durante la semana.
-            tiene_dia_en_semana = False
+            inicio = fechas[fixed_ini] if fixed_ini is not None and fixed_ini < len(fechas) else None
+            fin = fechas[fixed_fin] if fixed_fin is not None and fixed_fin < len(fechas) else None
 
-            if fixed_ini is not None and fixed_fin is not None:
-                for idx in range(fixed_ini, fixed_fin + 1):
-                    if idx in skip_indices:
-                        continue
-
-                    if idx < 0 or idx >= len(fechas):
-                        continue
-
-                    fecha_idx = fechas[idx]
-
-                    if fecha_idx and lunes <= fecha_idx <= viernes:
-                        tiene_dia_en_semana = True
-                        break
-
-            if tiene_dia_en_semana:
+            if inicio and fin and inicio <= viernes and fin >= lunes:
                 if bot_label not in grupos[nombre]["bots"]:
                     grupos[nombre]["bots"][bot_label] = {
                         "color": color,
