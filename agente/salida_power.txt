@@ -1,2 +1,2 @@
 Script iniciado...
-OK | 70.9% consumido (3064.6/4320.0 h)
+OK | 74.7% consumido (3226.7/4320.0 h)
