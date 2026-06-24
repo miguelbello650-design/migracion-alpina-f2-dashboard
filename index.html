@@ -624,7 +624,7 @@ let GANTT_ROWS = [
 ];
 
 const GANTT_DATES = [];
-const dateStrs = "6-Feb-26,9-Feb-26,10-Feb-26,11-Feb-26,12-Feb-26,13-Feb-26,16-Feb-26,17-Feb-26,18-Feb-26,19-Feb-26,20-Feb-26,23-Feb-26,24-Feb-26,25-Feb-26,26-Feb-26,27-Feb-26,2-Mar-26,3-Mar-26,4-Mar-26,5-Mar-26,6-Mar-26,9-Mar-26,10-Mar-26,11-Mar-26,12-Mar-26,13-Mar-26,16-Mar-26,17-Mar-26,18-Mar-26,19-Mar-26,20-Mar-26,24-Mar-26,25-Mar-26,26-Mar-26,27-Mar-26,30-Mar-26,31-Mar-26,1-Apr-26,6-Apr-26,7-Apr-26,8-Apr-26,9-Apr-26,10-Apr-26,13-Apr-26,14-Apr-26,15-Apr-26,16-Apr-26,17-Apr-26,20-Apr-26,21-Apr-26,22-Apr-26,23-Apr-26,24-Apr-26,27-Apr-26,28-Apr-26,29-Apr-26,30-Apr-26,4-May-26,5-May-26,6-May-26,7-May-26,8-May-26,11-May-26,12-May-26,13-May-26,14-May-26,15-May-26,19-May-26,20-May-26,21-May-26,22-May-26,25-May-26,26-May-26,27-May-26,28-May-26,29-May-26,1-Jun-26,2-Jun-26,3-Jun-26,4-Jun-26,5-Jun-26,9-Jun-26,10-Jun-26,11-Jun-26,12-Jun-26,16-Jun-26,17-Jun-26,18-Jun-26,19-Jun-26,22-Jun-26,23-Jun-26,24-Jun-26,25-Jun-26,26-Jun-26,30-Jun-26,1-Jul-26,2-Jul-26,3-Jul-26,6-Jul-26,7-Jul-26,8-Jul-26,9-Jul-26,10-Jul-26,13-Jul-26,14-Jul-26,15-Jul-26,16-Jul-26,17-Jul-26".split(',');
+const dateStrs = "6-Feb-26,9-Feb-26,10-Feb-26,11-Feb-26,12-Feb-26,13-Feb-26,16-Feb-26,17-Feb-26,18-Feb-26,19-Feb-26,20-Feb-26,23-Feb-26,24-Feb-26,25-Feb-26,26-Feb-26,27-Feb-26,2-Mar-26,3-Mar-26,4-Mar-26,5-Mar-26,6-Mar-26,9-Mar-26,10-Mar-26,11-Mar-26,12-Mar-26,13-Mar-26,16-Mar-26,17-Mar-26,18-Mar-26,19-Mar-26,20-Mar-26,24-Mar-26,25-Mar-26,26-Mar-26,27-Mar-26,30-Mar-26,31-Mar-26,1-Apr-26,6-Apr-26,7-Apr-26,8-Apr-26,9-Apr-26,10-Apr-26,13-Apr-26,14-Apr-26,15-Apr-26,16-Apr-26,17-Apr-26,20-Apr-26,21-Apr-26,22-Apr-26,23-Apr-26,24-Apr-26,27-Apr-26,28-Apr-26,29-Apr-26,30-Apr-26,4-May-26,5-May-26,6-May-26,7-May-26,8-May-26,11-May-26,12-May-26,13-May-26,14-May-26,15-May-26,19-May-26,20-May-26,21-May-26,22-May-26,25-May-26,26-May-26,27-May-26,28-May-26,29-May-26,1-Jun-26,2-Jun-26,3-Jun-26,4-Jun-26,5-Jun-26,9-Jun-26,10-Jun-26,11-Jun-26,12-Jun-26,16-Jun-26,17-Jun-26,18-Jun-26,19-Jun-26,22-Jun-26,23-Jun-26,24-Jun-26,25-Jun-26,26-Jun-26,30-Jun-26,1-Jul-26,2-Jul-26,3-Jul-26,6-Jul-26,7-Jul-26,8-Jul-26,9-Jul-26,10-Jul-26,14-Jul-26,15-Jul-26,16-Jul-26,17-Jul-26".split(',');
 dateStrs.forEach(d => {
   const p = d.split('-');
   GANTT_DATES.push(new Date(2026, ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(p[1]), parseInt(p[0])));
@@ -688,7 +688,7 @@ let GANTT_ROWS_FELI = [
   { phase:"",task:"15. Notificaciones solicitantes",resp:"2NV - ALPINA",hours:16,days:2,fixedIdx:52,fixedEndIdx:53,notesIdx:[51] },
   { phase:"Pruebas",task:"Ajuste de Correo Gmail y Notificaciones",resp:"2NV",hours:32,days:4,fixedIdx:81,fixedEndIdx:84,notesIdx:[81],inProgress:false },
   { phase:"",task:"1. Pruebas unitarias e integración técnica",resp:"2NV",hours:40,days:5,fixedIdx:57,fixedEndIdx:61,notesIdx:[54,55,56,61] },
-     { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:136,days:17,fixedIdx:61,fixedEndIdx:90,skipIndices:[64,65,66,67,68,69,70,77,78,81,82,83,84],notesIdx:[77,78],inProgress:true },
+     { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:136,days:17,fixedIdx:61,fixedEndIdx:90,skipIndices:[61,65,66,67,68,69,70,77,78,81,82,83,84],notesIdx:[77,78],inProgress:false },
      { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:91,fixedEndIdx:95 },
      { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:96,fixedEndIdx:97 },
      { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:14,days:1.8,fixedIdx:43,fixedEndIdx:44,inProgress:true },
@@ -696,7 +696,7 @@ let GANTT_ROWS_FELI = [
      { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:98,fixedEndIdx:98 },
      { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:98,fixedEndIdx:98 },
      { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:99,fixedEndIdx:99,milestone:true },
-     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:100,fixedEndIdx:103 }
+     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:100,fixedEndIdx:104 }
 ];
 
 // ---- ROBOTINA Gantt ----
