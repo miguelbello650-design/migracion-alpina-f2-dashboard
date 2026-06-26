@@ -289,7 +289,28 @@
   .gantt-table .task-row:hover td { background: #f4f7fc; }
   .gantt-bar { display: block; height: 18px; border-radius: 3px; position: relative; min-width: 4px; }
   .gantt-bar:hover { opacity: .85; }
-  .gantt-bar .tooltip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: #1e293b; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 10px; white-space: nowrap; z-index: 10; pointer-events: none; }
+  .gantt-bar .tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    white-space: normal;
+    line-height: 1.35;
+    max-width: min(520px, calc(100vw - 48px));
+    width: max-content;
+    text-align: left;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    z-index: 10;
+    pointer-events: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  }
   .gantt-bar:hover .tooltip { display: block; }
   .month-row td { font-size: 10px; font-weight: 700; color: #5b6f8c; background: #e8eef6; padding: 2px 3px; }
   .weekend { background: #f1f5f9 !important; }
@@ -663,6 +684,8 @@ GANTT_NOTES[61] = "Se requiere dos dias adicionales de pruebas para controlar lo
 GANTT_NOTES[65] = "Se requieren 5 días para incluir la logica de solicitud de extensión de materiales";
 GANTT_NOTES[77] = "El ambiente de SAP Calidad se encuentra caido";
 GANTT_NOTES[78] = "El ambiente de SAP Calidad se encuentra caido";
+GANTT_NOTES[91] = "Se avanza en esta tarea debido a que todavía no se ha obtenido los permisos para las transacciones en SAP Producción";
+GANTT_NOTES[92] = "Se avanza en esta tarea debido a que todavía no se ha obtenido los permisos para las transacciones en SAP Producción";
 GANTT_NOTES["Ajuste de Correo Gmail y Notificaciones|81"] = "Se necesita 4 días para realizar la configuración a Google";
 
 // ---- FELI Gantt ----
@@ -689,14 +712,14 @@ let GANTT_ROWS_FELI = [
   { phase:"Pruebas",task:"Ajuste de Correo Gmail y Notificaciones",resp:"2NV",hours:32,days:4,fixedIdx:81,fixedEndIdx:84,notesIdx:[81],inProgress:false },
   { phase:"",task:"1. Pruebas unitarias e integración técnica",resp:"2NV",hours:40,days:5,fixedIdx:57,fixedEndIdx:61,notesIdx:[54,55,56,61] },
      { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:136,days:17,fixedIdx:61,fixedEndIdx:90,skipIndices:[61,65,66,67,68,69,70,77,78,81,82,83,84],notesIdx:[77,78],inProgress:false },
-     { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:91,fixedEndIdx:95 },
-     { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:96,fixedEndIdx:97 },
-     { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:14,days:1.8,fixedIdx:43,fixedEndIdx:44,inProgress:true },
+     { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:93,fixedEndIdx:97 },
+     { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:91,fixedEndIdx:98,skipIndices:[92,93,94,95,96,97],notesIdx:[91],inProgress:true },
+     { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:20,days:3,fixedIdx:43,fixedEndIdx:92,skipIndices:[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],notesIdx:[92],inProgress:true },
    { phase:"Producción",task:"1. Documentación funcional y manual usuario",resp:"2NV",hours:20,days:3,fixedIdx:45,fixedEndIdx:48,skipIndices:[47],inProgress:true },
-     { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:98,fixedEndIdx:98 },
-     { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:98,fixedEndIdx:98 },
-     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:99,fixedEndIdx:99,milestone:true },
-     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:100,fixedEndIdx:104 }
+     { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:99,fixedEndIdx:99 },
+     { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:99,fixedEndIdx:99 },
+     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:100,fixedEndIdx:100,milestone:true },
+     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:101,fixedEndIdx:105 }
 ];
 
 // ---- ROBOTINA Gantt ----
