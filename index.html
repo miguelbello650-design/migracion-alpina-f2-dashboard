@@ -687,6 +687,7 @@ GANTT_NOTES[78] = "El ambiente de SAP Calidad se encuentra caido";
 GANTT_NOTES[91] = "Se avanza en esta tarea debido a que todavía no se ha obtenido los permisos para las transacciones en SAP Producción";
 GANTT_NOTES[92] = "Se avanza en esta tarea debido a que todavía no se ha obtenido los permisos para las transacciones en SAP Producción";
 GANTT_NOTES["Ajuste de Correo Gmail y Notificaciones|81"] = "Se necesita 4 días para realizar la configuración a Google";
+GANTT_NOTES["3. Re mapeo ID SAP|93"] = "No se pudo avanzar debido a que las transacciones fueron autorizadas y cuando se autorizaron se bugeo SAP, lo arreglaron pero validando se identificó que nwbc no está arrojando el link y con el link actual pertenece a SAP QA";
 
 // ---- FELI Gantt ----
 let GANTT_ROWS_FELI = [
@@ -712,14 +713,14 @@ let GANTT_ROWS_FELI = [
   { phase:"Pruebas",task:"Ajuste de Correo Gmail y Notificaciones",resp:"2NV",hours:32,days:4,fixedIdx:81,fixedEndIdx:84,notesIdx:[81],inProgress:false },
   { phase:"",task:"1. Pruebas unitarias e integración técnica",resp:"2NV",hours:40,days:5,fixedIdx:57,fixedEndIdx:61,notesIdx:[54,55,56,61] },
      { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:136,days:17,fixedIdx:61,fixedEndIdx:90,skipIndices:[61,65,66,67,68,69,70,77,78,81,82,83,84],notesIdx:[77,78],inProgress:false },
-     { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:93,fixedEndIdx:97 },
-     { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:91,fixedEndIdx:98,skipIndices:[92,93,94,95,96,97],notesIdx:[91],inProgress:true },
+     { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:93,fixedEndIdx:98,skipIndices:[93],notesIdx:[93] },
+     { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:91,fixedEndIdx:99,skipIndices:[92,93,94,95,96,97,98],notesIdx:[91],inProgress:true },
      { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:20,days:3,fixedIdx:43,fixedEndIdx:92,skipIndices:[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],notesIdx:[92],inProgress:true },
    { phase:"Producción",task:"1. Documentación funcional y manual usuario",resp:"2NV",hours:20,days:3,fixedIdx:45,fixedEndIdx:48,skipIndices:[47],inProgress:true },
-     { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:99,fixedEndIdx:99 },
-     { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:99,fixedEndIdx:99 },
-     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:100,fixedEndIdx:100,milestone:true },
-     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:101,fixedEndIdx:105 }
+     { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:100,fixedEndIdx:100 },
+     { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:100,fixedEndIdx:100 },
+     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:101,fixedEndIdx:101,milestone:true },
+     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:102,fixedEndIdx:106 }
 ];
 
 // ---- ROBOTINA Gantt ----
@@ -1081,7 +1082,7 @@ function assignDates(rows, dates) {
 }
 
 const GRAY_DAYS_NOVA = [5, 6, 31, 32, 35, 51, 54, 55, 56];
-const GRAY_DAYS_FELI = [5, 6, 31, 32, 35, 51, 54, 55, 56, 77, 78];
+const GRAY_DAYS_FELI = [5, 6, 31, 32, 35, 51, 54, 55, 56, 77, 78, 93];
 function cellClass(d, isToday, grayDays) {
   if (grayDays && grayDays.includes(d)) return 'gray-col';
   if (isToday) return 'today-col';
@@ -1449,7 +1450,7 @@ let PROYECTOS = [
   { key:'lamonita', name:'LA MONITA', icon:'M', responsable:'Johan Sabino', color:'#dc2626', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,10,20), endDate:new Date(2026,0,26), hours:373, desc:'Proyecto finalizado' } },
   { key:'horasextra', name:'HORAS EXTRA', icon:'H', responsable:'Javier Gonzalez', color:'#b45309', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,11,9), endDate:new Date(2026,1,20), hours:304, desc:'Proyecto finalizado' } },
   { key:'googlenova', name:'Migración Google - BOT NOVA', icon:'N', responsable:'Johan Sabino', color:'#4285F4', rows: null, staticData:{ status:'proximo', desc:'La migración de los bots RPA a Google Cloud Platform contempla el traslado, configuración y validación de las automatizaciones en el nuevo entorno, asegurando sus accesos, dependencias, conectividad, permisos, software base y continuidad operativa.' } },
-  { key:'felifase2', name:'FELI - FASE 2', icon:'F', responsable:'Cristian Bonilla', color:'#6366f1', rows: null, staticData:{ status:'proximo', desc:'Inclusión del flujo para crear materiales HALL<br>Incluir la creación de materiales cuando sea para Ecuador u otro país (Configuración variable)<br>Reemplazo de MDG / Data Hub' } },
+  { key:'felifase2', name:'FELI - FASE 2', icon:'F', responsable:'Cristian Bonilla', color:'#6366f1', rows: null, staticData:{ status:'proximo', desc:'Inclusión del flujo para crear materiales HALL<br>Incluir la creación de materiales cuando sea para Ecuador u otro país (Configuración variable)<br>Reemplazo de MDG / Data Hub<br>Lógica para que en el asunto del caso pueda traer números o caracteres especiales<br>Automatización de precios' } },
   { key:'googlefeli', name:'Migración Google - BOT FELI', icon:'F', responsable:'Cristian Bonilla', color:'#4285F4', rows: null, staticData:{ status:'proximo', desc:'La migración de los bots RPA a Google Cloud Platform contempla el traslado, configuración y validación de las automatizaciones en el nuevo entorno, asegurando sus accesos, dependencias, conectividad, permisos, software base y continuidad operativa.' } },
   { key:'robotinafase2', name:'ROBOTINA - FASE 2', icon:'R', responsable:'Javier Gonzalez', color:'#0891b2', rows: null, staticData:{ status:'proximo', desc:'Generar el "Excel para el Robot" (paso 29 del PDD)<br>Adjuntar dicho archivo en el cierre del ticket (paso 30.3 del PDD)' } },
   { key:'googlerobotina', name:'Migración Google - BOT ROBOTINA', icon:'R', responsable:'Javier Gonzalez', color:'#4285F4', rows: null, staticData:{ status:'proximo', desc:'La migración de los bots RPA a Google Cloud Platform contempla el traslado, configuración y validación de las automatizaciones en el nuevo entorno, asegurando sus accesos, dependencias, conectividad, permisos, software base y continuidad operativa.' } }
@@ -1641,7 +1642,7 @@ let STATIC_MONTHLY = {
   optimus: { '2025-11':57.5, '2025-12':182.5, '2026-1':46 },
   lamonita: { '2025-11':44.5, '2025-12':189.5, '2026-1':139 },
   horasextra: { '2025-11':0, '2025-12':130, '2026-1':131, '2026-2':43 },
-  soporte: { '2025-11':0, '2025-12':49, '2026-1':29.5, '2026-2':42, '2026-3':39, '2026-4':90, '2026-5':73, '2026-6':87.5 },
+  soporte: { '2025-11':0, '2025-12':49, '2026-1':29.5, '2026-2':42, '2026-3':39, '2026-4':90, '2026-5':73, '2026-6':166 },
   actualizacion_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1, '2026-3':0, '2026-4':0, '2026-5':1, '2026-6':0 },
   actualizacion_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':8, '2026-3':0, '2026-4':1.5, '2026-5':0, '2026-6':0 },
   actualizacion_optimus: { '2025-11':0, '2025-12':3, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },

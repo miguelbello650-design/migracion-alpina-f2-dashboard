@@ -63,7 +63,7 @@ Proyectos que no tienen datos en Gantt. Se definen con `staticData` en el array 
 | Proyecto | Responsable | Color | Alcance |
 |----------|-------------|-------|---------|
 | Migración Google - BOT NOVA | Johan Sabino | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
-| BOT FELI - FASE 2 | Cristian Bonilla | `#6366f1` | Inclusión del flujo para crear materiales HALL · Incluir la creación de materiales para Ecuador/otros países (Configuración variable) · Reemplazo de MDG / Data Hub |
+| BOT FELI - FASE 2 | Cristian Bonilla | `#6366f1` | Inclusión del flujo para crear materiales HALL · Incluir la creación de materiales para Ecuador/otros países (Configuración variable) · Reemplazo de MDG / Data Hub · Lógica para que en el asunto del caso pueda traer números o caracteres especiales · Automatización de precios |
 | Migración Google - BOT FELI | Cristian Bonilla | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
 | BOT ROBOTINA - FASE 2 | Javier Gonzalez | `#0891b2` | Generar el "Excel para el Robot" (paso 29 del PDD) · Adjuntar archivo en el cierre del ticket (paso 30.3 del PDD) |
 | Migración Google - BOT ROBOTINA | Javier Gonzalez | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
@@ -100,7 +100,7 @@ Mapa global de notas compartido entre NOVA y FELI (Robotina usa su propio mapa).
 ### GRAY_DAYS
 Array por Gantt de días que se renderizan con fondo gris:
 - **NOVA**: GRAY_DAYS_NOVA
-- **FELI**: GRAY_DAYS_FELI (incluye 77,78: SAP Calidad caído 02-03 Jun)
+- **FELI**: GRAY_DAYS_FELI (incluye 77,78: SAP Calidad caído 02-03 Jun; 93: sin inicio de Re mapeo ID SAP el 26-Jun)
 - **ROBOTINA**: GRAY_DAYS_ROBOTINA (incluye 76: sin avance 01-Jun)
 
 ## Tasks / Data Model
@@ -539,6 +539,8 @@ Quedo atento a los comentarios,
 
 **Nota vigente FELI 2026-06-22**: UAT con usuario funcional suma el dia 22-Jun-2026 (idx 89), queda en **128h / 16d** y sigue `inProgress:true`. El cronograma posterior se corre un dia habil: Re mapeo ID SAP queda del 23-Jun al 30-Jun (idx 90-94), Ajustes finales del 01-Jul al 02-Jul (idx 95-96), aprobacion/entrega el 03-Jul (idx 97), Salida a Produccion el 06-Jul (idx 98) y Seguimiento postproduccion del 07-Jul al 10-Jul (idx 99-102).
 
+**Nota vigente FELI 2026-06-26**: el dia 26-Jun-2026 (idx 93) queda gris porque no se pudo iniciar Re mapeo ID SAP. El cronograma se corre desde ese dia: Re mapeo ID SAP queda del 30-Jun al 06-Jul (idx 94-98), Ajustes finales mantiene el primer dia el 24-Jun y mueve su segundo dia al 07-Jul (idx 91-99, saltando 92-98), aprobacion/entrega el 08-Jul (idx 100), Salida a Produccion el 09-Jul (idx 101) y Seguimiento postproduccion del 10-Jul al 17-Jul (idx 102-106).
+
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 40 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (9 tareas)
@@ -590,7 +592,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 ### Soporte
 | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Jun 2026 |
 |---|---|---|---|---|---|---|---|
-| 0 | 49 | 29.5 | 42 | 39 | 90 | 73 | 87.5 |
+| 0 | 49 | 29.5 | 42 | 39 | 90 | 73 | 166 |
 
 ### Actualización PDD
 | Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
