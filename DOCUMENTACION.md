@@ -553,6 +553,7 @@ Quedo atento a los comentarios,
 - **En Curso**: Pruebas UAT permanece con `inProgress:true`. Validación y creación flujo principal API, Re mapeo ID SAP, Creación ticket BOT y Creación de usuario en SUSI quedan ejecutadas.
 - **Nota vigente ROBOTINA 2026-06-19**: la tarea **Re mapeo ID SAP a producción** queda ejecutada (`inProgress:false`) y la base SQLite local queda sincronizada.
 - **Nota vigente ROBOTINA 2026-06-22**: la tarea **Creación ticket BOT** queda ejecutada (`inProgress:false`) y la base SQLite local queda sincronizada.
+- **Nota vigente ROBOTINA 2026-06-30**: la tarea **Ajuste Migración Google** queda finalizada (`inProgress:false`) y **Pruebas unitarias** queda en curso (`inProgress:true`). La base SQLite local queda sincronizada.
 
 ## Reporte de Horas — Datos por Mes
 
