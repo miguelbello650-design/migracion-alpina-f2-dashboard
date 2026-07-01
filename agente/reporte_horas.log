@@ -389,3 +389,20 @@ EOFError: EOF when reading a line
 [2026-06-22 09:11:26] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
 [2026-06-22 09:11:26] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
 [2026-06-22 09:11:26] === FIN OK ===
+[2026-06-30 09:29:51] === INICIO ===
+[2026-06-30 09:29:51] Usuario ejecutando: 2NV
+[2026-06-30 09:29:51] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-06-30 09:29:51] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-06-30 09:29:51] API_URL: http://127.0.0.1:3000/api/data
+[2026-06-30 09:29:52] Intentando con requests...
+[2026-06-30 09:29:52] Status Code: 200
+[2026-06-30 09:29:52] requests OK
+[2026-06-30 09:29:52] Datos tomados directamente de reporteHoras
+[2026-06-30 09:29:52] HORAS_CONTRATADAS=4320.0
+[2026-06-30 09:29:52] HORAS_CONSUMIDAS=3375.9
+[2026-06-30 09:29:52] HORAS_RESTANTES=944.1
+[2026-06-30 09:29:52] PORCENTAJE=78.1%
+[2026-06-30 09:29:52] ASUNTO_GENERADO=[IMPORTANTE] Reporte de consumo de horas RPA Alpina | 78.1% consumido
+[2026-06-30 09:29:52] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
+[2026-06-30 09:29:52] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
+[2026-06-30 09:29:52] === FIN OK ===
