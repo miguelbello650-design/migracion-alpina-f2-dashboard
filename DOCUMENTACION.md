@@ -101,7 +101,7 @@ Mapa global de notas compartido entre NOVA y FELI (Robotina usa su propio mapa).
 Array por Gantt de días que se renderizan con fondo gris:
 - **NOVA**: GRAY_DAYS_NOVA
 - **FELI**: GRAY_DAYS_FELI (incluye 77,78: SAP Calidad caído 02-03 Jun; 93: sin inicio de Re mapeo ID SAP el 26-Jun)
-- **ROBOTINA**: GRAY_DAYS_ROBOTINA (incluye 76: sin avance 01-Jun; 94: sin casos para pruebas unitarias 30-Jun; 96: cambio de alcance 02-Jul; 98: desarrollo proveedor Helix 06-Jul; 99: sesión operativa/API 07-Jul)
+- **ROBOTINA**: GRAY_DAYS_ROBOTINA (incluye 76: sin avance 01-Jun; 94: sin casos para pruebas unitarias 30-Jun; 96: cambio de alcance 02-Jul; 98: desarrollo proveedor Helix 06-Jul; 99: sesión operativa/API 07-Jul; 100-101: desarrollo y entrega API 08-09 Jul)
 
 ## Tasks / Data Model
 
@@ -570,6 +570,8 @@ Quedo atento a los comentarios,
 - **Nota vigente ROBOTINA 2026-07-03 / documentación 16-Jul**: se elimina la duración del 16-Jul-2026 (idx 105) de **Elaboración documentación SDD + manual usuario**. La tarea queda en **24h / 3d**, con `fixedEndIdx:104` y conserva las alertas de idx 96 e idx 98.
 - **Nota vigente ROBOTINA 2026-07-03 / festivo 20-Jul**: se elimina el 20-Jul-2026 del calendario del Gantt por festivo y se agrega 28-Jul-2026 al final. Las tareas desde ese punto se corren un día hábil: salida a producción queda el 21-Jul (idx 107) y soporte postproducción del 22-Jul al 28-Jul (idx 108-112).
 - **Nota vigente ROBOTINA 2026-07-07**: el 07-Jul-2026 (idx 99) queda gris en todo el Gantt de Robotina. En **Logica de asociación de WO** se agrega la alerta "Se destina este día para realizar sesión con el equipo operativo y de API para levantamiento de los casos de WO". El cronograma posterior se corre un día: Logica de asociación de WO queda del 08-Jul al 15-Jul (idx 100-104), Pruebas unitarias mueve su día adicional al 16-Jul (idx 105), Pruebas UAT al 17-Jul (idx 106), aprobación/entrega al 21-Jul (idx 107), salida a producción al 22-Jul (idx 108) y soporte postproducción del 23-Jul al 29-Jul (idx 109-113). Se agrega 29-Jul-2026 al calendario del Gantt.
+- **Nota vigente ROBOTINA 2026-07-08**: el 08-Jul-2026 (idx 100) y 09-Jul-2026 (idx 101) quedan grises en todo el Gantt de Robotina. En **Logica de asociación de WO** se agrega la alerta "Tiempo desarrollo y entrega de la API" sobre ambas duraciones.
+- **Nota vigente ROBOTINA 2026-07-08 / corrimiento 08-09 Jul**: el cronograma se corre dos días desde el 09-Jul-2026. **Logica de asociación de WO** conserva las alertas en idx 100-101 y mueve su duración real a 10-Jul, 14-Jul, 15-Jul, 16-Jul y 17-Jul (idx 102-106). Pruebas unitarias pasa al 21-Jul (idx 107), Pruebas UAT al 22-Jul (idx 108), aprobación/entrega al 23-Jul (idx 109), salida a producción al 24-Jul (idx 110) y soporte postproducción del 27-Jul al 31-Jul (idx 111-115). Se agregan 30-Jul-2026 y 31-Jul-2026 al calendario del Gantt.
 
 ## Reporte de Horas — Datos por Mes
 
