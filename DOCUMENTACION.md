@@ -100,7 +100,7 @@ Mapa global de notas compartido entre NOVA y FELI (Robotina usa su propio mapa).
 ### GRAY_DAYS
 Array por Gantt de días que se renderizan con fondo gris:
 - **NOVA**: GRAY_DAYS_NOVA
-- **FELI**: GRAY_DAYS_FELI (incluye 77,78: SAP Calidad caído 02-03 Jun; 93: sin inicio de Re mapeo ID SAP el 26-Jun)
+- **FELI**: GRAY_DAYS_FELI (incluye 77,78: SAP Calidad caído 02-03 Jun; 93: sin inicio de Re mapeo ID SAP el 26-Jun; 99-100: sin avance Re mapeo ID SAP 07-08 Jul)
 - **ROBOTINA**: GRAY_DAYS_ROBOTINA (incluye 76: sin avance 01-Jun; 94: sin casos para pruebas unitarias 30-Jun; 96: cambio de alcance 02-Jul; 98: desarrollo proveedor Helix 06-Jul; 99: sesión operativa/API 07-Jul; 100-101: desarrollo y entrega API 08-09 Jul)
 
 ## Tasks / Data Model
@@ -542,6 +542,10 @@ Quedo atento a los comentarios,
 **Nota vigente FELI 2026-06-26**: el dia 26-Jun-2026 (idx 93) queda gris porque no se pudo iniciar Re mapeo ID SAP. El cronograma se corre desde ese dia: Re mapeo ID SAP queda del 30-Jun al 06-Jul (idx 94-98), Ajustes finales mantiene el primer dia el 24-Jun y mueve su segundo dia al 07-Jul (idx 91-99, saltando 92-98), aprobacion/entrega el 08-Jul (idx 100), Salida a Produccion el 09-Jul (idx 101) y Seguimiento postproduccion del 10-Jul al 17-Jul (idx 102-106).
 
 **Nota vigente FELI 2026-07-07**: se agrega un dia adicional a **Re mapeo ID SAP** el 07-Jul-2026 (idx 99), queda en **48h / 6d** y `inProgress:true`. El cronograma posterior se corre un dia: Ajustes finales mueve su segundo dia al 08-Jul (idx 100), aprobacion/entrega el 09-Jul (idx 101), Salida a Produccion el 10-Jul (idx 102) y Seguimiento postproduccion del 14-Jul al 21-Jul (idx 103-107).
+
+**Nota vigente FELI 2026-07-08**: se quita el 07-Jul-2026 (idx 99) como duracion efectiva de **Re mapeo ID SAP**. La tarea queda en **40h / 5d**, mantiene `inProgress:true`, el dia idx 99 queda gris y con alerta: "No se logra avanzar en el remapeo ya que no se a autorizado la transacción MBC1 y la NWBC".
+
+**Nota vigente FELI 2026-07-08 / 08-Jul**: se agrega la misma alerta al 08-Jul-2026 (idx 100) en **Re mapeo ID SAP** y la columna queda gris. El cronograma se corre un dia desde el 08-Jul: Ajustes finales mueve su segundo dia al 09-Jul (idx 101), aprobacion/entrega al 10-Jul (idx 102), Salida a Produccion el 14-Jul (idx 103) y Seguimiento postproduccion del 15-Jul al 22-Jul (idx 104-108).
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 40 tareas en 3 fases

@@ -688,6 +688,8 @@ GANTT_NOTES[91] = "Se avanza en esta tarea debido a que todavía no se ha obteni
 GANTT_NOTES[92] = "Se avanza en esta tarea debido a que todavía no se ha obtenido los permisos para las transacciones en SAP Producción";
 GANTT_NOTES["Ajuste de Correo Gmail y Notificaciones|81"] = "Se necesita 4 días para realizar la configuración a Google";
 GANTT_NOTES["3. Re mapeo ID SAP|93"] = "No se pudo avanzar debido a que las transacciones fueron autorizadas y cuando se autorizaron se bugeo SAP, lo arreglaron pero validando se identificó que nwbc no está arrojando el link y con el link actual pertenece a SAP QA";
+GANTT_NOTES["3. Re mapeo ID SAP|99"] = "No se logra avanzar en el remapeo ya que no se a autorizado la transacción MBC1 y la NWBC";
+GANTT_NOTES["3. Re mapeo ID SAP|100"] = "No se logra avanzar en el remapeo ya que no se a autorizado la transacción MBC1 y la NWBC";
 
 // ---- FELI Gantt ----
 let GANTT_ROWS_FELI = [
@@ -713,14 +715,14 @@ let GANTT_ROWS_FELI = [
   { phase:"Pruebas",task:"Ajuste de Correo Gmail y Notificaciones",resp:"2NV",hours:32,days:4,fixedIdx:81,fixedEndIdx:84,notesIdx:[81],inProgress:false },
   { phase:"",task:"1. Pruebas unitarias e integración técnica",resp:"2NV",hours:40,days:5,fixedIdx:57,fixedEndIdx:61,notesIdx:[54,55,56,61] },
      { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:136,days:17,fixedIdx:61,fixedEndIdx:90,skipIndices:[61,65,66,67,68,69,70,77,78,81,82,83,84],notesIdx:[77,78],inProgress:false },
-     { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:48,days:6,fixedIdx:93,fixedEndIdx:99,skipIndices:[93],notesIdx:[93],inProgress:true },
-     { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:91,fixedEndIdx:100,skipIndices:[92,93,94,95,96,97,98,99],notesIdx:[91],inProgress:true },
+     { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:40,days:5,fixedIdx:93,fixedEndIdx:100,skipIndices:[93,99,100],notesIdx:[93,99,100],inProgress:true },
+     { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:91,fixedEndIdx:101,skipIndices:[92,93,94,95,96,97,98,99,100],notesIdx:[91],inProgress:true },
      { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:20,days:3,fixedIdx:43,fixedEndIdx:92,skipIndices:[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],notesIdx:[92],inProgress:true },
    { phase:"Producción",task:"1. Documentación funcional y manual usuario",resp:"2NV",hours:20,days:3,fixedIdx:45,fixedEndIdx:48,skipIndices:[47],inProgress:true },
-     { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:101,fixedEndIdx:101 },
-     { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:101,fixedEndIdx:101 },
-     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:102,fixedEndIdx:102,milestone:true },
-     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:103,fixedEndIdx:107 }
+     { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:102,fixedEndIdx:102 },
+     { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:102,fixedEndIdx:102 },
+     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:103,fixedEndIdx:103,milestone:true },
+     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:104,fixedEndIdx:108 }
 ];
 
 // ---- ROBOTINA Gantt ----
@@ -1083,7 +1085,7 @@ function assignDates(rows, dates) {
 }
 
 const GRAY_DAYS_NOVA = [5, 6, 31, 32, 35, 51, 54, 55, 56];
-const GRAY_DAYS_FELI = [5, 6, 31, 32, 35, 51, 54, 55, 56, 77, 78, 93];
+const GRAY_DAYS_FELI = [5, 6, 31, 32, 35, 51, 54, 55, 56, 77, 78, 93, 99, 100];
 function cellClass(d, isToday, grayDays) {
   if (grayDays && grayDays.includes(d)) return 'gray-col';
   if (isToday) return 'today-col';
