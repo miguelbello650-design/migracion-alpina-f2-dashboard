@@ -757,7 +757,7 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Elaboración documentación SDD + manual usuario",resp:"2NV",hours:24,days:3,fixedIdx:58,fixedEndIdx:104,skipIndices:[60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,98,99,100,101,102,103,104],notesIdx:[96,98],inProgress:true },
    { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:72,days:9,fixedIdx:65,fixedEndIdx:105,skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,96,97,98,99,100,101,102,103,104],notesIdx:[71,94,95,105],inProgress:true },
    { phase:"",task:"Validación y creación flujo principal API",resp:"2NV",hours:34.7,days:4.5,fixedIdx:80,fixedEndIdx:85,skipIndices:[81],notesIdx:[80],inProgress:false },
-   { phase:"",task:"Logica de asociación de WO",resp:"2NV",hours:40,days:5,fixedIdx:99,fixedEndIdx:104,skipIndices:[99],notesIdx:[99] },
+   { phase:"",task:"Logica de asociación de WO",resp:"2NV",hours:40,days:5,fixedIdx:99,fixedEndIdx:104,skipIndices:[99],notesIdx:[99,100,101] },
    { phase:"Cierre",task:"Pruebas UAT",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:72,fixedEndIdx:106,skipIndices:[76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105],notesIdx:[106],inProgress:true },
      { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:40,days:5,fixedIdx:77,fixedEndIdx:87,notesIdx:[76],skipIndices:[78,80,82,83,84,85],inProgress:false },
      { phase:"",task:"Ajuste Migración Google",resp:"2NV",hours:32,days:4,fixedIdx:90,fixedEndIdx:93,notesIdx:[90],inProgress:false },
@@ -1289,7 +1289,7 @@ function renderGanttRobotina() {
   const container = document.getElementById('gantt-robotina');
   const startIdx = 11;
   const dates = GANTT_DATES.slice(startIdx);
-  const GRAY_DAYS_ROBOTINA = [25, 26, 31, 60, 76, 89, 94, 96, 98, 99];
+  const GRAY_DAYS_ROBOTINA = [25, 26, 31, 60, 76, 89, 94, 96, 98, 99, 100, 101];
   const robotinaNotes = {};
   robotinaNotes[25] = "Retrazo ya que no se entrega Apí de consulta a Helix";
   robotinaNotes[26] = "Retrazo ya que no se entrega Apí de consulta a Helix";
@@ -1309,6 +1309,8 @@ function renderGanttRobotina() {
   robotinaNotes["Elaboración documentación SDD + manual usuario|96"] = "No se logra avanzar en las pruebas unitarias y UAT debido a que hay cambio de alcance (En la creación de usuarios se debe crear y asociar WO a la WO principal)";
   robotinaNotes["Elaboración documentación SDD + manual usuario|98"] = "Dos días destinados a que el proveedor de Helix desarrolle la logica de asociación de WO";
   robotinaNotes["Logica de asociación de WO|99"] = "Se destina este día para realizar sesión con el equipo operativo y de API para levantamiento de los casos de WO";
+  robotinaNotes["Logica de asociación de WO|100"] = "Tiempo desarrollo y entrega de la API";
+  robotinaNotes["Logica de asociación de WO|101"] = "Tiempo desarrollo y entrega de la API";
   robotinaNotes["Pruebas unitarias|94"] = "No se cuenta con casos para realizar pruebas unitarias, se entregaron casos a las 4:00 pm";
   robotinaNotes["Pruebas unitarias|95"] = "Se requiere un día adicional para probar que todo esté funcionando correctamente despues de hacer los cambios y ajustes solicitados";
   robotinaNotes["Pruebas unitarias|105"] = "Se requiere un día adicional para probar que todo esté funcionando correctamente despues de hacer los cambios y ajustes solicitados";
