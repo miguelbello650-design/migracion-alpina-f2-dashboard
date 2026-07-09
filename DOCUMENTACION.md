@@ -549,6 +549,8 @@ Quedo atento a los comentarios,
 
 **Nota vigente FELI 2026-07-09**: se agrega la misma alerta para el 09-Jul-2026 (idx 101) y 10-Jul-2026 (idx 102) en **Re mapeo ID SAP**; ambas columnas quedan grises. El cronograma se corre dos dias desde el 10-Jul: Ajustes finales mueve su segundo dia al 14-Jul (idx 103), aprobacion/entrega al 15-Jul (idx 104), Salida a Produccion el 16-Jul (idx 105) y Seguimiento postproduccion del 17-Jul al 24-Jul (idx 106-110).
 
+**Nota vigente FELI 2026-07-09 / Re mapeo 14-16 Jul**: se agregan 3 dias mas a **Re mapeo ID SAP** el 14-Jul, 15-Jul y 16-Jul (idx 103-105). La tarea queda en **64h / 8d** y mantiene `inProgress:true`. El cronograma posterior se corre 3 dias desde el 16-Jul: Ajustes finales mueve su segundo dia al 17-Jul (idx 106), aprobacion/entrega al 21-Jul (idx 107), Salida a Produccion el 22-Jul (idx 108) y Seguimiento postproduccion del 23-Jul al 29-Jul (idx 109-113).
+
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - 40 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (9 tareas)
