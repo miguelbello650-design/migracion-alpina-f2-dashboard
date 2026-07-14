@@ -614,9 +614,9 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 | HORAS EXTRA | 0 | 130 | 131 | 43 |
 
 ### Soporte
-| Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Jun 2026 |
-|---|---|---|---|---|---|---|---|
-| 0 | 49 | 29.5 | 42 | 39 | 90 | 73 | 166 |
+| Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Jun 2026 | Jul 2026 |
+|---|---|---|---|---|---|---|---|---|
+| 0 | 49 | 29.5 | 42 | 39 | 90 | 73 | 166 | 53 |
 
 ### Actualización PDD
 | Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
