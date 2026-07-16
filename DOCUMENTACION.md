@@ -62,6 +62,7 @@ Proyectos que no tienen datos en Gantt. Se definen con `staticData` en el array 
 **Próximos:**
 | Proyecto | Responsable | Color | Alcance |
 |----------|-------------|-------|---------|
+| La Monita Fase 2 | Johan Sabino | `#dc2626` | Incorporación de nuevos clientes en el flujo del Bot |
 | Migración Google - BOT NOVA | Johan Sabino | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
 | BOT FELI - FASE 2 | Cristian Bonilla | `#6366f1` | Inclusión del flujo para crear materiales HALL · Incluir la creación de materiales para Ecuador/otros países (Configuración variable) · Reemplazo de MDG / Data Hub · Lógica para que en el asunto del caso pueda traer números o caracteres especiales · Automatización de precios |
 | Migración Google - BOT FELI | Cristian Bonilla | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
@@ -154,6 +155,7 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 | ROBOTINA | `#0891b2` |
 | OPTIMUS | `#7c3aed` (púrpura) |
 | LA MONITA | `#dc2626` (rojo) |
+| La Monita Fase 2 | `#dc2626` (rojo) |
 | HORAS EXTRA | `#b45309` (ámbar) |
 | Migración Google - BOT NOVA | `#4285F4` (azul Google) |
 | BOT FELI - FASE 2 | `#6366f1` (índigo) |
@@ -602,13 +604,13 @@ Los 3 bots activos calculan horas:
 - **FELI**: usa `locked_feli` en `STATIC_MONTHLY` para todos los meses ≤ May 2026 (valores fijos)
 
 Horas fijas de bots por mes:
-| Bot | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Total (Todos) |
-|-----|----------|----------|----------|----------|--------------|
-| FELI | 99 | 137 | 128 | 152 | dinámico |
-| NOVA | — | — | 126 | dinámico | 398 |
-| ROBOTINA | — | 130 | 134 | 148 | 300 |
+| Bot | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Jun 2026 | Total (Todos) |
+|-----|----------|----------|----------|----------|----------|--------------|
+| FELI | 99 | 137 | 128 | 152 | dinámico | dinámico |
+| NOVA | — | — | 126 | dinámico | dinámico | 398 |
+| ROBOTINA | — | 130 | 134 | 148 | 145.6 | 300 |
 
-- Mayo usa cálculo dinámico desde Gantt para NOVA. FELI en mayo queda bloqueado en 152h mediante `locked_feli['2026-5']`. ROBOTINA en mayo queda bloqueado en 148h mediante `locked_robotina['2026-5']`.
+- Mayo usa cálculo dinámico desde Gantt para NOVA. FELI en mayo queda bloqueado en 152h mediante `locked_feli['2026-5']`. ROBOTINA en mayo queda bloqueado en 148h mediante `locked_robotina['2026-5']`; junio queda bloqueado en 145.6h mediante `locked_robotina['2026-6']`.
 - Los meses futuros se ocultan del filtro hasta que inicien
 
 ### Desarrollo — Finalizados
@@ -625,25 +627,26 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 | 0 | 49 | 29.5 | 42 | 39 | 90 | 73 | 166 | 53 |
 
 ### Actualización PDD
-| Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 |
-|---|---|---|---|---|---|---|---|
-| FELI | 0 | 0 | 0 | 1 | 0 | 0 | 1 |
-| ROBOTINA | 0 | 0 | 0 | 8 | 0 | 1.5 | 0 |
-| OPTIMUS | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
-| LA MONITA | 2 | 1 | 3 | 0 | 0 | 0 | 0 |
-| HORAS EXTRA | 6 | 0 | 8 | 0 | 0 | 0 | 0 |
+| Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Jun 2026 | Jul 2026 |
+|---|---|---|---|---|---|---|---|---|---|
+| FELI | 0 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 |
+| ROBOTINA | 0 | 0 | 0 | 8 | 0 | 1.5 | 0 | 0 | 0.5 |
+| OPTIMUS | 0 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| LA MONITA | 2 | 1 | 3 | 0 | 0 | 0 | 0 | 0 | 0 |
+| HORAS EXTRA | 6 | 0 | 8 | 0 | 0 | 0 | 0 | 0 | 0 |
 
 ### Actividades adicionales
-| Actividad | Nov | Dic | Ene | Feb | Mar | Abr | May | Jun |
-|---|---|---|---|---|---|---|---|---|
-| Sesión Dudas Feli | 0 | 0 | 1 | 6 | 1 | 2 | 0 | 0 |
-| Sesión Dudas Nova | 0 | 0 | 0 | 3 | 2 | 1 | 0 | 0 |
-| Sesión API Robotina | 0 | 0 | 0 | 0 | 1.5 | 2.8 | 5.3 | 0 |
-| API Succes SAP Robotina | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 6 |
-| Ajustes adicionales Nova | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12 |
-| Estimación Nova y Feli | 0 | 0 | 2 | 12 | 0 | 0 | 0 | 0 |
-| Sesión con Infra. Alpina | 0 | 0 | 0 | 1.5 | 0 | 0 | 0 | 0 |
-| Solución correos Feli | 0 | 0 | 0 | 0 | 0 | 0 | 4.5 | 0 |
+| Actividad | Nov | Dic | Ene | Feb | Mar | Abr | May | Jun | Jul |
+|---|---|---|---|---|---|---|---|---|---|
+| Sesión Dudas Feli | 0 | 0 | 1 | 6 | 1 | 2 | 0 | 0 | 0 |
+| Sesión Dudas Nova | 0 | 0 | 0 | 3 | 2 | 1 | 0 | 0 | 0 |
+| Sesión API Robotina | 0 | 0 | 0 | 0 | 1.5 | 2.8 | 5.3 | 0 | 5.5 |
+| API Succes SAP Robotina | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 6 | 0 |
+| Ajustes adicionales Nova | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12 | 0 |
+| Estimación Nova y Feli | 0 | 0 | 2 | 12 | 0 | 0 | 0 | 0 | 0 |
+| Sesión con Infra. Alpina | 0 | 0 | 0 | 1.5 | 0 | 0 | 0 | 0 | 0 |
+| Solución correos Feli | 0 | 0 | 0 | 0 | 0 | 0 | 4.5 | 0 | 0 |
+| Sesión F2 La Monita | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0.5 |
 
 ## Convenciones de Código
 - Sin comentarios en JS
