@@ -37,16 +37,11 @@
     flex-wrap: wrap; gap: 12px;
     border-bottom: 3px solid var(--color-alpina);
   }
-  .topbar .logos { display: flex; align-items: center; gap: 20px; }
-  .brand-2nv {
-    font-size: 20px; font-weight: 800; letter-spacing: -0.5px;
-    color: #fff; font-family: 'Segoe UI', -apple-system, sans-serif;
-  }
-  .brand-alpina {
-    font-size: 20px; font-weight: 700; letter-spacing: -0.3px;
-    color: #93c5fd; font-family: Georgia, 'Times New Roman', serif;
-  }
-  .logo-divider { width: 1px; height: 30px; background: rgba(255,255,255,0.15); }
+  .topbar .logos { display: flex; align-items: center; gap: 16px; min-height: 42px; }
+  .brand-logo { display: block; object-fit: contain; }
+  .brand-logo.logo-2nv { width: 48px; height: 42px; }
+  .brand-logo.logo-alpina { width: 78px; height: 42px; }
+  .logo-divider { width: 1px; height: 34px; background: rgba(255,255,255,0.18); }
   .topbar-right { display: flex; align-items: center; gap: 16px; }
   .topbar-right .badge {
     background: var(--color-alpina); color: #fff; font-size: 11px; font-weight: 600;
@@ -244,7 +239,10 @@
   .reporte-table tr:last-child td { border-bottom: none; }
   .reporte-table .total-row td { font-weight: 700; background: #f1f5f9; font-size: 14px; }
   .reporte-table .badge-report { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
-  .reporte-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  #reporte-container { display: flex; flex-direction: column; }
+  .reporte-charts { order: 3; margin-bottom: 24px; }
+  .reporte-contract-chart { order: 5; }
+  .reporte-grid { order: 4; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
   .reporte-block { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); padding: 16px; }
   .reporte-block h3 { font-size: 14px; font-weight: 700; color: #1e3a5f; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 2px solid #e2e8f0; }
   .reporte-item { margin-bottom: 12px; }
@@ -356,9 +354,9 @@
 
 <div class="topbar">
   <div class="logos">
-    <span class="brand-2nv">2NV</span>
+    <img class="brand-logo logo-2nv" src="assets/logos/logo-2nv-header.png" alt="2NV">
     <div class="logo-divider"></div>
-    <span class="brand-alpina">Alpina</span>
+    <img class="brand-logo logo-alpina" src="assets/logos/logo-alpina-header.png" alt="Alpina">
   </div>
   <div class="topbar-right">
     <span class="badge">Migración F2</span>
@@ -1888,7 +1886,7 @@ function renderReporte() {
   const donutTotals = blockDefs.map(b => ({ label: b.key, value: blockTotal(b.key, filter), color: b.color })).filter(d => d.value > 0);
   const totalAll = donutTotals.reduce((s,d)=>s+d.value, 0);
   // Donut chart
-  html += '<div style="display:flex;gap:24px;margin-top:24px;flex-wrap:wrap">';
+  html += '<div class="reporte-charts" style="display:flex;gap:24px;margin-top:24px;flex-wrap:wrap">';
   html += '<div style="flex:1;min-width:260px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);padding:16px"><h3 style="font-size:14px;font-weight:700;color:#1e3a5f;margin:0 0 12px">Distribución por Bloque</h3>';
   if (donutTotals.length) {
     const cx = 90, cy = 90, r = 70, sw = 28;
@@ -1937,7 +1935,7 @@ function renderReporte() {
   const horasTotalesContrato = reporteHoras.consumidas;
   const horasContratadas = reporteHoras.contratadas;
   const horasRestantes = reporteHoras.restantes;
-  html += '<div style="margin-top:24px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);padding:16px"><h3 style="font-size:14px;font-weight:700;color:#1e3a5f;margin:0 0 12px">Horas Contratadas vs Horas Restantes</h3>';
+  html += '<div class="reporte-contract-chart" style="margin-top:24px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);padding:16px"><h3 style="font-size:14px;font-weight:700;color:#1e3a5f;margin:0 0 12px">Horas Contratadas vs Horas Restantes</h3>';
   if (horasContratadas > 0) {
     const consumidasPct = reporteHoras.porcentaje;
     const restantesPct = Math.min(100, (horasRestantes / horasContratadas) * 100);
@@ -1969,6 +1967,9 @@ function renderReporte() {
   html += '</div>';
 
   el.innerHTML = html;
+  const chartsBlock = el.querySelector('.reporte-charts');
+  const cardsBlock = el.querySelector('.reporte-grid');
+  if (chartsBlock && cardsBlock) el.insertBefore(chartsBlock, cardsBlock);
   const sel = document.getElementById('reporte-month-select');
   if (sel) sel.addEventListener('change', function() {
     localStorage.setItem(REPORTE_MONTH_KEY, this.value);

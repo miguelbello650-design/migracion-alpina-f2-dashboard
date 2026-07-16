@@ -135,6 +135,10 @@ Cada tarea en los arrays `GANTT_ROWS`, `GANTT_ROWS_FELI`, `GANTT_ROWS_ROBOTINA`:
 
 ## Colores
 
+### Branding superior
+- El topbar usa logos reales en lugar de texto: `assets/logos/logo-2nv-header.png` y `assets/logos/logo-alpina-header.png`.
+- Se usan las versiones claras/oscuro de los logos porque contrastan mejor sobre el fondo `#1e3a5f`.
+
 ### Fichas de bot (Dashboard)
 | Bot | Color |
 |-----|-------|
