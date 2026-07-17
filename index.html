@@ -349,283 +349,6 @@
   #admin-login input:focus { border-color:#0033a0; }
   #admin-login button { background:#0033a0; color:#fff; border:none; border-radius:6px; padding:10px 24px; font-size:14px; cursor:pointer; font-weight:600; }
   #admin-login button:hover { background:#002a80; }
-  /* Frontend refresh: native component styling, no framework dependency. */
-  :root {
-    --navy-950: #07111f;
-    --navy-900: #0d1b2a;
-    --blue-600: #2563eb;
-    --cyan-600: #0891b2;
-    --surface-muted: #f4f7fb;
-    --line-soft: #d7e0ea;
-    --radius-ui: 8px;
-    --shadow-ui: 0 4px 16px rgba(7, 17, 31, 0.08);
-  }
-  body { background: var(--surface-muted); color: var(--text); }
-  .topbar {
-    background: var(--navy-950);
-    border-bottom: 1px solid rgba(8,145,178,0.75);
-    padding: 12px max(24px, calc((100vw - 1360px) / 2));
-  }
-  .topbar .logos { gap: 14px; min-height: 38px; }
-  .brand-logo.logo-2nv { width: 44px; height: 38px; }
-  .brand-logo.logo-alpina { width: 74px; height: 38px; }
-  .logo-divider { height: 26px; background: rgba(255,255,255,0.24); }
-  .topbar-right { gap: 12px; }
-  .topbar-right .badge {
-    background: rgba(37,99,235,0.18);
-    border: 1px solid rgba(96,165,250,0.5);
-    border-radius: 999px;
-    color: #dbeafe;
-    font-size: 11px;
-    padding: 5px 10px;
-  }
-  .topbar-right .date { color: #a8b7ca; font-size: 12px; }
-  .header {
-    background: #fff;
-    border-bottom: 1px solid var(--line-soft);
-    padding: 26px max(24px, calc((100vw - 1360px) / 2)) 18px;
-  }
-  .header h1 { color: var(--navy-900); font-size: 25px; letter-spacing: 0; }
-  .header .sub { color: var(--text-muted); font-size: 13px; margin-top: 5px; }
-  .tabs {
-    background: #fff;
-    border-bottom: 1px solid var(--line-soft);
-    gap: 8px;
-    padding: 0 max(24px, calc((100vw - 1360px) / 2));
-  }
-  .tab {
-    border-bottom-width: 2px;
-    border-radius: 0;
-    color: #64748b;
-    font-size: 12px;
-    letter-spacing: 0.04em;
-    padding: 14px 14px 12px;
-  }
-  .tab:hover, .tab:focus-visible { color: var(--blue-600); }
-  .tab:focus-visible, .back-btn:focus-visible, .p-toggle-detail:focus-visible { outline: 2px solid var(--cyan-600); outline-offset: 3px; }
-  .tab.active { color: var(--navy-900); border-bottom-color: var(--cyan-600); }
-  .grid, .proyectos-wrapper, #reporte-container { max-width: 1440px; margin-inline: auto; }
-  .grid { gap: 18px; padding: 26px 24px; }
-  .card, .proyecto-card, .reporte-block, .proyectos-wrapper #proyectos-chart, .reporte-table {
-    border: 1px solid var(--line-soft);
-    border-radius: var(--radius-ui);
-    box-shadow: var(--shadow-ui);
-  }
-  .card { position: relative; overflow: hidden; }
-  .card-header { padding: 17px 18px 12px; }
-  .card.nova .card-header, .card.feli .card-header, .card.robotina .card-header, .card.googlenova .card-header { border-bottom-width: 1px; }
-  .card-header h2 { color: var(--navy-900); font-size: 14px; letter-spacing: 0; }
-  .card-header .total-pct { font-size: 24px; }
-  .card-footer { padding: 10px 18px; }
-  .card-footer.total { background: #f8fafc; }
-  .curso-task { background: #edf4ff; color: #1e3a5f; border-radius: 999px; padding: 4px 9px; }
-  .alert {
-    border-color: #bfdbfe;
-    border-left: 3px solid var(--blue-600);
-    border-radius: var(--radius-ui);
-    box-shadow: none;
-    margin: 0 auto 28px;
-    max-width: 1360px;
-  }
-  .alert strong { color: var(--navy-900); }
-  .proyectos-wrapper { gap: 20px; padding: 26px 24px; }
-  .proyectos-section { margin-bottom: 28px; }
-  .proyectos-section h3 {
-    background: transparent !important;
-    color: var(--navy-900) !important;
-    font-size: 15px;
-    padding: 0 0 10px;
-    border-bottom: 1px solid var(--line-soft);
-    border-radius: 0;
-    width: 100%;
-  }
-  .proyecto-card { box-shadow: none; transition: transform .15s ease, box-shadow .15s ease; }
-  .proyecto-card:hover { box-shadow: var(--shadow-ui); transform: translateY(-2px); }
-  .proyecto-card .p-header { padding: 16px; }
-  .proyecto-card .p-header .p-icon { border-radius: var(--radius-ui); }
-  .proyecto-card .p-header .p-info h4 { color: var(--navy-900); }
-  .proyecto-card .p-header .p-badge { border-radius: 999px; padding: 4px 9px; }
-  .proyecto-card .p-body .p-detail-link, .proyecto-card .p-header .p-info .p-toggle-detail { color: var(--blue-600); }
-  .proyectos-wrapper #proyectos-chart { border-radius: var(--radius-ui); box-shadow: var(--shadow-ui); }
-  .reporte-grid { gap: 18px; }
-  .reporte-block { border-radius: var(--radius-ui); box-shadow: var(--shadow-ui); }
-  .reporte-table th { background: var(--navy-900); }
-  .reporte-contract-chart, .reporte-charts > div {
-    border: 1px solid var(--line-soft);
-    border-radius: var(--radius-ui) !important;
-    box-shadow: var(--shadow-ui) !important;
-  }
-  .gantt-wrap { max-width: 1440px; margin-inline: auto; padding: 24px; }
-  .gantt-header h2 { color: var(--navy-900); }
-  .gantt-table thead th { background: var(--navy-900); }
-  .gantt-table .phase-row td { background: #eaf0f7; color: var(--navy-900); }
-  .back-btn { background: #fff; border-color: var(--line-soft); border-radius: var(--radius-ui); color: var(--navy-900); }
-  .back-btn:hover { background: #eff6ff; border-color: var(--blue-600); color: var(--blue-600); }
-  .main-footer { color: #64748b; margin-inline: auto; max-width: 1360px; width: calc(100% - 48px); }
-  @media (max-width: 900px) {
-    .header, .tabs, .topbar { padding-left: 20px; padding-right: 20px; }
-    .grid, .proyectos-wrapper { padding: 20px; }
-    #reporte-container { padding: 20px !important; }
-    .proyectos-wrapper { flex-direction: column; }
-    .proyectos-wrapper #proyectos-chart { width: 100%; }
-    .alert { margin: 0 20px 20px; }
-  }
-  @media (max-width: 640px) {
-    .topbar { align-items: flex-start; }
-    .topbar-right { width: 100%; justify-content: space-between; }
-    .header h1 { font-size: 21px; }
-    .tabs { overflow-x: auto; scrollbar-width: thin; }
-    .tab { flex: 0 0 auto; min-height: 44px; padding-inline: 12px; }
-    .card-footer { flex-wrap: wrap; gap: 6px 12px; }
-    .gantt-wrap { padding: 16px; }
-    .gantt-header { align-items: flex-start; flex-direction: column; gap: 5px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
-  }
-
-  /* Palette aligned with the live 2NV design system. */
-  :root {
-    --color-2nv: #0F172A;
-    --color-alpina: #4F46E5;
-    --bg: #F8FAFF;
-    --card-bg: #FFFFFF;
-    --card-border: rgba(148,163,184,0.18);
-    --border: rgba(148,163,184,0.18);
-    --text: #0F172A;
-    --text-muted: #64748B;
-    --success: #10B981;
-    --warning: #F59E0B;
-    --danger: #F43F5E;
-    --navy-950: #0F172A;
-    --navy-900: #0F172A;
-    --blue-600: #4F46E5;
-    --cyan-600: #06B6D4;
-    --surface-muted: #F8FAFF;
-    --line-soft: rgba(148,163,184,0.18);
-    --shadow-ui: 0 4px 24px rgba(15,23,42,0.07);
-  }
-  body { background: #F8FAFF; }
-  .topbar { background: #0F172A; border-bottom-color: rgba(99,102,241,0.5); }
-  .topbar-right .badge { background: #4F46E5; border-color: #6366F1; color: #FFFFFF; }
-  .topbar-right .date { color: rgba(255,255,255,0.62); }
-  .logo-divider { background: rgba(255,255,255,0.15); }
-  .header, .tabs { border-color: rgba(148,163,184,0.18); }
-  .header h1, .card-header h2, .proyecto-card .p-header .p-info h4, .gantt-header h2 { color: #0F172A; }
-  .header .sub, .bot-responsable, .proyecto-card .p-header .p-info .p-responsable { color: #64748B; }
-  .tab { color: #64748B; }
-  .tab:hover, .tab:focus-visible, .tab.active { color: #4F46E5; }
-  .tab.active { border-bottom-color: #4F46E5; }
-  .tab:focus-visible, .back-btn:focus-visible, .p-toggle-detail:focus-visible { outline-color: #06B6D4; }
-  .card, .proyecto-card, .reporte-block, .proyectos-wrapper #proyectos-chart, .reporte-table,
-  .reporte-contract-chart, .reporte-charts > div {
-    border-color: rgba(148,163,184,0.18);
-    box-shadow: 0 4px 24px rgba(15,23,42,0.07) !important;
-  }
-  .card-header, .card-footer { border-color: rgba(148,163,184,0.18); }
-  .card-footer.total { background: #F8FAFF; }
-  .curso-task { background: #EEF2FF; color: #4338CA; }
-  .alert { background: #EEF2FF; border-color: rgba(99,102,241,0.22); border-left-color: #4F46E5; color: #334155; }
-  .alert strong { color: #4F46E5; }
-  .proyectos-section h3 { border-bottom-color: rgba(148,163,184,0.18); }
-  .proyecto-card:hover { box-shadow: 0 12px 48px rgba(15,23,42,0.1); }
-  .proyecto-card .p-header .p-badge { border: 1px solid rgba(148,163,184,0.1); }
-  .proyecto-card .p-body .p-detail-link, .proyecto-card .p-header .p-info .p-toggle-detail { color: #4F46E5; }
-  .reporte-table th, .gantt-table thead th { background: #0F172A; }
-  .reporte-block h3, .reporte-contract-chart h3, .reporte-charts > div h3,
-  .proyectos-wrapper #proyectos-chart h3 { color: #0F172A !important; }
-  .reporte-total, .proyectos-wrapper .chart-donut-total, .proyectos-wrapper .chart-legend-hours { color: #0F172A; }
-  .gantt-table .phase-row td { background: #EEF2FF; color: #4338CA; }
-  .gantt-table .task-row:hover td { background: #F8FAFF; }
-  .back-btn { border-color: rgba(148,163,184,0.18); color: #334155; }
-  .back-btn:hover { background: #EEF2FF; border-color: #6366F1; color: #4F46E5; }
-  /* Layout composition: header, footer and native view transitions. */
-  .topbar {
-    background: rgba(255,255,255,0.78);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(148,163,184,0.18);
-    padding-bottom: 11px;
-  }
-  .topbar .logos {
-    background: #0F172A;
-    border-radius: 8px;
-    padding: 5px 10px;
-  }
-  .topbar .logo-divider { background: rgba(255,255,255,0.22); }
-  .topbar-right .date { color: #64748B; }
-  .header {
-    background: rgba(255,255,255,0.78);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 0;
-    padding-top: 28px;
-    padding-bottom: 16px;
-  }
-  .header h1 { color: #0F172A; font-size: 28px; }
-  .header .sub { color: #64748B; }
-  .tabs {
-    background: rgba(255,255,255,0.78);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 0;
-    box-shadow: 0 1px 0 rgba(148,163,184,0.18);
-  }
-  .tab { color: #64748B; }
-  .tab:hover, .tab:focus-visible, .tab.active { color: #4F46E5; }
-  .tab.active { border-bottom-color: #4F46E5; }
-  .tab-content.active { animation: dashboard-view-enter 260ms ease-out both; }
-  .tab-content.active .card,
-  .tab-content.active .proyecto-card,
-  .tab-content.active .reporte-block,
-  .tab-content.active .reporte-charts > div,
-  .tab-content.active .reporte-contract-chart,
-  .tab-content.active .gantt-wrap { animation: dashboard-item-enter 340ms ease-out both; }
-  .tab-content.active .card:nth-child(2), .tab-content.active .proyecto-card:nth-child(2) { animation-delay: 35ms; }
-  .tab-content.active .card:nth-child(3), .tab-content.active .proyecto-card:nth-child(3) { animation-delay: 70ms; }
-  .tab-content.active .card:nth-child(4), .tab-content.active .proyecto-card:nth-child(4) { animation-delay: 105ms; }
-  @keyframes dashboard-view-enter {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes dashboard-item-enter {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .main-footer {
-    background: #0F172A;
-    border: 0;
-    color: rgba(255,255,255,0.62);
-    margin: 42px 0 0;
-    max-width: none;
-    padding: 0;
-    text-align: left;
-    width: 100%;
-  }
-  .footer-inner {
-    align-items: center;
-    display: flex;
-    gap: 24px;
-    justify-content: space-between;
-    margin: 0 auto;
-    max-width: 1360px;
-    min-height: 104px;
-    padding: 24px;
-  }
-  .footer-brand { align-items: center; display: flex; gap: 14px; }
-  .footer-logos { align-items: center; display: flex; gap: 10px; }
-  .footer-logo { display: block; height: 28px; object-fit: contain; width: auto; }
-  .footer-divider { background: rgba(255,255,255,0.15); height: 22px; width: 1px; }
-  .footer-project { color: #FFFFFF; font-size: 13px; font-weight: 700; }
-  .footer-context { color: rgba(255,255,255,0.55); font-size: 12px; margin-top: 3px; }
-  .footer-meta { color: rgba(255,255,255,0.62); font-size: 12px; text-align: right; }
-  .footer-meta strong { color: #06B6D4; display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
-  @media (max-width: 640px) {
-    .header { padding-top: 22px; }
-    .header h1 { font-size: 23px; }
-    .footer-inner { align-items: flex-start; flex-direction: column; gap: 18px; min-height: 0; padding: 24px 20px; }
-    .footer-meta { text-align: left; }
-  }
 </style>
 </head>
 <body>
@@ -645,18 +368,18 @@
 
 <div class="header">
   <div>
-    <h1 id="page-title">Cronograma de Avance</h1>
+    <h1>Cronograma de Avance</h1>
     <div class="sub">Proyecto de Migración Alpina F2 · Automatización RPA</div>
   </div>
 </div>
 
-<nav class="tabs" aria-label="Secciones del dashboard" role="tablist">
-  <button class="tab" data-tab="tab-proyectos" id="control-tab-proyectos" role="tab" aria-controls="tab-proyectos" aria-selected="false" tabindex="-1">PROYECTOS ALPINA</button>
-  <button class="tab active" data-tab="tab-avance" id="control-tab-avance" role="tab" aria-controls="tab-avance" aria-selected="true">% AVANCE</button>
-  <button class="tab" data-tab="tab-reporte" id="control-tab-reporte" role="tab" aria-controls="tab-reporte" aria-selected="false" tabindex="-1">REPORTE DE HORAS ALPINA</button>
-</nav>
+<div class="tabs">
+  <button class="tab" data-tab="tab-proyectos">PROYECTOS ALPINA</button>
+  <button class="tab active" data-tab="tab-avance">% AVANCE</button>
+  <button class="tab" data-tab="tab-reporte">REPORTE DE HORAS ALPINA</button>
+</div>
 
-<div class="tab-content active" id="tab-avance" role="tabpanel" aria-labelledby="control-tab-avance">
+<div class="tab-content active" id="tab-avance">
   <div class="grid">
     <div class="card nova">
       <div class="card-header">
@@ -828,14 +551,14 @@
   </div>
 </div>
 
-<div class="tab-content" id="tab-proyectos" role="tabpanel" aria-labelledby="control-tab-proyectos">
+<div class="tab-content" id="tab-proyectos">
   <div class="proyectos-wrapper">
     <div id="proyectos-container"></div>
     <div id="proyectos-chart"></div>
   </div>
 </div>
 
-<div class="tab-content" id="tab-reporte" role="tabpanel" aria-labelledby="control-tab-reporte">
+<div class="tab-content" id="tab-reporte">
   <div id="reporte-container" style="padding:24px 40px"></div>
 </div>
 
@@ -864,11 +587,9 @@ document.querySelectorAll('.tab').forEach(t => {
       if (ft) openTab(ft.dataset.tab);
       return;
     }
-    document.querySelectorAll('.tab').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); x.tabIndex = -1; });
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
     t.classList.add('active');
-    t.setAttribute('aria-selected', 'true');
-    t.tabIndex = 0;
     document.getElementById(t.dataset.tab).classList.add('active');
     localStorage.setItem('activeTab', t.dataset.tab);
     if (t.dataset.tab === 'tab-reporte') renderReporte();
@@ -2405,35 +2126,20 @@ if (IS_SERVER) {
 }
 function openTab(id) {
   if (id === 'tab-reporte' && !checkReporteAuth()) return;
-  document.querySelectorAll('.tab').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); x.tabIndex = -1; });
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
   const btn = document.querySelector(`.tab[data-tab="${id}"]`);
-  if (btn) { btn.classList.add('active'); btn.setAttribute('aria-selected', 'true'); btn.tabIndex = 0; }
+  if (btn) btn.classList.add('active');
   document.getElementById(id).classList.add('active');
   localStorage.setItem('activeTab', id);
   if (id === 'tab-reporte') renderReporte();
 }
 function openGantt(id) {
-  document.querySelectorAll('.tab').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); x.tabIndex = -1; });
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   localStorage.setItem('activeTab', id);
 }
 </script>
-<footer class="main-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="footer-logos" aria-label="2NV y Alpina">
-        <img class="footer-logo" src="assets/logos/logo-2nv-header.png" alt="2NV">
-        <span class="footer-divider" aria-hidden="true"></span>
-        <img class="footer-logo" src="assets/logos/logo-alpina-header.png" alt="Alpina">
-      </div>
-      <div>
-        <div class="footer-project">Migracion Alpina F2</div>
-        <div class="footer-context">RPA delivery dashboard</div>
-      </div>
-    </div>
-    <div class="footer-meta"><strong>2NV x Alpina</strong>Seguimiento de cronograma y horas</div>
-  </div>
-</footer>
+<div class="main-footer">Migración Alpina F2 · Proyecto trackeado con IA</div>
 </body>
