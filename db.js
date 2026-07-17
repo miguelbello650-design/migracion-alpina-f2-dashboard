@@ -262,6 +262,18 @@ function updateGanttRow(bot, sortIdx, data) {
   return true;
 }
 
+function replaceGanttRows(bot, rows) {
+  const d = open();
+  const insert = d.prepare('INSERT INTO gantt_rows (bot,sort_idx,phase,task,resp,hours,days,fixedIdx,fixedEndIdx,skipIndices,notesIdx,milestone,inProgress) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)');
+  d.transaction(() => {
+    d.prepare('DELETE FROM gantt_rows WHERE bot=?').run(bot);
+    rows.forEach((row, index) => {
+      if (!row || !row.task) return;
+      insert.run(bot, index, row.phase||'', row.task, row.resp||'', row.hours||0, row.days||0, row.fixedIdx, row.fixedEndIdx, JSON.stringify(row.skipIndices||[]), JSON.stringify(row.notesIdx||[]), row.milestone?1:0, row.inProgress?1:0);
+    });
+  })();
+}
+
 function getAllGanttRows() {
   const d = open();
   const rows = d.prepare('SELECT * FROM gantt_rows ORDER BY bot, sort_idx').all();
@@ -356,4 +368,4 @@ function close() {
   if (db) db.close();
 }
 
-module.exports = { init, seedFromHtml, open, close, getGanttRows, updateGanttRow, getAllGanttRows, getStaticMonthly, getAllStaticMonthly, updateStaticMonthly, setAllStaticMonthly, getProyectos, getGanttNotes, getAllData };
+module.exports = { init, seedFromHtml, open, close, getGanttRows, updateGanttRow, replaceGanttRows, getAllGanttRows, getStaticMonthly, getAllStaticMonthly, updateStaticMonthly, setAllStaticMonthly, getProyectos, getGanttNotes, getAllData };

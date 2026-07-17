@@ -85,9 +85,7 @@ const server = http.createServer((req, res) => {
         Object.keys(data).forEach(bot => {
           const realBot = botMap[bot];
           if (!realBot) return;
-          data[bot].forEach((row, idx) => {
-            db.updateGanttRow(realBot, idx, row);
-          });
+          db.replaceGanttRows(realBot, data[bot]);
         });
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: true }));
@@ -124,14 +122,10 @@ const server = http.createServer((req, res) => {
       try {
         const data = JSON.parse(body);
         if (data.ganttRows) {
-          Object.keys(data.ganttRows).forEach(bot => {
-            data.ganttRows[bot].forEach((row, idx) => {
-              db.updateGanttRow(bot, idx, row);
-            });
-          });
+          Object.keys(data.ganttRows).forEach(bot => db.replaceGanttRows(bot, data.ganttRows[bot]));
         } else if (data.nova || data.feli || data.robotina || data.googlenova) {
           ['nova','feli','robotina','googlenova'].forEach(bot => {
-            if (data[bot]) data[bot].forEach((row, idx) => db.updateGanttRow(bot, idx, row));
+            if (data[bot]) db.replaceGanttRows(bot, data[bot]);
           });
         }
         if (data.staticMonthly) db.setAllStaticMonthly(data.staticMonthly);
