@@ -7,6 +7,14 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
 - **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
 
+## Actualizacion visual 2NV
+
+- Fondo de video local en `assets/video/dashboard-background.mp4`, con veladura para mantener la legibilidad.
+- Interfaz adaptable para escritorio, tablet y telefono; en pantallas angostas las pestanas y los Gantt usan desplazamiento horizontal cuando es necesario.
+- Cronogramas con superficie elevada, cabecera compacta, leyenda visual y barras con interaccion; Actividad, Responsable, Horas y Dias se muestran una sola vez en la cabecera.
+- El reporte se denomina **Reporte de Horas por Hito**. La grafica **Horas por Mes** incluye eje Y, valores por mes y una linea que conecta los maximos de las barras.
+- La barra superior enlaza a `https://2nv.co/` mediante el texto **Mas informacion sobre nuestra familia 2NV**.
+
 ## Stack
 - **Lenguaje**: HTML + CSS + JavaScript (vanilla, un solo archivo `index.html`)
 - **Backend**: Node.js con `better-sqlite3` (solo en servidor local `localhost:3000`)

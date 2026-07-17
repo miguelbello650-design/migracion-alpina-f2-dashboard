@@ -43,6 +43,8 @@
   .brand-logo.logo-alpina { width: 78px; height: 42px; }
   .logo-divider { width: 1px; height: 34px; background: rgba(255,255,255,0.18); }
   .topbar-right { display: flex; align-items: center; gap: 16px; }
+  .topbar-right .family-link { color: rgba(255,255,255,.82); font-size: 12px; font-weight: 600; text-decoration: none; }
+  .topbar-right .family-link:hover { color: #fff; text-decoration: underline; }
   .topbar-right .badge {
     background: var(--color-alpina); color: #fff; font-size: 11px; font-weight: 600;
     padding: 4px 14px; border-radius: 20px; letter-spacing: 0.3px;
@@ -85,7 +87,9 @@
     overflow: hidden;
     display: flex; flex-direction: column;
     border: 1px solid rgba(148,163,184,0.18);
+    transition: transform .32s ease, box-shadow .32s ease;
   }
+  .card:hover { box-shadow: 0 16px 32px rgba(15,23,42,0.13); transform: translateY(-6px); }
   .card-header {
     padding: 16px 20px 12px;
     display: flex; flex-direction: column; gap: 4px;
@@ -130,7 +134,7 @@
   .proyectos-section.en-proceso h3 { background: #dbeafe; color: #1e40af; }
   .proyectos-section.proximos h3 { background: #fef3c7; color: #92400e; }
   .proyectos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-  .proyecto-card { background: #fff; border: 1px solid rgba(148,163,184,0.18); border-radius: 8px; box-shadow: 0 4px 24px rgba(15,23,42,0.07); overflow: hidden; transition: transform .24s ease, box-shadow .24s ease; }
+  .proyecto-card { background: #fff; border: 1px solid rgba(148,163,184,0.18); border-radius: 8px; box-shadow: 0 4px 24px rgba(15,23,42,0.07); overflow: hidden; transition: transform .32s ease, box-shadow .32s ease; }
   .proyecto-card:hover { box-shadow: 0 16px 32px rgba(15,23,42,0.13); transform: translateY(-6px); }
   .proyecto-card .p-header { padding: 16px; display: flex; align-items: center; gap: 12px; }
   .proyecto-card .p-header .p-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; flex-shrink: 0; }
@@ -160,7 +164,7 @@
   .proyecto-card .p-stat .p-label { color: #64748b; }
   .proyecto-card .p-stat .p-value { font-weight: 600; color: #1e3a5f; }
   .proyecto-card .p-body .p-bar { height: 6px; background: #e2e8f0; border-radius: 4px; margin: 8px 0; overflow: hidden; }
-  .proyecto-card .p-body .p-bar .p-fill { height: 100%; border-radius: 4px; transition: width .3s; }
+  .proyecto-card .p-body .p-bar .p-fill { height: 100%; border-radius: 4px; transition: width 1.2s ease-out; }
   .proyecto-card .p-body .p-detail-link { padding: 8px 0; color: #2563eb; cursor: pointer; font-size: 13px; font-weight: 500; }
   .proyecto-card .p-body .p-detail-link:hover { text-decoration: underline; }
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 1000; }
@@ -197,7 +201,7 @@
   .fase .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
   .fase .name { flex: 1; font-size: 13px; color: #334155; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .fase .bar-track { width: 64px; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; flex-shrink: 0; }
-  .fase .bar-fill { height: 100%; border-radius: 4px; transition: width .5s ease; }
+  .fase .bar-fill { height: 100%; border-radius: 4px; transition: width 1.2s ease-out; }
   .fase .pct { font-size: 12px; font-weight: 700; width: 34px; text-align: right; }
   .dot.completado { background: var(--success); }
   .dot.en_progreso { background: var(--warning); }
@@ -241,7 +245,8 @@
   .footer-project { color: #fff; font-size: 13px; font-weight: 700; }
   .footer-context { color: rgba(255,255,255,0.55); font-size: 12px; margin-top: 3px; }
   .footer-meta { color: rgba(255,255,255,0.62); font-size: 12px; text-align: right; }
-  .footer-meta strong { color: #06b6d4; display: block; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .footer-meta-title { color: #06b6d4; display: block; font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+  .footer-tagline { display: block; margin-top: 4px; }
   .back-btn { background: none; border: 1px solid #c8d2e0; border-radius: 8px; padding: 6px 16px; font-size: 12px; font-weight: 600; color: #1e3a5f; cursor: pointer; transition: all .15s; }
   .back-btn:hover { background: #e8eef6; border-color: #0033a0; color: #0033a0; }
   .reporte-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
@@ -250,29 +255,31 @@
   .reporte-table tr:last-child td { border-bottom: none; }
   .reporte-table .total-row td { font-weight: 700; background: #f1f5f9; font-size: 14px; }
   .reporte-table .badge-report { font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
-  #reporte-container { display: flex; flex-direction: column; }
-  .reporte-charts { order: 3; margin-bottom: 24px; }
-  .reporte-contract-chart { order: 5; }
-  .reporte-grid { order: 4; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-  .reporte-block { background: #fff; border: 1px solid rgba(148,163,184,0.18); border-radius: 8px; box-shadow: 0 4px 24px rgba(15,23,42,0.07); padding: 16px; }
+  #reporte-container { display: flex; flex-direction: column; gap: 24px; }
+  #reporte-container > * { margin-top: 0 !important; margin-bottom: 0 !important; }
+  .reporte-charts { order: 3; }
+  .reporte-contract-chart { order: 4; }
+  .reporte-grid { order: 5; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .reporte-block { background: #fff; border: 1px solid rgba(148,163,184,0.18); border-radius: 8px; box-shadow: 0 4px 24px rgba(15,23,42,0.07); padding: 16px; transition: transform .32s ease, box-shadow .32s ease; }
 
   .reporte-charts > div, .reporte-contract-chart {
     border: 1px solid rgba(148,163,184,0.18);
     border-radius: 8px !important;
     box-shadow: 0 4px 24px rgba(15,23,42,0.07) !important;
+    transition: transform .32s ease, box-shadow .32s ease;
   }
+  .reporte-block:hover, .reporte-charts > div:hover, .reporte-contract-chart:hover { box-shadow: 0 16px 32px rgba(15,23,42,0.13) !important; transform: translateY(-6px); }
   .reporte-charts h3, .reporte-contract-chart h3 { color: #0f172a !important; }
   .chart-donut-total, .chart-legend-hours { color: #0f172a !important; }
 
   .tab-content.active { animation: dashboard-view-enter 240ms ease-out both; }
   .tab-content.active .card,
-  .tab-content.active .proyecto-card,
   .tab-content.active .reporte-block,
   .tab-content.active .reporte-charts > div,
   .tab-content.active .reporte-contract-chart,
   .tab-content.active .gantt-wrap { animation: dashboard-item-enter 320ms ease-out backwards; }
-  .tab-content.active .card:nth-child(2), .tab-content.active .proyecto-card:nth-child(2) { animation-delay: 35ms; }
-  .tab-content.active .card:nth-child(3), .tab-content.active .proyecto-card:nth-child(3) { animation-delay: 70ms; }
+  .tab-content.active .card:nth-child(2) { animation-delay: 35ms; }
+  .tab-content.active .card:nth-child(3) { animation-delay: 70ms; }
   @keyframes dashboard-view-enter { from { opacity: 0; } to { opacity: 1; } }
   @keyframes dashboard-item-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   @media (prefers-reduced-motion: reduce) {
@@ -286,41 +293,60 @@
   .reporte-name { font-size: 13px; font-weight: 600; color: #1e293b; flex: 1; }
   .reporte-total { font-size: 13px; font-weight: 700; color: #1e3a5f; }
   .reporte-bar { height: 6px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-bottom: 4px; }
-  .reporte-bar-fill { height: 100%; border-radius: 4px; transition: width .3s; }
+  .reporte-bar-fill { height: 100%; border-radius: 4px; transition: width 1.2s ease-out; }
+  .report-month-bar { transition: height 1.2s ease-out; }
+  .report-month-chart { display: flex; min-width: 0; }
+  .report-month-y-axis { color: #64748b; display: flex; flex: 0 0 42px; font-size: 10px; height: 160px; justify-content: space-between; padding: 0 7px 20px 0; text-align: right; flex-direction: column; }
+  .report-month-plot { flex: 1; height: 184px; min-width: 0; position: relative; }
+  .report-month-grid { bottom: 24px; left: 0; position: absolute; right: 0; top: 0; }
+  .report-month-grid span { border-top: 1px solid #e2e8f0; left: 0; position: absolute; right: 0; }
+  .report-month-grid span:nth-child(1) { top: 0; }
+  .report-month-grid span:nth-child(2) { top: 50%; }
+  .report-month-grid span:nth-child(3) { bottom: 0; }
+  .report-month-bars { bottom: 0; display: flex; height: 184px; left: 0; position: absolute; right: 0; }
+  .report-month-item { align-items: center; display: flex; flex: 1; height: 184px; justify-content: flex-end; min-width: 0; position: relative; }
+  .report-month-bar { bottom: 24px; position: absolute; z-index: 1; }
+  .report-month-value { bottom: 0; color: #1e3a5f; font-size: 10px; font-weight: 700; position: absolute; transform: translateY(-4px); white-space: nowrap; z-index: 3; }
+  .report-month-label { bottom: 0; color: #64748b; font-size: 10px; position: absolute; white-space: nowrap; }
+  .report-month-line { height: 160px; left: 0; overflow: visible; pointer-events: none; position: absolute; top: 0; width: 100%; z-index: 2; }
   .reporte-stats { display: flex; gap: 12px; font-size: 11px; color: #64748b; }
   .reporte-stats span { display: flex; align-items: center; gap: 2px; }
   .reporte-empty { font-size: 12px; color: #94a3b8; text-align: center; padding: 8px 0; margin: 0; }
 
   /* Gantt */
   .gantt-wrap { padding: 24px 40px 20px; overflow-x: auto; position: relative; }
+  .tab-content > .gantt-wrap { background: rgba(255,255,255,.86); border: 1px solid rgba(148,163,184,.22); border-radius: 8px; box-shadow: 0 12px 30px rgba(15,23,42,.09); margin: 24px 40px; padding: 20px; }
+  .tab-content > .gantt-wrap .gantt-wrap { padding: 0; overflow: visible; }
   .gantt-wrap::-webkit-scrollbar { height: 10px; }
-  .gantt-wrap::-webkit-scrollbar-track { background: #d1d9e6; border-radius: 5px; }
-  .gantt-wrap::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 5px; }
+  .gantt-wrap::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 5px; }
+  .gantt-wrap::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 5px; border: 2px solid #e2e8f0; }
   .gantt-wrap::-webkit-scrollbar-thumb:hover { background: #0033a0; }
   td.today-col { background: rgba(239,68,68,0.25) !important; }
   th.today-header { background: #ef4444 !important; color: #fff !important; font-weight: 800 !important; }
   td.gray-col { background: rgba(148,163,184,0.25) !important; }
   th.gray-header { background: #94a3b8 !important; color: #fff !important; }
   .gantt-scrollbar { overflow-x: auto; height: 12px; position: fixed; bottom: 0; left: 0; right: 0; z-index: 999; background: #e8eef6; box-shadow: 0 -1px 4px rgba(0,0,0,0.1); }
-  .gantt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-  .gantt-header h2 { font-size: 18px; color: #1e3a5f; }
-  .gantt-header .stats { font-size: 13px; color: #5b6f8c; }
-  .gantt-table { min-width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; }
-  .gantt-table th, .gantt-table td { border: 1px solid #d1d9e6; padding: 3px 6px; text-align: center; white-space: nowrap; }
+  .gantt-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 14px 16px; border: 1px solid #dbe5f1; border-left: 4px solid #06b6d4; border-radius: 6px; background: #f8fbff; }
+  .gantt-header h2 { font-size: 17px; color: #0f172a; }
+  .gantt-header .stats { font-size: 12px; color: #475569; background: #e0f2fe; border-radius: 99px; padding: 5px 9px; }
+  .gantt-header + div { flex-wrap: wrap; padding: 9px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; }
+  .gantt-header + div span span { box-shadow: 0 2px 5px rgba(15,23,42,.16); }
+  .gantt-table { min-width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; overflow: hidden; border: 1px solid #dbe5f1; border-radius: 6px; }
+  .gantt-table th, .gantt-table td { border: 0; border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; padding: 4px 6px; text-align: center; white-space: nowrap; }
+  .gantt-table th, .gantt-table td:not(.today-col):not(.gray-col) { border-color: #e2e8f0 !important; }
   .gantt-table .col-task { text-align: left; min-width: 220px; max-width: 260px; white-space: normal; word-break: break-word; }
   .gantt-table .col-info { min-width: 50px; }
 
-  .gantt-table { min-width: 100%; border-collapse: separate; border-spacing: 0; font-size: 12px; }
-  .gantt-table th, .gantt-table td { border: 1px solid #d1d9e6; padding: 3px 6px; text-align: center; white-space: nowrap; }
   .gantt-table .col-task { text-align: left; min-width: 220px; max-width: 260px; white-space: normal; word-break: break-word; }
   .gantt-table .col-info { min-width: 50px; }
-  .gantt-table thead th { background: #1e3a5f; color: #fff; font-weight: 600; font-size: 10px; padding: 6px 3px; }
-  .gantt-table .phase-row td { background: #dce6f2; font-weight: 700; color: #1e3a5f; }
+  .gantt-table thead th { background: #1e3a5f; color: #fff; font-weight: 600; font-size: 10px; padding: 7px 3px; }
+  .gantt-table .phase-row td { background: #edf5ff; font-weight: 700; color: #1e3a5f; }
+  .gantt-table .phase-row td:first-child { border-left: 4px solid #06b6d4; }
   .gantt-table .phase-row .col-task { font-size: 12px; }
-  .gantt-table .task-row td { background: #fff; }
-  .gantt-table .task-row:hover td { background: #f4f7fc; }
-  .gantt-bar { display: block; height: 18px; border-radius: 3px; position: relative; min-width: 4px; }
-  .gantt-bar:hover { opacity: .85; }
+  .gantt-table .task-row td { background: rgba(255,255,255,.92); transition: background .2s ease; }
+  .gantt-table .task-row:hover td { background: #f0f7ff; }
+  .gantt-bar { display: block; height: 20px; border-radius: 4px; position: relative; min-width: 4px; box-shadow: inset 0 -2px 0 rgba(15,23,42,.14), 0 2px 5px rgba(15,23,42,.14); transition: transform .2s ease, box-shadow .2s ease; }
+  .gantt-bar:hover { opacity: 1; transform: scaleY(1.12); box-shadow: inset 0 -2px 0 rgba(15,23,42,.14), 0 5px 10px rgba(15,23,42,.22); z-index: 2; }
   .gantt-bar .tooltip {
     display: none;
     position: absolute;
@@ -344,19 +370,73 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.18);
   }
   .gantt-bar:hover .tooltip { display: block; }
-  .month-row td { font-size: 10px; font-weight: 700; color: #5b6f8c; background: #e8eef6; padding: 2px 3px; }
-  .weekend { background: #f1f5f9 !important; }
+  .month-row td { font-size: 10px; font-weight: 700; color: #475569; background: #f1f5f9; padding: 5px 3px; }
+  .weekend { background: #f8fafc !important; }
 
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; padding: 20px; }
-    .topbar { padding: 10px 20px; }
-    .header { padding: 20px 20px 10px; }
-    .tabs { padding: 0 20px; }
-    .gantt-wrap { padding: 20px; }
-    .alert { margin: 0 20px 20px; }
-    .footer-inner { padding: 24px 20px; }
-    .footer-inner { align-items: flex-start; flex-direction: column; gap: 18px; }
+  @media (max-width: 1180px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 24px; }
+    .proyectos-wrapper { flex-direction: column; padding: 20px 24px; }
+    .proyectos-wrapper #proyectos-chart { align-self: stretch; max-width: 520px; width: 100%; }
+    #reporte-container { padding: 24px !important; }
+    .tab-content > .gantt-wrap { margin: 20px 24px; }
+  }
+
+  @media (max-width: 760px) {
+    body { overflow-x: hidden; }
+    .topbar { padding: 10px 16px; align-items: flex-start; }
+    .topbar-right { width: 100%; flex-wrap: wrap; gap: 8px 12px; }
+    .topbar-right .family-link { flex-basis: 100%; }
+    .header { padding: 20px 16px 10px; }
+    .tabs { overflow-x: auto; padding: 0 16px; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab { flex: 0 0 auto; padding: 10px 16px; }
+    .grid { grid-template-columns: 1fr; gap: 16px; padding: 16px; }
+    .card:hover, .proyecto-card:hover, .proyectos-wrapper #proyectos-chart:hover, .reporte-block:hover, .reporte-charts > div:hover, .reporte-contract-chart:hover { transform: none; }
+    .card-header, .card-body, .card-footer, .card-curso { padding-left: 16px; padding-right: 16px; }
+    .card-footer { flex-wrap: wrap; gap: 6px 12px; }
+    .card-header .milestone-info { white-space: normal; text-align: left; }
+    .alert { margin: 0 16px 16px; padding: 14px 16px; }
+    .proyectos-wrapper { gap: 16px; padding: 16px; }
+    .proyectos-grid { grid-template-columns: 1fr; }
+    .proyecto-card .p-header .p-info { min-width: 0; }
+    .proyecto-card .p-header .p-info h4 { overflow-wrap: anywhere; }
+    #reporte-container { gap: 16px; padding: 16px !important; }
+    #reporte-container > div:first-child { align-items: flex-start !important; flex-wrap: wrap; gap: 10px; }
+    .reporte-grid { grid-template-columns: 1fr; gap: 16px; }
+    .reporte-charts { gap: 16px !important; }
+    .reporte-charts > div { min-width: 0 !important; width: 100%; }
+    .reporte-contract-chart { min-width: 0; }
+    .tab-content > div[style*="padding:12px"] { padding: 12px 16px 0 !important; }
+    .tab-content > .gantt-wrap { margin: 16px; padding: 12px; -webkit-overflow-scrolling: touch; }
+    .gantt-header { align-items: flex-start; flex-direction: column; gap: 8px; }
+    .gantt-header + div { gap: 8px !important; }
+    .gantt-header .stats { white-space: normal; }
+    .footer-inner { align-items: flex-start; flex-direction: column; gap: 18px; padding: 24px 16px; }
     .footer-meta { text-align: left; }
+  }
+
+  @media (max-width: 480px) {
+    .topbar .logos { gap: 10px; }
+    .brand-logo.logo-2nv { width: 42px; }
+    .brand-logo.logo-alpina { width: 68px; }
+    .logo-divider { height: 30px; }
+    .header h1 { font-size: 20px; }
+    .header .sub { line-height: 1.4; }
+    .topbar-right .date { width: 100%; }
+    .card-header .top-row { align-items: flex-start; gap: 8px; }
+    .card-header .total-pct { font-size: 20px; }
+    .fase { gap: 8px; }
+    .fase .bar-track { width: 54px; }
+    .curso-task { max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+    .proyecto-card .p-header { align-items: flex-start; }
+    .proyecto-card .p-header .p-badge { font-size: 10px; }
+    .proyectos-wrapper .chart-donut-wrap { width: 180px; height: 180px; }
+    .reporte-block, .reporte-charts > div, .reporte-contract-chart { padding: 14px !important; }
+    .reporte-stats { flex-wrap: wrap; gap: 4px 10px; }
+    .modal-box { padding: 22px 20px; }
+    .modal-box .modal-close { width: 100%; }
+    .gantt-header { padding: 12px; }
+    .gantt-header h2 { font-size: 15px; }
   }
 
   /* Admin chat */
@@ -384,9 +464,15 @@
   #admin-login input:focus { border-color:#0033a0; }
   #admin-login button { background:#0033a0; color:#fff; border:none; border-radius:6px; padding:10px 24px; font-size:14px; cursor:pointer; font-weight:600; }
   #admin-login button:hover { background:#002a80; }
+  .dashboard-video { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; background:#e8eef6; }
+  .dashboard-video video { width:100%; height:100%; object-fit:cover; opacity:.22; }
+  .dashboard-video::after { content:''; position:absolute; inset:0; background:rgba(232,238,246,.58); }
+  .topbar, .header, .tabs, .tab-content, .main-footer { position:relative; z-index:1; }
 </style>
 </head>
 <body>
+
+<div class="dashboard-video" aria-hidden="true"><video autoplay muted loop playsinline><source src="assets/video/dashboard-background.mp4" type="video/mp4"></video></div>
 
 <div class="topbar">
   <div class="logos">
@@ -395,6 +481,7 @@
     <img class="brand-logo logo-alpina" src="assets/logos/logo-alpina-header.png" alt="Alpina">
   </div>
   <div class="topbar-right">
+    <a class="family-link" href="https://2nv.co/" target="_blank" rel="noopener noreferrer">Mas información sobre nuestra familia 2NV</a>
     <span class="badge">Migración F2</span>
     <span class="date" id="fecha-label"></span>
     
@@ -403,15 +490,15 @@
 
 <div class="header">
   <div>
-    <h1>Cronograma de Avance</h1>
-    <div class="sub">Proyecto de Migración Alpina F2 · Automatización RPA</div>
+    <h1>Seguimiento Alpina</h1>
+    <div class="sub">Migración Alpina - Automatización RPA</div>
   </div>
 </div>
 
 <div class="tabs">
-  <button class="tab" data-tab="tab-proyectos">PROYECTOS ALPINA</button>
+  <button class="tab" data-tab="tab-proyectos">PROYECTOS</button>
   <button class="tab active" data-tab="tab-avance">% AVANCE</button>
-  <button class="tab" data-tab="tab-reporte">REPORTE DE HORAS ALPINA</button>
+  <button class="tab" data-tab="tab-reporte">REPORTE DE HORAS</button>
 </div>
 
 <div class="tab-content active" id="tab-avance">
@@ -622,12 +709,7 @@ document.querySelectorAll('.tab').forEach(t => {
       if (ft) openTab(ft.dataset.tab);
       return;
     }
-    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-    document.getElementById(t.dataset.tab).classList.add('active');
-    localStorage.setItem('activeTab', t.dataset.tab);
-    if (t.dataset.tab === 'tab-reporte') renderReporte();
+    openTab(t.dataset.tab);
   });
 });
 
@@ -1167,19 +1249,15 @@ function buildGantt(rows, dates, title, grayDays, notes) {
   html += '<div style="min-width:' + (totalDays*26 + 400) + 'px">';
   html += '<table class="gantt-table"><thead>';
   html += '<tr class="month-row">';
-  html += '<th class="col-task" style="min-width:220px">Actividad</th>';
-  html += '<th class="col-resp" style="min-width:50px">Resp.</th>';
-  html += '<th class="col-hours" style="min-width:45px">Horas</th>';
-  html += '<th class="col-days" style="min-width:35px">Días</th>';
+  html += '<th class="col-task" rowspan="2" style="min-width:220px;background:#1e3a5f;color:#fff;padding:6px">Actividad / Tarea</th>';
+  html += '<th class="col-resp" rowspan="2" style="min-width:50px;background:#1e3a5f;color:#fff;padding:6px">Resp.</th>';
+  html += '<th class="col-hours" rowspan="2" style="min-width:45px;background:#1e3a5f;color:#fff;padding:6px">Horas</th>';
+  html += '<th class="col-days" rowspan="2" style="min-width:35px;background:#1e3a5f;color:#fff;padding:6px">Días</th>';
   monthLabels.forEach(m => {
     html += '<th colspan="' + m.count + '" style="text-align:center;font-size:10px;font-weight:700;color:#1e3a5f;background:#dce6f2;padding:4px 2px;border:1px solid #c8d2e0">' + m.label + '</th>';
   });
   html += '</tr>';
   html += '<tr class="day-row">';
-  html += '<th class="col-task" style="background:#1e3a5f;color:#fff;padding:6px">Actividad / Tarea</th>';
-  html += '<th class="col-resp" style="background:#1e3a5f;color:#fff;padding:6px">Resp.</th>';
-  html += '<th class="col-hours" style="background:#1e3a5f;color:#fff;padding:6px">Horas</th>';
-  html += '<th class="col-days" style="background:#1e3a5f;color:#fff;padding:6px">Días</th>';
   dates.forEach((d,i) => {
     const isWeekend = d.getDay() === 0 || d.getDay() === 6;
     const isGrayDay = grayDays && grayDays.includes(i);
@@ -1312,9 +1390,18 @@ function buildGantt(rows, dates, title, grayDays, notes) {
   return html;
 }
 
+function datesThroughLastActivity(rows, dates) {
+  const lastIndex = rows.reduce((last, row) => {
+    if (!row.task || row.fixedIdx === undefined) return last;
+    return Math.max(last, row.fixedEndIdx !== undefined ? row.fixedEndIdx : row.fixedIdx);
+  }, -1);
+  return lastIndex >= 0 ? dates.slice(0, lastIndex + 1) : dates;
+}
+
 function renderGantt() {
   const container = document.getElementById('gantt-nova');
-  const innerHtml = buildGantt(GANTT_ROWS, GANTT_DATES, 'NOVA', GRAY_DAYS_NOVA, GANTT_NOTES);
+  const dates = datesThroughLastActivity(GANTT_ROWS, GANTT_DATES);
+  const innerHtml = buildGantt(GANTT_ROWS, dates, 'NOVA', GRAY_DAYS_NOVA, GANTT_NOTES);
   container.innerHTML = '<div class="gantt-wrap" id="gantt-wrap-main">' + innerHtml + '</div>';
 }
 
@@ -1384,7 +1471,7 @@ function renderGanttRobotina() {
 function renderGanttGoogleNova() {
   const container = document.getElementById('gantt-googlenova');
   const startIdx = 82;
-  const dates = GANTT_DATES.slice(startIdx);
+  const allDates = GANTT_DATES.slice(startIdx);
   const rows = GANTT_ROWS_GOOGLE_NOVA.map(r => {
     const copy = { ...r };
     if (copy.fixedIdx !== undefined) copy.fixedIdx -= startIdx;
@@ -1393,6 +1480,7 @@ function renderGanttGoogleNova() {
     if (copy.notesIdx) copy.notesIdx = copy.notesIdx.map(i => i - startIdx).filter(i => i >= 0);
     return copy;
   });
+  const dates = datesThroughLastActivity(rows, allDates);
   const innerHtml = buildGantt(rows, dates, 'MIGRACION GOOGLE - BOT NOVA', [], {});
   container.innerHTML = '<div class="gantt-wrap" id="gantt-wrap-googlenova">' + innerHtml + '</div>';
 }
@@ -1488,6 +1576,102 @@ function renderAll() {
   renderNovaCard(); renderFeliCard(); renderRobotinaCard(); renderGoogleNovaCard();
   renderGantt(); renderGanttFeli(); renderGanttRobotina(); renderGanttGoogleNova();
   renderProyectos();
+  prepareCardPercentages();
+  requestAnimationFrame(animateCardPercentages);
+  if (document.getElementById('tab-proyectos').classList.contains('active')) requestAnimationFrame(animateProjectProgress);
+}
+
+function prepareCardPercentages() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('.card .bar-fill').forEach(bar => {
+    bar.dataset.progressTarget = bar.style.width;
+    bar.style.width = '0%';
+  });
+  document.querySelectorAll('.card .total-pct, .card .card-footer.total .pct-value').forEach(el => {
+    el.dataset.progressTarget = Number.parseFloat(el.textContent);
+    el.textContent = '0%';
+  });
+}
+
+function animateCardPercentages() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  document.querySelectorAll('.card .bar-fill').forEach((bar, index) => {
+    const target = bar.dataset.progressTarget;
+    if (!target) return;
+    requestAnimationFrame(() => setTimeout(() => { bar.style.width = target; }, index * 65));
+  });
+
+  document.querySelectorAll('.card .total-pct, .card .card-footer.total .pct-value').forEach((el, index) => {
+    const target = Number.parseFloat(el.dataset.progressTarget);
+    if (!Number.isFinite(target)) return;
+    const start = performance.now() + index * 70;
+    const duration = 1200;
+    const tick = now => {
+      const progress = Math.min(1, Math.max(0, (now - start) / duration));
+      el.textContent = Math.round(target * progress) + '%';
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+}
+
+function animateProjectProgress() {
+  const panel = document.getElementById('tab-proyectos');
+  if (!panel) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  panel.querySelectorAll('.proyecto-card .p-fill').forEach((bar, index) => {
+    const target = bar.style.width;
+    if (!target) return;
+    bar.style.width = '0%';
+    requestAnimationFrame(() => setTimeout(() => { bar.style.width = target; }, index * 65));
+  });
+  animateProjectChart();
+}
+
+function animateProjectChart() {
+  const reveal = document.querySelector('#proyectos-chart .project-chart-reveal');
+  if (!reveal) return;
+  const length = reveal.getTotalLength() + 2;
+  reveal.style.transition = 'none';
+  reveal.style.strokeDasharray = length;
+  reveal.style.strokeDashoffset = length;
+  requestAnimationFrame(() => {
+    reveal.style.transition = 'stroke-dashoffset 1.2s ease-out';
+    reveal.style.strokeDashoffset = '0';
+  });
+}
+
+function animateReportProgress() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const bars = [...document.querySelectorAll('#reporte-container .reporte-bar-fill')].map(bar => ({ bar, target: bar.dataset.width })).filter(({ target }) => target);
+  requestAnimationFrame(() => {
+    bars.forEach(({ bar, target }, index) => setTimeout(() => { bar.style.width = target; }, index * 65));
+  });
+
+  document.querySelectorAll('#reporte-container .report-donut-reveal').forEach(reveal => {
+    const length = reveal.getTotalLength() + 2;
+    reveal.style.transition = 'none';
+    reveal.style.strokeDasharray = length;
+    reveal.style.strokeDashoffset = length;
+    requestAnimationFrame(() => {
+      reveal.style.transition = 'stroke-dashoffset 1.2s ease-out';
+      reveal.style.strokeDashoffset = '0';
+    });
+  });
+
+  const monthBars = [...document.querySelectorAll('#reporte-container .report-month-bar')].map(bar => ({ bar, target: bar.dataset.height })).filter(({ target }) => target);
+  requestAnimationFrame(() => {
+    monthBars.forEach(({ bar, target }, index) => setTimeout(() => { bar.style.height = target; }, index * 180));
+  });
+
+  document.querySelectorAll('#reporte-container .report-month-line polyline').forEach(line => {
+    const length = line.getTotalLength();
+    line.style.strokeDasharray = length;
+    line.style.strokeDashoffset = length;
+    requestAnimationFrame(() => { line.style.transition = 'stroke-dashoffset 1.2s ease-out'; line.style.strokeDashoffset = '0'; });
+  });
 }
 
 // ── PROYECTOS ALPINA tab ──
@@ -1599,7 +1783,7 @@ function renderProyectoCard(p, key, gridStyle) {
   const endDate = lastTask && lastTask.fixedEndIdx !== undefined ? GANTT_DATES[lastTask.fixedEndIdx] : (lastTask && lastTask.fixedIdx !== undefined ? GANTT_DATES[lastTask.fixedIdx] : null);
   const badge = { 'finalizado':'finalizado', 'en-proceso':'en-proceso', 'proximo':'proximo' }[key];
   let h = `<div class="proyecto-card"${gs}>`;
-  const detailBtn = p.key === 'nova' ? `<button class="p-toggle-detail" type="button" onclick="openProyectoAvance('nova')">Ver detalle</button>` : '';
+  const detailBtn = ['nova', 'googlenova'].includes(p.key) ? `<button class="p-toggle-detail" type="button" onclick="openProyectoAvance('${p.key}')">Ver detalle</button>` : '';
   h += `<div class="p-header"><div class="p-icon ${p.key}">${p.icon}</div><div class="p-info"><h4>${p.name}</h4><div class="p-responsable">${p.responsable}</div>${detailBtn}</div><span class="p-badge ${badge}">${key==='finalizado'?'Finalizado':key==='en-proceso'?'En Proceso':'Próximo'}</span></div>`;
   h += `<div class="p-body"><div class="p-stat"><span class="p-label">Progreso</span><span class="p-value">${res.total}%</span></div><div class="p-bar"><div class="p-fill ${key==='finalizado'?'completed':p.key}" style="width:${res.total}%"></div></div>`;
   h += `<div class="p-stat"><span class="p-label">Tareas</span><span class="p-value">${tasksDone} completadas · ${inProg} en curso · ${tasksTotal} total</span></div>`;
@@ -1609,11 +1793,8 @@ function renderProyectoCard(p, key, gridStyle) {
   return h;
 }
 function openProyectoAvance(key) {
-  openTab('tab-avance');
-  requestAnimationFrame(() => {
-    const el = document.querySelector(`.card.${key}`);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  const ganttTabs = { nova: 'tab-gantt', googlenova: 'tab-gantt-googlenova' };
+  if (ganttTabs[key]) openGantt(ganttTabs[key]);
 }
 function showProyectoDetalle(key) {
   const p = PROYECTOS.find(x => x.key === key);
@@ -1684,7 +1865,8 @@ function renderProyectosChart() {
     el.innerHTML = '<h3>Horas de Desarrollo por Proyecto</h3><p style="text-align:center;color:#94a3b8;padding:40px 0">Sin datos</p>';
     return;
   }
-  el.innerHTML = `<h3>Horas de Desarrollo por Proyecto</h3><div class="chart-donut-wrap"><svg viewBox="0 0 200 200">${paths}</svg><div class="chart-donut-total">${totalHours.toFixed(1)}<small>horas totales</small></div></div><div class="chart-legend">${legendHtml}</div>`;
+  const revealMask = `<defs><mask id="project-chart-reveal-mask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="200" height="200"><rect width="200" height="200" fill="#000"/><circle class="project-chart-reveal" cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#fff" stroke-width="${sw}" stroke-linecap="round" transform="rotate(-90 ${cx} ${cy})"/></mask></defs>`;
+  el.innerHTML = `<h3>Horas de Desarrollo por Proyecto</h3><div class="chart-donut-wrap"><svg viewBox="0 0 200 200">${revealMask}<g mask="url(#project-chart-reveal-mask)">${paths}</g></svg><div class="chart-donut-total">${totalHours.toFixed(1)}<small>horas totales</small></div></div><div class="chart-legend">${legendHtml}</div>`;
 }
 const REPORTE_MONTH_KEY = 'reporteMonthFilter';
 const REPORTE_HORAS_CONTRATADAS = 4320;
@@ -1808,7 +1990,7 @@ function renderReporte() {
   const botKeys = ['nova','feli','robotina','googlenova'];
   const months = getMonthOptions();
   const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  let html = '<div style="display:flex;align-items:center;justify-content:space-between;margin:0 0 16px"><h2 style="font-size:18px;color:#1e3a5f;font-weight:700;margin:0">Reporte de Horas de Desarrollo</h2><button onclick="exportReporte()" style="padding:6px 14px;border:1px solid #1e3a5f;border-radius:6px;background:#fff;color:#1e3a5f;font-size:12px;font-weight:600;cursor:pointer">Export Excel</button></div>';
+  let html = '<div style="display:flex;align-items:center;justify-content:space-between;margin:0 0 16px"><h2 style="font-size:18px;color:#1e3a5f;font-weight:700;margin:0">Reporte de Horas por Hito</h2><button onclick="exportReporte()" style="padding:6px 14px;border:1px solid #1e3a5f;border-radius:6px;background:#fff;color:#1e3a5f;font-size:12px;font-weight:600;cursor:pointer">Export Excel</button></div>';
   html += '<div style="margin-bottom:16px"><select id="reporte-month-select" style="padding:6px 12px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;background:#fff;color:#1e293b;cursor:pointer">';
   html += '<option value="all"'+(filter==='all'?' selected':'')+'>Todos los meses</option>';
   months.forEach(m => {
@@ -1847,7 +2029,7 @@ function renderReporte() {
     let cur = hrs.inProgress;
     const tot = hrs.completed + cur;
     const barW = Math.min(100, Math.round((tot / maxHrs) * 100));
-    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name">'+p.name+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+hrs.completed.toFixed(1)+'h ejecutadas</span><span>🔄 '+cur.toFixed(1)+'h en curso</span></div></div>';
+    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name">'+p.name+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" data-width="'+barW+'%" style="width:0%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+hrs.completed.toFixed(1)+'h ejecutadas</span><span>🔄 '+cur.toFixed(1)+'h en curso</span></div></div>';
   });
   staticFin.forEach(p => {
     if (!p.staticData || !p.staticData.hours) return;
@@ -1863,7 +2045,7 @@ function renderReporte() {
       label = tot+'h ejecutadas';
     }
     const barW = Math.min(100, Math.round((tot / maxHrs) * 100));
-    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name" style="color:#64748b">'+p.name+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+label+'</span><span style="color:#94a3b8">—</span></div></div>';
+    html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+p.color+'"></span><span class="reporte-name" style="color:#64748b">'+p.name+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" data-width="'+barW+'%" style="width:0%;background:'+p.color+'"></div></div><div class="reporte-stats"><span>✅ '+label+'</span><span style="color:#94a3b8">—</span></div></div>';
   });
   html += '</div>';
   const otherBlocks = [
@@ -1880,19 +2062,19 @@ function renderReporte() {
     if (b.key === 'soporte') {
       const tot = filter !== 'all' ? (STATIC_MONTHLY.soporte[filter] || 0) : Object.values(STATIC_MONTHLY.soporte).reduce((s,v)=>s+v,0);
       const barW = Math.min(100, Math.round((tot / Math.max(maxHrs,1)) * 100));
-      html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+b.color+'"></span><span class="reporte-name" style="color:#64748b">Soporte</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+b.color+'"></div></div><div class="reporte-stats"><span>✅ '+tot.toFixed(1)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
+      html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+b.color+'"></span><span class="reporte-name" style="color:#64748b">Soporte</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" data-width="'+barW+'%" style="width:0%;background:'+b.color+'"></div></div><div class="reporte-stats"><span>✅ '+tot.toFixed(1)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
     } else if (b.key === 'actualizacion') {
       actualizKeys.forEach(k => {
         const tot = filter !== 'all' ? (STATIC_MONTHLY[k][filter] || 0) : Object.values(STATIC_MONTHLY[k]).reduce((s,v)=>s+v,0);
         if (tot === 0 && filter === 'all') return;
         const barW = Math.min(100, Math.round((tot / Math.max(maxHrs,1)) * 100));
-        html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+actualizColors[k]+'"></span><span class="reporte-name" style="color:#64748b">'+actualizLabels[k]+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+actualizColors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+tot.toFixed(1)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
+        html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+actualizColors[k]+'"></span><span class="reporte-name" style="color:#64748b">'+actualizLabels[k]+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" data-width="'+barW+'%" style="width:0%;background:'+actualizColors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+tot.toFixed(1)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
       });
     } else if (b.key === 'actividades') {
       actividadKeys.forEach(k => {
         const tot = filter !== 'all' ? (STATIC_MONTHLY[k][filter] || 0) : Object.values(STATIC_MONTHLY[k]).reduce((s,v)=>s+v,0);
         const barW = Math.min(100, Math.round((tot / Math.max(maxHrs,1)) * 100));
-        html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+actividadColors[k]+'"></span><span class="reporte-name" style="color:#64748b">'+actividadLabels[k]+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" style="width:'+barW+'%;background:'+actividadColors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+tot.toFixed(1)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
+        html += '<div class="reporte-item"><div class="reporte-item-header"><span class="reporte-dot" style="background:'+actividadColors[k]+'"></span><span class="reporte-name" style="color:#64748b">'+actividadLabels[k]+'</span><span class="reporte-total">'+tot.toFixed(1)+'h</span></div><div class="reporte-bar"><div class="reporte-bar-fill" data-width="'+barW+'%" style="width:0%;background:'+actividadColors[k]+'"></div></div><div class="reporte-stats"><span>✅ '+tot.toFixed(1)+'h '+(filter!=='all'?'en el mes':'ejecutadas')+'</span><span style="color:#94a3b8">—</span></div></div>';
       });
     } else {
       html += '<p class="reporte-empty" style="font-size:12px;color:#94a3b8;margin:0">0h registradas</p>';
@@ -1938,7 +2120,8 @@ function renderReporte() {
       paths += '<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' A'+r+' '+r+' 0 '+large+' 1 '+x2.toFixed(1)+' '+y2.toFixed(1)+'" fill="none" stroke="'+d.color+'" stroke-width="'+sw+'" stroke-linecap="round"/>';
       angle += deg;
     });
-    html += '<div style="display:flex;align-items:center;gap:16px"><div style="position:relative;width:180px;height:180px;flex-shrink:0"><svg viewBox="0 0 180 180" style="width:100%;height:100%">'+paths+'</svg><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:20px;font-weight:700;color:#1e3a5f">'+totalAll.toFixed(1)+'<small style="display:block;font-size:11px;font-weight:400;color:#64748b">horas totales</small></div></div><div>';
+    const reportBlockMask = '<defs><mask id="report-block-reveal-mask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="180" height="180"><rect width="180" height="180" fill="#000"/><circle class="report-donut-reveal" cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#fff" stroke-width="'+sw+'" stroke-linecap="round" transform="rotate(-90 '+cx+' '+cy+')"/></mask></defs>';
+    html += '<div style="display:flex;align-items:center;gap:16px"><div style="position:relative;width:180px;height:180px;flex-shrink:0"><svg viewBox="0 0 180 180" style="width:100%;height:100%">'+reportBlockMask+'<g mask="url(#report-block-reveal-mask)">'+paths+'</g></svg><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:20px;font-weight:700;color:#1e3a5f">'+totalAll.toFixed(1)+'<small style="display:block;font-size:11px;font-weight:400;color:#64748b">horas totales</small></div></div><div>';
     donutTotals.forEach(d => {
       const pct = Math.round((d.value/totalAll)*100);
       html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px"><span style="width:10px;height:10px;border-radius:50%;background:'+d.color+';flex-shrink:0"></span><span style="color:#475569;flex:1">'+d.label+'</span><span style="font-weight:600;color:#1e293b">'+d.value.toFixed(1)+'h</span><span style="color:#94a3b8">('+pct+'%)</span></div>';
@@ -1952,14 +2135,18 @@ function renderReporte() {
   const barMonths = allMonths;
   if (barMonths.length) {
     const barH = 160, barW = Math.min(40, Math.floor(280 / barMonths.length));
-    const maxVal = Math.max(...barMonths.map(m => blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0)), 1);
-    html += '<div style="display:flex;align-items:flex-end;gap:4px;height:'+barH+'px;padding:0 8px;border-bottom:1px solid #e2e8f0">';
-    barMonths.forEach(m => {
-      const tot = blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0);
-      const h = (tot/maxVal)*(barH-20);
-      html += '<div style="display:flex;flex-direction:column;align-items:center;flex:1"><div style="width:'+barW+'px;height:'+Math.max(2,h)+'px;background:#1e3a5f;border-radius:4px 4px 0 0" title="'+tot.toFixed(1)+'h"></div><span style="font-size:9px;color:#64748b;margin-top:4px;white-space:nowrap">'+monthNames[parseInt(m.split('-')[1])-1].slice(0,3)+'</span></div>';
+    const monthTotals = barMonths.map(m => blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0));
+    const axisMax = Math.ceil(Math.max(...monthTotals, 1) / 50) * 50;
+    const barHeights = monthTotals.map(total => Math.max(2, (total / axisMax) * (barH - 20)));
+    const linePoints = barHeights.map((height, index) => ((index + .5) * 100) + ',' + (barH - height)).join(' ');
+    html += '<div class="report-month-chart"><div class="report-month-y-axis"><span>'+axisMax+'h</span><span>'+Math.round(axisMax/2)+'h</span><span>0h</span></div><div class="report-month-plot"><div class="report-month-grid"><span></span><span></span><span></span></div><svg class="report-month-line" viewBox="0 0 '+(barMonths.length * 100)+' '+barH+'" preserveAspectRatio="none" aria-hidden="true"><polyline points="'+linePoints+'" fill="none" stroke="#06b6d4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
+    barHeights.forEach((height, index) => { html += '<circle cx="'+((index + .5) * 100)+'" cy="'+(barH - height)+'" r="4" fill="#fff" stroke="#06b6d4" stroke-width="3"/>'; });
+    html += '</svg><div class="report-month-bars">';
+    barMonths.forEach((m, index) => {
+      const total = monthTotals[index], height = barHeights[index];
+      html += '<div class="report-month-item"><span class="report-month-value" style="bottom:'+(height + 28)+'px">'+total.toFixed(1)+'h</span><div class="report-month-bar" data-height="'+height+'px" style="width:'+barW+'px;height:0;background:#1e3a5f;border-radius:4px 4px 0 0" title="'+total.toFixed(1)+'h"></div><span class="report-month-label">'+monthNames[parseInt(m.split('-')[1])-1].slice(0,3)+'</span></div>';
     });
-    html += '</div>';
+    html += '</div></div></div>';
   } else { html += '<p style="text-align:center;color:#94a3b8;padding:30px 0;font-size:13px">Sin datos</p>'; }
   html += '</div></div>';
 
@@ -1988,8 +2175,9 @@ function renderReporte() {
       const large = deg > 180 ? 1 : 0;
       return '<path d="M'+x1.toFixed(1)+' '+y1.toFixed(1)+' A'+r+' '+r+' 0 '+large+' 1 '+x2.toFixed(1)+' '+y2.toFixed(1)+'" fill="none" stroke="'+color+'" stroke-width="'+sw+'" stroke-linecap="round"/>';
     }
+    const reportContractMask = '<defs><mask id="report-contract-reveal-mask" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0" width="180" height="180"><rect width="180" height="180" fill="#000"/><circle class="report-donut-reveal" cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#fff" stroke-width="'+sw+'" stroke-linecap="round" transform="rotate(-90 '+cx+' '+cy+')"/></mask></defs>';
     html += '<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">';
-    html += '<div style="position:relative;width:200px;height:200px;flex-shrink:0"><svg viewBox="0 0 180 180" style="width:100%;height:100%">'+donutPath(-90, consumedDeg, '#0033a0')+donutPath(-90 + consumedDeg, remainingDeg, '#10b981')+'</svg><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:22px;font-weight:800;color:#1e3a5f">'+consumidasPct.toFixed(1)+'%<small style="display:block;font-size:11px;font-weight:400;color:#64748b">consumido</small></div></div>';
+    html += '<div style="position:relative;width:200px;height:200px;flex-shrink:0"><svg viewBox="0 0 180 180" style="width:100%;height:100%">'+reportContractMask+'<g mask="url(#report-contract-reveal-mask)">'+donutPath(-90, consumedDeg, '#0033a0')+donutPath(-90 + consumedDeg, remainingDeg, '#10b981')+'</g></svg><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-size:22px;font-weight:800;color:#1e3a5f">'+consumidasPct.toFixed(1)+'%<small style="display:block;font-size:11px;font-weight:400;color:#64748b">consumido</small></div></div>';
     html += '<div style="flex:1;min-width:260px"><div style="height:18px;background:#e2e8f0;border-radius:9px;overflow:hidden;display:flex;margin-bottom:14px"><div title="Horas totales: '+horasTotalesContrato.toFixed(1)+'h" style="height:100%;width:'+consumidasPct+'%;background:#0033a0"></div><div title="Horas restantes: '+horasRestantes.toFixed(1)+'h" style="height:100%;width:'+restantesPct+'%;background:#10b981"></div></div>';
     html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;font-size:12px;color:#475569">';
     html += '<div style="display:flex;align-items:center;gap:8px"><span style="width:10px;height:10px;border-radius:50%;background:#1e3a5f"></span><span>Contratadas</span><strong style="margin-left:auto;color:#1e293b">'+horasContratadas.toFixed(1)+'h</strong></div>';
@@ -2006,8 +2194,11 @@ function renderReporte() {
 
   el.innerHTML = html;
   const chartsBlock = el.querySelector('.reporte-charts');
+  const contractBlock = el.querySelector('.reporte-contract-chart');
   const cardsBlock = el.querySelector('.reporte-grid');
   if (chartsBlock && cardsBlock) el.insertBefore(chartsBlock, cardsBlock);
+  if (contractBlock && cardsBlock) el.insertBefore(contractBlock, cardsBlock);
+  requestAnimationFrame(animateReportProgress);
   const sel = document.getElementById('reporte-month-select');
   if (sel) sel.addEventListener('change', function() {
     localStorage.setItem(REPORTE_MONTH_KEY, this.value);
@@ -2161,12 +2352,15 @@ if (IS_SERVER) {
 }
 function openTab(id) {
   if (id === 'tab-reporte' && !checkReporteAuth()) return;
+  if (id === 'tab-avance') prepareCardPercentages();
   document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
   const btn = document.querySelector(`.tab[data-tab="${id}"]`);
   if (btn) btn.classList.add('active');
   document.getElementById(id).classList.add('active');
   localStorage.setItem('activeTab', id);
+  if (id === 'tab-avance') requestAnimationFrame(animateCardPercentages);
+  if (id === 'tab-proyectos' && document.querySelector('#tab-proyectos .proyecto-card')) animateProjectProgress();
   if (id === 'tab-reporte') renderReporte();
 }
 function openGantt(id) {
@@ -2186,10 +2380,10 @@ function openGantt(id) {
       </div>
       <div>
         <div class="footer-project">Migración Alpina F2</div>
-        <div class="footer-context">Seguimiento de cronograma y horas</div>
+        <div class="footer-context">Dashboard de Seguimiento</div>
       </div>
     </div>
-    <div class="footer-meta"><strong>2NV x Alpina</strong>Dashboard de seguimiento operativo</div>
+    <div class="footer-meta"><span class="footer-meta-title">2NV - Alpina</span><span class="footer-tagline">Soluciones simples a<br>problemas complejos</span></div>
   </div>
 </footer>
 </body>
