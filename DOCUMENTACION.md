@@ -15,6 +15,10 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - El reporte se denomina **Reporte de Horas por Hito**. La grafica **Horas por Mes** incluye eje Y, valores por mes y una linea que conecta los maximos de las barras.
 - La barra superior enlaza a `https://2nv.co/` mediante el texto **Mas informacion sobre nuestra familia 2NV**.
 
+### Estado operativo reciente
+
+- **ROBOTINA**: la tarea **Logica de asociación de WO** permanece en curso (`inProgress:true`), con 40h, 5 días, fechas y alertas sin cambios.
+
 ## Stack
 - **Lenguaje**: HTML + CSS + JavaScript (vanilla, un solo archivo `index.html`)
 - **Backend**: Node.js con `better-sqlite3` (solo en servidor local `localhost:3000`)
