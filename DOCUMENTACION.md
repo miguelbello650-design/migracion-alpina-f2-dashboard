@@ -650,7 +650,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 ### Actividades adicionales
 | Actividad | Nov | Dic | Ene | Feb | Mar | Abr | May | Jun | Jul |
 |---|---|---|---|---|---|---|---|---|---|
-| Sesión Dudas Feli | 0 | 0 | 1 | 6 | 1 | 2 | 0 | 0 | 0 |
+| Sesión Dudas Feli | 0 | 0 | 1 | 6 | 1 | 2 | 0 | 0 | 0.5 |
 | Sesión Dudas Nova | 0 | 0 | 0 | 3 | 2 | 1 | 0 | 0 | 0 |
 | Sesión API Robotina | 0 | 0 | 0 | 0 | 1.5 | 2.8 | 5.3 | 0 | 5.5 |
 | API Succes SAP Robotina | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 6 | 0 |
