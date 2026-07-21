@@ -113,7 +113,7 @@ Mapa global de notas compartido entre NOVA y FELI (Robotina usa su propio mapa).
 ### GRAY_DAYS
 Array por Gantt de días que se renderizan con fondo gris:
 - **NOVA**: GRAY_DAYS_NOVA
-- **FELI**: GRAY_DAYS_FELI (incluye 77,78: SAP Calidad caído 02-03 Jun; 93: sin inicio de Re mapeo ID SAP el 26-Jun; 99-103: sin avance Re mapeo ID SAP 07-14 Jul)
+- **FELI**: GRAY_DAYS_FELI (incluye 77,78: SAP Calidad caído 02-03 Jun; 93: sin inicio de Re mapeo ID SAP el 26-Jun; 99-103: sin avance Re mapeo ID SAP 07-14 Jul; 106: acceso incompleto a NWBC el 17-Jul)
 - **ROBOTINA**: GRAY_DAYS_ROBOTINA (incluye 76: sin avance 01-Jun; 94: sin casos para pruebas unitarias 30-Jun; 96: cambio de alcance 02-Jul; 98: desarrollo proveedor Helix 06-Jul; 99: sesión operativa/API 07-Jul; 100-101: desarrollo y entrega API 08-09 Jul)
 
 ## Tasks / Data Model
@@ -571,7 +571,10 @@ Quedo atento a los comentarios,
 
 **Nota vigente FELI 2026-07-15 / 14-Jul gris**: el 14-Jul-2026 (idx 103) queda gris en todo el Gantt de Feli. En **Re mapeo ID SAP** se agrega la alerta "No se logra avanzar debido a que SAP todabía no estaba listo despues de la migración de SAP RICE". La tarea conserva **64h / 8d**, mueve su cierre al 17-Jul (idx 106) y el cronograma posterior se corre un dia: Ajustes finales mueve su segundo dia al 21-Jul (idx 107), aprobacion/entrega al 22-Jul (idx 108), Salida a Produccion el 23-Jul (idx 109) y Seguimiento postproduccion del 24-Jul al 30-Jul (idx 110-114).
 
+**Nota vigente FELI 2026-07-17 / 17-Jul gris**: el 17-Jul-2026 (idx 106) queda gris en todo el Gantt de Feli. En **Re mapeo ID SAP** se agrega la alerta "No se logra avanzar debido a que todavía no se cuenta con el acceso completo a la NWBC". La tarea conserva **64h / 8d**, se cierra el 21-Jul (idx 107) y el cronograma posterior se corre un dia: Ajustes finales al 22-Jul (idx 108), aprobacion/entrega al 23-Jul (idx 109), Salida a Produccion al 24-Jul (idx 110) y Seguimiento postproduccion del 27-Jul al 31-Jul (idx 111-115).
+
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
+- **Nota vigente 2026-07-21**: la tarea **Logica de asociación de WO** queda finalizada (`inProgress:false`) sin modificar sus 40h, 5 dias ni fechas planificadas.
 - 40 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (9 tareas)
 - Vista Gantt: se recorta visualmente desde la primera tarea asignada, **23-Feb-2026** (idx 11). Los datos base conservan sus índices globales para no afectar cálculos, tarjetas ni reportes.
@@ -636,7 +639,7 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 ### Soporte
 | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Jun 2026 | Jul 2026 |
 |---|---|---|---|---|---|---|---|---|
-| 0 | 49 | 29.5 | 42 | 39 | 90 | 73 | 166 | 53 |
+| 0 | 49 | 29.5 | 42 | 39 | 90 | 73 | 166 | 97 |
 
 ### Actualización PDD
 | Proyecto | Nov 2025 | Dic 2025 | Ene 2026 | Feb 2026 | Mar 2026 | Abr 2026 | May 2026 | Jun 2026 | Jul 2026 |

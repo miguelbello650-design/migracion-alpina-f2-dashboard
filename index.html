@@ -809,6 +809,7 @@ GANTT_NOTES["3. Re mapeo ID SAP|100"] = "No se logra avanzar en el remapeo ya qu
 GANTT_NOTES["3. Re mapeo ID SAP|101"] = "No se logra avanzar en el remapeo ya que no se a autorizado la transacción MBC1 y la NWBC. Adicional Alpina está realizando migración de SAP Rise y no se puede usar SAP hasta el 14 de Julio";
 GANTT_NOTES["3. Re mapeo ID SAP|102"] = "No se logra avanzar en el remapeo ya que no se a autorizado la transacción MBC1 y la NWBC. Adicional Alpina está realizando migración de SAP Rise y no se puede usar SAP hasta el 14 de Julio";
 GANTT_NOTES["3. Re mapeo ID SAP|103"] = "No se logra avanzar debido a que SAP todabía no estaba listo despues de la migración de SAP RICE";
+GANTT_NOTES["3. Re mapeo ID SAP|106"] = "No se logra avanzar debido a que todavía no se cuenta con el acceso completo a la NWBC";
 
 // ---- FELI Gantt ----
 let GANTT_ROWS_FELI = [
@@ -834,14 +835,14 @@ let GANTT_ROWS_FELI = [
   { phase:"Pruebas",task:"Ajuste de Correo Gmail y Notificaciones",resp:"2NV",hours:32,days:4,fixedIdx:81,fixedEndIdx:84,notesIdx:[81],inProgress:false },
   { phase:"",task:"1. Pruebas unitarias e integración técnica",resp:"2NV",hours:40,days:5,fixedIdx:57,fixedEndIdx:61,notesIdx:[54,55,56,61] },
      { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:136,days:17,fixedIdx:61,fixedEndIdx:90,skipIndices:[61,65,66,67,68,69,70,77,78,81,82,83,84],notesIdx:[77,78],inProgress:false },
-     { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:64,days:8,fixedIdx:93,fixedEndIdx:106,skipIndices:[93,99,100,101,102,103],notesIdx:[93,99,100,101,102,103],inProgress:true },
-     { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:91,fixedEndIdx:107,skipIndices:[92,93,94,95,96,97,98,99,100,101,102,103,104,105,106],notesIdx:[91],inProgress:true },
+     { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:64,days:8,fixedIdx:93,fixedEndIdx:107,skipIndices:[93,99,100,101,102,103,106],notesIdx:[93,99,100,101,102,103,106],inProgress:true },
+     { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"ALPINA",hours:16,days:2,fixedIdx:91,fixedEndIdx:108,skipIndices:[92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107],notesIdx:[91],inProgress:true },
      { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:20,days:3,fixedIdx:43,fixedEndIdx:92,skipIndices:[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],notesIdx:[92],inProgress:true },
    { phase:"Producción",task:"1. Documentación funcional y manual usuario",resp:"2NV",hours:20,days:3,fixedIdx:45,fixedEndIdx:48,skipIndices:[47],inProgress:true },
-     { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:108,fixedEndIdx:108 },
-     { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:108,fixedEndIdx:108 },
-     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:109,fixedEndIdx:109,milestone:true },
-     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:110,fixedEndIdx:114 }
+     { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:109,fixedEndIdx:109 },
+     { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:109,fixedEndIdx:109 },
+     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:110,fixedEndIdx:110,milestone:true },
+     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:111,fixedEndIdx:115 }
 ];
 
 // ---- ROBOTINA Gantt ----
@@ -878,7 +879,7 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Elaboración documentación SDD + manual usuario",resp:"2NV",hours:24,days:3,fixedIdx:58,fixedEndIdx:104,skipIndices:[60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,98,99,100,101,102,103,104],notesIdx:[96,98],inProgress:true },
    { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:72,days:9,fixedIdx:65,fixedEndIdx:107,skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,96,97,98,99,100,101,102,103,104,105,106],notesIdx:[71,94,95,107],inProgress:true },
    { phase:"",task:"Validación y creación flujo principal API",resp:"2NV",hours:34.7,days:4.5,fixedIdx:80,fixedEndIdx:85,skipIndices:[81],notesIdx:[80],inProgress:false },
-   { phase:"",task:"Logica de asociación de WO",resp:"2NV",hours:40,days:5,fixedIdx:99,fixedEndIdx:106,skipIndices:[99,100,101],notesIdx:[99,100,101],inProgress:true },
+   { phase:"",task:"Logica de asociación de WO",resp:"2NV",hours:40,days:5,fixedIdx:99,fixedEndIdx:106,skipIndices:[99,100,101],notesIdx:[99,100,101],inProgress:false },
    { phase:"Cierre",task:"Pruebas UAT",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:72,fixedEndIdx:108,skipIndices:[76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107],notesIdx:[108],inProgress:true },
      { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:40,days:5,fixedIdx:77,fixedEndIdx:87,notesIdx:[76],skipIndices:[78,80,82,83,84,85],inProgress:false },
      { phase:"",task:"Ajuste Migración Google",resp:"2NV",hours:32,days:4,fixedIdx:90,fixedEndIdx:93,notesIdx:[90],inProgress:false },
@@ -1204,7 +1205,7 @@ function assignDates(rows, dates) {
 }
 
 const GRAY_DAYS_NOVA = [5, 6, 31, 32, 35, 51, 54, 55, 56];
-const GRAY_DAYS_FELI = [5, 6, 31, 32, 35, 51, 54, 55, 56, 77, 78, 93, 99, 100, 101, 102, 103];
+const GRAY_DAYS_FELI = [5, 6, 31, 32, 35, 51, 54, 55, 56, 77, 78, 93, 99, 100, 101, 102, 103, 106];
 function cellClass(d, isToday, grayDays) {
   if (grayDays && grayDays.includes(d)) return 'gray-col';
   if (isToday) return 'today-col';
@@ -1874,7 +1875,7 @@ let STATIC_MONTHLY = {
   optimus: { '2025-11':57.5, '2025-12':182.5, '2026-1':46 },
   lamonita: { '2025-11':44.5, '2025-12':189.5, '2026-1':139 },
   horasextra: { '2025-11':0, '2025-12':130, '2026-1':131, '2026-2':43 },
-  soporte: { '2025-11':0, '2025-12':49, '2026-1':29.5, '2026-2':42, '2026-3':39, '2026-4':90, '2026-5':73, '2026-6':166, '2026-7':53 },
+  soporte: { '2025-11':0, '2025-12':49, '2026-1':29.5, '2026-2':42, '2026-3':39, '2026-4':90, '2026-5':73, '2026-6':166, '2026-7':97 },
   actualizacion_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1, '2026-3':0, '2026-4':0, '2026-5':1, '2026-6':0 },
   actualizacion_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':8, '2026-3':0, '2026-4':1.5, '2026-5':0, '2026-6':0, '2026-7':0.5 },
   actualizacion_optimus: { '2025-11':0, '2025-12':3, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
