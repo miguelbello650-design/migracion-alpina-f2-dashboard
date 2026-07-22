@@ -146,11 +146,13 @@
       if (key === 'Actividades adicionales') return ACTIVIDAD_KEYS.reduce((t, k) => t + sumMonths(staticMonthly[k] || {}), 0);
       return 0;
     };
-    const consumidasRaw = ['Desarrollo', 'Soporte', 'Actualizacion PDD', 'Actividades adicionales'].reduce((s, b) => s + blockTotal(b), 0);
+    const desarrolloRaw = blockTotal('Desarrollo') + blockTotal('Actualizacion PDD') + blockTotal('Actividades adicionales');
+    const soporteRaw = blockTotal('Soporte');
+    const consumidasRaw = desarrolloRaw + soporteRaw;
     const consumidas = Number(consumidasRaw.toFixed(1));
     const restantes = Number(Math.max(0, contratadas - consumidasRaw).toFixed(1));
     const porcentaje = contratadas > 0 ? Number(Math.min(100, (consumidasRaw / contratadas) * 100).toFixed(1)) : 0;
-    return { contratadas, consumidas, restantes, porcentaje };
+    return { contratadas, consumidas, restantes, porcentaje, desarrollo: Number(desarrolloRaw.toFixed(1)), soporte: Number(soporteRaw.toFixed(1)) };
   }
 
   return { calculateReporteHoras };

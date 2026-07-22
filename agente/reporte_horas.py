@@ -65,14 +65,20 @@ try:
     total = float(rh.get("consumidas", 0))
     restantes = float(rh.get("restantes", 0))
     pct = float(rh.get("porcentaje", 0))
+    desarrollo = float(rh.get("desarrollo", 0))
+    soporte = float(rh.get("soporte", 0))
 
     if contratadas <= 0:
         raise Exception("La API no devolvio reporteHoras.contratadas valido")
+    if abs((desarrollo + soporte) - total) > 0.05:
+        raise Exception("El desglose de desarrollo y soporte no coincide con reporteHoras.consumidas")
 
     log_msg("Datos tomados directamente de reporteHoras")
     log_msg("HORAS_CONTRATADAS=%.1f" % contratadas)
     log_msg("HORAS_CONSUMIDAS=%.1f" % total)
     log_msg("HORAS_RESTANTES=%.1f" % restantes)
+    log_msg("HORAS_DESARROLLO=%.1f" % desarrollo)
+    log_msg("HORAS_SOPORTE=%.1f" % soporte)
     log_msg("PORCENTAJE=%.1f%%" % pct)
 
     now = datetime.now().strftime("%d/%m/%Y")
@@ -126,6 +132,18 @@ Restantes <strong style="color:#1e293b">%.1f h</strong>
 
 </div>
 
+<div style="display:flex;justify-content:center;gap:12px;font-size:13px;color:#475569;margin:16px 0 0;flex-wrap:wrap">
+
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px">
+Desarrollo <strong style="color:#1e293b">%.1f h</strong>
+</div>
+
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 14px">
+Soporte <strong style="color:#1e293b">%.1f h</strong>
+</div>
+
+</div>
+
 %s
 
 <hr style="border:none;border-top:1px solid #e2e8f0;margin:20px 0 14px">
@@ -150,6 +168,8 @@ Quedo atento a los comentarios,<br>
         contratadas,
         total,
         restantes,
+        desarrollo,
+        soporte,
         mensaje
     )
 
