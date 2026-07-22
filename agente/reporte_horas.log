@@ -440,3 +440,20 @@ EOFError: EOF when reading a line
 [2026-07-14 08:25:37] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
 [2026-07-14 08:25:37] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
 [2026-07-14 08:25:37] === FIN OK ===
+[2026-07-21 11:21:03] === INICIO ===
+[2026-07-21 11:21:03] Usuario ejecutando: 2NV
+[2026-07-21 11:21:03] Python ejecutable: C:\Users\2NV\AppData\Local\Programs\Python\Python312\python.exe
+[2026-07-21 11:21:03] Directorio actual: C:\Program Files (x86)\Power Automate Desktop
+[2026-07-21 11:21:03] API_URL: http://127.0.0.1:3000/api/data
+[2026-07-21 11:21:05] Intentando con requests...
+[2026-07-21 11:21:05] Status Code: 200
+[2026-07-21 11:21:05] requests OK
+[2026-07-21 11:21:05] Datos tomados directamente de reporteHoras
+[2026-07-21 11:21:05] HORAS_CONTRATADAS=4320.0
+[2026-07-21 11:21:05] HORAS_CONSUMIDAS=3599.4
+[2026-07-21 11:21:05] HORAS_RESTANTES=720.6
+[2026-07-21 11:21:05] PORCENTAJE=83.3%
+[2026-07-21 11:21:05] ASUNTO_GENERADO=[IMPORTANTE] Alerta de consumo de horas | 83.3% consumido
+[2026-07-21 11:21:05] Archivo asunto escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\asunto_horas.txt
+[2026-07-21 11:21:05] Archivo html escrito: C:\Users\2NV\Desktop\Prueba de IPM\agente\reporte_horas.html
+[2026-07-21 11:21:05] === FIN OK ===
