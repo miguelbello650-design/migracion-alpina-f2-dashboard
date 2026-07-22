@@ -19,6 +19,16 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 
 - **ROBOTINA**: la tarea **Logica de asociación de WO** permanece en curso (`inProgress:true`), con 40h, 5 días, fechas y alertas sin cambios.
 
+## Actualizacion de resumen y soporte (2026-07-22)
+
+- La navegacion principal incluye **RESUMEN**, **SEGUIMIENTO A DESARROLLO** y **SEGUIMIENTO A SOPORTE**.
+- **RESUMEN** concentra el consumo de horas: Horas Contratadas vs Horas Restantes, Distribucion por Bloque, Horas por Mes y la tarjeta Horas de Desarrollo por Proyecto.
+- La seccion **DESARROLLO** del resumen incluye una grafica independiente de evolucion mensual, con valores por punto, total y promedio. Usa solo horas de desarrollo y no se altera al filtrar las graficas superiores.
+- **SEGUIMIENTO A SOPORTE** carga `assets/support/dashboard_alpina_2.html` por defecto. Se puede reemplazar desde Cargar HTML o restaurar; conserva sus subtabs nativas, pero muestra el contenido con tema claro, fondo transparente y espaciado del dashboard.
+- Las tarjetas KPI, graficas y tablas del HTML de soporte tienen hover con elevacion suave.
+- La Monita Fase 2 conserva el alcance de nuevos clientes. El flujo de creacion de pedidos SAP se muestra en la tarjeta independiente **La Monita Fase 2 - Nuevo Flujo**.
+- `reporte-horas.js` incluye `actividad_f2_lamonita` en el total compartido; Consumo de Horas, Distribucion por Bloque y `/api/data` usan las mismas horas.
+
 ## Stack
 - **Lenguaje**: HTML + CSS + JavaScript (vanilla, un solo archivo `index.html`)
 - **Backend**: Node.js con `better-sqlite3` (solo en servidor local `localhost:3000`)

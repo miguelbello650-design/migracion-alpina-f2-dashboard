@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Soporte – Alpina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+<style>
+  :root {
+    --bg:#080f1e; --surface:#0d1628; --card:#111d35; --card-hover:#162040;
+    --border:#1e2d4a; --border-light:#243452;
+    --accent:#4f7cff; --accent-light:#6b93ff; --accent-glow:rgba(79,124,255,0.15);
+    --accent2:#38d9b0; --accent3:#f472b6; --accent4:#fbbf24;
+    --text:#e8edf7; --text-muted:#6b7fa8; --text-dim:#4a5a7a;
+    --cerrado:#34d399; --ok:#38d9b0; --abierto:#f87171; --curso:#60a5fa; --seguimiento:#c084fc; --pendiente:#fbbf24; --otro:#94a3b8;
+    --radius:12px; --radius-sm:8px; --shadow:rgba(0,0,0,0.4); --thead-bg:#0a1525;
+    --chart-grid:rgba(255,255,255,0.05); --chart-tick:#6b7fa8;
+  }
+  [data-theme="light"] {
+    --bg:#f4f6fb; --surface:#ffffff; --card:#ffffff; --card-hover:#f0f3fa;
+    --border:#e2e8f4; --border-light:#cbd5ea;
+    --accent:#4f7cff; --accent-light:#3b63d9; --accent-glow:rgba(79,124,255,0.1);
+    --accent2:#0f9d7a; --accent3:#db2777; --accent4:#d97706;
+    --text:#1a2540; --text-muted:#5a6a8a; --text-dim:#94a3bd;
+    --cerrado:#059669; --ok:#0f9d7a; --abierto:#dc2626; --curso:#2563eb; --seguimiento:#9333ea; --pendiente:#d97706; --otro:#64748b;
+    --shadow:rgba(30,45,80,0.1); --thead-bg:#f0f3fa;
+    --chart-grid:rgba(30,45,80,0.07); --chart-tick:#5a6a8a;
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:14px; line-height:1.5; transition:background .3s ease,color .3s ease; }
+
+  .header { background:var(--surface); border-bottom:1px solid var(--border); padding:0 32px; display:flex; align-items:center; justify-content:space-between; height:72px; position:sticky; top:0; z-index:100; box-shadow:0 4px 24px var(--shadow); }
+  .header-left, .header-right { display:flex; align-items:center; gap:16px; }
+  .logo-wrap { height:46px; border-radius:10px; overflow:hidden; flex-shrink:0; background:#fff; display:flex; align-items:center; justify-content:center; border:1px solid var(--border-light); }
+  .logo-wrap.round { width:44px; height:44px; border-radius:50%; }
+  .logo-wrap.box { min-width:80px; padding:0 4px; }
+  .logo-wrap img { width:100%; height:100%; object-fit:cover; }
+  .logo-wrap.box img { object-fit:contain; }
+  .header-title { display:flex; flex-direction:column; }
+  .header-title h1 { font-size:17px; font-weight:700; color:var(--text); letter-spacing:-0.3px; }
+  .header-title span { font-size:11px; color:var(--text-muted); font-weight:400; letter-spacing:0.5px; text-transform:uppercase; }
+  .divider-v { width:1px; height:32px; background:var(--border); }
+  .powered-by { font-size:11px; color:var(--text-dim); }
+  .powered-by strong { color:var(--accent-light); }
+
+  .btn-export { display:flex; align-items:center; gap:8px; background:var(--accent); color:#fff; border:none; border-radius:var(--radius-sm); padding:9px 18px; font-size:13px; font-weight:600; cursor:pointer; transition:all .2s; font-family:inherit; letter-spacing:0.2px; }
+  .btn-export:hover { background:var(--accent-light); transform:translateY(-1px); box-shadow:0 4px 16px rgba(79,124,255,0.35); }
+  .btn-export svg { width:15px; height:15px; }
+  .btn-theme { display:flex; align-items:center; gap:8px; background:var(--card); color:var(--text-muted); border:1px solid var(--border); border-radius:var(--radius-sm); padding:8px 14px; font-size:13px; font-weight:500; cursor:pointer; transition:all .2s; font-family:inherit; }
+  .btn-theme:hover { color:var(--text); border-color:var(--border-light); background:var(--card-hover); }
+  .btn-theme svg { width:15px; height:15px; }
+
+  .main { padding:28px 32px; max-width:1440px; margin:0 auto; }
+  .tab-nav { display:flex; gap:4px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:6px; margin-bottom:28px; overflow-x:auto; scrollbar-width:none; }
+  .tab-nav::-webkit-scrollbar { display:none; }
+  .tab-btn { display:flex; align-items:center; gap:8px; padding:8px 16px; border:none; background:transparent; color:var(--text-muted); border-radius:8px; cursor:pointer; font-family:inherit; font-size:13px; font-weight:500; white-space:nowrap; transition:all .2s; }
+  .tab-btn:hover { color:var(--text); background:var(--card); }
+  .tab-btn.active { background:var(--accent); color:#fff; font-weight:600; box-shadow:0 2px 12px rgba(79,124,255,0.3); }
+  .tab-badge { background:rgba(255,255,255,0.18); color:inherit; border-radius:20px; padding:1px 7px; font-size:11px; font-weight:700; }
+  .tab-btn:not(.active) .tab-badge { background:var(--border); }
+  .tab-sep { width:1px; background:var(--border); margin:4px 4px; flex-shrink:0; }
+
+  .kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+  .kpi-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 22px; position:relative; overflow:hidden; transition:border-color .2s; }
+  .kpi-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--kpi-color,var(--accent)); }
+  .kpi-card:hover { border-color:var(--border-light); }
+  .kpi-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-muted); margin-bottom:8px; }
+  .kpi-value { font-size:32px; font-weight:800; color:var(--text); line-height:1; letter-spacing:-1px; }
+  .kpi-sub { font-size:12px; color:var(--text-dim); margin-top:6px; }
+  .kpi-icon { position:absolute; top:18px; right:18px; width:36px; height:36px; border-radius:8px; display:flex; align-items:center; justify-content:center; background:var(--accent-glow); font-size:16px; }
+
+  .charts-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px; }
+  .chart-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:22px; }
+  .chart-title { font-size:13px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.6px; margin-bottom:18px; }
+  .chart-wrap { height:230px; position:relative; }
+
+  .table-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; margin-bottom:24px; }
+  .table-header { display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid var(--border); }
+  .table-header h3 { font-size:14px; font-weight:600; color:var(--text); }
+  .table-header span { font-size:12px; color:var(--text-muted); }
+  .table-wrap { overflow-x:auto; max-height:640px; overflow-y:auto; }
+  table { width:100%; border-collapse:collapse; }
+  thead tr { background:var(--thead-bg); position:sticky; top:0; z-index:2; }
+  thead th { padding:11px 14px; text-align:left; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.7px; color:var(--text-dim); border-bottom:1px solid var(--border); white-space:nowrap; background:var(--thead-bg); }
+  tbody tr { border-bottom:1px solid var(--border); transition:background .15s; }
+  tbody tr:last-child { border-bottom:none; }
+  tbody tr:hover { background:var(--card-hover); }
+  tbody td { padding:12px 14px; font-size:13px; color:var(--text); vertical-align:top; }
+  .td-name { font-weight:600; color:var(--accent-light); font-size:12px; max-width:200px; }
+  .td-date { color:var(--text-muted); font-size:12px; white-space:nowrap; }
+  .td-detalle { max-width:240px; }
+  .detalle-chip { display:inline-block; font-size:11px; font-weight:500; line-height:1.4; padding:4px 10px; border-radius:7px; background:var(--accent-glow); color:var(--accent-light); border:1px solid var(--border-light); }
+  .td-horas { font-weight:700; color:var(--accent2); text-align:center; white-space:nowrap; }
+  .td-obs { max-width:220px; font-size:12px; color:var(--text-muted); font-style:italic; line-height:1.5; }
+  .td-obs.empty { color:var(--text-dim); font-style:normal; }
+
+  .estado-chip { font-size:11px; padding:2px 9px; border-radius:20px; font-weight:600; white-space:nowrap; display:inline-block; }
+  .e-cerrado { background:rgba(52,211,153,0.15); color:var(--cerrado); border:1px solid rgba(52,211,153,0.25); }
+  .e-ok { background:rgba(56,217,176,0.15); color:var(--ok); border:1px solid rgba(56,217,176,0.25); }
+  .e-abierto { background:rgba(248,113,113,0.15); color:var(--abierto); border:1px solid rgba(248,113,113,0.25); }
+  .e-curso { background:rgba(96,165,250,0.15); color:var(--curso); border:1px solid rgba(96,165,250,0.25); }
+  .e-seguimiento { background:rgba(192,132,252,0.15); color:var(--seguimiento); border:1px solid rgba(192,132,252,0.25); }
+  .e-pendiente { background:rgba(251,191,36,0.15); color:var(--pendiente); border:1px solid rgba(251,191,36,0.25); }
+  .e-otro { background:rgba(148,163,184,0.15); color:var(--otro); border:1px solid rgba(148,163,184,0.25); }
+
+  .btn-detail { background:transparent; border:1px solid var(--border-light); color:var(--accent-light); border-radius:6px; padding:3px 10px; font-size:11px; cursor:pointer; font-family:inherit; transition:all .15s; }
+  .btn-detail:hover { background:var(--accent-glow); }
+
+  .footer { text-align:center; padding:28px; color:var(--text-dim); font-size:12px; border-top:1px solid var(--border); margin-top:40px; }
+  .footer span { color:var(--accent); }
+
+  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
+  .modal-overlay.open { display:flex; }
+  .modal { background:var(--card); border:1px solid var(--border-light); border-radius:16px; max-width:680px; width:92%; padding:28px; max-height:84vh; overflow-y:auto; box-shadow:0 24px 64px rgba(0,0,0,0.5); }
+  .modal-close { float:right; background:var(--border); border:none; color:var(--text-muted); border-radius:6px; padding:4px 12px; cursor:pointer; font-size:13px; font-family:inherit; transition:background .2s; }
+  .modal-close:hover { background:var(--border-light); }
+  .modal-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.7px; color:var(--text-dim); margin-bottom:5px; }
+  .modal-text { font-size:13px; color:var(--text-muted); line-height:1.6; }
+  .modal-section { margin-bottom:16px; }
+
+  .gantt-wrap { overflow-x:auto; padding-bottom:10px; }
+  .gantt-bar-track { background:var(--border); border-radius:6px; height:22px; position:relative; min-width:400px; }
+  .gantt-bar { position:absolute; height:22px; border-radius:6px; background:linear-gradient(90deg,var(--accent),var(--accent2)); display:flex; align-items:center; padding:0 8px; font-size:10px; font-weight:600; color:#fff; }
+
+  @media (max-width:1024px) {
+    .kpi-grid { grid-template-columns:repeat(2,1fr); }
+    .charts-row { grid-template-columns:1fr; }
+    .main { padding:20px 16px; }
+    .header { padding:0 16px; flex-wrap:wrap; height:auto; gap:10px; padding-top:12px; padding-bottom:12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo-wrap box">
+      <img src="https://i.revistapym.com.co/old/2021/02/Dise%C3%B1o-sin-t%C3%ADtulo-15.jpg?w=728" alt="Alpina" onerror="this.parentElement.style.display='none'">
+    </div>
+    <div class="header-title">
+      <h1>Seguimiento de Soporte</h1>
+      <span>Alpina · 2026</span>
+    </div>
+    <div class="divider-v"></div>
+    <div class="powered-by">Gestionado por <strong>2nv</strong></div>
+  </div>
+  <div class="header-right">
+    <div class="logo-wrap round">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ6SGvjoQHELAGqxhG0u3KLgajk4q6C6vYxA&s" alt="2nv" onerror="this.parentElement.style.display='none'">
+    </div>
+    <button class="btn-theme" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <span id="themeLabel">Claro</span>
+    </button>
+    <button class="btn-export" onclick="exportPPT()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Exportar PPT
+    </button>
+  </div>
+</header>
+
+<main class="main">
+  <nav class="tab-nav" id="tabNav"></nav>
+  <div id="tabContent"></div>
+</main>
+
+<footer class="footer">
+  Dashboard generado por <span>2nv Automatización</span> · Alpina 2026
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+const MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio"];
+const DATA = {
+  "Enero": [
+    { nombre:"Optimus", estado:"Cerrado", fecha:"16/01/2026", descripcion:"Error en bot", causa:"*El bot está llegando correctamente al módulo de envío de correos y la autenticación con O365 se realiza sin inconvenientes. Sin embargo, no se está recibiendo confirmación del envío desde Microsoft Graph, ni tampoco un error explícito por parte del servicio. Por lo que se observa en el log, todo indica que el comportamiento está asociado a un tema externo (permisos, políticas de seguridad o estado de la cuenta de correo en O365), más que a un problema en la lógica del bot. Sería ideal validar los permisos de la aplicación y el estado del usuario remitente en Azure / Exchange para descartar cualquier restricción reciente. *Nuevo Error en ingreso a SAP en simultaneo en el bot, lo que hace que se choquen y no logren procesar juntos arrojando error entre la monita, HE y Optimus", solucion:"* Para el error 1: Revisar permisos del bot y actualizar modulo en Rocketbot, hacer pruebas de ejecución.  * Para el error 2: Optimus se cambió el script que hacía abrir SAP, este script queda en la carpeta de plantillas/script, y su respectiva ruta en el archivo de configuración, ya con este quedó funcionando nuevamente. El otro ajuste que se realizó de esto fue que en las máquinas de producción los títulos de las transacciones habían cambiado, entonces por eso no hacia el correcto exporte de este, ya que se estaba buscando por título 'ZRP_TMS_OPTIMUS' y ahora quedó como \\\"Reporte TMS OPTIMUS\\\"", observaciones:"* Se estabilizan y se hacen pruebas con los ajustes en SAP simultaneo con la Monita y HE, la Monita y Optimus, y ya procesan sin problema,  y se ajusto la actualizacion en ventana en SAP para la descarga del excel ya que cambio el nombre", horas:5.0 },
+    { nombre:"Actualizar Python", estado:"Cerrado", fecha:"26/01/2026", descripcion:"Actualización", causa:"Se solicita ingresar a las maquinas y actualizar python, por requerimiento de Infra", solucion:"Se revisan las versiones de python y se solicita aclarar a cual de las versiones deben quedar", observaciones:"A la espra de la confirmacion de cual version", horas:1.0 },
+    { nombre:"Error Puertos- conexión en los RPAs", estado:"Cerrado", fecha:"28/01/2026", descripcion:"Error en puertos", causa:"Se resgitran errores de conexión en puertos con SAP entre los bots", solucion:"Reunión de validacion de ajustes en bots ya que no estan funcionando con SAP", observaciones:"Reuniones de validacion con Infra, TI, SAP y equipo de 2nv, para dar solucion a los problemas de puertos de conexión entre herramientas, Rocketbot, SAP y estabilizar los bots, ya que tambien se presnetan intermitencias y ventanas de bloqueos", horas:23.5 },
+  ],
+  "Febrero": [
+    { nombre:"La Monita", estado:"Cerrado", fecha:"03/02/2026", descripcion:"Error en bot", causa:"Bot Arroja Criticidad en operación -Se reporta error critico en HU07 en 2 pedidos recibidos el dia 02 de feb", solucion:"Se reejecuta el bot y se valida el proceso ya que el error es por intermitencia en SAP, y se evidencia error en estructura del formato de cliente, por ende no procesa dos correos", observaciones:"Se monitorea el funcionamiento del bot y se verifica que completa correctamente los pedidos y con respecto a los pedidos recibidos el 2 de febrero se observa que contiene un  error en el id ya que se coloco una formula de ecxel, y tambien se observa que el material indicado en el insumo no se encuentra en el canal de distribucion", horas:2.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"06/02/2026", descripcion:"Error en bot", causa:"Bot Arroja Criticidad en operación - Se reporta error critico en ejecucuión de SAP", solucion:"Se reporta error critico en ejecucuión de SAP, el cual se soluciona con reejecución y analisis de los casos que marcan error el cual corresponde a un error normal al no tener un pedido correcto", observaciones:"Se valida y hay correos de pedidos sin procesar, se ejecuta nuevamente el bot y se determina que el error proviene de la plataforma SAP", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"09/02/2026", descripcion:"Revisión de código.", causa:"Error intermitencia de sap (validacion imagen evidencia)", solucion:"Se validó que al ejecutarse desde el orquestandor en este caso se hace en segundo plano por lo que no es visible el error", observaciones:"Se valida y no hay error en la Monita, se re ejecuta y se hace monitoreo de ejecución el cual termina d emanera satisfactoria", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"09/02/2026", descripcion:"Revisión de código.", causa:"Error intermitencia de sap ejecucion 8AM", solucion:"Se valida el mal funcionamiento de sap y se monitorea la ejecucion", observaciones:"Se valida y no hay error en la Monita, se re ejecuta y se hace monitoreo de ejecución el cual termina d emanera satisfactoria", horas:3.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"09/02/2026", descripcion:"Actualizacion archivo configuración", causa:"Adiccion de correos de notificacion", solucion:"Se adicionaron los correos indicados", observaciones:"Se realiza ajstes solicitados", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"09/02/2026", descripcion:"Configuración del orquestador", causa:"Actualizacion de Horarios", solucion:"Se adicionó el lanzamiento del bot los fines de semana", observaciones:"Se realiza ajstes solicitados", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"10/02/2026", descripcion:"Desarrollar código del RPA", causa:"Actualizacion de envio de correos para ATLANTIC", solucion:"Se adiciono la caracteristica para que responda a la cadena de correos que estan en el correo con copia del pedido", observaciones:"Se realiza ajstes solicitados", horas:3.0 },
+    { nombre:"OPTIMUS", estado:"Cerrado", fecha:"10/02/2026", descripcion:"Revisión de código.", causa:"Error login en SAP", solucion:"Validacion de intermitencia de SAP", observaciones:"Se valida y no hay error en la Monita, se re ejecuta y se hace monitoreo de ejecución el cual termina d emanera satisfactoria", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"11/02/2026", descripcion:"Revisión de código.", causa:"Error intermitencia de sap ejecucion 8AM", solucion:"Revision de error incidencia con sap y pruebas", observaciones:"Se valida y no hay error en la Monita, se re ejecuta y se hace monitoreo de ejecución el cual termina d emanera satisfactoria", horas:2.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"12/02/2026", descripcion:"Consulta", causa:"Verificacion de funcionamiento", solucion:"Funcionando de manera optima", observaciones:"Se valida y no hay error en la Monita, se re ejecuta y se hace monitoreo de ejecución el cual termina d emanera satisfactoria", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"12/02/2026", descripcion:"Desarrollar código del RPA", causa:"Se verifica un un error no contemplado durante el procesamiento de los pedidos", solucion:"Se valida si durante el procesamiento de pedidos entra a el proceso en SAP y no procesa ningun SKU, se adiciono el manejo de el error", observaciones:"Se realizan ajustes y se monitorea la ejecución", horas:7.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"13/02/2026", descripcion:"Error en maquina de producción", causa:"Error durante la ejecucion", solucion:"Se determina error de conectividad mediante los logs, ya que el bot dejo los registros de notificacion, pero no envio la informacion por correo, se monitorizo el correcto funcionamiento", observaciones:"Se valida y no hay error en la Monita, se re ejecuta y se hace monitoreo de ejecución el cual termina d emanera satisfactoria", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"16/02/2026", descripcion:"Error de código", causa:"Error al revisar imagen en correo de firma", solucion:"En el envío de los correos la imagen de la firma no se visualiza", observaciones:"Se realiza la conversión de la firma de PNG a base 64, dado que tiene mayor compatibilidad con los mensajes tipo HTML que se manejan en el envío de los correos. Se ejecutan pruebas de forma satisfactoria y se carga la nueva base de datos al orquestador.", horas:2.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"17/02/2026", descripcion:"Error de código", causa:"Pedido duplicado en SKUs", solucion:"Error al manejo de duplicidad de los SKUs", observaciones:"Se ajusto el script encargado de el procesamiento de los pedidos, ahora como nueva caracteristica los SKUs duplicados se tomaran todos", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"17/02/2026", descripcion:"Novedades Bots", causa:"Reunión de entendimiento y claridad bot Monita", solucion:"Reunión con Usuario para dar claridad del funcionamiento de la monita", observaciones:"Usuario solicita reunión para dar claridad de los errores presentads en la monita con los clientes que se manejan, se exlica y se realiza verificación de los casos, punto por punto", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"20/02/2026", descripcion:"Revisión de código.", causa:"Revisión de Código por aparente error", solucion:"solicitan validar codigos de cliente de pedido, que apuntaba a lugar erroneo", observaciones:"Se detecta error por parte del cliente a la hora de indicar los codigos de cliente lo cuales se homologan con los codigos de tienda indicados en los archivos", horas:4.0 },
+    { nombre:"Capacitación", estado:"Cerrado", fecha:"16/02/2026", descripcion:"Manejo del Orquestador", causa:"Se hace recorrido y explicacion de como visualizar errores", solucion:"Se realiza envio de PDF de paso a paso y capacitación del orquestador", observaciones:"Se hace explicación de como se puede visualizar el orquestador, lanzarlo y analizar un poco los errores que se presenten", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"24/02/2026", descripcion:"Error de código", causa:"Revisión caso cliente Atlantic", solucion:"Reportan mensaje de error en archivo para cliente atlantic", observaciones:"el mensaje es generado por el bot debido a que detecta 3 archivos los cuales son: el pedido, firma y logo adjuntos en el correo, se valida y notifica a el cliente", horas:2.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"26/02/2026", descripcion:"Revisión de código.", causa:"Error en una parte del flujo del bot", solucion:"Reportan pedido del dia de ayer que notifica hoy", observaciones:"Se verifica que sap fallo al mediodia, tambien falla de captura por interfaz grafica y adicionalmente procesaron los pedidos de forma manual sin notificar la falla del bot, adicional se verifica al momento de la monitorizacion una falla en la conexion con outlook", horas:2.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"27/02/2026", descripcion:"Revisión de código.", causa:"Revisión del Bot por aparente demora, se detectan otros correos inesperados", solucion:"Reportan demora en el procesamiento", observaciones:"Se valida y determina que la tardanza en el procesamiento de los pedidos es debido al volumen tanto de pedidos como de productos por pedido,  se verifica que estan enviando correos con datos que no deberian llegar a el bot ejemplo: un rut y una camara de comercio, tambien se verifica y reporta un fallo a la hora de procesar una nota credito que fue enviada al correo de pedidos la cual contenia una pdf escaneado", horas:2.0 },
+    { nombre:"Nuevo Bot Ventas", estado:"Cerrado", fecha:"23/02/2026", descripcion:"Revisión del Codigo", causa:"Analisis y entendimiento del bot", solucion:"Revisión de código.", observaciones:"", horas:4.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"28/02/2026", descripcion:"Soportes varios / ajustes menores del mes", causa:"", solucion:"", observaciones:"Consolidado de tiempos menores del mes para cuadre de horas.", horas:3.0 },
+  ],
+  "Marzo": [
+    { nombre:"La Monita", estado:"Cerrado", fecha:"02/03/2026", descripcion:"Consulta", causa:"Revisión de código.", solucion:"Notificacion de error critico el dia sabado", observaciones:"Error intento login sap y se validan notificaciones de control critico correspondientes a notas credito u otros archivos pdf", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"02/03/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Ajuste en la forma de notificar archivos PDF externos a pedidos, Falla en el login para tener espera entre ciclos de 3 intentos", observaciones:"\\\"-Se Adiciono la caracteristica paque haga dos ciclos de 3 reintentos con 10 minutos de espera entre ellos          -Se ajusta para queno devuelva correos con el formato adjunto a correos electronicos sin adjuntos                            - Se ajusta para cuando hayan archivos no correspondientes no notifique como control critico, ademas envie el documento del error junto con el mensaje y especifique las posibles causas\\\"", horas:8.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"03/03/2026", descripcion:"Error de conexión", causa:"Incidencia SAP", solucion:"Incidencia login sap duracion 23 min", observaciones:"En validación con área de Infraestructura y se ajusta doble login", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"03/03/2026", descripcion:"Error de conexión", causa:"Incidencia SAP y reunion con infraestructura", solucion:"Validacion de funcionamiento de puerto 3202 pruebas y seguimiento a las conexiones", observaciones:"Se realiza acompañamiento sobre errores de desconexión por puertos", horas:2.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"03/03/2026", descripcion:"Archivo de insumo", causa:"Notificacion de pedido incompleto", solucion:"Se observa que los 9 pedidos contienen celdas ocultas con cantidades vacias por lo tanto marca pedido incompleto", observaciones:"Error de formato de Cliente", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"05/03/2026", descripcion:"Archivo de insumo", causa:"No se procesa pedido y Finaliza la ejecucion del bot", solucion:"Debido al dato de 0 en valor neto del material 1213 en la DB de SAP lanza una ventana emergente que el bot no puede manejar, se notifica, escala y monitoriza el bot hasta su finalizacion", observaciones:"Error por falta de pedido en BD SAP", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"06/03/2026", descripcion:"Archivo de insumo", causa:"No se procesa pedido y Finaliza la ejecucion del bot", solucion:"Debido al dato de 0 en valor neto del material 1213 en la DB de SAP lanza una ventana emergente que el bot no puede manejar, se notifica, escala y monitoriza el bot hasta su finalizacion", observaciones:"Error por falta de pedido en BD SAP", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"09/03/2026", descripcion:"Reunión de verificacion de estado del bot", causa:"Consulta", solucion:"Se consulta el resultado de la ejecucion de un pedido para colombina", observaciones:"se de valida con los parametros del bot que el codigo de cliente indicado por ALPINA no esta contemplado para colombina", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"11/03/2026", descripcion:"Archivo de insumo", causa:"Archivo de insumo", solucion:"Notificacion de pedido no procesado", observaciones:"Se determina que no se envio al correo correcto, desconexion de outlook", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"13/03/2026", descripcion:"Archivo de insumo", causa:"Consulta", solucion:"Notificacion de pedido no procesado", observaciones:"Se monitorea la ejecucion de los pedidos ya que al ser un gran volvumen hubo retrasos", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"13/03/2026", descripcion:"Archivo de insumo", causa:"Archivo de insumo", solucion:"EL pedido contiene nuevamente el sku 1213", observaciones:"Se notifica y se lanza el bot nuevamente", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"16/03/2026", descripcion:"Incidente", causa:"Archivo de insumo", solucion:"el pedido correspondiente a FORMATO SOLICITUD PEDIDOS COLOMBINA .xlsx del cliente Market Cont. No. 8 Rio Paila fallo en creacionm de pedidos", observaciones:"Falló debido a que el en el formato en la columna de cantidad contenia el valor en numero y adicional la palabra uni, el bot solo acepta numero en este campo", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"18/03/2026", descripcion:"Incidente", causa:"Archivo de insumo", solucion:"Error pedido con producto 1213", observaciones:"Se valida y reejecuta el bot", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"24/03/2026", descripcion:"Incidente", causa:"Archivo de insumo", solucion:"Error pedido con producto 1213 dia viernes- Error pedido con producto 1213 dia sabado-Reinicio maquina Domingo 2AM", observaciones:"Se validan los pedidos que contiene el producto 1213, se monitorea la ejecucion de los demas pedidos pendientes", horas:2.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"24/03/2026", descripcion:"Incidente", causa:"Archivo de insumo", solucion:"No se están procesando los pedidos del cliente de Globoshop", observaciones:"Se encuentra que la estructura del PDF enviado de orden de compra cambió ligeramente, lo que ocasionó que el script de python que extrae la información no pueda hacerlo de forma correcta. Se realizaron ajustes a dicho script y se reprocesaron los PDF pendientes de forma satisfactoria.", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"25/03/2026", descripcion:"Incidente", causa:"Archivo de insumo", solucion:"Error pedido con producto 1213", observaciones:"Se valida y reejecuta el bot", horas:0.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"26/03/2026", descripcion:"Incidente", causa:"Archivo de insumo", solucion:"Los archivos de firma del Cliente ATLANTIC generaban un error de lectura al descargar el documento noname", observaciones:"Se mapea la notificacion para que especifique cuando es error de lectura especificamente", horas:2.0 },
+    { nombre:"Robxy (Nuevo Bot)", estado:"Cerrado", fecha:"26/03/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"", observaciones:"", horas:10.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"30/03/2026", descripcion:"Incidente", causa:"Archivo de insumo", solucion:"Error pedido con producto 1213", observaciones:"Se valida y reejecuta el bot del dia sabado", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"31/03/2026", descripcion:"Incidente", causa:"Archivo de insumo", solucion:"Error pedido con producto 1213", observaciones:"Se valida y reejecuta el bot", horas:1.0 },
+    { nombre:"Robxy", estado:"Cerrado", fecha:"31/03/2026", descripcion:"Revisión de código.", causa:"Revision de flujo de proceso Robxy", solucion:"Se valida y revisa el proceso actual que se requiere para robxy", observaciones:"Se valida y revisa el proceso actual que se requiere para robxy", horas:1.0 },
+  ],
+  "Abril": [
+    { nombre:"La Monita", estado:"Cerrado", fecha:"01/04/2026", descripcion:"Desarrollar código del RPA", causa:"Al llegar un pedido con el codigo de producto 1213 este genera una ventana emergente ya que se encuentra con valor neto 0, y en la creacion de pedido mediante sap necesita ser tratado", solucion:"Se mapea la ventana de notificacion de tratamiento del sku y se añade una notificacion para cuando esto ocurre evitando que el bot se detenga", observaciones:"", horas:4.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"01/04/2026", descripcion:"Revisión de código.", causa:"Se verifica que un pedido para el cliente novaventa esta generando error critico en la creacion del pedido", solucion:"Se valida que en la creacion del ecxel este viene con el formato de decimales por lo que esta agregando .0 al fiunal del codigo de cliente lo cual no es valido para sap, se identifican y normalizan los datos para que los convierta en enteros", observaciones:"", horas:2.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"06/04/2026", descripcion:"Archivo de insumo", causa:"Pedido no procesado", solucion:"Se verifica que el problema se encuentra en el archivo de insumo ya que la primera linea del documento se encuentra vacía por lo que el BOT lo detecta como vacío", observaciones:"", horas:1.0 },
+    { nombre:"OPTIMUS", estado:"Cerrado", fecha:"06/04/2026", descripcion:"Revisión de código.", causa:"Autenticador microsoft 0365", solucion:"Se habilita el logeo mediante autenticador, se realiza el proceso de autenticacion del modulo 0365, se ejecuta el bot y monitoriza durante la ejecucion", observaciones:"", horas:2.5 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"08/04/2026", descripcion:"Consulta", causa:"Revision de pedidos revisados", solucion:"se valida correctamente", observaciones:"", horas:1.0 },
+    { nombre:"OPTIMUS", estado:"Cerrado", fecha:"08/04/2026", descripcion:"Error de conexión", causa:"Error en sap", solucion:"Se valida y se reejecuta", observaciones:"", horas:0.5 },
+    { nombre:"Actualización MySQL y Python", estado:"Cerrado", fecha:"08/04/2026", descripcion:"Actualizacion de aplicaciones", causa:"Validacion y actualizacion de python y mysql", solucion:"Se valida que las maquinas cuentan con la version estable de python 3.13.7 al intentar actualizar necesita permisos de organizacion, no cuentan con mysql instalado y la maquina asist auto tiene las credenciales vencidas", observaciones:"", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"09/04/2026", descripcion:"Archivo de insumo", causa:"Error en producto en canal de distribucion equiocado", solucion:"Se relanza el bot e indica que debe procesarse de forma manual", observaciones:"", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"4/13/2026", descripcion:"Archivo de insumo", causa:"Codigo de producto no contemplado para el cliente GLOBOSHOP", solucion:"Se parametriza y se ejecuta", observaciones:"", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"4/16/2026", descripcion:"Revisión de código.", causa:"Error al intentar enviar correo electronico", solucion:"Se eliminan los correos electronicos que ya no se encuentran disponibles en el dominio @alpina.com", observaciones:"", horas:1.0 },
+    { nombre:"Super Coco", estado:"Cerrado", fecha:"4/16/2026", descripcion:"Revisión de código.", causa:"Entrega BOT python", solucion:"Se recibe bot", observaciones:"", horas:0.5 },
+    { nombre:"PYG guardian - inventarios - Preavisos", estado:"Cerrado", fecha:"4/17/2026", descripcion:"Revisión de código.", causa:"Entrega BOT python", solucion:"Se recibe bot", observaciones:"", horas:1.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"4/17/2026", descripcion:"Error en maquina de producción", causa:"Error en ventana emergente para pedidoc de dufri", solucion:"Se identifica un cambio de posiciones de los SKUs al guardar la informacionm del pedido el cual genera unas ventanas emergentes las cuales requieren validacion clickeando ok", observaciones:"", horas:1.0 },
+    { nombre:"Comp Cad Alkosto", estado:"Cerrado", fecha:"4/17/2026", descripcion:"Revisión de código.", causa:"Entrega BOT python", solucion:"Aclaración de dudas para poder iniciar, pendiente confirmación de accesos a la maquina en la que se va a desarrollar", observaciones:"", horas:1.0 },
+    { nombre:"Comp Cad Alkosto", estado:"Cerrado", fecha:"4/20/2026", descripcion:"Desarrollar código del RPA", causa:"Se requiere un nuevo flujo para el proceso de compensacion de cadenas para el cliente ALKOSTO", solucion:"*Preparacion de ambiente, archivo de configuracion, validacion conexion SAP, validacion credenciales cencarvajal, Navegacion y descarga Cartera SAP, Navegacion WEB Y Descarga PAGO, Pr", observaciones:"", horas:64.0 },
+    { nombre:"VENTAS", estado:"Cerrado", fecha:"4/22/2026", descripcion:"Revisión de código.", causa:"Reunion de entrega y solicitud para el bot ventas", solucion:"Se solicita ajustar mejor el codigo, el bot funciona, pero lo que se quiere es que este a nivel de codigo este mejor organizado", observaciones:"", horas:0.5 },
+    { nombre:"Super Coco", estado:"Cerrado", fecha:"4/22/2026", descripcion:"Revisión de código.", causa:"El bot esta ingresando un layout incorrecto al que deberia ingresar", solucion:"Se realiza actualizaacion en el codigo para que no busque en la ventana desplegable el layout si no que lo haga de manera directa escribiendo /BOT_CIERRE", observaciones:"", horas:4.0 },
+    { nombre:"PYG guardian - inventarios - Preavisos", estado:"Cerrado", fecha:"04/23/2026", descripcion:"Revisión de código.", causa:"Campo \\\"Denominación\\\" llega vacío, se solicita revisar a qué hace referencia ese campo", solucion:"Este viene vacío en el consolidado, al revisarlo se confirma que este no es un error del bot como tal, ese campo viene directo de SAP, el bot no lo modifica ni nada, está vacío porque en SAP no hay nada para esos casos, lo que pasa es que el bot baja dos archivos de SAP por separado, uno de centros de coste y otro de órdenes internas, los de centro de coste no tienen esos campos pero los de órdenes internas sí lo pueden tener, pero solo cuando alguien le escribe una descripción a esa orden cuando la crean en SAP, algo así como el nombre o propósito de la orden, si no le pusieron nada pues queda vacío y no hay nada que hacer desde el bot por ejemplo la orden 810.010.000.544 tiene en ese campo \\\"ENVIO KITS OPERACIONES\\\", que fue lo que lo que llegó desde sap  para identificar para qué era, las que no tienen nada es porque simplemente no les pusieron descripción. del archivo del 23 de abril, de casi 10 mil registros solo unos 168 tienen ese campo con dato siendo ordenes internas", observaciones:"", horas:3.0 },
+  ],
+  "Mayo": [
+    { nombre:"Comp Cad Alkosto", estado:"Cerrado", fecha:"4/20/2026", descripcion:"Desarrollar código del RPA", causa:"Se requiere un nuevo flujo para el proceso de compensacion de cadenas para el cliente ALKOSTO", solucion:"*Preparacion de ambiente, archivo de configuracion, validacion conexion SAP, validacion credenciales cencarvajal, Navegacion y descarga Cartera SAP, Navegacion WEB Y Descarga PAGO, Pr", observaciones:"Horas cargadas en Abril 64- Por enviar Manueles de procedimiento para dar cierre", horas:16.0 },
+    { nombre:"VENTAS", estado:"Cerrado", fecha:"05/11/2026", descripcion:"Revisión de código.", causa:"Solicitud de ajuste de formato de codigo", solucion:"Reajustar y organizar el codigo del bot que ya funciona pero para optimizar visualmente el bot", observaciones:"Solicitar Insumo para poder realizar pruebas (se puede tomar alguno de la carpeta o cual se puede usar?)", horas:32.0 },
+    { nombre:"OPTIMUS", estado:"Cerrado", fecha:"12/05/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Notificacion de error cuando no tiene documentos adjuntos para procesar", observaciones:"Se agrega la nueva notificacion para que indique la falta de insumo y no se identifique como un error", horas:1.0 },
+    { nombre:"Migración Bots Python a nueva Carpeta", estado:"Cerrado", fecha:"13/05/2026", descripcion:"Requerimiento", causa:"Actualización de rutas", solucion:"Migracion BOTs RPA ALPINA INTERACTIVO", observaciones:"Se migran los datos y ambientan los bots ROBXY, PYG GUARDIAN,SUPERCOCO", horas:3.0 },
+    { nombre:"COMPENSACION DE CADENAS -ALKOSTO", estado:"Cerrado", fecha:"13/05/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se requiere que el texto sap contenga el Lugar Entrega", observaciones:"Se realiza la nueva relacion con respecto a el lugar de entrega", horas:1.0 },
+    { nombre:"COMPENSACION DE CADENAS -ALKOSTO", estado:"Cerrado", fecha:"14/05/2026", descripcion:"Incidente", causa:"Error de selectores", solucion:"Cambio en selectores en cencarvajal", observaciones:"Se realiza el ajuste de los selectores de login y navegacion", horas:1.0 },
+    { nombre:"Ajustes bot Monita Google", estado:"Cerrado", fecha:"14/05/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"con el fin de dejarlos configurados con la nueva conexión al correo electrónico de Gmail, necesitamos que nos compartan la configuración correspondiente del correo. Adicionalmente, por favor confirmar cuáles serán las nuevas direcciones de correo electrónico que se van a utilizar. En caso de que se mantengan las mismas cuentas, continuaremos con la configuración actual. También requerimos la contraseña de aplicación generada desde Gmail, ya que es la credencial que se configura directamente en el correo para permitir la conexión de los bots.", observaciones:"Por gestionar, pendiente confirmacion de correo", horas:1.0 },
+    { nombre:"MDR", estado:"Cerrado", fecha:"15/05/2026", descripcion:"Incidente", causa:"Revisión de código.", solucion:"CAMBIO DE LAYOUT SAP", observaciones:"Se mapea el nuevo layout, y se realizan pruebas", horas:4.0 },
+    { nombre:"OPTIMUS", estado:"Cerrado", fecha:"15/05/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"correo con columna DLF cmarcadas con caracter numeral (#)", observaciones:"Se revisa y determina que el documento viene de parte del usuario con el formato FECHA en la columna H correspondiente al encabezado DLF", horas:1.0 },
+    { nombre:"MDR", estado:"Cerrado", fecha:"19/05/2026", descripcion:"Incidente", causa:"Revisión de código.", solucion:"CAMBIO DE LAYOUT SAP- se debe volver a ejecutar y esta repitiendo la transaccion 3 veces", observaciones:"Se realiza monitore y re ejecución por los bloques solicitados", horas:2.0 },
+    { nombre:"la monita", estado:"Cerrado", fecha:"19/05/2026", descripcion:"Archivo de insumo", causa:"Se solicita agregar nuevos codigos de productos para clietne Globoshop", solucion:"Se agregan los nuevos datos para el correcto procesamiento", observaciones:"Se ajustan los SKUs y se reporta al usuario", horas:2.0 },
+    { nombre:"La Monita", estado:"Cerrado", fecha:"21/05/2026", descripcion:"Archivo de insumo", causa:"revision de notificaciones de error", solucion:"Error de correo realacionado a axionlog el cual falla en el formato", observaciones:"Error de formato se solicita aclaración por Wp pero no se tiene respuesta", horas:1.0 },
+    { nombre:"FELI", estado:"Cerrado", fecha:"25/05/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Acompañamiento de pruebas UVT bot Feli", observaciones:"Se realiza acompañamiento de pruebas UVT con usuarios", horas:1.0 },
+    { nombre:"ROBXY", estado:"Cerrado", fecha:"27/05/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Hay un error al validar el insumo de Excel", observaciones:"Se realizan modificaciones a los tiempos de espera y se crea una ruta temporal local en documentos ya que la sincronización de OneDrive está interfiriendo en la validación del archivo Excel.", horas:3.0 },
+    { nombre:"COMPENSASION DE CADENAS MAKRO", estado:"Cerrado", fecha:"28/05/2026", descripcion:"Requerimiento", causa:"Consulta", solucion:"Levantanmiento automatizacion makro", observaciones:"Levantanmiento automatizacion makro", horas:2.0 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"26/05/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Agregar el formato PDF del cliente Atlantic", observaciones:"", horas:2.0 },
+  ],
+  "Junio": [
+    { nombre:"ROBXY", estado:"Cerrado", fecha:"02/06/2026", descripcion:"Incidente", causa:"Error nuevo en ejecución", solucion:"Se realiza prueba de ayer en Robxy se ejecutó correctamente, solo realicé el cambio para añadir más intentos en el flujo de exportación del Excel ya que el error fue por intermitencias en SAP en esta parte.  - Realizar nueva revisión de error", observaciones:"Se tiene bot en monitoreo, pendiente confirmación nuevamente", horas:1.5 },
+    { nombre:"COMPENSASION DE CADENAS MAKRO", estado:"Cerrado", fecha:"02/06/2026", descripcion:"Cotización", causa:"Cotización nuevo proceso", solucion:"Se cotizan 130 Horas para dar inicio a proyecto", observaciones:"Se debe pasar cornograma de actividades", horas:1.0 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"02/06/2026", descripcion:"Consulta", causa:"Consulta", solucion:"Retroalimentación del proceso de La Monita para nuevos usuarios", observaciones:"Se realiza una reunión para explicar el proceso del Bot y la recepción de soportes en caso de ser requeridos.", horas:2.0 },
+    { nombre:"Revisión de permisos y rutas a Google", estado:"Cerrado", fecha:"04/06/2026", descripcion:"Requerimiento", causa:"Actualización de rutas", solucion:"Se solicita una reunión para verificar permisos de conexión al nuevo correo Gmail para los Bot de La Monita, NOVA, Optimus y Feli", observaciones:"Se realiza una reunión para anclar la verificación en 2 pasos de cada correo y poder acceder a las contraseñas de Apliación", horas:2.0 },
+    { nombre:"LA MONITA- Google", estado:"Cerrado", fecha:"04/06/2026", descripcion:"Desarrollo", causa:"Desarrollar código del RPA", solucion:"Actualizar la conexión de O365 a Gmail para extracción de los correos de los pedidos que ingresan a la bandeja de La Monita", observaciones:"Se actualizan los módulos, scripts, conexiones y rutas que se derivan de la lectura de los correos y la estructura del mismo.", horas:32.0 },
+    { nombre:"Optimus- Google", estado:"Cerrado", fecha:"05/06/2026", descripcion:"Desarrollo", causa:"Desarrollar código del RPA", solucion:"Actualizar la conexión de O365 a Gmail en la bandeja de Optimus", observaciones:"Se actualizan los módulos, scripts, conexiones y rutas que se derivan de la lectura de los correos y la estructura del mismo.", horas:28.0 },
+    { nombre:"ROBXY", estado:"Cerrado", fecha:"09/06/2026", descripcion:"Incidente", causa:"Error nuevo en ejecución", solucion:"Error en transacción que arroja error al descargr el reporte", observaciones:"Se realiza ajustes pero se tiene pendiente auttorización para poder ejecutar", horas:3.0 },
+    { nombre:"COMPENSACION DE CADENAS- Entrega bots Python", estado:"Cerrado", fecha:"10/06/2026", descripcion:"Requerimiento", causa:"Consulta", solucion:"Sesiones de transferencia de conocimiento - Compensación de cadenas Cencosud, Éxito y Olímpica", observaciones:"Sesiones de transferencia de conocimiento - Compensación de cadenas Cencosud, Éxito y Olímpica", horas:3.0 },
+    { nombre:"HE- Google", estado:"Cerrado", fecha:"11/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar la conexión de O365 a Gmail", observaciones:"Se actualizan los módulos de O365 a Gmail", horas:12.0 },
+    { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Cerrado", fecha:"12/06/2026", descripcion:"Incidente", causa:"Error de selectores", solucion:"No se ejecutó correctamente el Bot", observaciones:"Se verifica que el error obedece a cambios en la plataforma web donde se descargan los pagos, se actualizan los selectores y se re ejecuta el Bot de forma correcta.", horas:1.0 },
+    { nombre:"COMPENSACION DE CADENAS - ALKOSTO- Google", estado:"Cerrado", fecha:"12/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar el envío de notificaciones de O365 a Gmail", observaciones:"Se actualizan las partes de código que intervienen en el envío de notificaciones de O365 a Gmail", horas:3.0 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"12/06/2026", descripcion:"Revisión", causa:"Consulta", solucion:"Se consulta por qué un pedido de ZELO GROUP no está siendo procesado", observaciones:"La causa de no procesamiento del pedido corresponde a SKUs 15511y 15512 en SAP que cuentan con valor neto cero, por lo que se genera una ventana emergente para tratar el pedido. Esta novedad está contemplada para notificar de que dicho pedido debe ser procesado de forma manual. Se notifica a la encargada de dicho cliente que, para ser tomados los pedidos con estos SKUs, deben actualizar la información del material en SAP.", horas:1.0 },
+    { nombre:"Entregas Bot python Marketing models RADAR Proyecto Base de datos Seguimiento de contratos", estado:"Cerrado", fecha:"12/06/2026", descripcion:"Requerimiento", causa:"Consulta", solucion:"Solicitud de recepcion de bots de python para monitoreo en soporte", observaciones:"Juan Pablo realiza entrega de parte documental y explicación rapida del flujo del proceso, no se hace entrega de codigo por temas de tiempo", horas:1.0 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"17/06/2026", descripcion:"Incidente", causa:"Error de código", solucion:"El bot se queda en bucle procesando el mismo correo", observaciones:"Se evidencia que el error proviene al intentar leer los correos con los módulos de Gmail dispuestos en Rocketbot, en ocasiones no se marcan los correos como leídos o no se permite leer el contenido del HTML por lo que se queda en un bucle notificando errores sin culminar. Para ello, se migra la lógica hacia scripts de python que lean y extraigan la información en la misma estructura, así como la descarga de los adjuntos a las carpetas correspondientes. Se carga la nueva base de datos al orquestador y se valida una ejeucicón controlada.", horas:2.5 },
+    { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Cerrado", fecha:"18/06/2026", descripcion:"Incidente", causa:"Error de código", solucion:"El bot no está procesando correctamente", observaciones:"Se valida que hay una nueva ventana en la navegación web a causa de un error en el Login, se realizan ajustes para manejar re intentos y re aperturas del navegador en esta parte del flujo. Se valida una ejecución replicando el caso y termina exitosamente.", horas:2.0 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"19/06/2026", descripcion:"Incidente", causa:"Error de código", solucion:"No se procesa correctamente uno de los pedidos de Novaventa Bogotá", observaciones:"Se valida que el error proviene de la descarga del archivo adjunto, la lectura del nombre desde Gmail le retorna al Bot caracteres especiales como \\\"?\\\", por tanto, al intentar guardar el archivo se genera el error y el pedido se omite. Se ajusta la codificación y limpieza del nombre de los adjuntos.", horas:1.0 },
+    { nombre:"COMPENSASION DE CADENAS MAKRO", estado:"Cerrado", fecha:"22/06/2026", descripcion:"Desarrollo", causa:"Desarrollar código del RPA", solucion:"Desarrollo de cadena para el cliente Makro 130 Horas", observaciones:"", horas:24.0 },
+    { nombre:"ROXBY", estado:"Cerrado", fecha:"22/06/2026", descripcion:"Desarrollo", causa:"Desarrollar código del RPA", solucion:"Se requiere modificar el layout para exportar los excel de Precios y descuentos.", observaciones:"Se ajusta el script de descarga de las transacciones VK13 para que se modifique el layout en cada nodo por descargar, se realizan pruebas y funcionan correctamente.", horas:4.0 },
+    { nombre:"ROBXY", estado:"Cerrado", fecha:"22/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar el envío de notificaciones de O365 a Gmail", observaciones:"Se actualizan las partes de código que intervienen en el envío de notificaciones de O365 a Gmail", horas:4.0 },
+    { nombre:"SUPERCOCO", estado:"Cerrado", fecha:"23/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar el envío de notificaciones de O365 a Gmail", observaciones:"Se actualizan las partes de código que intervienen en el envío de notificaciones de O365 a Gmail", horas:4.0 },
+    { nombre:"PYG", estado:"Cerrado", fecha:"23/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar el envío de notificaciones de O365 a Gmail", observaciones:"Se actualizan las partes de código que intervienen en el envío de notificaciones de O365 a Gmail", horas:4.0 },
+    { nombre:"NOVA", estado:"Cerrado", fecha:"23/06/2026", descripcion:"Incidente", causa:"Revisión de código.", solucion:"Fallo en la ejecución de un insumo", observaciones:"Se valida que el error se debe a un cambio en un selector de SAP. Se realiza el ajuste y monitoreo de los insumos pendientes.", horas:6.0 },
+    { nombre:"iNVENTARIOS", estado:"Cerrado", fecha:"24/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar el envío de notificaciones de O365 a Gmail", observaciones:"Se actualizan las partes de código que intervienen en el envío de notificaciones de O365 a Gmail", horas:4.0 },
+    { nombre:"PREAVISOS", estado:"Cerrado", fecha:"24/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar el envío de notificaciones de O365 a Gmail", observaciones:"Se actualizan las partes de código que intervienen en el envío de notificaciones de O365 a Gmail", horas:4.0 },
+    { nombre:"MDR", estado:"Cerrado", fecha:"25/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar el envío de notificaciones de O365 a Gmail", observaciones:"Se actualizan las partes de código que intervienen en el envío de notificaciones de O365 a Gmail", horas:4.0 },
+    { nombre:"COMPENSACION DE CADENAS - CENCOSUD", estado:"Cerrado", fecha:"26/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar el envío de notificaciones de O365 a Gmail", observaciones:"Se actualizan las partes de código que intervienen en el envío de notificaciones de O365 a Gmail", horas:4.0 },
+    { nombre:"COMPENSACION DE CADENAS - OLIMPICA", estado:"Cerrado", fecha:"26/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar el envío de notificaciones de O365 a Gmail", observaciones:"Se actualizan las partes de código que intervienen en el envío de notificaciones de O365 a Gmail", horas:4.0 },
+    { nombre:"COMPENSACION DE CADENAS - EXITO", estado:"Cerrado", fecha:"26/06/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Actualizar el envío de notificaciones de O365 a Gmail", observaciones:"Se actualizan las partes de código que intervienen en el envío de notificaciones de O365 a Gmail", horas:4.0 },
+  ],
+  "Julio": [
+    { nombre:"MDR", estado:"Cerrado", fecha:"01/07/2026", descripcion:"Revisión de código.", causa:"La ejecución notifica errores por correo", solucion:"Se valida que hay líneas de código comentariadas que pueden ser el causal del error arrojado al no tener algunas variables declaradas, se ajusta el código.", observaciones:"En espera de nueva ejecución (KR30)", horas:1.0 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"02/07/2026", descripcion:"Error de conexión", causa:"El Bot finaliza su ejecución por tiempos en SAP.", solucion:"Se valida que hay intermitencias con SAP y a su vez errores con Gmail que ocasionaron que el bot se detuviese, adicionalmente, se generaron pedidos duplicados previo a su detenimiento. Se reportan los pedidos duplicados para su elimincación, se ajustan las reglas del correo para evitar futuros duplicados y se re lanza la ejecución.", observaciones:"", horas:1.0 },
+    { nombre:"INVENTARIOS", estado:"Cerrado", fecha:"01/07/2026", descripcion:"Revisión de código.", causa:"La ejecución notifica errores por correo", solucion:"Se valida que es a causa de intermitencias en SAP, se aumenta el tiempo entre reintentos de conexión a 3 minutos para intentar mitigar el problema.", observaciones:"", horas:1.0 },
+    { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Cerrado", fecha:"01/07/2026", descripcion:"Desarrollar código del RPA", causa:"Se solicita que un pago se cargue con fecha del mes pasado", solucion:"Se ajusta la regla de negocio, ahora, cuando un pago se esté cargando en un mes posterior a la fecha real del mismo, el bot tomará la fecha real del pago y lo cargará con fecha del último día de dicho mes.", observaciones:"En espera de poder realizar pruebas", horas:2.0 },
+    { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Abierto", fecha:"01/07/2026", descripcion:"Error de conexión", causa:"No se puede realizar el ingreso mediante la automatización a la página de Alkosto", solucion:"Se valida que, al intentar ingresar a la página de Alkosto mediante la automatización, el sistema arroja una alerta de seguridad que impide el ingreso, se realizan pruebas cambiando las librerías para acceder al navegador y evitar que se esté detectando como un Bot pero no son exitosas.", observaciones:"Se solicita reunión para evaluar un cambio en la lógica de obtención del pago.", horas:2.0 },
+    { nombre:"PYG GUARDIAN", estado:"Cerrado", fecha:"01/07/2026", descripcion:"Revisión de código.", causa:"La ejecución notifica errores por correo", solucion:"Se valida que es a causa de intermitencias en SAP, se aumenta el tiempo entre reintentos de conexión a 3 minutos para intentar mitigar el problema.", observaciones:"", horas:0.5 },
+    { nombre:"COMPENSASION DE CADENAS MAKRO", estado:"Abierto", fecha:"22/06/2027", descripcion:"Desarrollo", causa:"Desarrollo de Bot python", solucion:"130 horas en total", observaciones:"en el mes de julio se llevan", horas:52.0 },
+    { nombre:"Robxy", estado:"Abierto", fecha:"06/07/2026", descripcion:"Error de código", causa:"Se notifica que no se está ejecutando correctamente", solucion:"Ajustes", observaciones:"El error proviene de la transacción ZFIQ010 al intentar exportar una gran cantidad de filas. Se añade re ejecuciones de la transacción completa para lo cual se disminuyen los re intentos para evitar que el proceso tarde excesivamente en caso de fallos en SAP.", horas:1.0 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"06/07/2026", descripcion:"Incidente", causa:"Error de conexión", solucion:"Se presenta error crítico y finaliza el Bot", observaciones:"Se valida que ocurrió un error de conexión con SAP en la creación de uno de los pedidos, se reinicia SAP manualmente y se lanza la ejecución del bot nuevamente.", horas:0.5 },
+    { nombre:"MDR", estado:"Cerrado", fecha:"07/07/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Se notifica de un error por correo", observaciones:"Se verifica que el error proviene de la conexión con SAP, la automatización no tiene re intentos mapeados, se agregan 3 re intentos con espera de 3 minutos entre cada uno en caso de requerirse en intermitencias de SAP. Ahora, se intentará la conexión y se hará un Kill App de SAP por cada re intento, si fallan los 3, se notificará la incidencia por correo.", horas:1.0 },
+    { nombre:"Seguimiento de Contratos", estado:"Cerrado", fecha:"08/07/2026", descripcion:"Incidente", causa:"Error de código", solucion:"El Bot no se ejecuta correctamente desde la migración de Outlook  a Gmail", observaciones:"Se valida que este flujo utilizaba un Excel de trabajo actualizado por un flujo de power automate el cual quedó inutilizable luego de la migración. Se ajustó para que tanto la lectura de correos, envío y escritura en el excel de trabajo se realicen por medio de la automatización en Python. Se recomienda apagar el flujo de power automate.", horas:8.0 },
+    { nombre:"Desconexión de Bots y Backaud de Respaldo", estado:"Cerrado", fecha:"10/07/2026", descripcion:"Desconexion de bots", causa:"Desconexión y copia de seguridad", solucion:"Solicitud de backup para los Bots", observaciones:"Se verifica que los bots de python estén corectamente cargados en la nube, se realizan copias de los bots de rocketbot en las diferentes máquinas.", horas:3.0 },
+    { nombre:"COMPENSACION DE CADENAS - MAKRO - NUEVAS REGLAS", estado:"Cerrado", fecha:"06/07/2026", descripcion:"Revisión", causa:"Desarrollar código del RPA", solucion:"Sesión de entendimiento nuevas reglas de negocio", observaciones:"Se confirma que hay casos nuevos que pueen suceder dentro de las transacciones de Makro, casos que no se reportaron en el levantamiento pero en el mapeo evidenciamos y por ende se realiza la seción, estos ajustes nuevos nos amplian plazos de entrega del bot", horas:1.0 },
+    { nombre:"PROYECTO BASE DE DATOS", estado:"Cerrado", fecha:"14/07/2026", descripcion:"Requerimiento", causa:"Actualizacion archivo configuración", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Proceso realizado por Alpina", horas:0.0 },
+    { nombre:"MARKETING MODELS", estado:"Cerrado", fecha:"14/07/2026", descripcion:"Requerimiento", causa:"Actualizacion archivo configuración", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Proceso realizado por Alpina", horas:0.0 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"14/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se realiza el ajuste del código para realizar la conexión a SAP mediante credenciales. Pruebas de ejecución finalizan con éxito.", horas:5.0 },
+    { nombre:"OPTIMUS", estado:"Cerrado", fecha:"14/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se realiza el ajuste del código para realizar la conexión a SAP mediante credenciales. Pruebas de ejecución finalizan con éxito.", horas:2.0 },
+    { nombre:"NOVA", estado:"Pendiente cliente", fecha:"14/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se realiza el ajuste del código para realizar la conexión a SAP mediante credenciales.Pendiente realizar pruebas en PRD con Insumos disponibles", horas:1.5 },
+    { nombre:"EVOLUTIVOS BOTS DE COMPENSACIÓN", estado:"Cerrado", fecha:"15/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se recibe la explicación de las cadenas de compensación Cencosud, Olímpica y Éxito para realizar los ajustes y evolutivos pertinentes a los flujos pre existentes de dichas automatizaciones.", observaciones:"Se realiza levantamiento de los 3 bots para ajustes, evolutivo de cada uno y resolucion de dudas, Penduiente confirmar o estimar tiempos de desarrollo de cada caso", horas:4.0 },
+    { nombre:"MDR", estado:"Cerrado", fecha:"16/07/2026", descripcion:"Requerimiento", causa:"Actualizacion archivo configuración", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se actualizan las credenciales de acceso a SAP, posteriormente, se realiza una prueba de ejecución. La automatización finaliza de forma correcta.", horas:1.5 },
+    { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Cerrado", fecha:"16/07/2026", descripcion:"Requerimiento", causa:"Actualizacion archivo configuración", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se actualiza la conexión de Acceso a SAP y una prueba de ejecución exitosa", horas:1.0 },
+    { nombre:"ROBXY", estado:"Abierto", fecha:"16/07/2026", descripcion:"Desarrollo", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar el flujo para precios en la transacción VK13, ajustando layouts para la exportación de los Excel de cada nodo.", observaciones:"Se realiza la creación de las nuevas disposiciones, adicionalmente, se actualiza el código para que, por cada nodo, se tome el layout correspondiente. El archivo settings se actualiza con nuevas variables que contienen la posición en SAP de la dispoción para cada nodo.", horas:2.0 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"16/07/2026", descripcion:"Incidente", causa:"Revisión de código.", solucion:"Se notifica por correo la finalización del Bot por errores", observaciones:"Se verifica que el error corresponde a un pedido recibido en la bandeja de entrada de la Monita, el cual contiene lineas en blanco al inicio del mismo lo que ocasiona erorres en SAP y una finalizacón por error crítico del RPA. Se notifica para procesar el pedido manual.", horas:0.5 },
+    { nombre:"HORAS EXTRA", estado:"Pendiente cliente", fecha:"16/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se realiza el ajuste del código para realizar la conexión a SAP mediante credenciales. Pendiente ejecución y confirmación por parte del usuario", horas:3.0 },
+    { nombre:"SUPERCOCO", estado:"Cerrado", fecha:"17/07/2026", descripcion:"Incidente", causa:"Revisión de código.", solucion:"El flujo se realiza correctamente pero no se notifica", observaciones:"", horas:2.0 },
+    { nombre:"COMPENSACION DE CADENAS - ALKOSTO - Olimpica", estado:"Cerrado", fecha:"21/07/2026", descripcion:"Requerimiento", causa:"Actualizacion de Credenciales", solucion:"Usuario solicita actualizacion de Contraseña en portal de transacciones de los dos bots", observaciones:"Se realiza actualizacion", horas:0.5 },
+    { nombre:"MDR", estado:"Abierto", fecha:"21/07/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Se registra error en transaccion SALR", observaciones:"2026-07-21 09:53:31 | INFO    | sap_rpa.utils | [popup resultado busqueda] encontrado en 0s 2026-07-21 09:53:34 | INFO    | sap_rpa.utils | [cierre popup busqueda] completada en 2s 2026-07-21 09:53:34 | INFO    | sap_rpa.salr | [5c] Drill-down en label encontrado... 2026-07-21 09:53:50 | ERROR   | sap_rpa.utils | TIMEOUT (15s) esperando [label drill-down post-busqueda] No se encontro label para drill-down despues de busqueda. PS C:\\\\Users\\\\asist.auto\\\\OneDrive - Alpina Productos Aliménticios S.A\\\\Equipo Nuevas Tecnologías - Documents\\\\2025\\\\Proyectos\\\\Automatizaciones\\\\MDR>", horas:0.0 },
+    { nombre:"Monita", estado:"Abierto", fecha:"21/07/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Usuario Solicita revisión ya que el bot no se encuentra reportando pedidos", observaciones:"", horas:0.0 },
+  ],
+};
+const SOLICITUDES = {
+  "Enero": [
+  ],
+  "Febrero": [
+    { grupo:"Ok - Cerrado", estado:"No se puede", desc:"Error de intermitencia de SAP - Mandar imagen de evidencia" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Agregar el correo de soporte a errores de Monita y agregar nuevos correos para soporte: gery.vasquez@alpina.com - natalia.romero@alpina.com - juan.quirogal@alpina.com" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Atlantic: Extención de los horarios de Ejecución final a las 11 para ejecuciones y 11:30 para entrega del informe - responder a todos" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Ajuste detallado de errores criticos en el bot (Debe tener explicación a detalle del error) - 7 Horas y incluye imagenes" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Error por intermitencia en SAP - NO ejecuto a las 8" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Atlantic: Responda a todos los que se encuentren en la bandeja de correo" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Atlantic: Debe procesar los fines de semana" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Respuesta de correo: cuando hay error de documento adjunto, se debe corregir dependiendo del caso, si es pdf, enviar pdf y si es excel, revisar que sea excel" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Firma del correo: revisar la imagen ya que solo sale texto y no la firma de la imagen de respuesta del correo de la Monita" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Tiempo de ejecución cuando un pedido trae mas de 80 datos" },
+    { grupo:"Nuevos Bots", estado:"Python", desc:"Reporte de Venta Diaria - 1 Bot pendiente de validación" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Manejo del Orquestador" },
+  ],
+  "Marzo": [
+    { grupo:"Ok - Cerrado", estado:"No se puede", desc:"Error de intermitencia de SAP - Mandar imagen de evidencia" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Agregar el correo de soporte a errores de Monita y agregar nuevos correos para soporte: gery.vasquez@alpina.com - natalia.romero@alpina.com - juan.quirogal@alpina.com" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Atlantic: Extención de los horarios de Ejecución final a las 11 para ejecuciones y 11:30 para entrega del informe - responder a todos" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Ajuste detallado de errores criticos en el bot (Debe tener explicación a detalle del error) - 7 Horas y incluye imagenes" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Error por intermitencia en SAP - NO ejecuto a las 8" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Atlantic: Responda a todos los que se encuentren en la bandeja de correo" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Atlantic: Debe procesar los fines de semana" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Respuesta de correo: cuando hay error de documento adjunto, se debe corregir dependiendo del caso, si es pdf, enviar pdf y si es excel, revisar que sea excel" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Firma del correo: revisar la imagen ya que solo sale texto y no la firma de la imagen de respuesta del correo de la Monita" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Tiempo de ejecución cuando un pedido trae mas de 80 datos" },
+    { grupo:"Nuevos Bots", estado:"Python", desc:"Reporte de Venta Diaria - 1 Bot pendiente de validación" },
+    { grupo:"Ok - Cerrado", estado:"Ok", desc:"Manejo del Orquestador" },
+  ],
+  "Abril": [
+    { grupo:"Nuevo Bot", estado:"Ok - Cerrado", desc:"Compensacion de cadenas - Contabilidad - consolida la inf del pago que se realiza a cliente y subirlo a SAP - .35 Sharepoint, nuevas tecnologías - RPA - 80 Horas en soporte" },
+    { grupo:"PYG guardian - inventarios - Preavisos", estado:"En curso", desc:"Pendiente cotizar proceso de Api, este saldria como un desarrollo adicional al bot, ya que requiere de validar varios parametros" },
+  ],
+  "Mayo": [
+    { grupo:"PYG guardian - inventarios - Preavisos", estado:"Ok", desc:"Pendiente cotizar proceso de Api, este saldria como un desarrollo adicional al bot, ya que requiere de validar varios parametros" },
+    { grupo:"Migración", estado:"Ok", desc:"Mudar al nuevo Sharepoint, los datos de los bots entregados hasta el momento" },
+    { grupo:"Robxy", estado:"Ok", desc:"Ejecución viernes positiva, se reporta un nuevo error Lunes 1" },
+    { grupo:"Feli y Robotina", estado:"Acompañamiento", desc:"Ingresar a las pruebas UVT - Robotina con pendientes por realizar en Desarrollo (Creación de usuarios en GLP, la conexión por Api, pendiente el campo de adjuntos, pendiente asignación de ticket, grupos asignados, ajuste dinámico)" },
+    { grupo:"Nova", estado:"Ok", desc:"La maquina .6 se volvio de PRD cambio de usuario, de desarrollo a PRD - Bot Recibido" },
+    { grupo:"Monita", estado:"Ok", desc:"Ajuste en el bot, pendiente consultas" },
+    { grupo:"Nuevo bot Makro", estado:"Seguimiento", desc:"Makro - Cadena de Alkosto - Nuevo proceso - Por enviar cronograma y cotización" },
+  ],
+  "Junio": [
+    { grupo:"Feli y Robotina", estado:"Acompañamiento", desc:"Ingresar a las pruebas UVT - Robotina con pendientes por realizar en Desarrollo (Creación de usuarios en GLP, la conexión por Api, pendiente el campo de adjuntos, pendiente asignación de ticket, grupos asignados, ajuste dinámico)" },
+    { grupo:"Nova", estado:"Ok", desc:"La maquina .6 se volvio de PRD cambio de usuario, de desarrollo a PRD - Bot Recibido" },
+    { grupo:"Monita", estado:"Ok", desc:"Ajuste en el bot, pendiente consultas" },
+    { grupo:"Nuevo bot Makro", estado:"Ok", desc:"Makro - Cadena de Alkosto - Nuevo proceso - se envia cronograma de procesos para dar inicio con Makro" },
+    { grupo:"Ventas", estado:"Seguimiento", desc:"Pruebas en PRD - Pausa" },
+    { grupo:"Atlantics", estado:"Ok", desc:"Pendiente tener caso con Gabriel y agendar reunión para realizar el proceso" },
+    { grupo:"HE", estado:"Ok", desc:"Validacion de rutas a Google" },
+    { grupo:"Migracion Bots Google", estado:"Ok", desc:"Bots de Rocketbot Ok, se inicia ajustes en bots de Python" },
+    { grupo:"Wanda", estado:"Por recibir", desc:"Por agendar" },
+    { grupo:"Alpi Rutas", estado:"Por recibir", desc:"Por agendar" },
+    { grupo:"Ajustes con cronograma", estado:"Ok", desc:"Se solicita pasar todos los bots que tengan Sharepoint a las carpetas compartidas por Api de Google, tambien realizar seguimiento a la migración de SAP Raises, posterior a ello realizar copia de seguridad de todos los bots ya que se realizara reinicio y monitoreo junto al levantamiento de los bots en la semana del 14 de Julio" },
+  ],
+  "Julio": [
+    { grupo:"Feli y Robotina", estado:"Acompañamiento", desc:"Ingresar a las pruebas UVT - Robotina con pendientes por realizar en Desarrollo (Creación de usuarios en GLP, la conexión por Api, pendiente el campo de adjuntos, pendiente asignación de ticket, grupos asignados, ajuste dinámico)" },
+    { grupo:"Nuevo bot Makro", estado:"En proceso", desc:"En desarrollo con nuevas reglas de negocio" },
+    { grupo:"Ventas", estado:"Seguimiento", desc:"Pruebas en PRD - Pausa" },
+    { grupo:"Wanda", estado:"Por recibir", desc:"Por agendar" },
+    { grupo:"Alpi Rutas", estado:"Por recibir", desc:"Por agendar" },
+    { grupo:"Ajustes con cronograma", estado:"Ok", desc:"Se solicita pasar todos los bots que tengan Sharepoint a las carpetas compartidas por Api de Google, tambien realizar seguimiento a la migración de SAP Raises, posterior a ello realizar copia de seguridad de todos los bots ya que se realizara reinicio y monitoreo junto al levantamiento de los bots en la semana del 14 de Julio" },
+    { grupo:"Viernes 2 p.m", estado:"Ok", desc:"Se apaga SAP" },
+    { grupo:"Martes 14 a.m", estado:"Ok", desc:"Se encienden Maquinas SAP - Se esta revisando RPAs y funcionalidades de las mismas" },
+  ],
+};
+const BOTS = [
+  { cat:"Rocketbot", bot:"Monita", estado:"Migrado a Google" },
+  { cat:"Rocketbot", bot:"Horas Extra", estado:"Migrado a Google" },
+  { cat:"Rocketbot", bot:"Optimus", estado:"Migrado a Google" },
+  { cat:"Rocketbot", bot:"Nova", estado:"Migrado a Google por parte de Desarrollo" },
+  { cat:"Python entregados", bot:"Ventas", estado:"Migrado a Google - Pendiente de Pruebas general por actualización en estructura del código - Ajuste SAP Rise" },
+  { cat:"Python entregados", bot:"Robxy", estado:"Migrado a Google · Ajustado SAP Rise" },
+  { cat:"Python entregados", bot:"Super Coco", estado:"Migrado a Google · Ajuste SAP Rise" },
+  { cat:"Python entregados", bot:"PYG", estado:"Migrado a Google · Ajuste SAP Rise" },
+  { cat:"Python entregados", bot:"Inventarios", estado:"Migrado a Google · Ajuste SAP Rise" },
+  { cat:"Python entregados", bot:"Preavisos", estado:"Migrado a Google · No usa SAP" },
+  { cat:"Python entregados", bot:"MDR", estado:"Migrado a Google · Ajuste SAP Rise" },
+  { cat:"Python entregados", bot:"Compensación de Cadenas Cencosud", estado:"Migrado a Google · Pendiente pasar a SAP Rise, se levanta en Evolutivo" },
+  { cat:"Python entregados", bot:"Compensación de Cadenas Éxito", estado:"Migrado a Google · Pendiente pasar a SAP Rise, se levanta en Evolutivo" },
+  { cat:"Python entregados", bot:"Compensación de Cadenas Olimpica", estado:"Migrado a Google · Pendiente pasar a SAP Rise, se levanta en Evolutivo" },
+  { cat:"Python entregados", bot:"Marketing models", estado:"Son con BD, no tienen Google · Pendiente SAP Rise" },
+  { cat:"Python entregados", bot:"Radar", estado:"Son con BD, no tienen Google · No usa SAP" },
+  { cat:"Python entregados", bot:"Proyecto Base de Datos", estado:"Son con BD, no tienen Google · Pendiente pasar a SAP Rise" },
+  { cat:"Python por recibir", bot:"Wanda", estado:"Pendiente de recibir en Soporte" },
+  { cat:"Python por recibir", bot:"Alpi Rutas", estado:"Pendiente de recibir en Soporte" },
+
+  { cat:"Evolutivos", bot:"Compensación de Cadenas", estado:"Entregado y en PRD", desc:"Entregado y en producción (PRD)." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Makro", estado:"En curso", desc:"Inició el 22 de Junio y termina el 18 de Agosto. Horas iniciales de 130 aumentan a 150 por ajustes en nuevas reglas de negocio. Se trabaja 4 horas diarias por prioridades de procesos en paralelo." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Cencosud", estado:"En curso", desc:"En revisión de código versus entrega funcional para cotizar horas de evolutivo." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Éxito", estado:"En curso", desc:"En revisión de código versus entrega funcional para cotizar horas de evolutivo." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Olimpica", estado:"En curso", desc:"En revisión de código versus entrega funcional para cotizar horas de evolutivo." },
+];
+const BOT_CATS = ["Rocketbot","Python entregados","Python por recibir","Evolutivos"];
+const BOT_CAT_LABELS = { "Rocketbot":"Rocketbot (Desarrollo 2NV)", "Python entregados":"Bots Python entregados a Soporte", "Python por recibir":"Bots Python por recibir en Soporte", "Evolutivos":"Bots Python Desarrollados por 2NV soporte - Evolutivos / Mejoras" };
+const BOTS_SOPORTE = BOTS.filter(b=>b.cat!=="Evolutivos").length; // 19 bots en soporte (excluye Evolutivos)
+const SPRINTS = [
+  { sprint:"Sprint 1", fecha:"22/06/2026", dia:"Día 1", actividad:"Infra + Config", hu:"HU01", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 1", fecha:"23/06/2026", dia:"Día 2", actividad:"Infra + Config", hu:"HU02", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 1", fecha:"24/06/2026", dia:"Día 3", actividad:"Infra + Config", hu:"HU03", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 1", fecha:"25/06/2026", dia:"Día 4", actividad:"Infra + Config", hu:"HU04", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 1", fecha:"26/06/2026", dia:"Día 5", actividad:"Portal Web", hu:"HU05", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 1", fecha:"30/06/2026", dia:"Día 6", actividad:"Portal Web", hu:"HU06", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 1", fecha:"01/07/2026", dia:"Día 7", actividad:"Preparación Datos", hu:"HU07", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 1", fecha:"02/07/2026", dia:"Día 8", actividad:"Preparación Datos", hu:"HU08", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 1", fecha:"03/07/2026", dia:"Día 9", actividad:"Preparación Datos", hu:"HU09", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 1", fecha:"06/07/2026", dia:"Día 10", actividad:"Preparación Datos", hu:"HU10", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 1", fecha:"07/07/2026", dia:"Día 11", actividad:"SAP Cartera", hu:"HU11", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"08/07/2026", dia:"Día 12", actividad:"SAP Cartera", hu:"HU12", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"09/07/2026", dia:"Día 13", actividad:"Cruce + Análisis", hu:"HU13", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"10/07/2026", dia:"Día 14", actividad:"Cruce + Análisis", hu:"HU14", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"14/07/2026", dia:"Día 15", actividad:"Cruce + Análisis", hu:"HU15", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"15/07/2026", dia:"Día 16", actividad:"Cruce + Análisis", hu:"HU16", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"16/07/2026", dia:"Día 17", actividad:"Cruce + Análisis", hu:"HU17", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"17/07/2026", dia:"Día 18", actividad:"Cruce + Análisis", hu:"HU18", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"21/07/2026", dia:"Día 19", actividad:"Cruce + Análisis", hu:"HU19", horas:4.0, responsable:"Dev", estado:"En curso", obs:"" },
+  { sprint:"Sprint 2", fecha:"22/07/2026", dia:"Día 20", actividad:"Cruce + Análisis", hu:"HU20", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 2", fecha:"23/07/2026", dia:"Día 21", actividad:"Plano + Carga", hu:"HU21", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 2", fecha:"24/07/2026", dia:"Día 22", actividad:"Plano + Carga", hu:"HU22", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"27/07/2026", dia:"Día 23", actividad:"Plano + Carga", hu:"HU23", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"28/07/2026", dia:"Día 24", actividad:"Plano + Carga", hu:"HU24", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"29/07/2026", dia:"Día 25", actividad:"Plano + Carga", hu:"HU25", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"30/07/2026", dia:"Día 26", actividad:"Plano + Carga", hu:"HU26", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"31/07/2026", dia:"Día 27", actividad:"QA + Integración", hu:"HU27", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"03/08/2026", dia:"Día 28", actividad:"QA + Integración", hu:"HU28", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"04/08/2026", dia:"Día 29", actividad:"QA + Integración", hu:"HU29", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"05/08/2026", dia:"Día 30", actividad:"QA + Integración", hu:"HU30", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"06/08/2027", dia:"Día 31", actividad:"Go Live / Buffer", hu:"HU31", horas:4.0, responsable:"Equipo Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"10/08/2028", dia:"Día 32", actividad:"Go Live / Buffer", hu:"HU32", horas:4.0, responsable:"Equipo Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"11/08/2029", dia:"Día 33", actividad:"Go Live / Buffer", hu:"HU33", horas:2.0, responsable:"Equipo Dev", estado:"Pendiente", obs:"" },
+];
+
+const GANTT = { days: ["Día 1 - 22/06", "Día 2 - 23/06", "Día 3 - 24/06", "Día 4 - 25/06", "Día 5 - 26/06", "Día 6 - 30/06", "Día 7 - 01/07", "Día 8 - 02/07", "Día 9 - 03/07", "Día 10 - 06/07", "Día 11 - 07/07", "Día 12 - 08/07", "Día 13 - 09/07", "Día 14 - 10/07", "Día 15 - 14/07", "Día 16 - 15/07", "Día 17 - 16/07", "Día 18 - 17/07", "Día 19 - 21/07", "Día 20 - 22/07", "Día 21 - 23/07", "Día 22 - 24/07", "Día 23 - 27/07", "Día 24 - 28/07", "Día 25 - 29/07", "Día 26 - 30/07", "Día 27 - 31/07", "Día 28 - 03/08", "Día 29 - 04/08", "Día 30 - 05/08", "Día 31 - 06/08", "Día 32 - 10/08", "Día 33 - 11/08"], activities: [{"actividad": "Infra + Config", "dias": 4, "inicio": 0, "fin": 3}, {"actividad": "Portal Web", "dias": 2, "inicio": 4, "fin": 5}, {"actividad": "Preparación Datos", "dias": 4, "inicio": 6, "fin": 9}, {"actividad": "SAP Cartera", "dias": 3, "inicio": 4, "fin": 11}, {"actividad": "Cruce + Análisis", "dias": 8, "inicio": 5, "fin": 17}] };
+
+const MAKRO = { horasAnterior:130, horasActual:150, fechaEntregaAnterior:"11/08/2026", fechaEntregaNueva:"18/08/2026", observaciones:[
+  "El proyecto de Compensación de Cadenas Makro inició el 22/06/2026 y contemplaba originalmente 130 horas.",
+  "Se actualiza el estimado a 150 horas debido a la incorporación de nuevas reglas de negocio en el cruce y análisis de cartera SAP solicitadas durante el desarrollo.",
+  "El bot se trabaja en paralelo con otras prioridades, con una dedicación efectiva de solo 4 horas diarias, lo que extiende el cronograma.",
+  "Como resultado del alcance ampliado y la dedicación parcial, la fecha de entrega se reprograma del 11/08/2026 al 18/08/2026."
+] };
+
+let activeTab = "Resumen";
+let charts = {};
+
+function getMes(m){ return DATA[m]||[]; }
+function allCases(){ return MESES.flatMap(m=>getMes(m)); }
+function estadoClass(e){ const x=(e||'').toLowerCase().trim();
+  if(x.startsWith('cerrado'))return 'estado-chip e-cerrado';
+  if(x==='ok')return 'estado-chip e-ok';
+  if(x.startsWith('abierto'))return 'estado-chip e-abierto';
+  if(x.includes('curso'))return 'estado-chip e-curso';
+  if(x.startsWith('seguimiento'))return 'estado-chip e-seguimiento';
+  if(x.startsWith('pendiente')||x.startsWith('por recibir')||x.startsWith('en espera'))return 'estado-chip e-pendiente';
+  return 'estado-chip e-otro'; }
+
+function openModal(mes,idx){
+  const d=getMes(mes)[idx];
+  document.getElementById('modalContent').innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div><div style="font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:4px;">${mes} 2026</div>
+      <h2 style="font-size:16px;font-weight:700;color:var(--text);margin:0;">${d.nombre}</h2></div>
+      <button class="modal-close" onclick="closeModal()">✕ Cerrar</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;"><div class="modal-label">Estado</div><span class="${estadoClass(d.estado)}">${d.estado||'—'}</span></div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;"><div class="modal-label">Fecha</div><div class="modal-text" style="color:var(--text);">${d.fecha||'—'}</div></div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;"><div class="modal-label">Tiempo</div><div style="font-size:18px;font-weight:800;color:var(--accent2);">${d.horas}h</div></div>
+    </div>
+    <div class="modal-section" style="background:var(--accent-glow);border:1px solid var(--border-light);border-radius:8px;padding:14px;"><div class="modal-label" style="color:var(--accent-light);">Descripción del error</div><div class="modal-text" style="color:var(--text);font-weight:500;">${d.descripcion||'—'}</div></div>
+    <div class="modal-section"><div class="modal-label">Causa</div><div class="modal-text">${d.causa||'—'}</div></div>
+    <div class="modal-section"><div class="modal-label">Solución</div><div class="modal-text">${d.solucion||'—'}</div></div>
+    ${d.observaciones?`<div class="modal-section" style="background:rgba(79,124,255,0.07);border:1px solid rgba(79,124,255,0.2);border-radius:8px;padding:14px;"><div class="modal-label" style="color:var(--accent-light);">⚠ Observaciones</div><div class="modal-text" style="color:var(--text);font-style:italic;">${d.observaciones}</div></div>`:''}
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(e){ if(!e||e.target===document.getElementById('modalOverlay'))document.getElementById('modalOverlay').classList.remove('open'); }
+
+function renderTabs(){
+  let html=`<button class="tab-btn ${activeTab==='Resumen'?'active':''}" onclick="switchTab('Resumen')">📊 Resumen</button>`;
+  html+=`<div class="tab-sep"></div>`;
+  html+=MESES.map(m=>{const c=getMes(m).length;return `<button class="tab-btn ${m===activeTab?'active':''}" onclick="switchTab('${m}')">${m} <span class="tab-badge">${c}</span></button>`;}).join('');
+  html+=`<div class="tab-sep"></div>`;
+  html+=`<button class="tab-btn ${activeTab==='Bots'?'active':''}" onclick="switchTab('Bots')">🤖 Bots 2NV <span class="tab-badge">${BOTS_SOPORTE}</span></button>`;
+  html+=`<button class="tab-btn ${activeTab==='Makro'?'active':''}" onclick="switchTab('Makro')">🚀 Proyecto Makro <span class="tab-badge">${SPRINTS.length}</span></button>`;
+  document.getElementById('tabNav').innerHTML=html;
+}
+
+function switchTab(t){ activeTab=t; renderTabs(); renderContent(); }
+
+function chartColors(){ const css=getComputedStyle(document.documentElement); return {grid:css.getPropertyValue('--chart-grid').trim(),tick:css.getPropertyValue('--chart-tick').trim(),card:css.getPropertyValue('--card').trim()}; }
+
+function renderContent(){
+  Object.values(charts).forEach(c=>c.destroy()); charts={};
+  if(activeTab==='Resumen') return renderResumen();
+  if(activeTab==='Bots') return renderBots();
+  if(activeTab==='Makro') return renderMakro();
+  return renderMes();
+}
+
+function renderMes(){
+  const rows=getMes(activeTab);
+  const totalHoras=Math.round(rows.reduce((a,b)=>a+b.horas,0)*10)/10;
+  const estados=rows.reduce((acc,r)=>{const k=(r.estado||'Otro');acc[k]=(acc[k]||0)+1;return acc;},{});
+  const cerrados=rows.filter(r=>{const x=(r.estado||'').toLowerCase();return x.startsWith('cerrado')||x==='ok';}).length;
+  const abiertos=rows.filter(r=>(r.estado||'').toLowerCase().startsWith('abierto')).length;
+  const estadoMax=Object.entries(estados).sort((a,b)=>b[1]-a[1])[0];
+
+  document.getElementById('tabContent').innerHTML=`
+    <div class="kpi-grid">
+      <div class="kpi-card" style="--kpi-color:var(--accent);"><div class="kpi-icon">📋</div><div class="kpi-label">Total Casos</div><div class="kpi-value">${rows.length}</div><div class="kpi-sub">en ${activeTab}</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--accent2);"><div class="kpi-icon">⏱</div><div class="kpi-label">Horas de Soporte</div><div class="kpi-value">${totalHoras}</div><div class="kpi-sub">horas invertidas</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--cerrado);"><div class="kpi-icon">✅</div><div class="kpi-label">Resueltos</div><div class="kpi-value">${cerrados}</div><div class="kpi-sub">cerrados / OK</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--abierto);"><div class="kpi-icon">🔥</div><div class="kpi-label">Abiertos</div><div class="kpi-value">${abiertos}</div><div class="kpi-sub">requieren atención</div></div>
+    </div>
+    <div class="charts-row">
+      <div class="chart-card"><div class="chart-title">🏷 Distribución por Estado</div><div class="chart-wrap"><canvas id="chDonut"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">📊 Top soportes por horas</div><div class="chart-wrap"><canvas id="chBar"></canvas></div></div>
+    </div>
+    <div class="table-card">
+      <div class="table-header"><h3>📄 Detalle de Casos — ${activeTab}</h3><span>${rows.length} registros</span></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>#</th><th>Soporte</th><th>Fecha</th><th>Estado</th><th>Descripción</th><th>Horas</th><th>Observaciones</th><th></th></tr></thead>
+        <tbody>
+        ${rows.map((d,i)=>`<tr>
+          <td style="color:var(--text-dim);font-size:12px;">${i+1}</td>
+          <td class="td-name">${d.nombre}</td>
+          <td class="td-date">${d.fecha||'—'}</td>
+          <td><span class="${estadoClass(d.estado)}">${d.estado||'—'}</span></td>
+          <td class="td-detalle">${d.descripcion?`<span class="detalle-chip">${d.descripcion.length>80?d.descripcion.slice(0,80)+'…':d.descripcion}</span>`:'<span style="color:var(--text-dim)">—</span>'}</td>
+          <td class="td-horas">${d.horas}h</td>
+          <td class="td-obs ${!d.observaciones?'empty':''}">${d.observaciones?(d.observaciones.length>90?d.observaciones.slice(0,90)+'…':d.observaciones):'—'}</td>
+          <td><button class="btn-detail" onclick="openModal('${activeTab}',${i})">Ver detalle</button></td>
+        </tr>`).join('')}
+        </tbody>
+      </table></div>
+    </div>
+    ${(SOLICITUDES[activeTab]&&SOLICITUDES[activeTab].length)?`
+    <div class="table-card" style="border-color:var(--accent);">
+      <div class="table-header" style="background:var(--accent-glow);"><h3>🆕 Solicitudes Nuevas a Realizar — ${activeTab}</h3><span>${SOLICITUDES[activeTab].length} solicitudes</span></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>#</th><th>Grupo</th><th>Estado</th><th>Descripción de la solicitud</th></tr></thead>
+        <tbody>
+        ${SOLICITUDES[activeTab].map((s,i)=>`<tr>
+          <td style="color:var(--text-dim);font-size:12px;">${i+1}</td>
+          <td style="font-size:12px;color:var(--text-muted);white-space:nowrap;">${s.grupo||'—'}</td>
+          <td><span class="${estadoClass(s.estado)}">${s.estado||'—'}</span></td>
+          <td style="font-size:12px;color:var(--text);">${s.desc}</td>
+        </tr>`).join('')}
+        </tbody>
+      </table></div>
+    </div>`:''}
+  `;
+  const cc=chartColors();
+  const topRows=[...rows].sort((a,b)=>b.horas-a.horas).slice(0,8);
+  charts.bar=new Chart(document.getElementById('chBar'),{type:'bar',
+    data:{labels:topRows.map(r=>r.nombre.length>16?r.nombre.slice(0,16)+'…':r.nombre),datasets:[{data:topRows.map(r=>r.horas),backgroundColor:'#4f7cff',borderRadius:6,borderSkipped:false}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:cc.grid},ticks:{color:cc.tick,font:{size:10}}},y:{grid:{display:false},ticks:{color:cc.tick,font:{size:9}}}}}});
+  charts.donut=new Chart(document.getElementById('chDonut'),{type:'doughnut',
+    data:{labels:Object.keys(estados),datasets:[{data:Object.values(estados),backgroundColor:['#34d399','#38d9b0','#f87171','#60a5fa','#c084fc','#fbbf24','#94a3b8','#4f7cff'],borderColor:cc.card,borderWidth:3,hoverOffset:6}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'right',labels:{color:cc.tick,font:{size:11},padding:10,usePointStyle:true}}}}});
+}
+
+function renderResumen(){
+  const all=allCases();
+  const totalHoras=Math.round(all.reduce((a,b)=>a+b.horas,0)*10)/10;
+  const cerrados=all.filter(r=>{const x=(r.estado||'').toLowerCase();return x.startsWith('cerrado')||x==='ok';}).length;
+  const abiertos=all.filter(r=>(r.estado||'').toLowerCase().startsWith('abierto')).length;
+  const perMes=MESES.map(m=>{const r=getMes(m);return {mes:m,casos:r.length,horas:Math.round(r.reduce((a,b)=>a+b.horas,0)*10)/10};});
+
+  document.getElementById('tabContent').innerHTML=`
+    <div class="kpi-grid">
+      <div class="kpi-card" style="--kpi-color:var(--accent);"><div class="kpi-icon">📋</div><div class="kpi-label">Total Casos (año)</div><div class="kpi-value">${all.length}</div><div class="kpi-sub">Enero – Julio</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--accent2);"><div class="kpi-icon">⏱</div><div class="kpi-label">Horas Totales</div><div class="kpi-value">${totalHoras}</div><div class="kpi-sub">de soporte</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--cerrado);"><div class="kpi-icon">✅</div><div class="kpi-label">Resueltos</div><div class="kpi-value">${cerrados}</div><div class="kpi-sub">${Math.round(cerrados/all.length*100)}% del total</div></div>
+      <div class="kpi-card" style="--kpi-color:#c084fc;"><div class="kpi-icon">🤖</div><div class="kpi-label">Bots Soporte</div><div class="kpi-value">${BOTS_SOPORTE}</div><div class="kpi-sub">en gestión 2NV</div></div>
+    </div>
+    <div class="charts-row">
+      <div class="chart-card"><div class="chart-title">📈 Casos por mes</div><div class="chart-wrap"><canvas id="chMesCasos"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">⏱ Horas por mes</div><div class="chart-wrap"><canvas id="chMesHoras"></canvas></div></div>
+    </div>
+    <div class="table-card">
+      <div class="table-header"><h3>📄 Consolidado por mes</h3><span>${perMes.filter(m=>m.casos>0).length} meses · ${totalHoras}h</span></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Mes</th><th>Casos</th><th>Horas</th><th>Promedio h/caso</th></tr></thead>
+        <tbody>
+        ${perMes.map(m=>`<tr><td class="td-name">${m.mes}</td><td>${m.casos}</td><td class="td-horas">${m.horas}h</td><td>${m.casos?(m.horas/m.casos).toFixed(1):'0'}</td></tr>`).join('')}
+        </tbody>
+      </table></div>
+    </div>
+  `;
+  const cc=chartColors();
+  charts.mc=new Chart(document.getElementById('chMesCasos'),{type:'bar',
+    data:{labels:perMes.map(m=>m.mes),datasets:[{data:perMes.map(m=>m.casos),backgroundColor:'#4f7cff',borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:cc.grid},ticks:{color:cc.tick}},x:{grid:{display:false},ticks:{color:cc.tick}}}}});
+  charts.mh=new Chart(document.getElementById('chMesHoras'),{type:'line',
+    data:{labels:perMes.map(m=>m.mes),datasets:[{data:perMes.map(m=>m.horas),borderColor:'#38d9b0',backgroundColor:'rgba(56,217,176,0.12)',fill:true,tension:0.35,pointBackgroundColor:'#38d9b0',pointRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:cc.grid},ticks:{color:cc.tick}},x:{grid:{display:false},ticks:{color:cc.tick}}}}});
+}
+
+function renderBots(){
+  const rocketN=BOTS.filter(b=>b.cat==='Rocketbot').length;
+  const pyEntreg=BOTS.filter(b=>b.cat==='Python entregados').length;
+  const pyRecibir=BOTS.filter(b=>b.cat==='Python por recibir').length;
+  const evoN=BOTS.filter(b=>b.cat==='Evolutivos').length;
+  const catColor={'Rocketbot':'var(--accent)','Python entregados':'var(--accent2)','Python por recibir':'var(--pendiente)','Evolutivos':'var(--seguimiento)'};
+  const catIcon={'Rocketbot':'🚀','Python entregados':'🐍','Python por recibir':'⏳','Evolutivos':'⭐'};
+
+  const catTable=(cat)=>{
+    const items=BOTS.filter(b=>b.cat===cat);
+    const hasDesc=items.some(b=>b.desc);
+    return `
+    <div class="table-card" style="border-color:${catColor[cat]};">
+      <div class="table-header" style="border-left:4px solid ${catColor[cat]};"><h3>${catIcon[cat]} ${BOT_CAT_LABELS[cat]}</h3><span>${items.length} bots</span></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>#</th><th>Bot</th><th>Estado</th>${hasDesc?'<th>Descripción / Observaciones</th>':'<th>Observaciones / Estado de Migración</th>'}</tr></thead>
+        <tbody>
+        ${items.map((b,i)=>`<tr>
+          <td style="color:var(--text-dim);font-size:12px;">${i+1}</td>
+          <td class="td-name">${b.bot}</td>
+          ${hasDesc?`<td><span class="${estadoClass(b.estado)}">${b.estado||'—'}</span></td><td style="color:var(--text-muted);font-size:12px;">${b.desc||'—'}</td>`:`<td colspan="2" style="color:var(--text-muted);font-size:12px;">${b.estado||'—'}</td>`}
+        </tr>`).join('')}
+        </tbody>
+      </table></div>
+    </div>`;
+  };
+
+  document.getElementById('tabContent').innerHTML=`
+    <div class="kpi-grid" style="grid-template-columns:repeat(5,1fr);">
+      <div class="kpi-card" style="--kpi-color:var(--accent);"><div class="kpi-icon">🤖</div><div class="kpi-label">Total Bots</div><div class="kpi-value">${BOTS_SOPORTE}</div><div class="kpi-sub">en soporte 2NV</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--accent);"><div class="kpi-icon">🚀</div><div class="kpi-label">Rocketbot</div><div class="kpi-value">${rocketN}</div><div class="kpi-sub">Desarrollo 2NV</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--accent2);"><div class="kpi-icon">🐍</div><div class="kpi-label">Python entreg.</div><div class="kpi-value">${pyEntreg}</div><div class="kpi-sub">en soporte</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--pendiente);"><div class="kpi-icon">⏳</div><div class="kpi-label">Por recibir</div><div class="kpi-value">${pyRecibir}</div><div class="kpi-sub">pendientes</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--seguimiento);"><div class="kpi-icon">⭐</div><div class="kpi-label">Evolutivos</div><div class="kpi-value">${evoN}</div><div class="kpi-sub">mejoras 2NV</div></div>
+    </div>
+    ${catTable('Rocketbot')}
+    ${catTable('Python entregados')}
+    ${catTable('Python por recibir')}
+    ${catTable('Evolutivos')}
+  `;
+}
+
+function renderMakro(){
+  const totalHoras=SPRINTS.reduce((a,b)=>a+b.horas,0);
+  const completados=SPRINTS.filter(s=>s.estado.includes('Completado')||s.estado.includes('✓')).length;
+  const sprintGroups=[...new Set(SPRINTS.map(s=>s.sprint))];
+  const horasBySprint=sprintGroups.map(sp=>({sprint:sp,horas:SPRINTS.filter(s=>s.sprint===sp).reduce((a,b)=>a+b.horas,0),n:SPRINTS.filter(s=>s.sprint===sp).length}));
+
+  document.getElementById('tabContent').innerHTML=`
+    <div class="kpi-grid">
+      <div class="kpi-card" style="--kpi-color:var(--accent);"><div class="kpi-icon">🚀</div><div class="kpi-label">Actividades</div><div class="kpi-value">${SPRINTS.length}</div><div class="kpi-sub">del proyecto Makro</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--accent4);"><div class="kpi-icon">⏱</div><div class="kpi-label">Horas Planificadas</div><div class="kpi-value">${MAKRO.horasActual}</div><div class="kpi-sub">antes ${MAKRO.horasAnterior}h · actualizado</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--cerrado);"><div class="kpi-icon">✅</div><div class="kpi-label">Completadas</div><div class="kpi-value">${completados}</div><div class="kpi-sub">de ${SPRINTS.length} actividades</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--seguimiento);"><div class="kpi-icon">📅</div><div class="kpi-label">Nueva Entrega</div><div class="kpi-value" style="font-size:20px;margin-top:6px;">${MAKRO.fechaEntregaNueva}</div><div class="kpi-sub">antes ${MAKRO.fechaEntregaAnterior}</div></div>
+    </div>
+    <div class="table-card" style="border-color:var(--accent4);margin-bottom:24px;">
+      <div class="table-header" style="background:rgba(251,191,36,0.08);border-left:4px solid var(--accent4);"><h3>📝 Observaciones — Actualización de horas (130 → 150 h)</h3><span>Reprogramación de entrega</span></div>
+      <div style="padding:18px 22px;">
+        <div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:16px;">
+          <div style="flex:1;min-width:160px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;"><div class="kpi-label">Horas anteriores</div><div style="font-size:22px;font-weight:800;color:var(--text-muted);text-decoration:line-through;">${MAKRO.horasAnterior}h</div></div>
+          <div style="flex:1;min-width:160px;background:var(--surface);border:1px solid var(--accent4);border-radius:8px;padding:14px;"><div class="kpi-label" style="color:var(--accent4);">Horas actualizadas</div><div style="font-size:22px;font-weight:800;color:var(--accent4);">${MAKRO.horasActual}h</div></div>
+          <div style="flex:1;min-width:160px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;"><div class="kpi-label">Entrega anterior</div><div style="font-size:16px;font-weight:700;color:var(--text-muted);text-decoration:line-through;">${MAKRO.fechaEntregaAnterior}</div></div>
+          <div style="flex:1;min-width:160px;background:var(--surface);border:1px solid var(--accent2);border-radius:8px;padding:14px;"><div class="kpi-label" style="color:var(--accent2);">Nueva entrega</div><div style="font-size:16px;font-weight:800;color:var(--accent2);">${MAKRO.fechaEntregaNueva}</div></div>
+        </div>
+        <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.7px;color:var(--text-dim);margin-bottom:8px;">Motivo del ajuste</div>
+        <ul style="margin:0;padding-left:18px;color:var(--text-muted);font-size:13px;line-height:1.7;">
+          ${MAKRO.observaciones.map(o=>`<li>${o}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+    <div class="charts-row">
+      <div class="chart-card"><div class="chart-title">⏱ Horas por Sprint</div><div class="chart-wrap"><canvas id="chSprint"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">🗓 Cronograma — Diagrama de Gantt</div>
+        <div class="gantt-wrap" style="max-height:230px;overflow-y:auto;">
+        ${GANTT.activities.filter(a=>a.dias>0).map(a=>{
+          const total=GANTT.days.length;
+          const left=Math.round((a.inicio/total)*100);
+          const width=Math.max(6,Math.round(((a.fin-a.inicio+1)/total)*100));
+          return `<div style="margin-bottom:10px;"><div style="font-size:11px;color:var(--text-muted);margin-bottom:3px;">${a.actividad} <span style="color:var(--text-dim)">(${a.dias}d)</span></div><div class="gantt-bar-track"><div class="gantt-bar" style="left:${left}%;width:${width}%;">${a.dias}d</div></div></div>`;
+        }).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="table-header"><h3>🚀 Detalle de Sprints — Proyecto Makro</h3><span>${SPRINTS.length} actividades · ${MAKRO.horasActual}h planificadas</span></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Sprint</th><th>Fecha</th><th>Día</th><th>Actividad</th><th>HU</th><th>Horas</th><th>Responsable</th><th>Estado</th></tr></thead>
+        <tbody>
+        ${SPRINTS.map(s=>`<tr>
+          <td class="td-name">${s.sprint}</td>
+          <td class="td-date">${s.fecha}</td>
+          <td style="color:var(--text-muted);font-size:12px;">${s.dia}</td>
+          <td style="font-size:12px;">${s.actividad}</td>
+          <td style="color:var(--text-muted);font-size:12px;">${s.hu}</td>
+          <td class="td-horas">${s.horas}h</td>
+          <td style="color:var(--text-muted);font-size:12px;">${s.responsable}</td>
+          <td><span class="estado-chip ${s.estado.includes('Completado')||s.estado.includes('✓')?'e-cerrado':'e-curso'}">${s.estado}</span></td>
+        </tr>`).join('')}
+        </tbody>
+      </table></div>
+    </div>
+  `;
+  const cc=chartColors();
+  charts.sp=new Chart(document.getElementById('chSprint'),{type:'bar',
+    data:{labels:horasBySprint.map(h=>h.sprint),datasets:[{data:horasBySprint.map(h=>h.horas),backgroundColor:['#4f7cff','#38d9b0','#c084fc','#fbbf24'],borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:cc.grid},ticks:{color:cc.tick}},x:{grid:{display:false},ticks:{color:cc.tick}}}}});
+}
+
+function toggleTheme(){ const isLight=document.documentElement.getAttribute('data-theme')==='light'; applyTheme(isLight?'dark':'light'); }
+function applyTheme(theme){
+  const root=document.documentElement;
+  if(theme==='light'){ root.setAttribute('data-theme','light'); document.querySelector('.icon-moon').style.display='none'; document.querySelector('.icon-sun').style.display='block'; document.getElementById('themeLabel').textContent='Oscuro'; }
+  else { root.removeAttribute('data-theme'); document.querySelector('.icon-moon').style.display='block'; document.querySelector('.icon-sun').style.display='none'; document.getElementById('themeLabel').textContent='Claro'; }
+  renderContent();
+}
+
+// ===================== EXPORT PPT =====================
+async function exportPPT(){
+  const btn=document.querySelector('.btn-export');
+  if(typeof PptxGenJS==='undefined'){ alert('No se pudo cargar la librería de PowerPoint (PptxGenJS). Verifica tu conexión e inténtalo de nuevo.'); return; }
+  const orig=btn.innerHTML; btn.disabled=true; btn.style.opacity='0.7'; btn.innerHTML='Generando PPTX…';
+  try{ await buildPPTX(); }
+  catch(err){ console.error(err); alert('Error al generar PPTX:\n\n'+(err&&err.message?err.message:err)); }
+  finally{ btn.disabled=false; btn.style.opacity='1'; btn.innerHTML=orig; }
+}
+
+async function buildPPTX(){
+  const pptx=new PptxGenJS();
+  pptx.layout='LAYOUT_WIDE';
+  pptx.title='Seguimiento de Soporte Alpina 2026';
+  const BG='080F1E',CARD='111D35',CARD2='0D1628',BDR='1E2D4A',ACCENT='4F7CFF',TEXT='E8EDF7',MUTED='6B7FA8',DIM='4A5A7A',GREEN='38D9B0',FF='Calibri';
+
+  function header(slide,title,sub,num,total){
+    slide.background={color:BG};
+    slide.addShape(pptx.ShapeType.rect,{x:0,y:0,w:'100%',h:0.85,fill:{color:CARD2},line:{color:BDR,pt:1}});
+    slide.addShape(pptx.ShapeType.rect,{x:0,y:0,w:0.06,h:0.85,fill:{color:ACCENT}});
+    slide.addText(title,{x:0.22,y:0.1,w:9.8,h:0.38,fontSize:13,bold:true,color:TEXT,fontFace:FF});
+    slide.addText(sub,{x:0.22,y:0.5,w:9.8,h:0.26,fontSize:8.5,color:MUTED,fontFace:FF});
+    if(num!==undefined) slide.addText(`${num} de ${total}`,{x:10.4,y:0.28,w:2.9,h:0.3,fontSize:9,color:DIM,fontFace:FF,align:'right'});
+    slide.addShape(pptx.ShapeType.rect,{x:0,y:7.3,w:'100%',h:0.02,fill:{color:BDR}});
+    slide.addText('2nv Automatización  ·  Alpina 2026',{x:0,y:7.33,w:'100%',h:0.22,fontSize:7.5,color:DIM,fontFace:FF,align:'center'});
+  }
+  function kpirow(slide,items){ items.forEach((k,i)=>{const x=0.28+i*3.35;
+    slide.addShape(pptx.ShapeType.rect,{x,y:1.05,w:3.1,h:1.5,fill:{color:CARD},line:{color:BDR,pt:1}});
+    slide.addShape(pptx.ShapeType.rect,{x,y:1.05,w:3.1,h:0.06,fill:{color:k.c}});
+    slide.addText(String(k.v),{x,y:1.26,w:3.1,h:0.7,fontSize:28,bold:true,color:TEXT,fontFace:FF,align:'center'});
+    slide.addText(k.l,{x,y:1.98,w:3.1,h:0.35,fontSize:8.5,color:MUTED,fontFace:FF,align:'center',bold:true});}); }
+
+  // SLIDE RESUMEN
+  const all=allCases();
+  const totalHoras=Math.round(all.reduce((a,b)=>a+b.horas,0)*10)/10;
+  const cerrados=all.filter(r=>{const x=(r.estado||'').toLowerCase();return x.startsWith('cerrado')||x==='ok';}).length;
+  const s0=pptx.addSlide();
+  header(s0,'SEGUIMIENTO DE SOPORTE · ALPINA','Resumen consolidado Enero – Julio 2026');
+  kpirow(s0,[{l:'Total Casos',v:all.length,c:ACCENT},{l:'Horas Totales',v:totalHoras,c:GREEN},{l:'Resueltos',v:cerrados,c:'34D399'},{l:'Bots Soporte',v:BOTS_SOPORTE,c:'C084FC'}]);
+  s0.addText('CONSOLIDADO POR MES',{x:0.28,y:2.8,w:12.8,h:0.28,fontSize:8,color:MUTED,fontFace:FF,bold:true});
+  const trr=[[{text:'Mes',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},border:{pt:1,color:BDR}}},{text:'Casos',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}},{text:'Horas',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}},{text:'Promedio h/caso',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}}]];
+  MESES.forEach(m=>{const r=getMes(m);const h=Math.round(r.reduce((a,b)=>a+b.horas,0)*10)/10;
+    trr.push([{text:m,options:{color:TEXT,fontSize:9,fill:{color:CARD},bold:true,border:{pt:1,color:BDR}}},{text:String(r.length),options:{color:ACCENT,fontSize:9,fill:{color:CARD},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:h+'h',options:{color:GREEN,fontSize:9,fill:{color:CARD},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:r.length?(h/r.length).toFixed(1):'0',options:{color:MUTED,fontSize:9,fill:{color:CARD},align:'center',border:{pt:1,color:BDR}}}]);});
+  s0.addTable(trr,{x:0.28,y:3.1,w:12.8,colW:[3.2,3.2,3.2,3.2],fontFace:FF,border:{pt:1,color:BDR}});
+
+  // SLIDE POR MES
+  for(const mes of MESES){
+    const rows=getMes(mes); if(!rows.length)continue;
+    const sm=pptx.addSlide();
+    const h=Math.round(rows.reduce((a,b)=>a+b.horas,0)*10)/10;
+    const cerr=rows.filter(r=>{const x=(r.estado||'').toLowerCase();return x.startsWith('cerrado')||x==='ok';}).length;
+    header(sm,`${mes.toUpperCase()} 2026 · ALPINA`,`${rows.length} casos · ${h}h de soporte · ${cerr} resueltos`);
+    kpirow(sm,[{l:'Casos',v:rows.length,c:ACCENT},{l:'Horas',v:h,c:GREEN},{l:'Resueltos',v:cerr,c:'34D399'},{l:'Abiertos',v:rows.filter(r=>(r.estado||'').toLowerCase().startsWith('abierto')).length,c:'F87171'}]);
+    sm.addText('CASOS DEL MES',{x:0.28,y:2.75,w:12.8,h:0.25,fontSize:8,color:MUTED,fontFace:FF,bold:true});
+    const th=[[{text:'#',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'},align:'center'}},{text:'Soporte',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}},{text:'Estado',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}},{text:'Descripción',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}},{text:'Hrs',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'},align:'center'}}]];
+    rows.slice(0,22).forEach((d,i)=>{th.push([{text:String(i+1),options:{color:DIM,fontSize:7,fill:{color:CARD},align:'center'}},{text:d.nombre.slice(0,40),options:{color:'6B93FF',fontSize:7,bold:true,fill:{color:CARD}}},{text:(d.estado||'—').slice(0,18),options:{color:MUTED,fontSize:7,fill:{color:CARD}}},{text:(d.descripcion||'—').slice(0,55),options:{color:MUTED,fontSize:6.5,fill:{color:CARD}}},{text:d.horas+'h',options:{color:GREEN,fontSize:7,bold:true,fill:{color:CARD},align:'center'}}]);});
+    sm.addTable(th,{x:0.28,y:3.02,w:12.8,colW:[0.5,3.5,1.8,6.1,0.9],fontFace:FF,border:{pt:1,color:BDR},autoPage:false});
+    if(rows.length>22) sm.addText(`+ ${rows.length-22} casos adicionales (ver dashboard)`,{x:0.28,y:7.0,w:12.8,h:0.25,fontSize:8,color:DIM,fontFace:FF,italic:true,align:'center'});
+
+    // Slide de Solicitudes Nuevas del mes
+    const sols=SOLICITUDES[mes]||[];
+    if(sols.length){
+      const ss=pptx.addSlide();
+      header(ss,`${mes.toUpperCase()} 2026 · SOLICITUDES NUEVAS`,`Solicitudes Nuevas a Realizar · ${sols.length} solicitudes`);
+      const ts=[[{text:'#',options:{bold:true,color:MUTED,fontSize:8,fill:{color:'0A1525'},align:'center'}},{text:'Grupo',options:{bold:true,color:MUTED,fontSize:8,fill:{color:'0A1525'}}},{text:'Estado',options:{bold:true,color:MUTED,fontSize:8,fill:{color:'0A1525'}}},{text:'Descripción de la solicitud',options:{bold:true,color:MUTED,fontSize:8,fill:{color:'0A1525'}}}]];
+      sols.slice(0,24).forEach((s,i)=>{ts.push([{text:String(i+1),options:{color:DIM,fontSize:7,fill:{color:CARD},align:'center'}},{text:(s.grupo||'—').slice(0,16),options:{color:'6B93FF',fontSize:7,fill:{color:CARD}}},{text:(s.estado||'—').slice(0,14),options:{color:MUTED,fontSize:7,fill:{color:CARD}}},{text:(s.desc||'').slice(0,110),options:{color:TEXT,fontSize:7,fill:{color:CARD}}}]);});
+      ss.addText('SOLICITUDES NUEVAS A REALIZAR',{x:0.28,y:1.1,w:12.8,h:0.25,fontSize:8,color:MUTED,fontFace:FF,bold:true});
+      ss.addTable(ts,{x:0.28,y:1.35,w:12.8,colW:[0.5,1.9,1.4,9.0],fontFace:FF,border:{pt:1,color:BDR},autoPage:false});
+      if(sols.length>24) ss.addText(`+ ${sols.length-24} solicitudes adicionales (ver dashboard)`,{x:0.28,y:7.0,w:12.8,h:0.25,fontSize:8,color:DIM,fontFace:FF,italic:true,align:'center'});
+    }
+  }
+
+  // SLIDE BOTS (categorizado)
+  const sb=pptx.addSlide();
+  const rN=BOTS.filter(b=>b.cat==='Rocketbot').length, peN=BOTS.filter(b=>b.cat==='Python entregados').length, prN=BOTS.filter(b=>b.cat==='Python por recibir').length;
+  header(sb,'BOTS EN SOPORTE · 2NV','Inventario por categoría y estado de migración');
+  kpirow(sb,[{l:'Total Bots',v:BOTS_SOPORTE,c:ACCENT},{l:'Rocketbot',v:rN,c:'4F7CFF'},{l:'Python entregados',v:peN,c:GREEN},{l:'Python por recibir',v:prN,c:'FBBF24'}]);
+  const tb=[[{text:'Categoría',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}},{text:'Bot',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}},{text:'Observaciones / Estado de Migración',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}}]];
+  BOT_CATS.forEach(cat=>{ BOTS.filter(b=>b.cat===cat).forEach(b=>{
+    tb.push([{text:BOT_CAT_LABELS[cat].replace('Bots ',''),options:{color:'6B93FF',fontSize:6.5,fill:{color:CARD}}},{text:b.bot,options:{color:TEXT,fontSize:7,bold:true,fill:{color:CARD}}},{text:(b.estado||'—').slice(0,95),options:{color:MUTED,fontSize:6.5,fill:{color:CARD}}}]);
+  });});
+  sb.addText('INVENTARIO DE BOTS (19)',{x:0.28,y:2.7,w:12.8,h:0.22,fontSize:8,color:MUTED,fontFace:FF,bold:true});
+  sb.addTable(tb,{x:0.28,y:2.94,w:12.8,colW:[2.6,2.4,7.8],fontFace:FF,border:{pt:1,color:BDR},autoPage:false});
+
+  // SLIDE MAKRO — Observaciones actualización horas
+  const smkO=pptx.addSlide();
+  header(smkO,'PROYECTO MAKRO · ACTUALIZACIÓN DE HORAS','Reprogramación de 130 h a 150 h y nueva fecha de entrega');
+  kpirow(smkO,[{l:'Horas anteriores',v:MAKRO.horasAnterior,c:'6B7FA8'},{l:'Horas actualizadas',v:MAKRO.horasActual,c:'FBBF24'},{l:'Entrega anterior',v:MAKRO.fechaEntregaAnterior,c:'6B7FA8'},{l:'Nueva entrega',v:MAKRO.fechaEntregaNueva,c:GREEN}]);
+  smkO.addText('MOTIVO DEL AJUSTE',{x:0.28,y:2.75,w:12.8,h:0.25,fontSize:8,color:MUTED,fontFace:FF,bold:true});
+  const obsText=MAKRO.observaciones.map(o=>'•  '+o).join('\n\n');
+  smkO.addShape(pptx.ShapeType.rect,{x:0.28,y:3.05,w:12.8,h:3.6,fill:{color:CARD},line:{color:'FBBF24',pt:1}});
+  smkO.addText(obsText,{x:0.5,y:3.25,w:12.4,h:3.2,fontSize:11,color:TEXT,fontFace:FF,wrap:true,valign:'top',lineSpacingMultiple:1.1});
+
+  // SLIDE MAKRO — Sprints
+  const smk=pptx.addSlide();
+  const comp=SPRINTS.filter(s=>s.estado.includes('Completado')||s.estado.includes('✓')).length;
+  const sgroups=[...new Set(SPRINTS.map(s=>s.sprint))];
+  header(smk,'PROYECTO MAKRO · SPRINTS','Cronograma y avance del proyecto');
+  kpirow(smk,[{l:'Actividades',v:SPRINTS.length,c:ACCENT},{l:'Horas Plan.',v:MAKRO.horasActual,c:'FBBF24'},{l:'Completadas',v:comp,c:'34D399'},{l:'Sprints',v:sgroups.length,c:'C084FC'}]);
+  smk.addText('DETALLE DE SPRINTS',{x:0.28,y:2.75,w:12.8,h:0.25,fontSize:8,color:MUTED,fontFace:FF,bold:true});
+  const tm=[[{text:'Sprint',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}},{text:'Fecha',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}},{text:'Actividad',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}},{text:'HU',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}},{text:'Hrs',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'},align:'center'}},{text:'Estado',options:{bold:true,color:MUTED,fontSize:7.5,fill:{color:'0A1525'}}}]];
+  SPRINTS.slice(0,24).forEach(s=>{tm.push([{text:s.sprint,options:{color:'6B93FF',fontSize:7,bold:true,fill:{color:CARD}}},{text:s.fecha,options:{color:MUTED,fontSize:7,fill:{color:CARD}}},{text:s.actividad.slice(0,30),options:{color:TEXT,fontSize:7,fill:{color:CARD}}},{text:s.hu,options:{color:MUTED,fontSize:7,fill:{color:CARD}}},{text:s.horas+'h',options:{color:GREEN,fontSize:7,bold:true,fill:{color:CARD},align:'center'}},{text:s.estado.slice(0,16),options:{color:s.estado.includes('Completado')||s.estado.includes('✓')?'34D399':'60A5FA',fontSize:7,fill:{color:CARD}}}]);});
+  smk.addTable(tm,{x:0.28,y:3.02,w:12.8,colW:[1.6,1.6,4.0,1.2,1.0,3.4],fontFace:FF,border:{pt:1,color:BDR},autoPage:false});
+
+  await pptx.writeFile({ fileName:'Seguimiento_Soporte_Alpina_2026.pptx' });
+}
+
+renderTabs();
+renderContent();
+</script>
+</body>
+</html>

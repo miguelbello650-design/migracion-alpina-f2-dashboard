@@ -63,6 +63,41 @@
     display: flex; gap: 0; padding: 0 40px;
     border-bottom: 2px solid #c8d2e0;
   }
+  .primary-tabs, .support-tabs { background: rgba(255,255,255,.58); border-top: 1px solid rgba(200,210,224,.7); }
+  .primary-tab { background: none; border: 0; border-bottom: 3px solid transparent; color: #5b6f8c; cursor: pointer; font-size: 13px; font-weight: 700; margin-bottom: -2px; padding: 13px 24px; transition: color .2s ease, border-color .2s ease; }
+  .primary-tab:hover, .primary-tab.active { color: var(--color-alpina); }
+  .primary-tab.active { border-bottom-color: var(--color-alpina); }
+  .development-tabs { display: none; background: rgba(255,255,255,.42); }
+  .development-tabs.visible { display: flex; }
+  .development-tabs .tab, .support-tabs .tab { font-size: 12px; padding-bottom: 9px; padding-top: 9px; }
+  .support-workspace { padding: 20px 40px 32px; }
+  .support-toolbar { align-items: center; display: flex; gap: 10px; justify-content: flex-end; margin: 0 0 12px; }
+  .support-upload, .support-reset { border: 1px solid #c8d2e0; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: 12px; font-weight: 600; padding: 8px 12px; transition: background .2s ease, border-color .2s ease; }
+  .support-upload { background: #0033a0; border-color: #0033a0; color: #fff; }
+  .support-upload:hover { background: #002a80; }
+  .support-reset { background: #fff; color: #1e3a5f; }
+  .support-reset:hover { background: #eef4fb; border-color: #8da5c5; }
+  .support-tabs { margin-bottom: 0; }
+  .support-summary { padding: 20px 40px 32px; }
+  .support-summary h2 { color: #1e3a5f; font-size: 16px; font-weight: 700; margin: 0 0 12px; }
+  #development-summary-content { margin-top: 24px; }
+  .support-kpis { display: grid; gap: 16px; grid-template-columns: repeat(4, minmax(0,1fr)); margin-bottom: 20px; }
+  .support-kpi { background: rgba(255,255,255,.9); border: 1px solid #d9e2ee; border-top: 3px solid var(--support-color,#0033a0); border-radius: 8px; padding: 16px; }
+  .support-kpi-label { color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .support-kpi-value { color: #1e3a5f; font-size: 26px; font-weight: 800; line-height: 1.1; margin-top: 8px; }
+  .support-kpi-sub { color: #64748b; font-size: 11px; margin-top: 4px; }
+  .support-table { background: rgba(255,255,255,.92); border: 1px solid #d9e2ee; border-radius: 8px; margin-bottom: 20px; overflow: auto; }
+  .support-table table { border-collapse: collapse; min-width: 760px; width: 100%; }
+  .support-table th { background: #edf3fa; color: #1e3a5f; font-size: 11px; padding: 10px 12px; text-align: left; white-space: nowrap; }
+  .support-table td { border-top: 1px solid #e2e8f0; color: #475569; font-size: 12px; padding: 10px 12px; vertical-align: top; }
+  .support-table td:last-child, .support-table th:last-child { text-align: right; }
+  .support-table-title { color: #1e3a5f; font-size: 15px; font-weight: 700; margin: 0 0 10px; }
+  .support-status { border-radius: 99px; display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 8px; white-space: nowrap; }
+  .support-status.closed, .support-status.ok { background: #dcfce7; color: #15803d; }
+  .support-status.open { background: #fee2e2; color: #b91c1c; }
+  .support-status.pending { background: #fef3c7; color: #a16207; }
+  .support-status.other { background: #dbeafe; color: #1d4ed8; }
+  .support-embedded { background: transparent; border: 1px solid rgba(148,163,184,.32); border-radius: 8px; display: block; height: 980px; width: 100%; }
   .tab {
     padding: 10px 24px; font-size: 13px; font-weight: 600;
     color: #5b6f8c; cursor: pointer; border: none; background: none;
@@ -143,7 +178,7 @@
   .proyecto-card .p-header .p-icon.robotina { background: #0891b2; }
   .proyecto-card .p-header .p-icon.optimus { background: #7c3aed; }
   .proyecto-card .p-header .p-icon.lamonita { background: #dc2626; }
-  .proyecto-card .p-header .p-icon.lamonitafase2 { background: #dc2626; }
+  .proyecto-card .p-header .p-icon.lamonitafase2, .proyecto-card .p-header .p-icon.lamonitafase2nuevoflujo { background: #dc2626; }
   .proyecto-card .p-header .p-icon.horasextra { background: #b45309; }
   .proyecto-card .p-header .p-icon.googlenova { background: #4285F4; }
   .proyecto-card .p-header .p-icon.felifase2 { background: #6366f1; }
@@ -177,19 +212,35 @@
   .modal-box .modal-close { background: #1e3a5f; color: #fff; border: none; padding: 10px 32px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
   .proyectos-wrapper { display: flex; gap: 24px; padding: 16px 40px; align-items: flex-start; }
   .proyectos-wrapper #proyectos-container { flex: 1; min-width: 0; }
-  .proyectos-wrapper #proyectos-chart { width: 340px; flex-shrink: 0; background: #fff; border: 1px solid rgba(148,163,184,0.18); border-radius: 8px; box-shadow: 0 4px 24px rgba(15,23,42,0.07); padding: 16px 20px 20px; align-self: flex-start; transition: transform .24s ease, box-shadow .24s ease; }
-  .proyectos-wrapper #proyectos-chart:hover { box-shadow: 0 16px 32px rgba(15,23,42,0.13); transform: translateY(-6px); }
-  .proyectos-wrapper #proyectos-chart h3 { font-size: 14px; color: #0f172a; font-weight: 700; margin: 0 0 12px; text-align: center; }
-  .proyectos-wrapper .chart-donut-wrap { position: relative; width: 200px; height: 200px; margin: 0 auto 12px; }
-  .proyectos-wrapper .chart-donut-wrap svg { width: 100%; height: 100%; }
-  .proyectos-wrapper .chart-donut-total { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: #1e3a5f; line-height: 1.2; }
-  .proyectos-wrapper .chart-donut-total small { font-size: 11px; font-weight: 400; color: #94a3b8; }
-  .proyectos-wrapper .chart-legend { display: flex; flex-direction: column; gap: 6px; font-size: 11px; color: #475569; }
-  .proyectos-wrapper .chart-legend-row { display: flex; align-items: center; gap: 8px; }
-  .proyectos-wrapper .chart-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-  .proyectos-wrapper .chart-legend-name { flex: 1; }
-  .proyectos-wrapper .chart-legend-hours { font-weight: 600; color: #1e3a5f; }
-  .proyectos-wrapper .chart-legend span { display: flex; align-items: center; gap: 4px; }
+  #proyectos-chart { width: 340px; flex-shrink: 0; background: #fff; border: 1px solid rgba(148,163,184,0.18); border-radius: 8px; box-shadow: 0 4px 24px rgba(15,23,42,0.07); padding: 16px 20px 20px; align-self: flex-start; transition: transform .24s ease, box-shadow .24s ease; }
+  #proyectos-chart:hover { box-shadow: 0 16px 32px rgba(15,23,42,0.13); transform: translateY(-6px); }
+  #proyectos-chart h3 { font-size: 14px; color: #0f172a; font-weight: 700; margin: 0 0 12px; text-align: center; }
+  .chart-donut-wrap { position: relative; width: 200px; height: 200px; margin: 0 auto 12px; }
+  .chart-donut-wrap svg { width: 100%; height: 100%; }
+  .chart-donut-total { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; color: #1e3a5f; line-height: 1.2; }
+  .chart-donut-total small { font-size: 11px; font-weight: 400; color: #94a3b8; }
+  .chart-legend { display: flex; flex-direction: column; gap: 6px; font-size: 11px; color: #475569; }
+  .chart-legend-row { display: flex; align-items: center; gap: 8px; }
+  .chart-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .chart-legend-name { flex: 1; }
+  .chart-legend-hours { font-weight: 600; color: #1e3a5f; }
+  .chart-legend span { display: flex; align-items: center; gap: 4px; }
+  .chart-row-break { flex-basis: 100%; height: 0; }
+  .development-project-section { flex-basis: 100%; }
+  .development-project-section h2 { color: #1e3a5f; font-size: 16px; font-weight: 700; margin: 0 0 12px; }
+  .development-project-layout { align-items: flex-start; display: flex; flex-wrap: wrap; gap: 24px; }
+  #development-focus-chart { background: #fff; border: 1px solid rgba(148,163,184,.18); border-radius: 8px; box-shadow: 0 4px 24px rgba(15,23,42,.07); flex: 1; min-width: 360px; padding: 18px 20px; transition: transform .32s ease, box-shadow .32s ease; }
+  #development-focus-chart:hover { box-shadow: 0 16px 32px rgba(15,23,42,.13); transform: translateY(-6px); }
+  .development-focus-header { align-items: baseline; display: flex; justify-content: space-between; margin-bottom: 12px; }
+  .development-focus-header h3 { color: #0f172a; font-size: 14px; font-weight: 700; margin: 0; }
+  .development-focus-header span { color: #64748b; font-size: 11px; }
+  .development-focus-chart { display: block; height: 230px; overflow: visible; width: 100%; }
+  .development-focus-area { fill: rgba(45,212,191,.22); }
+  .development-focus-line { fill: none; stroke: #14b8a6; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; }
+  .development-focus-point { fill: #2dd4bf; stroke: #2dd4bf; stroke-width: 3; }
+  .development-focus-label { fill: #64748b; font-size: 11px; text-anchor: middle; }
+  .development-focus-axis { fill: #64748b; font-size: 10px; text-anchor: end; }
+  .development-focus-value { fill: #0f766e; font-size: 11px; font-weight: 700; text-anchor: middle; }
   .p-fill.nova { background: #0033a0; }
   .p-fill.feli { background: #6366f1; }
   .p-fill.robotina { background: #0891b2; }
@@ -380,7 +431,7 @@
   @media (max-width: 1180px) {
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 24px; }
     .proyectos-wrapper { flex-direction: column; padding: 20px 24px; }
-    .proyectos-wrapper #proyectos-chart { align-self: stretch; max-width: 520px; width: 100%; }
+    #proyectos-chart { align-self: stretch; max-width: 520px; width: 100%; }
     #reporte-container { padding: 24px !important; }
     .tab-content > .gantt-wrap { margin: 20px 24px; }
   }
@@ -394,8 +445,12 @@
     .tabs { overflow-x: auto; padding: 0 16px; scrollbar-width: none; }
     .tabs::-webkit-scrollbar { display: none; }
     .tab { flex: 0 0 auto; padding: 10px 16px; }
+    .primary-tab { flex: 0 0 auto; padding: 12px 16px; }
+    .support-workspace, .support-summary { padding: 16px; }
+    .support-kpis { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .support-embedded { height: 820px; }
     .grid { grid-template-columns: 1fr; gap: 16px; padding: 16px; }
-    .card:hover, .proyecto-card:hover, .proyectos-wrapper #proyectos-chart:hover, .reporte-block:hover, .reporte-charts > div:hover, .reporte-contract-chart:hover { transform: none; }
+    .card:hover, .proyecto-card:hover, #proyectos-chart:hover, #development-focus-chart:hover, .reporte-block:hover, .reporte-charts > div:hover, .reporte-contract-chart:hover { transform: none; }
     .card-header, .card-body, .card-footer, .card-curso { padding-left: 16px; padding-right: 16px; }
     .card-footer { flex-wrap: wrap; gap: 6px 12px; }
     .card-header .milestone-info { white-space: normal; text-align: left; }
@@ -409,6 +464,7 @@
     .reporte-grid { grid-template-columns: 1fr; gap: 16px; }
     .reporte-charts { gap: 16px !important; }
     .reporte-charts > div { min-width: 0 !important; width: 100%; }
+    #development-focus-chart { min-width: 0; width: 100%; }
     .reporte-contract-chart { min-width: 0; }
     .tab-content > div[style*="padding:12px"] { padding: 12px 16px 0 !important; }
     .tab-content > .gantt-wrap { margin: 16px; padding: 12px; -webkit-overflow-scrolling: touch; }
@@ -434,7 +490,7 @@
     .curso-task { max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
     .proyecto-card .p-header { align-items: flex-start; }
     .proyecto-card .p-header .p-badge { font-size: 10px; }
-    .proyectos-wrapper .chart-donut-wrap { width: 180px; height: 180px; }
+    .chart-donut-wrap { width: 180px; height: 180px; }
     .reporte-block, .reporte-charts > div, .reporte-contract-chart { padding: 14px !important; }
     .reporte-stats { flex-wrap: wrap; gap: 4px 10px; }
     .modal-box { padding: 22px 20px; }
@@ -499,10 +555,30 @@
   </div>
 </div>
 
-<div class="tabs">
+<div class="tabs primary-tabs">
+  <button class="primary-tab active" data-section="resumen">RESUMEN</button>
+  <button class="primary-tab" data-section="desarrollo">SEGUIMIENTO A DESARROLLO</button>
+  <button class="primary-tab" data-section="soporte">SEGUIMIENTO A SOPORTE</button>
+</div>
+
+<div class="tabs development-tabs" id="development-tabs">
   <button class="tab" data-tab="tab-proyectos">PROYECTOS</button>
   <button class="tab active" data-tab="tab-avance">% AVANCE</button>
   <button class="tab" data-tab="tab-reporte">REPORTE DE HORAS</button>
+</div>
+
+<div class="tab-content" id="tab-resumen"><div class="support-summary"><h2>CONSUMO DE HORAS</h2><div id="consumption-summary-content"></div><div id="development-summary-content"></div></div><div class="support-summary"><h2>SOPORTE</h2><div id="support-summary-content"></div></div></div>
+<div class="tab-content" id="tab-desarrollo"></div>
+<div class="tab-content" id="tab-soporte">
+  <div class="tabs support-tabs" id="support-tabs"></div>
+  <div class="support-workspace">
+    <div class="support-toolbar">
+      <label class="support-upload" for="support-html-input">Cargar HTML</label>
+      <input id="support-html-input" type="file" accept="text/html,.html,.htm" hidden onchange="loadSupportHtml(this)">
+      <button class="support-reset" type="button" onclick="resetSupportHtml()">Restablecer</button>
+    </div>
+    <div id="support-content"></div>
+  </div>
 </div>
 
 <div class="tab-content active" id="tab-avance">
@@ -716,6 +792,7 @@ document.querySelectorAll('.tab').forEach(t => {
     openTab(t.dataset.tab);
   });
 });
+document.querySelectorAll('.primary-tab').forEach(t => t.addEventListener('click', () => openSection(t.dataset.section)));
 
 // Avance dashboard
 document.getElementById('fecha-label').textContent=new Date().toLocaleDateString('es-CO',{year:'numeric',month:'long',day:'numeric'});
@@ -1575,7 +1652,12 @@ async function loadServerState() {
       if (data.ganttRows.googlenova) { GANTT_ROWS_GOOGLE_NOVA.length = 0; data.ganttRows.googlenova.forEach(t => GANTT_ROWS_GOOGLE_NOVA.push(t)); }
     }
     if (data.staticMonthly) STATIC_MONTHLY = data.staticMonthly;
-    if (data.proyectos) PROYECTOS = data.proyectos;
+    if (data.proyectos) {
+      const staticProjects = new Map(PROYECTOS.filter(project => project.staticData).map(project => [project.key, project]));
+      const serverKeys = new Set(data.proyectos.map(project => project.key));
+      PROYECTOS = data.proyectos.map(project => staticProjects.get(project.key) || project);
+      staticProjects.forEach((project, key) => { if (!serverKeys.has(key)) PROYECTOS.push(project); });
+    }
   } catch(e) { console.error('loadServerState error', e); }
 }
 function renderAll() {
@@ -1585,6 +1667,10 @@ function renderAll() {
   prepareCardPercentages();
   requestAnimationFrame(animateCardPercentages);
   if (document.getElementById('tab-proyectos').classList.contains('active')) requestAnimationFrame(animateProjectProgress);
+  if (document.getElementById('tab-resumen').classList.contains('active')) {
+    requestAnimationFrame(animateProjectChart);
+    requestAnimationFrame(animateDevelopmentFocusChart);
+  }
 }
 
 function prepareCardPercentages() {
@@ -1649,6 +1735,16 @@ function animateProjectChart() {
   });
 }
 
+function animateDevelopmentFocusChart() {
+  const line = document.querySelector('#development-focus-chart .development-focus-line');
+  if (!line || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const length = line.getTotalLength();
+  line.style.transition = 'none';
+  line.style.strokeDasharray = length;
+  line.style.strokeDashoffset = length;
+  requestAnimationFrame(() => { line.style.transition = 'stroke-dashoffset 1.2s ease-out'; line.style.strokeDashoffset = '0'; });
+}
+
 function animateReportProgress() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const bars = [...document.querySelectorAll('#reporte-container .reporte-bar-fill')].map(bar => ({ bar, target: bar.dataset.width })).filter(({ target }) => target);
@@ -1656,7 +1752,7 @@ function animateReportProgress() {
     bars.forEach(({ bar, target }, index) => setTimeout(() => { bar.style.width = target; }, index * 65));
   });
 
-  document.querySelectorAll('#reporte-container .report-donut-reveal').forEach(reveal => {
+  document.querySelectorAll('#reporte-container .report-donut-reveal, #development-summary-content .report-donut-reveal, #consumption-summary-content .report-donut-reveal').forEach(reveal => {
     const length = reveal.getTotalLength() + 2;
     reveal.style.transition = 'none';
     reveal.style.strokeDasharray = length;
@@ -1667,19 +1763,19 @@ function animateReportProgress() {
     });
   });
 
-  const monthBars = [...document.querySelectorAll('#reporte-container .report-month-bar')].map(bar => ({ bar, target: bar.dataset.height })).filter(({ target }) => target);
+  const monthBars = [...document.querySelectorAll('#reporte-container .report-month-bar, #development-summary-content .report-month-bar')].map(bar => ({ bar, target: bar.dataset.height })).filter(({ target }) => target);
   requestAnimationFrame(() => {
     monthBars.forEach(({ bar, target }, index) => setTimeout(() => { bar.style.height = target; }, index * 180));
   });
 
-  document.querySelectorAll('#reporte-container .report-month-line .trend-path').forEach(line => {
+  document.querySelectorAll('#reporte-container .report-month-line .trend-path, #development-summary-content .report-month-line .trend-path').forEach(line => {
     const length = line.getTotalLength();
     line.style.strokeDasharray = length;
     line.style.strokeDashoffset = length;
     requestAnimationFrame(() => setTimeout(() => { line.style.transition = 'stroke-dashoffset 1.35s ease-out'; line.style.strokeDashoffset = '0'; }, 180));
   });
-  const trendDots = document.querySelectorAll('#reporte-container .trend-dot');
-  const monthValues = document.querySelectorAll('#reporte-container .report-month-value');
+  const trendDots = document.querySelectorAll('#reporte-container .trend-dot, #development-summary-content .trend-dot');
+  const monthValues = document.querySelectorAll('#reporte-container .report-month-value, #development-summary-content .report-month-value');
   trendDots.forEach((dot, index) => {
     setTimeout(() => {
       dot.classList.add('is-visible');
@@ -1695,7 +1791,8 @@ let PROYECTOS = [
   { key:'robotina', name:'ROBOTINA', icon:'R', responsable:'Javier Gonzalez', color:'#0891b2', rows: null },
   { key:'optimus', name:'OPTIMUS', icon:'O', responsable:'Cristian Bonilla', color:'#7c3aed', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,10,20), endDate:new Date(2026,0,9), hours:286, desc:'Proyecto finalizado' } },
   { key:'lamonita', name:'LA MONITA', icon:'M', responsable:'Johan Sabino', color:'#dc2626', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,10,20), endDate:new Date(2026,0,26), hours:373, desc:'Proyecto finalizado' } },
-  { key:'lamonitafase2', name:'La Monita Fase 2', icon:'M', responsable:'Johan Sabino', color:'#dc2626', rows: null, staticData:{ status:'proximo', desc:'Incorporación de nuevos clientes en el flujo del Bot<br>Incorporación de nuevo flujo, Proceso para la creación de pedidos (bajas) SAP' } },
+  { key:'lamonitafase2', name:'La Monita Fase 2', icon:'M', responsable:'Johan Sabino', color:'#dc2626', rows: null, staticData:{ status:'proximo', desc:'Incorporación de nuevos clientes en el flujo del Bot' } },
+  { key:'lamonitafase2nuevoflujo', name:'La Monita Fase 2 - Nuevo Flujo', icon:'M', responsable:'Johan Sabino', color:'#dc2626', rows: null, staticData:{ status:'proximo', desc:'Incorporación de nuevo flujo, Proceso para la creación de pedidos (bajas) SAP' } },
   { key:'horasextra', name:'HORAS EXTRA', icon:'H', responsable:'Javier Gonzalez', color:'#b45309', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,11,9), endDate:new Date(2026,1,20), hours:304, desc:'Proyecto finalizado' } },
   { key:'googlenova', name:'Migración Google - BOT NOVA', icon:'N', responsable:'Johan Sabino', color:'#4285F4', rows: null, staticData:{ status:'proximo', desc:'La migración de los bots RPA a Google Cloud Platform contempla el traslado, configuración y validación de las automatizaciones en el nuevo entorno, asegurando sus accesos, dependencias, conectividad, permisos, software base y continuidad operativa.' } },
   { key:'felifase2', name:'FELI - FASE 2', icon:'F', responsable:'Cristian Bonilla', color:'#6366f1', rows: null, staticData:{ status:'proximo', desc:'Inclusión del flujo para crear materiales HALL<br>Incluir la creación de materiales cuando sea para Ecuador u otro país (Configuración variable)<br>Reemplazo de MDG / Data Hub<br>Lógica para que en el asunto del caso pueda traer números o caracteres especiales<br>Automatización de precios' } },
@@ -2119,6 +2216,23 @@ function renderReporte() {
   }
   const donutTotals = blockDefs.map(b => ({ label: b.key, value: blockTotal(b.key, filter), color: b.color })).filter(d => d.value > 0);
   const totalAll = donutTotals.reduce((s,d)=>s+d.value, 0);
+  const developmentMonths = allMonths.map(month => ({ month, hours: blockTotal('Desarrollo', month) }));
+  const developmentPeak = Math.max(...developmentMonths.map(item => item.hours), 1);
+  const developmentAxisMax = Math.ceil(developmentPeak / 20) * 20;
+  const developmentWidth = Math.max(640, developmentMonths.length * 86);
+  const developmentBaseY = 154;
+  const developmentStep = (developmentWidth - 72) / Math.max(developmentMonths.length - 1, 1);
+  const developmentPoints = developmentMonths.map((item, index) => ({ x:36 + index * developmentStep, y:developmentBaseY - (item.hours / developmentAxisMax) * 118, ...item }));
+  const developmentLine = developmentPoints.reduce((path, point, index) => {
+    if (!index) return 'M' + point.x.toFixed(1) + ' ' + point.y.toFixed(1);
+    const previous = developmentPoints[index - 1];
+    return path + ' C' + (previous.x + developmentStep / 2).toFixed(1) + ' ' + previous.y.toFixed(1) + ' ' + (point.x - developmentStep / 2).toFixed(1) + ' ' + point.y.toFixed(1) + ' ' + point.x.toFixed(1) + ' ' + point.y.toFixed(1);
+  }, '');
+  const developmentArea = developmentLine + ' L' + developmentPoints[developmentPoints.length - 1].x.toFixed(1) + ' ' + developmentBaseY + ' L' + developmentPoints[0].x.toFixed(1) + ' ' + developmentBaseY + ' Z';
+  const developmentGrid = [0, .25, .5, .75, 1].map(ratio => { const value = developmentAxisMax * ratio, y = developmentBaseY - 118 * ratio; return '<line x1="36" y1="' + y.toFixed(1) + '" x2="' + (developmentWidth - 36) + '" y2="' + y.toFixed(1) + '" stroke="#cbd5e1" stroke-opacity=".7"/><text class="development-focus-axis" x="28" y="' + (y + 4).toFixed(1) + '">' + value.toFixed(0) + 'h</text>'; }).join('');
+  const developmentTotal = developmentMonths.reduce((sum, item) => sum + item.hours, 0);
+  const developmentAverage = developmentTotal / Math.max(developmentMonths.length, 1);
+  const developmentFocusHtml = '<div class="development-focus-header"><h3>Evolución de Desarrollo</h3><span>Total: ' + developmentTotal.toFixed(1) + 'h · Promedio: ' + developmentAverage.toFixed(1) + 'h/mes</span></div><svg class="development-focus-chart" viewBox="0 0 ' + developmentWidth + ' 190" preserveAspectRatio="none" aria-label="Horas de desarrollo por mes">' + developmentGrid + '<path class="development-focus-area" d="' + developmentArea + '"/><path class="development-focus-line" d="' + developmentLine + '"/>' + developmentPoints.map(point => '<circle class="development-focus-point" cx="' + point.x.toFixed(1) + '" cy="' + point.y.toFixed(1) + '" r="4"/><text class="development-focus-value" x="' + point.x.toFixed(1) + '" y="' + Math.max(18, point.y - 10).toFixed(1) + '">' + point.hours.toFixed(1) + 'h</text><text class="development-focus-label" x="' + point.x.toFixed(1) + '" y="178">' + monthNames[parseInt(point.month.split('-')[1]) - 1].slice(0, 3) + '</text>').join('') + '</svg>';
   // Donut chart
   html += '<div class="reporte-charts" style="display:flex;gap:24px;margin-top:24px;flex-wrap:wrap">';
   html += '<div style="flex:1;min-width:260px;background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);padding:16px"><h3 style="font-size:14px;font-weight:700;color:#1e3a5f;margin:0 0 12px">Distribución por Bloque</h3>';
@@ -2215,10 +2329,43 @@ function renderReporte() {
   const chartsBlock = el.querySelector('.reporte-charts');
   const contractBlock = el.querySelector('.reporte-contract-chart');
   const cardsBlock = el.querySelector('.reporte-grid');
-  if (chartsBlock && cardsBlock) el.insertBefore(chartsBlock, cardsBlock);
-  if (contractBlock && cardsBlock) el.insertBefore(contractBlock, cardsBlock);
-  requestAnimationFrame(animateReportProgress);
   const sel = document.getElementById('reporte-month-select');
+  const consumptionSummary = document.getElementById('consumption-summary-content');
+  const developmentSummary = document.getElementById('development-summary-content');
+  if (contractBlock && consumptionSummary) {
+    contractBlock.style.marginTop = '0';
+    consumptionSummary.replaceChildren(contractBlock);
+  } else if (contractBlock && cardsBlock) el.insertBefore(contractBlock, cardsBlock);
+  if (chartsBlock && developmentSummary) {
+    chartsBlock.style.marginTop = '0';
+    const summaryFilter = sel.cloneNode(true);
+    summaryFilter.id = 'summary-month-select';
+    summaryFilter.style.marginBottom = '16px';
+    summaryFilter.addEventListener('change', function() {
+      localStorage.setItem(REPORTE_MONTH_KEY, this.value);
+      renderReporte();
+    });
+    const projectChart = document.getElementById('proyectos-chart');
+    developmentSummary.replaceChildren(summaryFilter, chartsBlock);
+    if (projectChart) {
+      const rowBreak = document.createElement('div');
+      rowBreak.className = 'chart-row-break';
+      const projectSection = document.createElement('section');
+      projectSection.className = 'development-project-section';
+      projectSection.innerHTML = '<h2>DESARROLLO</h2>';
+      const projectLayout = document.createElement('div');
+      projectLayout.className = 'development-project-layout';
+      const focusChart = document.createElement('div');
+      focusChart.id = 'development-focus-chart';
+      focusChart.innerHTML = developmentFocusHtml;
+      projectLayout.append(projectChart, focusChart);
+      projectSection.append(projectLayout);
+      chartsBlock.append(rowBreak, projectSection);
+      requestAnimationFrame(animateProjectChart);
+      requestAnimationFrame(animateDevelopmentFocusChart);
+    }
+  } else if (chartsBlock && cardsBlock) el.insertBefore(chartsBlock, cardsBlock);
+  requestAnimationFrame(animateReportProgress);
   if (sel) sel.addEventListener('change', function() {
     localStorage.setItem(REPORTE_MONTH_KEY, this.value);
     renderReporte();
@@ -2350,11 +2497,8 @@ function execAdminCmd(cmd) {
   }
 }
 // Restore last active tab
-const savedTab = localStorage.getItem('activeTab');
-if (savedTab === 'tab-reporte' && !sessionStorage.getItem('reporteAuth')) {
-  const ft = document.querySelector('.tab:not([data-tab="tab-reporte"])');
-  if (ft) openTab(ft.dataset.tab);
-} else if (savedTab && document.getElementById(savedTab)) { openTab(savedTab); } else { const ft = document.querySelector('.tab'); if (ft) openTab(ft.dataset.tab); }
+const savedSection = localStorage.getItem('activeSection') || 'resumen';
+openSection(savedSection);
 // Load saved state on startup
 if (IS_SERVER) {
   const btn = document.createElement('span');
@@ -2369,20 +2513,217 @@ if (IS_SERVER) {
   loadState();
   renderAll();
 }
-function openTab(id) {
+function activateSection(section) {
+  document.querySelectorAll('.primary-tab').forEach(x => x.classList.toggle('active', x.dataset.section === section));
+  document.getElementById('development-tabs').classList.toggle('visible', section === 'desarrollo');
+  localStorage.setItem('activeSection', section);
+}
+function openSection(section) {
+  if (section === 'desarrollo') {
+    openTab(localStorage.getItem('developmentTab') || 'tab-avance', section);
+  } else if (section === 'soporte') {
+    openTab('tab-soporte', section);
+  } else {
+    openTab('tab-resumen', section);
+    renderReporte();
+    syncSupportSummaryFrame();
+  }
+}
+const SUPPORT_HTML_STORAGE_KEY = 'supportDashboardHtml';
+let supportDashboard = null;
+let supportActiveTab = 'Resumen';
+let supportSourceHtml = '';
+function extractSupportLiteral(source, name) {
+  const match = new RegExp('const\\s+' + name + '\\s*=').exec(source);
+  if (!match) return null;
+  let start = source.indexOf('=', match.index) + 1;
+  while (/\s/.test(source[start])) start++;
+  const open = source[start], close = open === '{' ? '}' : open === '[' ? ']' : '';
+  if (!close) return null;
+  let depth = 0, quote = '', escaped = false;
+  for (let i = start; i < source.length; i++) {
+    const char = source[i];
+    if (quote) {
+      if (!escaped && char === quote) quote = '';
+      escaped = !escaped && char === '\\';
+      if (char !== '\\') escaped = false;
+      continue;
+    }
+    if (char === '"' || char === "'") { quote = char; continue; }
+    if (char === open) depth++;
+    if (char === close && --depth === 0) return source.slice(start, i + 1);
+  }
+  return null;
+}
+function supportLiteralToJson(literal) {
+  let json = '', quote = '', escaped = false;
+  for (let i = 0; i < literal.length; i++) {
+    const char = literal[i];
+    if (quote) {
+      if (char === quote && !escaped) { json += '"'; quote = ''; continue; }
+      if (quote === "'" && char === '"' && !escaped) json += '\\';
+      json += char;
+      escaped = !escaped && char === '\\';
+      if (char !== '\\') escaped = false;
+      continue;
+    }
+    if (char === '"' || char === "'") { json += '"'; quote = char; continue; }
+    if (/[A-Za-z_$]/.test(char)) {
+      let end = i;
+      while (/[\w$]/.test(literal[end])) end++;
+      let colon = end;
+      while (/\s/.test(literal[colon])) colon++;
+      const prev = json.trimEnd().slice(-1);
+      if ((prev === '{' || prev === ',') && literal[colon] === ':') {
+        json += '"' + literal.slice(i, end) + '"';
+        i = end - 1;
+        continue;
+      }
+    }
+    json += char;
+  }
+  return JSON.parse(json.replace(/,(\s*[}\]])/g, '$1'));
+}
+function parseSupportHtml(html) {
+  const data = supportLiteralToJson(extractSupportLiteral(html, 'DATA'));
+  if (!data || typeof data !== 'object') throw new Error('No se encontró DATA');
+  const read = name => {
+    const literal = extractSupportLiteral(html, name);
+    return literal ? supportLiteralToJson(literal) : name === 'MAKRO' ? {} : [];
+  };
+  return { data, months:Object.keys(data), solicitudes:read('SOLICITUDES'), bots:read('BOTS'), sprints:read('SPRINTS'), makro:read('MAKRO') };
+}
+function escapeSupport(value) {
+  return String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[char]);
+}
+function supportHours(rows) { return rows.reduce((total, row) => total + Number(row.horas || 0), 0); }
+function supportStatus(status) {
+  const value = String(status || '').toLowerCase();
+  const style = value.startsWith('cerrado') ? 'closed' : value === 'ok' ? 'ok' : value.startsWith('abierto') ? 'open' : value.startsWith('pendiente') ? 'pending' : 'other';
+  return '<span class="support-status ' + style + '">' + escapeSupport(status || 'Sin estado') + '</span>';
+}
+function supportKpi(label, value, sub, color) {
+  return '<div class="support-kpi" style="--support-color:' + color + '"><div class="support-kpi-label">' + label + '</div><div class="support-kpi-value">' + value + '</div><div class="support-kpi-sub">' + sub + '</div></div>';
+}
+function renderSupportTable(title, headers, rows) {
+  return '<h3 class="support-table-title">' + title + '</h3><div class="support-table"><table><thead><tr>' + headers.map(header => '<th>' + header + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+}
+function renderSupportDashboard() {
+  const tabs = document.getElementById('support-tabs');
+  const content = document.getElementById('support-content');
+  if (!supportDashboard) { tabs.innerHTML = ''; content.innerHTML = '<p style="color:#64748b;padding:24px 0">Cargando información de soporte...</p>'; renderSupportSummary(); return; }
+  const dashboard = supportDashboard;
+  const labels = dashboard.months.concat(['Bots 2NV', 'Proyecto Makro']);
+  tabs.innerHTML = labels.map(label => '<button class="tab ' + (supportActiveTab === label ? 'active' : '') + '" type="button" onclick="openSupportTab(\'' + label + '\')">' + label.toUpperCase() + '</button>').join('');
+  content.innerHTML = '<iframe id="support-embedded" class="support-embedded" title="Detalle de soporte" sandbox="allow-scripts allow-downloads" onload="syncSupportFrame()"></iframe>';
+  document.getElementById('support-embedded').srcdoc = supportFrameHtml(supportSourceHtml);
+  renderSupportSummary();
+  return;
+  if (supportActiveTab === 'Resumen') {
+    const allRows = dashboard.months.flatMap(month => dashboard.data[month] || []);
+    const closed = allRows.filter(row => /^(cerrado|ok)/i.test(row.estado || '')).length;
+    const summaryRows = dashboard.months.map(month => {
+      const rows = dashboard.data[month] || [], hours = supportHours(rows);
+      return '<tr><td>' + month + '</td><td>' + rows.length + '</td><td>' + hours.toFixed(1) + 'h</td><td>' + (rows.length ? (hours / rows.length).toFixed(1) : '0.0') + 'h</td></tr>';
+    }).join('');
+    content.innerHTML = '<div class="support-kpis">' + supportKpi('Casos', allRows.length, 'Enero a julio', '#0033a0') + supportKpi('Horas de soporte', supportHours(allRows).toFixed(1) + 'h', 'acumuladas', '#10b981') + supportKpi('Resueltos', closed, 'cerrados u OK', '#0891b2') + supportKpi('Bots', dashboard.bots.length, 'registrados en soporte', '#7c3aed') + '</div>' + renderSupportTable('Consolidado por mes', ['Mes', 'Casos', 'Horas', 'Promedio por caso'], summaryRows);
+    return;
+  }
+  if (dashboard.months.includes(supportActiveTab)) {
+    const rows = dashboard.data[supportActiveTab] || [];
+    const closed = rows.filter(row => /^(cerrado|ok)/i.test(row.estado || '')).length;
+    const open = rows.filter(row => /^abierto/i.test(row.estado || '')).length;
+    const caseRows = rows.map((row, index) => '<tr><td>' + (index + 1) + '</td><td><strong>' + escapeSupport(row.nombre) + '</strong></td><td>' + escapeSupport(row.fecha || '—') + '</td><td>' + supportStatus(row.estado) + '</td><td>' + escapeSupport(row.descripcion || '—') + '</td><td>' + Number(row.horas || 0).toFixed(1) + 'h</td><td>' + escapeSupport(row.observaciones || '—') + '</td></tr>').join('');
+    const requests = (dashboard.solicitudes[supportActiveTab] || []).map((row, index) => '<tr><td>' + (index + 1) + '</td><td>' + escapeSupport(row.grupo || '—') + '</td><td>' + supportStatus(row.estado) + '</td><td>' + escapeSupport(row.desc || '—') + '</td></tr>').join('');
+    content.innerHTML = '<div class="support-kpis">' + supportKpi('Casos', rows.length, 'en ' + supportActiveTab, '#0033a0') + supportKpi('Horas', supportHours(rows).toFixed(1) + 'h', 'registradas', '#10b981') + supportKpi('Resueltos', closed, 'cerrados u OK', '#0891b2') + supportKpi('Abiertos', open, 'requieren atención', '#dc2626') + '</div>' + renderSupportTable('Detalle de casos - ' + supportActiveTab, ['#', 'Soporte', 'Fecha', 'Estado', 'Descripción', 'Horas', 'Observaciones'], caseRows || '<tr><td colspan="7">Sin registros</td></tr>') + (requests ? renderSupportTable('Solicitudes nuevas - ' + supportActiveTab, ['#', 'Grupo', 'Estado', 'Descripción'], requests) : '');
+    return;
+  }
+  if (supportActiveTab === 'Bots 2NV') {
+    const rows = dashboard.bots.map(row => '<tr><td>' + escapeSupport(row.cat) + '</td><td><strong>' + escapeSupport(row.bot) + '</strong></td><td>' + escapeSupport(row.estado || '—') + '</td></tr>').join('');
+    content.innerHTML = '<div class="support-kpis">' + supportKpi('Total bots', dashboard.bots.length, 'inventario de soporte', '#0033a0') + supportKpi('Rocketbot', dashboard.bots.filter(row => row.cat === 'Rocketbot').length, 'desarrollo 2NV', '#0891b2') + supportKpi('Python entregados', dashboard.bots.filter(row => row.cat === 'Python entregados').length, 'en soporte', '#10b981') + supportKpi('Por recibir', dashboard.bots.filter(row => row.cat === 'Python por recibir').length, 'pendientes', '#f59e0b') + '</div>' + renderSupportTable('Inventario de bots', ['Categoría', 'Bot', 'Estado'], rows || '<tr><td colspan="3">Sin registros</td></tr>');
+    return;
+  }
+  const makro = dashboard.makro || {};
+  const rows = dashboard.sprints.map(row => '<tr><td>' + escapeSupport(row.sprint) + '</td><td>' + escapeSupport(row.fecha) + '</td><td>' + escapeSupport(row.dia) + '</td><td>' + escapeSupport(row.actividad) + '</td><td>' + escapeSupport(row.hu) + '</td><td>' + Number(row.horas || 0).toFixed(1) + 'h</td><td>' + escapeSupport(row.responsable) + '</td><td>' + supportStatus(row.estado) + '</td></tr>').join('');
+  content.innerHTML = '<div class="support-kpis">' + supportKpi('Horas planificadas', (makro.horasActual || 0) + 'h', 'antes ' + (makro.horasAnterior || 0) + 'h', '#f59e0b') + supportKpi('Actividades', dashboard.sprints.length, 'sprints registrados', '#0033a0') + supportKpi('Entrega', escapeSupport(makro.fechaEntregaNueva || '—'), 'fecha actual', '#10b981') + supportKpi('Completadas', dashboard.sprints.filter(row => /completado|✓/i.test(row.estado || '')).length, 'actividades', '#0891b2') + '</div>' + renderSupportTable('Detalle de sprints - Proyecto Makro', ['Sprint', 'Fecha', 'Día', 'Actividad', 'HU', 'Horas', 'Responsable', 'Estado'], rows || '<tr><td colspan="8">Sin registros</td></tr>');
+}
+function supportSourceTab(tab) { return tab === 'Bots 2NV' ? 'Bots' : tab === 'Proyecto Makro' ? 'Makro' : tab; }
+function syncSupportFrame() {
+  const frame = document.getElementById('support-embedded');
+  if (frame && frame.contentWindow) frame.contentWindow.postMessage({ type:'support-tab', tab:supportSourceTab(supportActiveTab) }, '*');
+}
+function renderSupportSummary() {
+  const content = document.getElementById('support-summary-content');
+  if (!content) return;
+  if (!supportSourceHtml) { content.innerHTML = '<p style="color:#64748b;padding:24px 0">Cargando información de soporte...</p>'; return; }
+  content.innerHTML = '<iframe id="support-summary-embedded" class="support-embedded" title="Resumen de soporte" sandbox="allow-scripts allow-downloads" onload="syncSupportSummaryFrame()"></iframe>';
+  document.getElementById('support-summary-embedded').srcdoc = supportFrameHtml(supportSourceHtml);
+}
+function syncSupportSummaryFrame() {
+  const frame = document.getElementById('support-summary-embedded');
+  if (frame && frame.contentWindow) frame.contentWindow.postMessage({ type:'support-tab', tab:'Resumen' }, '*');
+}
+function openSupportTab(tab) {
+  supportActiveTab = tab;
+  document.querySelectorAll('#support-tabs .tab').forEach(button => button.classList.toggle('active', button.textContent === tab.toUpperCase()));
+  syncSupportFrame();
+}
+function supportFrameHtml(html) {
+  const style = '<style>html,body{background:transparent!important}:root,[data-theme="light"]{--bg:transparent}.header,.tab-nav,.footer{display:none!important}.main{max-width:none!important;padding:28px 32px!important}.kpi-card,.chart-card,.table-card{transition:transform .32s ease,box-shadow .32s ease}.kpi-card:hover,.chart-card:hover,.table-card:hover{box-shadow:0 16px 32px rgba(15,23,42,.13);transform:translateY(-6px)}</style>';
+  const bridge = '<script>window.addEventListener("message",function(event){if(event.data&&event.data.type==="support-tab"&&typeof switchTab==="function"){switchTab(event.data.tab)}});<' + '/script>';
+  const lightHtml = html.replace(/<html\b([^>]*)>/i, function(match, attributes) { return '<html' + attributes.replace(/\sdata-theme\s*=\s*(["']).*?\1/i, '') + ' data-theme="light">'; });
+  const withStyle = lightHtml.replace('</head>', style + '</head>');
+  return withStyle.includes('</body>') ? withStyle.replace('</body>', bridge + '</body>') : withStyle + bridge;
+}
+function setSupportHtml(html, persist) {
+  try {
+    supportDashboard = parseSupportHtml(html);
+    supportSourceHtml = html;
+    supportActiveTab = supportDashboard.months[0] || 'Bots 2NV';
+    if (persist) localStorage.setItem(SUPPORT_HTML_STORAGE_KEY, html);
+    renderSupportDashboard();
+  } catch (error) {
+    alert('No fue posible leer el HTML. Debe conservar la estructura de datos del dashboard de soporte.');
+  }
+}
+function loadSupportHtml(input) {
+  const file = input.files && input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const html = String(reader.result || '');
+    setSupportHtml(html, true);
+    input.value = '';
+  };
+  reader.readAsText(file);
+}
+function resetSupportHtml() {
+  localStorage.removeItem(SUPPORT_HTML_STORAGE_KEY);
+  fetch('assets/support/dashboard_alpina_2.html').then(response => response.text()).then(html => setSupportHtml(html, false));
+}
+function restoreSupportHtml() {
+  const html = localStorage.getItem(SUPPORT_HTML_STORAGE_KEY);
+  if (html) { setSupportHtml(html, false); return; }
+  resetSupportHtml();
+}
+restoreSupportHtml();
+function openTab(id, section = 'desarrollo') {
   if (id === 'tab-reporte' && !checkReporteAuth()) return;
   if (id === 'tab-avance') prepareCardPercentages();
+  activateSection(section);
   document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
   const btn = document.querySelector(`.tab[data-tab="${id}"]`);
-  if (btn) btn.classList.add('active');
+  if (btn && section === 'desarrollo') btn.classList.add('active');
   document.getElementById(id).classList.add('active');
   localStorage.setItem('activeTab', id);
+  if (section === 'desarrollo') localStorage.setItem('developmentTab', id);
   if (id === 'tab-avance') requestAnimationFrame(animateCardPercentages);
   if (id === 'tab-proyectos' && document.querySelector('#tab-proyectos .proyecto-card')) animateProjectProgress();
   if (id === 'tab-reporte') renderReporte();
 }
 function openGantt(id) {
+  activateSection('desarrollo');
   document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
   document.getElementById(id).classList.add('active');
