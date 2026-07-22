@@ -799,6 +799,7 @@ document.getElementById('fecha-label').textContent=new Date().toLocaleDateString
 
 // Gantt
 const IS_SERVER = window.location.port === '3000';
+if (!IS_SERVER) document.querySelector('.support-toolbar').hidden = true;
 let GANTT_ROWS = [
   { phase:"Fase 0 – Levantamiento",task:"0. Revisión del PDD / reglas / criterios de aceptación",resp:"2NV",hours:8,days:1,notesIdx:[48,49,50,51,58],fixedIdx:0,fixedEndIdx:0 },
   { phase:"Estructura Base",task:"1. Revisión de ambientes y conexiones (SAP / Carpetas / Outlook)",resp:"2NV",hours:8,days:1,fixedIdx:1,fixedEndIdx:1 },
@@ -2687,6 +2688,7 @@ function setSupportHtml(html, persist) {
   }
 }
 function loadSupportHtml(input) {
+  if (!IS_SERVER) return;
   const file = input.files && input.files[0];
   if (!file) return;
   const reader = new FileReader();
@@ -2698,10 +2700,15 @@ function loadSupportHtml(input) {
   reader.readAsText(file);
 }
 function resetSupportHtml() {
+  if (!IS_SERVER) return;
   localStorage.removeItem(SUPPORT_HTML_STORAGE_KEY);
   fetch('assets/support/dashboard_alpina_2.html').then(response => response.text()).then(html => setSupportHtml(html, false));
 }
 function restoreSupportHtml() {
+  if (!IS_SERVER) {
+    fetch('assets/support/dashboard_alpina_2.html').then(response => response.text()).then(html => setSupportHtml(html, false));
+    return;
+  }
   const html = localStorage.getItem(SUPPORT_HTML_STORAGE_KEY);
   if (html) { setSupportHtml(html, false); return; }
   resetSupportHtml();
