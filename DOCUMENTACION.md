@@ -800,3 +800,7 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - Se registra una alerta el **22-Jul** en Pruebas unitarias: se requieren dos dias adicionales para ajustar reglas de flujo y SAP tras la sesion con el equipo operativo.
 - El calendario compartido incluye **4-Aug-26** y **5-Aug-26** para representar el nuevo final de soporte.
 - En **Actividades adicionales**, **Sesion API Robotina** queda en **8.5 h** para julio.
+
+## Actualizacion - Navegacion de cronogramas
+
+- La pestana **% AVANCE** muestra una nota sobre las tarjetas: para abrir el cronograma de cada proyecto se debe seleccionar su nombre.

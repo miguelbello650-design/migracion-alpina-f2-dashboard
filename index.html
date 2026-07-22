@@ -115,6 +115,8 @@
     display: grid; grid-template-columns: 1fr 1fr 1fr;
     gap: 24px; padding: 24px 40px;
   }
+  .avance-note { color: #5b6f8c; font-size: 12px; padding: 12px 40px 0; }
+  .avance-note strong { color: #1e3a5f; }
 
   .card {
     background: var(--card-bg);
@@ -431,6 +433,7 @@
 
   @media (max-width: 1180px) {
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 24px; }
+    .avance-note { padding-left: 24px; padding-right: 24px; }
     .proyectos-wrapper { flex-direction: column; padding: 20px 24px; }
     #proyectos-chart { align-self: stretch; max-width: 520px; width: 100%; }
     #reporte-container { padding: 24px !important; }
@@ -451,6 +454,7 @@
     .support-kpis { grid-template-columns: repeat(2, minmax(0,1fr)); }
     .support-embedded { height: 820px; }
     .grid { grid-template-columns: 1fr; gap: 16px; padding: 16px; }
+    .avance-note { padding-left: 16px; padding-right: 16px; }
     .card:hover, .proyecto-card:hover, #proyectos-chart:hover, #development-focus-chart:hover, .reporte-block:hover, .reporte-charts > div:hover, .reporte-contract-chart:hover { transform: none; }
     .card-header, .card-body, .card-footer, .card-curso { padding-left: 16px; padding-right: 16px; }
     .card-footer { flex-wrap: wrap; gap: 6px 12px; }
@@ -583,6 +587,7 @@
 </div>
 
 <div class="tab-content active" id="tab-avance">
+  <div class="avance-note"><strong>Nota:</strong> Para ver el cronograma de cada proyecto debes seleccionar el nombre del proyecto.</div>
   <div class="grid">
     <div class="card nova">
       <div class="card-header">
