@@ -10,6 +10,8 @@ from datetime import datetime
 BASE = r"C:\Users\2NV\Desktop\Prueba de IPM\agente"
 LOG = os.path.join(BASE, "reporte_horas.log")
 API_URL = "http://127.0.0.1:3000/api/data"
+LOGO_2NV_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/assets/logos/logo-2nv-header.png"
+LOGO_ALPINA_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/assets/logos/logo-alpina-header.png"
 
 os.makedirs(BASE, exist_ok=True)
 
@@ -102,6 +104,14 @@ try:
 
 <div style="max-width:600px;margin:30px auto;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);padding:32px 24px;text-align:center">
 
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto 16px">
+<tr>
+<td style="padding-right:14px"><img src="%s" alt="2NV" width="48" style="display:block;height:auto;border:0"></td>
+<td style="border-left:1px solid #d1d9e6;height:32px;width:1px"></td>
+<td style="padding-left:14px"><img src="%s" alt="Alpina" width="78" style="display:block;height:auto;border:0"></td>
+</tr>
+</table>
+
 <h2 style="font-size:20px;color:%s;font-weight:700;margin:0 0 4px">%s</h2>
 
 <p style="font-size:13px;color:#94a3b8;margin:0 0 20px">%s</p>
@@ -160,6 +170,8 @@ Quedo atento a los comentarios,<br>
 </div>
 </body>
 </html>""" % (
+        LOGO_2NV_URL,
+        LOGO_ALPINA_URL,
         color_titulo,
         titulo,
         now,

@@ -3,6 +3,8 @@ const path = require('path')
 
 const ROOT = __dirname
 const HTML_PATH = path.join(ROOT, 'index.html')
+const LOGO_2NV_URL = 'https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/assets/logos/logo-2nv-header.png'
+const LOGO_ALPINA_URL = 'https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/assets/logos/logo-alpina-header.png'
 
 const BOT_CONFIG = {
   nova: { label: 'NOVA', developer: 'Johan Sabino', arrayName: 'GANTT_ROWS', color: '#0033a0' },
@@ -169,6 +171,13 @@ function buildHtmlEmail(subject, sections, weekStart, weekEnd) {
     '<body style="margin:0;padding:0;background:#f6f8fb;font-family:Segoe UI,Arial,sans-serif;color:#1e293b;text-align:left">' +
       '<table role="presentation" cellpadding="0" cellspacing="0" align="left" style="width:100%;border-collapse:collapse;background:#f6f8fb;text-align:left"><tr><td style="padding:18px 10px;text-align:left">' +
         '<table role="presentation" cellpadding="0" cellspacing="0" align="left" style="max-width:760px;width:100%;margin:0;border-collapse:collapse;text-align:left">' +
+          '<tr><td style="padding:0 2px 12px;text-align:left">' +
+            '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">' +
+              '<tr><td style="padding-right:14px"><img src="' + LOGO_2NV_URL + '" alt="2NV" width="48" style="display:block;height:auto;border:0"></td>' +
+              '<td style="border-left:1px solid #d1d9e6;height:32px;width:1px"></td>' +
+              '<td style="padding-left:14px"><img src="' + LOGO_ALPINA_URL + '" alt="Alpina" width="78" style="display:block;height:auto;border:0"></td></tr>' +
+            '</table>' +
+          '</td></tr>' +
           '<tr><td style="padding:0 2px 10px;text-align:left">' +
             '<div style="font-size:14px;line-height:1.5;color:#334155">Buen día equipo,<br><br>Comparto el plan general de trabajo para esta semana según las actividades programadas en el Gantt.</div>' +
           '</td></tr>' +
