@@ -792,3 +792,11 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - Las tareas pendientes se corren desde **Re mapeo ID SAP**, que ahora inicia el **16-Jun-2026** y termina el **22-Jun-2026**.
 - El cronograma posterior queda asi: Ajustes finales **23-Jun al 24-Jun**, aprobacion y entrega **25-Jun**, salida a produccion **26-Jun**, seguimiento postproduccion **30-Jun al 6-Jul**.
 - `GANTT_DATES` se extiende hasta **6-Jul-2026** para cubrir el seguimiento postproduccion de FELI.
+
+## Actualizacion - Robotina pruebas y reporte (2026-07-22)
+
+- **Pruebas unitarias** se extiende a **96 horas / 12 dias**, con dos jornadas adicionales el **23 y 24 de julio**.
+- El cronograma posterior de ROBOTINA se desplaza dos dias: Pruebas UAT termina el **27-Jul**, aprobacion y entrega pasan al **28-Jul**, salida a produccion al **29-Jul** y soporte al **5-Aug**.
+- Se registra una alerta el **22-Jul** en Pruebas unitarias: se requieren dos dias adicionales para ajustar reglas de flujo y SAP tras la sesion con el equipo operativo.
+- El calendario compartido incluye **4-Aug-26** y **5-Aug-26** para representar el nuevo final de soporte.
+- En **Actividades adicionales**, **Sesion API Robotina** queda en **8.5 h** para julio.
