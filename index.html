@@ -779,29 +779,15 @@
 
 <script src="reporte-horas.js"></script>
 <script>
-const REPORTE_PWD = 'reporte2025';
 function formatHours(value) {
   return Number(value || 0).toFixed(1).replace(/\.0$/, '');
 }
 function roundHours(value) {
   return Number(Number(value || 0).toFixed(1));
 }
-function checkReporteAuth() {
-  if (sessionStorage.getItem('reporteAuth') === 'true') return true;
-  const pwd = prompt('Ingrese contraseña para acceder al Reporte de Horas:');
-  if (pwd === REPORTE_PWD) { sessionStorage.setItem('reporteAuth', 'true'); return true; }
-  return false;
-}
 // Tabs
 document.querySelectorAll('.tab').forEach(t => {
   t.addEventListener('click', () => {
-    if (t.dataset.tab === 'tab-reporte' && !checkReporteAuth()) {
-      const prev = localStorage.getItem('activeTab');
-      if (prev && document.getElementById(prev)) { openTab(prev); return; }
-      const ft = document.querySelector('.tab:not([data-tab="tab-reporte"])');
-      if (ft) openTab(ft.dataset.tab);
-      return;
-    }
     openTab(t.dataset.tab);
   });
 });
@@ -2729,7 +2715,6 @@ function restoreSupportHtml() {
 }
 restoreSupportHtml();
 function openTab(id, section = 'desarrollo') {
-  if (id === 'tab-reporte' && !checkReporteAuth()) return;
   if (id === 'tab-avance') prepareCardPercentages();
   activateSection(section);
   document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
