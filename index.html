@@ -306,9 +306,13 @@
   .report-month-bars { bottom: 0; display: flex; height: 184px; left: 0; position: absolute; right: 0; }
   .report-month-item { align-items: center; display: flex; flex: 1; height: 184px; justify-content: flex-end; min-width: 0; position: relative; }
   .report-month-bar { bottom: 24px; position: absolute; z-index: 1; }
-  .report-month-value { bottom: 0; color: #1e3a5f; font-size: 10px; font-weight: 700; position: absolute; transform: translateY(-4px); white-space: nowrap; z-index: 3; }
+  .report-month-value { background: #fff; border: 1px solid #dbeafe; border-radius: 4px; bottom: 0; box-shadow: 0 2px 6px rgba(30,58,95,.12); color: #1e3a5f; font-size: 10px; font-weight:700; opacity:0; padding:2px 5px; position:absolute; transform:translateY(3px); transition:opacity .28s ease,transform .28s ease; white-space:nowrap; z-index:3; }
+  .report-month-value.is-visible { opacity:1; transform:translateY(-4px); }
   .report-month-label { bottom: 0; color: #64748b; font-size: 10px; position: absolute; white-space: nowrap; }
   .report-month-line { height: 160px; left: 0; overflow: visible; pointer-events: none; position: absolute; top: 0; width: 100%; z-index: 2; }
+  .report-month-line .trend-path { fill: none; stroke: #0891b2; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; }
+  .report-month-line .trend-dot { fill:#fff; opacity:0; stroke:#0891b2; stroke-width:2.5; transform:scale(0); transform-box:fill-box; transform-origin:center; transition:opacity .22s ease,transform .22s ease; }
+  .report-month-line .trend-dot.is-visible { opacity:1; transform:scale(1); }
   .reporte-stats { display: flex; gap: 12px; font-size: 11px; color: #64748b; }
   .reporte-stats span { display: flex; align-items: center; gap: 2px; }
   .reporte-empty { font-size: 12px; color: #94a3b8; text-align: center; padding: 8px 0; margin: 0; }
@@ -1441,8 +1445,8 @@ function renderGanttRobotina() {
   robotinaNotes["Logica de asociación de WO|101"] = "Tiempo desarrollo y entrega de la API";
   robotinaNotes["Pruebas unitarias|94"] = "No se cuenta con casos para realizar pruebas unitarias, se entregaron casos a las 4:00 pm";
   robotinaNotes["Pruebas unitarias|95"] = "Se requiere un día adicional para probar que todo esté funcionando correctamente despues de hacer los cambios y ajustes solicitados";
-  robotinaNotes["Pruebas unitarias|107"] = "Se requiere un d?a adicional para probar que todo est? funcionando correctamente despues de hacer los cambios y ajustes solicitados";
-  robotinaNotes["Pruebas UAT|108"] = "Dia adicional para probar nuevamente con la parte funcional todos los flujos correspondientes a Robotina, la duraci?n de esta actividad se puede extender dependiendo de los ajustes que pueden surgir";
+  robotinaNotes["Pruebas unitarias|107"] = "Se requiere un día adicional para probar que todo esté funcionando correctamente después de hacer los cambios y ajustes solicitados";
+  robotinaNotes["Pruebas UAT|108"] = "Día adicional para probar nuevamente con la parte funcional todos los flujos correspondientes a Robotina, la duración de esta actividad se puede extender dependiendo de los ajustes que pueden surgir";
   robotinaNotes["Ajuste Migración Google|89"] = "Javier solicitó el día";
   robotinaNotes["Ajuste Migración Google|90"] = "Se requiere 4 días adicionales para realizar modificación y migración de todo el tema de notificaciones a Google";
   robotinaNotes["Creación de usuario en SUSI|80"] = "Se requiere tiempo para probar los campos faltantes de Helix de la API";
@@ -1668,11 +1672,19 @@ function animateReportProgress() {
     monthBars.forEach(({ bar, target }, index) => setTimeout(() => { bar.style.height = target; }, index * 180));
   });
 
-  document.querySelectorAll('#reporte-container .report-month-line polyline').forEach(line => {
+  document.querySelectorAll('#reporte-container .report-month-line .trend-path').forEach(line => {
     const length = line.getTotalLength();
     line.style.strokeDasharray = length;
     line.style.strokeDashoffset = length;
-    requestAnimationFrame(() => { line.style.transition = 'stroke-dashoffset 1.2s ease-out'; line.style.strokeDashoffset = '0'; });
+    requestAnimationFrame(() => setTimeout(() => { line.style.transition = 'stroke-dashoffset 1.35s ease-out'; line.style.strokeDashoffset = '0'; }, 180));
+  });
+  const trendDots = document.querySelectorAll('#reporte-container .trend-dot');
+  const monthValues = document.querySelectorAll('#reporte-container .report-month-value');
+  trendDots.forEach((dot, index) => {
+    setTimeout(() => {
+      dot.classList.add('is-visible');
+      if (monthValues[index]) monthValues[index].classList.add('is-visible');
+    }, 180 + index * 180);
   });
 }
 
@@ -2140,9 +2152,14 @@ function renderReporte() {
     const monthTotals = barMonths.map(m => blockDefs.reduce((s,b) => s + blockTotal(b.key, m), 0));
     const axisMax = Math.ceil(Math.max(...monthTotals, 1) / 50) * 50;
     const barHeights = monthTotals.map(total => Math.max(2, (total / axisMax) * (barH - 20)));
-    const linePoints = barHeights.map((height, index) => ((index + .5) * 100) + ',' + (barH - height)).join(' ');
-    html += '<div class="report-month-chart"><div class="report-month-y-axis"><span>'+axisMax+'h</span><span>'+Math.round(axisMax/2)+'h</span><span>0h</span></div><div class="report-month-plot"><div class="report-month-grid"><span></span><span></span><span></span></div><svg class="report-month-line" viewBox="0 0 '+(barMonths.length * 100)+' '+barH+'" preserveAspectRatio="none" aria-hidden="true"><polyline points="'+linePoints+'" fill="none" stroke="#06b6d4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>';
-    barHeights.forEach((height, index) => { html += '<circle cx="'+((index + .5) * 100)+'" cy="'+(barH - height)+'" r="4" fill="#fff" stroke="#06b6d4" stroke-width="3"/>'; });
+    const trendPoints = barHeights.map((height, index) => ({ x:(index + .5) * 100, y:barH - height }));
+    const trendPath = trendPoints.reduce((path, point, index) => {
+      if (!index) return 'M'+point.x+' '+point.y;
+      const prev = trendPoints[index - 1], before = trendPoints[index - 2] || prev, after = trendPoints[index + 1] || point;
+      return path+' C'+(prev.x + (point.x - before.x) / 6).toFixed(1)+' '+(prev.y + (point.y - before.y) / 6).toFixed(1)+' '+(point.x - (after.x - prev.x) / 6).toFixed(1)+' '+(point.y - (after.y - prev.y) / 6).toFixed(1)+' '+point.x+' '+point.y;
+    }, '');
+    html += '<div class="report-month-chart"><div class="report-month-y-axis"><span>'+axisMax+'h</span><span>'+Math.round(axisMax/2)+'h</span><span>0h</span></div><div class="report-month-plot"><div class="report-month-grid"><span></span><span></span><span></span></div><svg class="report-month-line" viewBox="0 0 '+(barMonths.length * 100)+' '+barH+'" preserveAspectRatio="none" aria-hidden="true"><path class="trend-path" d="'+trendPath+'"/>';
+    trendPoints.forEach(point => { html += '<circle class="trend-dot" cx="'+point.x+'" cy="'+point.y+'" r="4"/>'; });
     html += '</svg><div class="report-month-bars">';
     barMonths.forEach((m, index) => {
       const total = monthTotals[index], height = barHeights[index];

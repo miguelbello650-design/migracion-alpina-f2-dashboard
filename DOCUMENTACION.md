@@ -12,7 +12,7 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - Fondo de video local en `assets/video/dashboard-background.mp4`, con veladura para mantener la legibilidad.
 - Interfaz adaptable para escritorio, tablet y telefono; en pantallas angostas las pestanas y los Gantt usan desplazamiento horizontal cuando es necesario.
 - Cronogramas con superficie elevada, cabecera compacta, leyenda visual y barras con interaccion; Actividad, Responsable, Horas y Dias se muestran una sola vez en la cabecera.
-- El reporte se denomina **Reporte de Horas por Hito**. La grafica **Horas por Mes** incluye eje Y, valores por mes y una linea que conecta los maximos de las barras.
+- El reporte se denomina **Reporte de Horas por Hito**. La grafica **Horas por Mes** incluye eje Y y una curva de tendencia que se dibuja desde la primera barra; puntos y valores aparecen de forma escalonada, sin sombra de fondo.
 - La barra superior enlaza a `https://2nv.co/` mediante el texto **Mas informacion sobre nuestra familia 2NV**.
 
 ### Estado operativo reciente
@@ -74,7 +74,7 @@ Proyectos que no tienen datos en Gantt. Se definen con `staticData` en el array 
 **Próximos:**
 | Proyecto | Responsable | Color | Alcance |
 |----------|-------------|-------|---------|
-| La Monita Fase 2 | Johan Sabino | `#dc2626` | Incorporación de nuevos clientes en el flujo del Bot |
+| La Monita Fase 2 | Johan Sabino | `#dc2626` | Incorporación de nuevos clientes en el flujo del Bot · Incorporación de nuevo flujo, Proceso para la creación de pedidos (bajas) SAP |
 | Migración Google - BOT NOVA | Johan Sabino | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
 | BOT FELI - FASE 2 | Cristian Bonilla | `#6366f1` | Inclusión del flujo para crear materiales HALL · Incluir la creación de materiales para Ecuador/otros países (Configuración variable) · Reemplazo de MDG / Data Hub · Lógica para que en el asunto del caso pueda traer números o caracteres especiales · Automatización de precios |
 | Migración Google - BOT FELI | Cristian Bonilla | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
