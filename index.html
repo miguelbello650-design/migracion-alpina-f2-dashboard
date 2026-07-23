@@ -2734,6 +2734,7 @@ function openGantt(id) {
   document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   localStorage.setItem('activeTab', id);
+  localStorage.setItem('developmentTab', id);
 }
 </script>
 <footer class="main-footer">
