@@ -1,4 +1,4 @@
-# Dashboard Migración Alpina F2 - RPA
+# Dashboard Migración Alpina - RPA
 
 ## Descripción
 Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, ROBOTINA) y proyectos históricos/completados:
@@ -29,6 +29,16 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - Las tarjetas KPI, graficas y tablas del HTML de soporte tienen hover con elevacion suave.
 - La Monita Fase 2 conserva el alcance de nuevos clientes. El flujo de creacion de pedidos SAP se muestra en la tarjeta independiente **La Monita Fase 2 - Nuevo Flujo**.
 - `reporte-horas.js` incluye `actividad_f2_lamonita` en el total compartido; Consumo de Horas, Distribucion por Bloque y `/api/data` usan las mismas horas.
+
+## Actualización operativa, seguridad y respaldos (2026-07-23)
+
+- El distintivo superior muestra **Migración**; el título del navegador y el pie muestran **Migración Alpina**.
+- **Reporte de Horas** es público y ya no solicita contraseña. La protección del panel administrativo local se mantiene separada.
+- En FELI, la actividad **3. Re mapeo ID SAP** está finalizada (`inProgress:false`), manteniendo 64h, 8 días, fechas y alertas existentes.
+- El servidor local escucha únicamente en `127.0.0.1`, limita solicitudes JSON de actualización a 1 MB y solo expone `index.html`, `reporte-horas.js` y `assets/`. La base SQLite, scripts, logs y otros archivos internos devuelven 404.
+- `backup-database.js` crea respaldos consistentes de `database.db` en `backups/` y elimina copias con más de 30 días. Se registró la tarea de Windows **Dashboard Alpina - Respaldo diario** para ejecutarlo todos los días a las 20:00, incluso si el equipo estuvo apagado al horario programado.
+- `.gitignore` excluye respaldos, secretos, logs y salidas generadas. `sync-github.ps1` ya no hace commits ni push automáticos: `main` se actualiza solo mediante una publicación solicitada explícitamente.
+- El cambio externo `ddced34`, no solicitado en esta conversación, fue revertido en `main` mediante `a0196d8`; la tarea **Ajustes finales y paso a producción** de FELI conserva 16h.
 
 ## Stack
 - **Lenguaje**: HTML + CSS + JavaScript (vanilla, un solo archivo `index.html`)
