@@ -7,6 +7,7 @@ const { calculateReporteHoras } = require('./reporte-horas');
 
 const PORT = 3000;
 const ROOT = process.cwd();
+const MAX_BODY_BYTES = 1024 * 1024;
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -22,6 +23,34 @@ const MIME = {
   '.txt': 'text/plain; charset=utf-8',
   '.ps1': 'text/plain; charset=utf-8',
 };
+
+function readJsonBody(req, res, onData) {
+  let size = 0;
+  let body = '';
+  req.on('data', chunk => {
+    size += chunk.length;
+    if (size > MAX_BODY_BYTES) {
+      res.writeHead(413, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Payload too large' }));
+      req.destroy();
+      return;
+    }
+    body += chunk;
+  });
+  req.on('end', () => {
+    if (size > MAX_BODY_BYTES || res.writableEnded) return;
+    try { onData(JSON.parse(body)); }
+    catch (e) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: e.message }));
+    }
+  });
+}
+
+function notFound(res) {
+  res.writeHead(404, { 'Content-Type': 'text/plain' });
+  res.end('404 Not Found');
+}
 
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
@@ -76,11 +105,8 @@ const server = http.createServer((req, res) => {
 
   // API: POST /api/sync/gantt - update gantt rows
   if (req.method === 'POST' && pathname === '/api/sync/gantt') {
-    let body = '';
-    req.on('data', chunk => body += chunk);
-    req.on('end', () => {
+    readJsonBody(req, res, data => {
       try {
-        const data = JSON.parse(body);
         const botMap = { nova:'nova', feli:'feli', robotina:'robotina', googlenova:'googlenova' };
         Object.keys(data).forEach(bot => {
           const realBot = botMap[bot];
@@ -99,11 +125,8 @@ const server = http.createServer((req, res) => {
 
   // API: POST /api/sync/static - update static_monthly
   if (req.method === 'POST' && pathname === '/api/sync/static') {
-    let body = '';
-    req.on('data', chunk => body += chunk);
-    req.on('end', () => {
+    readJsonBody(req, res, data => {
       try {
-        const data = JSON.parse(body);
         db.setAllStaticMonthly(data);
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: true }));
@@ -116,11 +139,8 @@ const server = http.createServer((req, res) => {
 
   // API: POST /api/sync - generic full sync
   if (req.method === 'POST' && pathname === '/api/sync') {
-    let body = '';
-    req.on('data', chunk => body += chunk);
-    req.on('end', () => {
+    readJsonBody(req, res, data => {
       try {
-        const data = JSON.parse(body);
         if (data.ganttRows) {
           Object.keys(data.ganttRows).forEach(bot => db.replaceGanttRows(bot, data.ganttRows[bot]));
         } else if (data.nova || data.feli || data.robotina || data.googlenova) {
@@ -138,14 +158,19 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Serve static files
-  let filePath = path.join(ROOT, pathname === '/' ? 'index.html' : pathname);
+  // Only the dashboard entry points and assets are safe to expose locally.
+  const relativePath = decodeURIComponent(pathname === '/' ? 'index.html' : pathname).replace(/^[/\\]+/, '');
+  const filePath = path.resolve(ROOT, relativePath);
+  const assetsRoot = path.resolve(ROOT, 'assets') + path.sep;
+  const allowed = filePath === path.resolve(ROOT, 'index.html') ||
+    filePath === path.resolve(ROOT, 'reporte-horas.js') ||
+    filePath.startsWith(assetsRoot);
+  if (!allowed) { notFound(res); return; }
   const ext = path.extname(filePath);
   fs.readFile(filePath, (err, content) => {
     if (err) {
       if (err.code === 'ENOENT') {
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end('404 Not Found');
+        notFound(res);
       } else {
         res.writeHead(500);
         res.end('Server Error');
@@ -161,7 +186,7 @@ const server = http.createServer((req, res) => {
 db.init();
 db.seedFromHtml();
 
-server.listen(PORT, () => {
+server.listen(PORT, '127.0.0.1', () => {
   console.log(`\n  Servidor local iniciado (SQLite)`);
   console.log(`  Abre: http://localhost:${PORT}`);
   console.log(`  Presiona Ctrl+C para detener.\n`);

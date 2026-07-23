@@ -2,6 +2,23 @@ state.json
 database.db
 database.db-shm
 database.db-wal
+backups/
+
+# Secretos y datos generados localmente
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+output/
+agente/__pycache__/
+agente/**/*.pyc
+agente/asunto_*.txt
+agente/borrador-*.txt
+agente/correo*.html
+agente/reporte_*.html
+agente/salida_*.txt
 node_modules/
 sync-log.txt
 correo-semanal-preview.html

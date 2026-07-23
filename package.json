@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "correo-semanal": "node generar-correo-semanal.js"
+    "correo-semanal": "node generar-correo-semanal.js",
+    "backup": "node backup-database.js"
   },
   "dependencies": {
     "better-sqlite3": "^12.10.0"
