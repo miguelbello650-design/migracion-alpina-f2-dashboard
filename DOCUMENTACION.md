@@ -27,7 +27,7 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - **SEGUIMIENTO A SOPORTE** carga `assets/support/dashboard_alpina_2.html` por defecto. Se puede reemplazar desde Cargar HTML o restaurar; conserva sus subtabs nativas, pero muestra el contenido con tema claro, fondo transparente y espaciado del dashboard.
 - Los controles **Cargar HTML** y **Restablecer** solo se muestran y operan en `localhost:3000`. En produccion se usa siempre el HTML publicado y se ignora cualquier version almacenada en el navegador.
 - Las tarjetas KPI, graficas y tablas del HTML de soporte tienen hover con elevacion suave.
-- La Monita Fase 2 conserva el alcance de nuevos clientes. El flujo de creacion de pedidos SAP se muestra en la tarjeta independiente **La Monita Fase 2 - Nuevo Flujo**.
+- La Monita Fase 2 conserva el alcance de nuevos clientes. El flujo de creacion de pedidos SAP se muestra en la tarjeta independiente **Requisiciones Internas - La Monita**.
 - `reporte-horas.js` incluye `actividad_f2_lamonita` en el total compartido; Consumo de Horas, Distribucion por Bloque y `/api/data` usan las mismas horas.
 
 ## Actualización operativa, seguridad y respaldos (2026-07-23)
@@ -97,7 +97,8 @@ Proyectos que no tienen datos en Gantt. Se definen con `staticData` en el array 
 **Próximos:**
 | Proyecto | Responsable | Color | Alcance |
 |----------|-------------|-------|---------|
-| La Monita Fase 2 | Johan Sabino | `#dc2626` | Incorporación de nuevos clientes en el flujo del Bot · Incorporación de nuevo flujo, Proceso para la creación de pedidos (bajas) SAP |
+| La Monita Fase 2 | Johan Sabino | `#dc2626` | Incorporación de nuevos clientes en el flujo del Bot |
+| Requisiciones Internas - La Monita | Johan Sabino | `#dc2626` | Incorporación de nuevo flujo, Proceso para la creación de pedidos (bajas) SAP |
 | Migración Google - BOT NOVA | Johan Sabino | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
 | BOT FELI - FASE 2 | Cristian Bonilla | `#6366f1` | Inclusión del flujo para crear materiales HALL · Incluir la creación de materiales para Ecuador/otros países (Configuración variable) · Reemplazo de MDG / Data Hub · Lógica para que en el asunto del caso pueda traer números o caracteres especiales · Automatización de precios |
 | Migración Google - BOT FELI | Cristian Bonilla | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
