@@ -40,6 +40,7 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - `.gitignore` excluye respaldos, secretos, logs y salidas generadas. `sync-github.ps1` ya no hace commits ni push automáticos: `main` se actualiza solo mediante una publicación solicitada explícitamente.
 - El cambio externo `ddced34`, no solicitado en esta conversación, fue revertido en `main` mediante `a0196d8`; la tarea **Ajustes finales y paso a producción** de FELI conserva 16h.
 - Al abrir un Gantt, el dashboard persiste la subpestaña en `developmentTab`. Tras recargar, se restaura el mismo cronograma de NOVA, FELI, ROBOTINA o Migración Google, en lugar de volver a `% AVANCE`.
+- En FELI se finalizaron **Ajustes finales y paso a producción**, **Documentación técnica (SDD, instalación)** y **Documentación funcional y manual usuario**, sin alterar sus duraciones ni planificación. **Aprobación de documentación (manual técnico y funcional y PDD)** queda en curso con responsable ALPINA, 2h y 0,3 días.
 
 ## Stack
 - **Lenguaje**: HTML + CSS + JavaScript (vanilla, un solo archivo `index.html`)
