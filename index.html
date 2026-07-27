@@ -919,11 +919,11 @@ let GANTT_ROWS_FELI = [
      { phase:"",task:"2. UAT con usuario funcional",resp:"2NV",hours:136,days:17,fixedIdx:61,fixedEndIdx:90,skipIndices:[61,65,66,67,68,69,70,77,78,81,82,83,84],notesIdx:[77,78],inProgress:false },
      { phase:"",task:"3. Re mapeo ID SAP",resp:"2NV",hours:64,days:8,fixedIdx:93,fixedEndIdx:108,skipIndices:[93,99,100,101,102,103,106,107],notesIdx:[93,99,100,101,102,103,106,107],inProgress:false },
      { phase:"Documentación",task:"1. Ajustes finales y paso a producción",resp:"2NV",hours:16,days:2,fixedIdx:91,fixedEndIdx:109,skipIndices:[92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108],notesIdx:[91],inProgress:false },
-     { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:20,days:3,fixedIdx:43,fixedEndIdx:92,skipIndices:[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],notesIdx:[92],inProgress:false },
-   { phase:"Producción",task:"1. Documentación funcional y manual usuario",resp:"2NV",hours:20,days:3,fixedIdx:45,fixedEndIdx:48,skipIndices:[47],inProgress:false },
+     { phase:"",task:"2. Documentación técnica (SDD, instalación)",resp:"2NV",hours:20,days:3,fixedIdx:43,fixedEndIdx:92,skipIndices:[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],notesIdx:[92],inProgress:true },
+   { phase:"Producción",task:"1. Documentación funcional y manual usuario",resp:"2NV",hours:20,days:3,fixedIdx:45,fixedEndIdx:48,skipIndices:[47],inProgress:true },
      { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:110,fixedEndIdx:110,inProgress:true },
      { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:110,fixedEndIdx:110 },
-     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:111,fixedEndIdx:111,milestone:true },
+     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:111,fixedEndIdx:111,milestone:true,inProgress:true },
      { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:112,fixedEndIdx:116 }
 ];
 
@@ -959,7 +959,7 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Cerrar ticket + adjuntar archivo + cambio de estado",resp:"2NV",hours:40,days:5,fixedIdx:55,fixedEndIdx:64,skipIndices:[57,58,59,60,61],notesIdx:[64] },
   { phase:"",task:"Enviar credenciales (2 correos) + notificación finalización",resp:"2NV",hours:10,days:1.3,fixedIdx:57,fixedEndIdx:57 },
   { phase:"",task:"Elaboración documentación SDD + manual usuario",resp:"2NV",hours:24,days:3,fixedIdx:58,fixedEndIdx:104,skipIndices:[60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,98,99,100,101,102,103,104],notesIdx:[96,98],inProgress:true },
-   { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:96,days:12,fixedIdx:65,fixedEndIdx:110,skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,96,97,98,99,100,101,102,103,104,105,106],notesIdx:[71,94,95,107,108],inProgress:true },
+   { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:96,days:12,fixedIdx:65,fixedEndIdx:110,skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,96,97,98,99,100,101,102,103,104,105,106],notesIdx:[71,94,95,107,108],inProgress:false },
    { phase:"",task:"Validación y creación flujo principal API",resp:"2NV",hours:34.7,days:4.5,fixedIdx:80,fixedEndIdx:85,skipIndices:[81],notesIdx:[80],inProgress:false },
    { phase:"",task:"Logica de asociación de WO",resp:"2NV",hours:40,days:5,fixedIdx:99,fixedEndIdx:106,skipIndices:[99,100,101],notesIdx:[99,100,101],inProgress:false },
    { phase:"Cierre",task:"Pruebas UAT",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:72,fixedEndIdx:111,skipIndices:[76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110],notesIdx:[111],inProgress:true },
@@ -2509,7 +2509,7 @@ if (IS_SERVER) {
   btn.textContent = '⚙';
   btn.onclick = showAdminLogin;
   document.querySelector('.topbar-right').appendChild(btn);
-  loadServerState().then(() => renderAll());
+  loadServerState().then(() => { if (supportDashboard) syncSupportHours(supportActiveTab); renderAll(); });
 } else {
   loadState();
   renderAll();
@@ -2535,7 +2535,7 @@ let supportDashboard = null;
 let supportActiveTab = 'Resumen';
 let supportSourceHtml = '';
 function extractSupportLiteral(source, name) {
-  const match = new RegExp('const\\s+' + name + '\\s*=').exec(source);
+  const match = new RegExp('(?:const|let|var)\\s+' + name + '\\s*=').exec(source);
   if (!match) return null;
   let start = source.indexOf('=', match.index) + 1;
   while (/\s/.test(source[start])) start++;
@@ -2586,18 +2586,39 @@ function supportLiteralToJson(literal) {
   return JSON.parse(json.replace(/,(\s*[}\]])/g, '$1'));
 }
 function parseSupportHtml(html) {
-  const data = supportLiteralToJson(extractSupportLiteral(html, 'DATA'));
-  if (!data || typeof data !== 'object') throw new Error('No se encontró DATA');
   const read = name => {
     const literal = extractSupportLiteral(html, name);
-    return literal ? supportLiteralToJson(literal) : name === 'MAKRO' ? {} : [];
+    if (!literal) return null;
+    try { return supportLiteralToJson(literal); } catch (error) { return null; }
   };
-  return { data, months:Object.keys(data), solicitudes:read('SOLICITUDES'), bots:read('BOTS'), sprints:read('SPRINTS'), makro:read('MAKRO') };
+  const monthsLiteral = extractSupportLiteral(html, 'MESES');
+  const months = monthsLiteral ? read('MESES') : [];
+  const data = read('DATA') || {};
+  if (Array.isArray(months) && months.length) return { data, months, solicitudes:[], bots:[], sprints:[], makro:{} };
+  if (!data || typeof data !== 'object' || !Object.keys(data).length) throw new Error('No se encontraron las pestañas de soporte');
+  return { data, months:Object.keys(data), solicitudes:[], bots:[], sprints:[], makro:{} };
 }
 function escapeSupport(value) {
   return String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[char]);
 }
 function supportHours(rows) { return rows.reduce((total, row) => total + Number(row.horas || 0), 0); }
+function syncSupportHours(month, reportedHours) {
+  const rows = supportDashboard && supportDashboard.data[month];
+  const monthIndex = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'].indexOf(month);
+  const hours = Number.isFinite(reportedHours) ? reportedHours : Array.isArray(rows) ? supportHours(rows) : NaN;
+  if (!Number.isFinite(hours) || monthIndex < 0) return;
+  const yearMatch = Array.isArray(rows) && rows.map(row => /\/(\d{4})$/.exec(row.fecha || '')).find(Boolean);
+  const monthKey = (yearMatch ? yearMatch[1] : new Date().getFullYear()) + '-' + (monthIndex + 1);
+  STATIC_MONTHLY.soporte[monthKey] = Number(hours.toFixed(1));
+  localStorage.setItem(REPORTE_MONTH_KEY, monthKey);
+  if (IS_SERVER) fetch('/api/sync/static', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(STATIC_MONTHLY) });
+  renderReporte();
+}
+window.addEventListener('message', event => {
+  const frame = document.getElementById('support-embedded');
+  const data = event.data;
+  if (event.source === (frame && frame.contentWindow) && data && data.type === 'support-hours') syncSupportHours(data.tab, Number(data.hours));
+});
 function supportStatus(status) {
   const value = String(status || '').toLowerCase();
   const style = value.startsWith('cerrado') ? 'closed' : value === 'ok' ? 'ok' : value.startsWith('abierto') ? 'open' : value.startsWith('pendiente') ? 'pending' : 'other';
@@ -2666,12 +2687,13 @@ function syncSupportSummaryFrame() {
 }
 function openSupportTab(tab) {
   supportActiveTab = tab;
+  syncSupportHours(tab);
   document.querySelectorAll('#support-tabs .tab').forEach(button => button.classList.toggle('active', button.textContent === tab.toUpperCase()));
   syncSupportFrame();
 }
 function supportFrameHtml(html) {
   const style = '<style>html,body{background:transparent!important}:root,[data-theme="light"]{--bg:transparent}.header,.tab-nav,.footer{display:none!important}.main{max-width:none!important;padding:28px 32px!important}.kpi-card,.chart-card,.table-card{transition:transform .32s ease,box-shadow .32s ease}.kpi-card:hover,.chart-card:hover,.table-card:hover{box-shadow:0 16px 32px rgba(15,23,42,.13);transform:translateY(-6px)}</style>';
-  const bridge = '<script>window.addEventListener("message",function(event){if(event.data&&event.data.type==="support-tab"&&typeof switchTab==="function"){switchTab(event.data.tab)}});<' + '/script>';
+  const bridge = '<script>(function(){function report(tab){var rows=typeof DATA!=="undefined"&&Array.isArray(DATA[tab])?DATA[tab]:null;var hours=rows?rows.reduce(function(total,row){return total+Number(row.horas||0)},0):NaN;if(!Number.isFinite(hours)){var card=[].find.call(document.querySelectorAll(".kpi-card"),function(item){return /horas de soporte/i.test(item.textContent)});var value=card&&card.querySelector(".kpi-value");hours=value?Number(value.textContent.replace(",",".").replace(/[^0-9.-]/g,"")):NaN}if(Number.isFinite(hours))window.parent.postMessage({type:"support-hours",tab:tab,hours:hours},"*")}window.addEventListener("message",function(event){if(event.data&&event.data.type==="support-tab"&&typeof switchTab==="function"){switchTab(event.data.tab);setTimeout(function(){report(event.data.tab)},0)}})})();<' + '/script>';
   const lightHtml = html.replace(/<html\b([^>]*)>/i, function(match, attributes) { return '<html' + attributes.replace(/\sdata-theme\s*=\s*(["']).*?\1/i, '') + ' data-theme="light">'; });
   const withStyle = lightHtml.replace('</head>', style + '</head>');
   return withStyle.includes('</body>') ? withStyle.replace('</body>', bridge + '</body>') : withStyle + bridge;
@@ -2680,8 +2702,10 @@ function setSupportHtml(html, persist) {
   try {
     supportDashboard = parseSupportHtml(html);
     supportSourceHtml = html;
-    supportActiveTab = supportDashboard.months[0] || 'Bots 2NV';
+    const currentMonth = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'][new Date().getMonth()];
+    supportActiveTab = supportDashboard.months.includes(currentMonth) ? currentMonth : supportDashboard.months[0] || 'Bots 2NV';
     if (persist) localStorage.setItem(SUPPORT_HTML_STORAGE_KEY, html);
+    syncSupportHours(supportActiveTab);
     renderSupportDashboard();
   } catch (error) {
     alert('No fue posible leer el HTML. Debe conservar la estructura de datos del dashboard de soporte.');

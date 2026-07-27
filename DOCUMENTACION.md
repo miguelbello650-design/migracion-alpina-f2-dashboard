@@ -24,7 +24,7 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - La navegacion principal incluye **RESUMEN**, **SEGUIMIENTO A DESARROLLO** y **SEGUIMIENTO A SOPORTE**.
 - **RESUMEN** concentra el consumo de horas: Horas Contratadas vs Horas Restantes, Distribucion por Bloque, Horas por Mes y la tarjeta Horas de Desarrollo por Proyecto.
 - La seccion **DESARROLLO** del resumen incluye una grafica independiente de evolucion mensual, con valores por punto, total y promedio. Usa solo horas de desarrollo y no se altera al filtrar las graficas superiores.
-- **SEGUIMIENTO A SOPORTE** carga `assets/support/dashboard_alpina_2.html` por defecto. Se puede reemplazar desde Cargar HTML o restaurar; conserva sus subtabs nativas, pero muestra el contenido con tema claro, fondo transparente y espaciado del dashboard.
+- **SEGUIMIENTO A SOPORTE** carga `assets/support/dashboard_alpina_2.html` por defecto. Se puede reemplazar desde Cargar HTML o restaurar; conserva sus subtabs nativas, pero muestra el contenido con tema claro, fondo transparente y espaciado del dashboard. Al cargar un HTML, las horas del mes activo se sincronizan automáticamente con el bloque Soporte de Reporte de horas.
 - Los controles **Cargar HTML** y **Restablecer** solo se muestran y operan en `localhost:3000`. En produccion se usa siempre el HTML publicado y se ignora cualquier version almacenada en el navegador.
 - Las tarjetas KPI, graficas y tablas del HTML de soporte tienen hover con elevacion suave.
 - La Monita Fase 2 conserva el alcance de nuevos clientes. El flujo de creacion de pedidos SAP se muestra en la tarjeta independiente **Requisiciones Internas - La Monita**.
@@ -40,7 +40,7 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - `.gitignore` excluye respaldos, secretos, logs y salidas generadas. `sync-github.ps1` ya no hace commits ni push automáticos: `main` se actualiza solo mediante una publicación solicitada explícitamente.
 - El cambio externo `ddced34`, no solicitado en esta conversación, fue revertido en `main` mediante `a0196d8`; la tarea **Ajustes finales y paso a producción** de FELI conserva 16h.
 - Al abrir un Gantt, el dashboard persiste la subpestaña en `developmentTab`. Tras recargar, se restaura el mismo cronograma de NOVA, FELI, ROBOTINA o Migración Google, en lugar de volver a `% AVANCE`.
-- En FELI se finalizaron **Ajustes finales y paso a producción**, **Documentación técnica (SDD, instalación)** y **Documentación funcional y manual usuario**, sin alterar sus duraciones ni planificación. **Aprobación de documentación (manual técnico y funcional y PDD)** queda en curso con responsable ALPINA, 2h y 0,3 días.
+- En FELI, **Documentación técnica (SDD, instalación)**, **Documentación funcional y manual usuario**, **Aprobación de documentación (manual técnico y funcional y PDD)** y **Salida a Producción** están en curso, sin alterar sus duraciones ni planificación. **Ajustes finales y paso a producción** permanece finalizada.
 
 ## Stack
 - **Lenguaje**: HTML + CSS + JavaScript (vanilla, un solo archivo `index.html`)
@@ -601,7 +601,7 @@ Quedo atento a los comentarios,
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - **Nota vigente 2026-07-21**: la tarea **Logica de asociación de WO** queda finalizada (`inProgress:false`) sin modificar sus 40h, 5 dias ni fechas planificadas.
-- **Nota vigente 2026-07-22**: **Pruebas unitarias** suma el 22-Jul (idx 108), queda en **80h / 10 dias** y permanece en curso. El cronograma posterior se corre un dia: UAT al 23-Jul (idx 109), aprobacion/entrega al 24-Jul (idx 110), salida a produccion al 27-Jul (idx 111) y soporte postproduccion del 28-Jul al 03-Aug (idx 112-116).
+- **Nota vigente 2026-07-27**: **Pruebas unitarias** queda finalizada. **Pruebas UAT** permanece en curso; no se alteran sus duraciones ni fechas planificadas.
 - 40 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (9 tareas)
 - Vista Gantt: se recorta visualmente desde la primera tarea asignada, **23-Feb-2026** (idx 11). Los datos base conservan sus índices globales para no afectar cálculos, tarjetas ni reportes.
