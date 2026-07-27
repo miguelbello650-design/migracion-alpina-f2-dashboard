@@ -137,6 +137,26 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Persist the support dashboard selected locally so it can be published with main.
+  if (req.method === 'POST' && pathname === '/api/support-html') {
+    readJsonBody(req, res, data => {
+      if (typeof data.html !== 'string' || !/<html[\s>]/i.test(data.html)) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Invalid support HTML' }));
+        return;
+      }
+      try {
+        fs.writeFileSync(path.join(ROOT, 'assets', 'support', 'dashboard_alpina_2.html'), data.html, 'utf8');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true }));
+      } catch (e) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: e.message }));
+      }
+    });
+    return;
+  }
+
   // API: POST /api/sync - generic full sync
   if (req.method === 'POST' && pathname === '/api/sync') {
     readJsonBody(req, res, data => {

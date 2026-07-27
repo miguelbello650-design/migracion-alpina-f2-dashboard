@@ -2719,6 +2719,9 @@ function loadSupportHtml(input) {
   reader.onload = () => {
     const html = String(reader.result || '');
     setSupportHtml(html, true);
+    fetch('/api/support-html', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ html }) })
+      .then(response => { if (!response.ok) throw new Error('No se pudo guardar el HTML'); })
+      .catch(() => alert('El HTML se visualiza localmente, pero no se pudo guardar para publicarlo.'));
     input.value = '';
   };
   reader.readAsText(file);

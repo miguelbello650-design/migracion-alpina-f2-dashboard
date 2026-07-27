@@ -305,10 +305,10 @@ const DATA = {
     { nombre:"LA MONITA", estado:"Cerrado", fecha:"02/07/2026", descripcion:"Error de conexión", causa:"El Bot finaliza su ejecución por tiempos en SAP.", solucion:"Se valida que hay intermitencias con SAP y a su vez errores con Gmail que ocasionaron que el bot se detuviese, adicionalmente, se generaron pedidos duplicados previo a su detenimiento. Se reportan los pedidos duplicados para su elimincación, se ajustan las reglas del correo para evitar futuros duplicados y se re lanza la ejecución.", observaciones:"", horas:1.0 },
     { nombre:"INVENTARIOS", estado:"Cerrado", fecha:"01/07/2026", descripcion:"Revisión de código.", causa:"La ejecución notifica errores por correo", solucion:"Se valida que es a causa de intermitencias en SAP, se aumenta el tiempo entre reintentos de conexión a 3 minutos para intentar mitigar el problema.", observaciones:"", horas:1.0 },
     { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Cerrado", fecha:"01/07/2026", descripcion:"Desarrollar código del RPA", causa:"Se solicita que un pago se cargue con fecha del mes pasado", solucion:"Se ajusta la regla de negocio, ahora, cuando un pago se esté cargando en un mes posterior a la fecha real del mismo, el bot tomará la fecha real del pago y lo cargará con fecha del último día de dicho mes.", observaciones:"En espera de poder realizar pruebas", horas:2.0 },
-    { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Abierto", fecha:"01/07/2026", descripcion:"Error de conexión", causa:"No se puede realizar el ingreso mediante la automatización a la página de Alkosto", solucion:"Se valida que, al intentar ingresar a la página de Alkosto mediante la automatización, el sistema arroja una alerta de seguridad que impide el ingreso, se realizan pruebas cambiando las librerías para acceder al navegador y evitar que se esté detectando como un Bot pero no son exitosas.", observaciones:"Se solicita reunión para evaluar un cambio en la lógica de obtención del pago.", horas:2.0 },
+    { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Cerrado", fecha:"01/07/2026", descripcion:"Error de conexión", causa:"No se puede realizar el ingreso mediante la automatización a la página de Alkosto", solucion:"Se valida que, al intentar ingresar a la página de Alkosto mediante la automatización, el sistema arroja una alerta de seguridad que impide el ingreso, se realizan pruebas cambiando las librerías para acceder al navegador y evitar que se esté detectando como un Bot pero no son exitosas.", observaciones:"Se solicita reunión para evaluar un cambio en la lógica de obtención del pago.", horas:2.0 },
     { nombre:"PYG GUARDIAN", estado:"Cerrado", fecha:"01/07/2026", descripcion:"Revisión de código.", causa:"La ejecución notifica errores por correo", solucion:"Se valida que es a causa de intermitencias en SAP, se aumenta el tiempo entre reintentos de conexión a 3 minutos para intentar mitigar el problema.", observaciones:"", horas:0.5 },
-    { nombre:"COMPENSASION DE CADENAS MAKRO", estado:"Abierto", fecha:"22/06/2027", descripcion:"Desarrollo", causa:"Desarrollo de Bot python", solucion:"130 horas en total", observaciones:"en el mes de julio se llevan", horas:52.0 },
-    { nombre:"Robxy", estado:"Abierto", fecha:"06/07/2026", descripcion:"Error de código", causa:"Se notifica que no se está ejecutando correctamente", solucion:"Ajustes", observaciones:"El error proviene de la transacción ZFIQ010 al intentar exportar una gran cantidad de filas. Se añade re ejecuciones de la transacción completa para lo cual se disminuyen los re intentos para evitar que el proceso tarde excesivamente en caso de fallos en SAP.", horas:1.0 },
+    { nombre:"COMPENSASION DE CADENAS MAKRO", estado:"Abierto", fecha:"22/06/2027", descripcion:"Desarrollo", causa:"Desarrollo de Bot python", solucion:"130 horas en total", observaciones:"en el mes de julio se llevan", horas:64.0 },
+    { nombre:"Robxy", estado:"Cerrado", fecha:"06/07/2026", descripcion:"Error de código", causa:"Se notifica que no se está ejecutando correctamente", solucion:"Ajustes", observaciones:"El error proviene de la transacción ZFIQ010 al intentar exportar una gran cantidad de filas. Se añade re ejecuciones de la transacción completa para lo cual se disminuyen los re intentos para evitar que el proceso tarde excesivamente en caso de fallos en SAP.", horas:1.0 },
     { nombre:"LA MONITA", estado:"Cerrado", fecha:"06/07/2026", descripcion:"Incidente", causa:"Error de conexión", solucion:"Se presenta error crítico y finaliza el Bot", observaciones:"Se valida que ocurrió un error de conexión con SAP en la creación de uno de los pedidos, se reinicia SAP manualmente y se lanza la ejecución del bot nuevamente.", horas:0.5 },
     { nombre:"MDR", estado:"Cerrado", fecha:"07/07/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Se notifica de un error por correo", observaciones:"Se verifica que el error proviene de la conexión con SAP, la automatización no tiene re intentos mapeados, se agregan 3 re intentos con espera de 3 minutos entre cada uno en caso de requerirse en intermitencias de SAP. Ahora, se intentará la conexión y se hará un Kill App de SAP por cada re intento, si fallan los 3, se notificará la incidencia por correo.", horas:1.0 },
     { nombre:"Seguimiento de Contratos", estado:"Cerrado", fecha:"08/07/2026", descripcion:"Incidente", causa:"Error de código", solucion:"El Bot no se ejecuta correctamente desde la migración de Outlook  a Gmail", observaciones:"Se valida que este flujo utilizaba un Excel de trabajo actualizado por un flujo de power automate el cual quedó inutilizable luego de la migración. Se ajustó para que tanto la lectura de correos, envío y escritura en el excel de trabajo se realicen por medio de la automatización en Python. Se recomienda apagar el flujo de power automate.", horas:8.0 },
@@ -318,17 +318,25 @@ const DATA = {
     { nombre:"MARKETING MODELS", estado:"Cerrado", fecha:"14/07/2026", descripcion:"Requerimiento", causa:"Actualizacion archivo configuración", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Proceso realizado por Alpina", horas:0.0 },
     { nombre:"LA MONITA", estado:"Cerrado", fecha:"14/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se realiza el ajuste del código para realizar la conexión a SAP mediante credenciales. Pruebas de ejecución finalizan con éxito.", horas:5.0 },
     { nombre:"OPTIMUS", estado:"Cerrado", fecha:"14/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se realiza el ajuste del código para realizar la conexión a SAP mediante credenciales. Pruebas de ejecución finalizan con éxito.", horas:2.0 },
-    { nombre:"NOVA", estado:"Pendiente cliente", fecha:"14/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se realiza el ajuste del código para realizar la conexión a SAP mediante credenciales.Pendiente realizar pruebas en PRD con Insumos disponibles", horas:1.5 },
+    { nombre:"NOVA", estado:"Cerrado", fecha:"14/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se realiza el ajuste del código para realizar la conexión a SAP mediante credenciales.Pendiente realizar pruebas en PRD con Insumos disponibles. Se confirma en ejecucion con Uusario de que el bot culmina de manera correcta", horas:1.5 },
     { nombre:"EVOLUTIVOS BOTS DE COMPENSACIÓN", estado:"Cerrado", fecha:"15/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se recibe la explicación de las cadenas de compensación Cencosud, Olímpica y Éxito para realizar los ajustes y evolutivos pertinentes a los flujos pre existentes de dichas automatizaciones.", observaciones:"Se realiza levantamiento de los 3 bots para ajustes, evolutivo de cada uno y resolucion de dudas, Penduiente confirmar o estimar tiempos de desarrollo de cada caso", horas:4.0 },
     { nombre:"MDR", estado:"Cerrado", fecha:"16/07/2026", descripcion:"Requerimiento", causa:"Actualizacion archivo configuración", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se actualizan las credenciales de acceso a SAP, posteriormente, se realiza una prueba de ejecución. La automatización finaliza de forma correcta.", horas:1.5 },
     { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Cerrado", fecha:"16/07/2026", descripcion:"Requerimiento", causa:"Actualizacion archivo configuración", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se actualiza la conexión de Acceso a SAP y una prueba de ejecución exitosa", horas:1.0 },
-    { nombre:"ROBXY", estado:"Abierto", fecha:"16/07/2026", descripcion:"Desarrollo", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar el flujo para precios en la transacción VK13, ajustando layouts para la exportación de los Excel de cada nodo.", observaciones:"Se realiza la creación de las nuevas disposiciones, adicionalmente, se actualiza el código para que, por cada nodo, se tome el layout correspondiente. El archivo settings se actualiza con nuevas variables que contienen la posición en SAP de la dispoción para cada nodo.", horas:2.0 },
+    { nombre:"ROBXY", estado:"cerrado", fecha:"16/07/2026", descripcion:"Desarrollo", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar el flujo para precios en la transacción VK13, ajustando layouts para la exportación de los Excel de cada nodo.", observaciones:"Se realiza la creación de las nuevas disposiciones, adicionalmente, se actualiza el código para que, por cada nodo, se tome el layout correspondiente. El archivo settings se actualiza con nuevas variables que contienen la posición en SAP de la dispoción para cada nodo.", horas:2.0 },
     { nombre:"LA MONITA", estado:"Cerrado", fecha:"16/07/2026", descripcion:"Incidente", causa:"Revisión de código.", solucion:"Se notifica por correo la finalización del Bot por errores", observaciones:"Se verifica que el error corresponde a un pedido recibido en la bandeja de entrada de la Monita, el cual contiene lineas en blanco al inicio del mismo lo que ocasiona erorres en SAP y una finalizacón por error crítico del RPA. Se notifica para procesar el pedido manual.", horas:0.5 },
     { nombre:"HORAS EXTRA", estado:"Pendiente cliente", fecha:"16/07/2026", descripcion:"Requerimiento", causa:"Desarrollar código del RPA", solucion:"Se solicita actualizar la conexión a SAP RISE meidante SSO", observaciones:"Se realiza el ajuste del código para realizar la conexión a SAP mediante credenciales. Pendiente ejecución y confirmación por parte del usuario", horas:3.0 },
     { nombre:"SUPERCOCO", estado:"Cerrado", fecha:"17/07/2026", descripcion:"Incidente", causa:"Revisión de código.", solucion:"El flujo se realiza correctamente pero no se notifica", observaciones:"", horas:2.0 },
     { nombre:"COMPENSACION DE CADENAS - ALKOSTO - Olimpica", estado:"Cerrado", fecha:"21/07/2026", descripcion:"Requerimiento", causa:"Actualizacion de Credenciales", solucion:"Usuario solicita actualizacion de Contraseña en portal de transacciones de los dos bots", observaciones:"Se realiza actualizacion", horas:0.5 },
-    { nombre:"MDR", estado:"Abierto", fecha:"21/07/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Se registra error en transaccion SALR", observaciones:"2026-07-21 09:53:31 | INFO    | sap_rpa.utils | [popup resultado busqueda] encontrado en 0s 2026-07-21 09:53:34 | INFO    | sap_rpa.utils | [cierre popup busqueda] completada en 2s 2026-07-21 09:53:34 | INFO    | sap_rpa.salr | [5c] Drill-down en label encontrado... 2026-07-21 09:53:50 | ERROR   | sap_rpa.utils | TIMEOUT (15s) esperando [label drill-down post-busqueda] No se encontro label para drill-down despues de busqueda. PS C:\\\\Users\\\\asist.auto\\\\OneDrive - Alpina Productos Aliménticios S.A\\\\Equipo Nuevas Tecnologías - Documents\\\\2025\\\\Proyectos\\\\Automatizaciones\\\\MDR>", horas:0.0 },
-    { nombre:"Monita", estado:"Abierto", fecha:"21/07/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Usuario Solicita revisión ya que el bot no se encuentra reportando pedidos", observaciones:"", horas:0.0 },
+    { nombre:"MDR", estado:"Cerrado", fecha:"21/07/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Se registra error en transaccion SALR", observaciones:"2026-07-21 09:53:31 | INFO    | sap_rpa.utils | [popup resultado busqueda] encontrado en 0s 2026-07-21 09:53:34 | INFO    | sap_rpa.utils | [cierre popup busqueda] completada en 2s 2026-07-21 09:53:34 | INFO    | sap_rpa.salr | [5c] Drill-down en label encontrado... 2026-07-21 09:53:50 | ERROR   | sap_rpa.utils | TIMEOUT (15s) esperando [label drill-down post-busqueda] No se encontro label para drill-down despues de busqueda. PS C:\Users\asist.auto\OneDrive - Alpina Productos Aliménticios S.A\Equipo Nuevas Tecnologías - Documents\2025\Proyectos\Automatizaciones\MDR>  Se confirma que se descarga hasta el mes 07", horas:2.0 },
+    { nombre:"Monita", estado:"Cerrado", fecha:"21/07/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Usuario Solicita revisión ya que el bot no se encuentra reportando pedidos", observaciones:"Error en el Noc de conexión", horas:0.5 },
+    { nombre:"Supercoco", estado:"Cerrado", fecha:"22/07/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Se detecta un nuevo error al ejecutar el bot en la transacción", observaciones:"Se realiza ajuste en la  validación el tiempo de espera del bot en SAP al momento de la descarga del archivo, ya que se evidencia que en este punto el bot solo espera 40 Segundos, lo que hacia que si el archivo no se generaba de maner correcta en ese tiempo, de igual forma el bot validaba la información, sin datos, por lo que se ajusta para que el bot espere un poco mas de tiempo y solo si este archivo genera la data correspondiente ingrese y haga la validación de la información", horas:2.0 },
+    { nombre:"Seguimiento e Contratos", estado:"Abierto", fecha:"22/07/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Se solicita revisión de proceso de Notificaciones ya que estan llegando varias de cara a usuarios.", observaciones:"Se baja el bot para evitar las notificaciones de cara al usuario por solicitud de Nicolas y se agenda reunión para el dia de mañana verificar con usuarios el proceso", horas:7.0 },
+    { nombre:"Alkosto", estado:"Cerrado", fecha:"22/07/2026", descripcion:"Requerimiento", causa:"Revisión de código.", solucion:"Se detecta un nuevo error al ejeuctar el bot donde", observaciones:"Se visualiza que hay un error catalogado como (605, 'saplogon', \"The 'Sapgui Component' could not be instantiated.\")el proceso corre en una sesión SIN escritorio interactivo (pantalla bloqueada, RDP desconectado, o ejecutándose como servicio / tarea programada en Session 0- Para solucionarlo se va a descargar y ajustar el TSCON", horas:1.0 },
+    { nombre:"NOVA", estado:"Cerrado", fecha:"22/07/2026", descripcion:"Requerimiento", causa:"Actualizacion archivo configuración", solucion:"Se solicita añadir nuevos puntos de venta para el cliente Globoshop", observaciones:"Se ajustan los nuevos PV en el archivo de homologación", horas:0.5 },
+    { nombre:"Monita", estado:"Cerrado", fecha:"22/07/2026", descripcion:"Incidente", causa:"Revisión de código.", solucion:"Se solicita revisar por qué una nota aparece rechazada luego del procesamiento", observaciones:"Se valida que el bot ejecutó correctamente, el rechazo en la factura corresponde", horas:1.0 },
+    { nombre:"Optimus", estado:"Cerrado", fecha:"23/07/2026", descripcion:"Gabriel Sabino", causa:"Incidente", solucion:"Configuración del orquestador", observaciones:"El NOC se encuentra apagado en la máquina", horas:0.5 },
+    { nombre:"Cadenas de Compensación Éxito", estado:"Abierto", fecha:"24/07/2026", descripcion:"Requerimiento", causa:"Evolutivo bots- Desarrollo", solucion:"Se realiza incio de revisión y ajuste en bot, para ejar estabilizado se cotiza 50 horas", observaciones:"en el mes de julio se llevan", horas:4.0 },
+    { nombre:"Cadenas de Compensación Olimpica", estado:"Abierto", fecha:"24/07/2026", descripcion:"Requerimiento", causa:"Evolutivo bots- Desarrollo", solucion:"Se realiza incio de revisión y ajuste en bot, para ejar estabilizado se cotiza 50 horas", observaciones:"en el mes de julio se llevan", horas:4.0 },
   ],
 };
 const SOLICITUDES = {
@@ -389,14 +397,14 @@ const SOLICITUDES = {
     { grupo:"Ajustes con cronograma", estado:"Ok", desc:"Se solicita pasar todos los bots que tengan Sharepoint a las carpetas compartidas por Api de Google, tambien realizar seguimiento a la migración de SAP Raises, posterior a ello realizar copia de seguridad de todos los bots ya que se realizara reinicio y monitoreo junto al levantamiento de los bots en la semana del 14 de Julio" },
   ],
   "Julio": [
-    { grupo:"Feli y Robotina", estado:"Acompañamiento", desc:"Ingresar a las pruebas UVT - Robotina con pendientes por realizar en Desarrollo (Creación de usuarios en GLP, la conexión por Api, pendiente el campo de adjuntos, pendiente asignación de ticket, grupos asignados, ajuste dinámico)" },
+    { grupo:"Feli y Robotina", estado:"Acompañamiento", desc:"Ingresar a las pruebas UVT - Robotina con pendientes por realizar en Desarrollo (Creación de usuarios en GLP, la conexión por Api, pendiente el campo de adjuntos, pendiente asignación de ticket, grupos asignados, ajuste dinamico)" },
     { grupo:"Nuevo bot Makro", estado:"En proceso", desc:"En desarrollo con nuevas reglas de negocio" },
     { grupo:"Ventas", estado:"Seguimiento", desc:"Pruebas en PRD - Pausa" },
     { grupo:"Wanda", estado:"Por recibir", desc:"Por agendar" },
     { grupo:"Alpi Rutas", estado:"Por recibir", desc:"Por agendar" },
-    { grupo:"Ajustes con cronograma", estado:"Ok", desc:"Se solicita pasar todos los bots que tengan Sharepoint a las carpetas compartidas por Api de Google, tambien realizar seguimiento a la migración de SAP Raises, posterior a ello realizar copia de seguridad de todos los bots ya que se realizara reinicio y monitoreo junto al levantamiento de los bots en la semana del 14 de Julio" },
+    { grupo:"Ajustes con cronograma", estado:"Ok", desc:"Se solicita pasar todos los bots que tenga Sharepoint a las carpetas compartidas por Api de Google, tambien realizar segumiento a la migración de SAP Raises, porterior a ello realizar copia de seguridad de todos los bots ya que se realizara reinicio y monitoreo junto al levantamiento de los bots en la semana del 14 de Julio" },
     { grupo:"Viernes 2 p.m", estado:"Ok", desc:"Se apaga SAP" },
-    { grupo:"Martes 14 a.m", estado:"Ok", desc:"Se encienden Maquinas SAP - Se esta revisando RPAs y funcionalidades de las mismas" },
+    { grupo:"Martes 14 a.m", estado:"Ok", desc:"Se incienden Maquinas SAP - Se esta revisando RPAs y funcionalidades de las mismas" },
   ],
 };
 const BOTS = [
@@ -421,10 +429,10 @@ const BOTS = [
   { cat:"Python por recibir", bot:"Alpi Rutas", estado:"Pendiente de recibir en Soporte" },
 
   { cat:"Evolutivos", bot:"Compensación de Cadenas", estado:"Entregado y en PRD", desc:"Entregado y en producción (PRD)." },
-  { cat:"Evolutivos", bot:"Compensación de Cadenas Makro", estado:"En curso", desc:"Inició el 22 de Junio y termina el 18 de Agosto. Horas iniciales de 130 aumentan a 150 por ajustes en nuevas reglas de negocio. Se trabaja 4 horas diarias por prioridades de procesos en paralelo." },
-  { cat:"Evolutivos", bot:"Compensación de Cadenas Cencosud", estado:"En curso", desc:"En revisión de código versus entrega funcional para cotizar horas de evolutivo." },
-  { cat:"Evolutivos", bot:"Compensación de Cadenas Éxito", estado:"En curso", desc:"En revisión de código versus entrega funcional para cotizar horas de evolutivo." },
-  { cat:"Evolutivos", bot:"Compensación de Cadenas Olimpica", estado:"En curso", desc:"En revisión de código versus entrega funcional para cotizar horas de evolutivo." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Makro", estado:"En curso", desc:"Inició el 22 de Junio y termina el 20 de Agosto. Horas iniciales de 130 aumentan a 150 por ajustes en nuevas reglas de negocio. Se trabaja 4 horas diarias por prioridades de procesos en paralelo." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Cencosud", estado:"En curso", desc:"En revisión de código versus entrega funcional. Horas evolutivo: 50." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Éxito", estado:"En curso", desc:"En revisión de código versus entrega funcional. Horas evolutivo: 50." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Olimpica", estado:"En curso", desc:"En revisión de código versus entrega funcional. Horas evolutivo: 50." },
 ];
 const BOT_CATS = ["Rocketbot","Python entregados","Python por recibir","Evolutivos"];
 const BOT_CAT_LABELS = { "Rocketbot":"Rocketbot (Desarrollo 2NV)", "Python entregados":"Bots Python entregados a Soporte", "Python por recibir":"Bots Python por recibir en Soporte", "Evolutivos":"Bots Python Desarrollados por 2NV soporte - Evolutivos / Mejoras" };
@@ -448,30 +456,35 @@ const SPRINTS = [
   { sprint:"Sprint 2", fecha:"15/07/2026", dia:"Día 16", actividad:"Cruce + Análisis", hu:"HU16", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
   { sprint:"Sprint 2", fecha:"16/07/2026", dia:"Día 17", actividad:"Cruce + Análisis", hu:"HU17", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
   { sprint:"Sprint 2", fecha:"17/07/2026", dia:"Día 18", actividad:"Cruce + Análisis", hu:"HU18", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
-  { sprint:"Sprint 2", fecha:"21/07/2026", dia:"Día 19", actividad:"Cruce + Análisis", hu:"HU19", horas:4.0, responsable:"Dev", estado:"En curso", obs:"" },
-  { sprint:"Sprint 2", fecha:"22/07/2026", dia:"Día 20", actividad:"Cruce + Análisis", hu:"HU20", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 2", fecha:"23/07/2026", dia:"Día 21", actividad:"Plano + Carga", hu:"HU21", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 2", fecha:"24/07/2026", dia:"Día 22", actividad:"Plano + Carga", hu:"HU22", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"27/07/2026", dia:"Día 23", actividad:"Plano + Carga", hu:"HU23", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"28/07/2026", dia:"Día 24", actividad:"Plano + Carga", hu:"HU24", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"29/07/2026", dia:"Día 25", actividad:"Plano + Carga", hu:"HU25", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"30/07/2026", dia:"Día 26", actividad:"Plano + Carga", hu:"HU26", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"31/07/2026", dia:"Día 27", actividad:"QA + Integración", hu:"HU27", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"03/08/2026", dia:"Día 28", actividad:"QA + Integración", hu:"HU28", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"04/08/2026", dia:"Día 29", actividad:"QA + Integración", hu:"HU29", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"05/08/2026", dia:"Día 30", actividad:"QA + Integración", hu:"HU30", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"06/08/2027", dia:"Día 31", actividad:"Go Live / Buffer", hu:"HU31", horas:4.0, responsable:"Equipo Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"10/08/2028", dia:"Día 32", actividad:"Go Live / Buffer", hu:"HU32", horas:4.0, responsable:"Equipo Dev", estado:"Pendiente", obs:"" },
-  { sprint:"Sprint 3", fecha:"11/08/2029", dia:"Día 33", actividad:"Go Live / Buffer", hu:"HU33", horas:2.0, responsable:"Equipo Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 2", fecha:"21/07/2026", dia:"Día 19", actividad:"Cruce + Análisis", hu:"HU19", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"22/07/2026", dia:"Día 20", actividad:"Cruce + Análisis", hu:"HU19", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"23/07/2026", dia:"Día 21", actividad:"Cruce + Análisis", hu:"HU20", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"24/07/2026", dia:"Día 22", actividad:"Cruce + Análisis", hu:"HU20", horas:4.0, responsable:"Dev", estado:"✓ Completado", obs:"" },
+  { sprint:"Sprint 2", fecha:"28/07/2026", dia:"Día 23", actividad:"Cruce + Análisis", hu:"HU20", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"29/07/2026", dia:"Día 24", actividad:"Plano + Carga", hu:"HU21", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"30/07/2026", dia:"Día 25", actividad:"Plano + Carga", hu:"HU22", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"31/07/2026", dia:"Día 26", actividad:"Plano + Carga", hu:"HU23", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"03/08/2026", dia:"Día 27", actividad:"Plano + Carga", hu:"HU24", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"04/08/2026", dia:"Día 28", actividad:"Plano + Carga", hu:"HU24", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"05/08/2026", dia:"Día 29", actividad:"Plano + Carga", hu:"HU25", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"06/08/2027", dia:"Día 30", actividad:"Plano + Carga", hu:"HU25", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"10/08/2028", dia:"Día 31", actividad:"Plano + Carga", hu:"HU26", horas:4.0, responsable:"Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"11/08/2029", dia:"Día 32", actividad:"QA + Integración", hu:"HU27", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"12/08/2029", dia:"Día 33", actividad:"QA + Integración", hu:"HU28", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"13/08/2029", dia:"Día 34", actividad:"QA + Integración", hu:"HU29", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"14/08/2029", dia:"Día 35", actividad:"QA + Integración", hu:"HU30", horas:4.0, responsable:"QA/Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"18/08/2029", dia:"Día 36", actividad:"Go Live / Buffer", hu:"HU31", horas:4.0, responsable:"Equipo Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"19/08/2029", dia:"Día 37", actividad:"Go Live / Buffer", hu:"HU32", horas:4.0, responsable:"Equipo Dev", estado:"Pendiente", obs:"" },
+  { sprint:"Sprint 3", fecha:"20/08/2029", dia:"Día 38", actividad:"Go Live / Buffer", hu:"HU33", horas:2.0, responsable:"Equipo Dev", estado:"Pendiente", obs:"" },
 ];
 
-const GANTT = { days: ["Día 1 - 22/06", "Día 2 - 23/06", "Día 3 - 24/06", "Día 4 - 25/06", "Día 5 - 26/06", "Día 6 - 30/06", "Día 7 - 01/07", "Día 8 - 02/07", "Día 9 - 03/07", "Día 10 - 06/07", "Día 11 - 07/07", "Día 12 - 08/07", "Día 13 - 09/07", "Día 14 - 10/07", "Día 15 - 14/07", "Día 16 - 15/07", "Día 17 - 16/07", "Día 18 - 17/07", "Día 19 - 21/07", "Día 20 - 22/07", "Día 21 - 23/07", "Día 22 - 24/07", "Día 23 - 27/07", "Día 24 - 28/07", "Día 25 - 29/07", "Día 26 - 30/07", "Día 27 - 31/07", "Día 28 - 03/08", "Día 29 - 04/08", "Día 30 - 05/08", "Día 31 - 06/08", "Día 32 - 10/08", "Día 33 - 11/08"], activities: [{"actividad": "Infra + Config", "dias": 4, "inicio": 0, "fin": 3}, {"actividad": "Portal Web", "dias": 2, "inicio": 4, "fin": 5}, {"actividad": "Preparación Datos", "dias": 4, "inicio": 6, "fin": 9}, {"actividad": "SAP Cartera", "dias": 3, "inicio": 4, "fin": 11}, {"actividad": "Cruce + Análisis", "dias": 8, "inicio": 5, "fin": 17}] };
+const GANTT = { days: ["Día 1 - 22/06", "Día 2 - 23/06", "Día 3 - 24/06", "Día 4 - 25/06", "Día 5 - 26/06", "Día 6 - 30/06", "Día 7 - 01/07", "Día 8 - 02/07", "Día 9 - 03/07", "Día 10 - 06/07", "Día 11 - 07/07", "Día 12 - 08/07", "Día 13 - 09/07", "Día 14 - 10/07", "Día 15 - 14/07", "Día 16 - 15/07", "Día 17 - 16/07", "Día 18 - 17/07", "Día 19 - 21/07", "Día 20 - 22/07", "Día 21 - 23/07", "Día 22 - 24/07", "Día 23 - 28/07", "Día 24 - 29/07", "Día 25 - 30/07", "Día 26 - 31/07", "Día 27 - 03/08", "Día 28 - 04/08", "Día 29 - 05/08", "Día 30 - 06/08", "Día 31 - 10/08", "Día 32 - 11/08", "Día 33 - 12/08", "Día 34 - 13/08", "Día 35 - 14/08", "Día 36 - 18/08", "Día 37 - 19/08", "Día 38 - 20/08"], activities: [{"actividad": "Infra + Config", "inicio": 0, "fin": 3, "dias": 4}, {"actividad": "Portal Web", "inicio": 4, "fin": 5, "dias": 2}, {"actividad": "Preparación Datos", "inicio": 6, "fin": 9, "dias": 4}, {"actividad": "SAP Cartera", "inicio": 4, "fin": 11, "dias": 3}, {"actividad": "Cruce + Análisis", "inicio": 5, "fin": 21, "dias": 12}] };
 
-const MAKRO = { horasAnterior:130, horasActual:150, fechaEntregaAnterior:"11/08/2026", fechaEntregaNueva:"18/08/2026", observaciones:[
+const MAKRO = { horasAnterior:130, horasActual:150, fechaEntregaAnterior:"11/08/2026", fechaEntregaNueva:"20/08/2026", observaciones:[
   "El proyecto de Compensación de Cadenas Makro inició el 22/06/2026 y contemplaba originalmente 130 horas.",
   "Se actualiza el estimado a 150 horas debido a la incorporación de nuevas reglas de negocio en el cruce y análisis de cartera SAP solicitadas durante el desarrollo.",
   "El bot se trabaja en paralelo con otras prioridades, con una dedicación efectiva de solo 4 horas diarias, lo que extiende el cronograma.",
-  "Como resultado del alcance ampliado y la dedicación parcial, la fecha de entrega se reprograma del 11/08/2026 al 18/08/2026."
+  "Como resultado del alcance ampliado y la dedicación parcial, la fecha de entrega se reprograma del 11/08/2026 al 20/08/2026."
 ] };
 
 let activeTab = "Resumen";
@@ -597,15 +610,20 @@ function renderMes(){
 
 function renderResumen(){
   const all=allCases();
-  const totalHoras=Math.round(all.reduce((a,b)=>a+b.horas,0)*10)/10;
+  const casesHoras=Math.round(all.reduce((a,b)=>a+b.horas,0)*10)/10;
+  const DIC_HORAS=49; // Diciembre 2025 (49 h) — sin detalle de casos
+  const totalHoras=Math.round((casesHoras+DIC_HORAS)*10)/10;
   const cerrados=all.filter(r=>{const x=(r.estado||'').toLowerCase();return x.startsWith('cerrado')||x==='ok';}).length;
   const abiertos=all.filter(r=>(r.estado||'').toLowerCase().startsWith('abierto')).length;
-  const perMes=MESES.map(m=>{const r=getMes(m);return {mes:m,casos:r.length,horas:Math.round(r.reduce((a,b)=>a+b.horas,0)*10)/10};});
+  // Diciembre primero, luego Enero–Julio
+  const perMes=[{mes:'Diciembre',casos:19,horas:DIC_HORAS}].concat(
+    MESES.map(m=>{const r=getMes(m);return {mes:m,casos:r.length,horas:Math.round(r.reduce((a,b)=>a+b.horas,0)*10)/10};}));
+  const totalCasos=perMes.reduce((a,b)=>a+b.casos,0);
 
   document.getElementById('tabContent').innerHTML=`
     <div class="kpi-grid">
       <div class="kpi-card" style="--kpi-color:var(--accent);"><div class="kpi-icon">📋</div><div class="kpi-label">Total Casos (año)</div><div class="kpi-value">${all.length}</div><div class="kpi-sub">Enero – Julio</div></div>
-      <div class="kpi-card" style="--kpi-color:var(--accent2);"><div class="kpi-icon">⏱</div><div class="kpi-label">Horas Totales</div><div class="kpi-value">${totalHoras}</div><div class="kpi-sub">de soporte</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--accent2);"><div class="kpi-icon">⏱</div><div class="kpi-label">Horas Totales</div><div class="kpi-value">${totalHoras}</div><div class="kpi-sub">Diciembre – Julio</div></div>
       <div class="kpi-card" style="--kpi-color:var(--cerrado);"><div class="kpi-icon">✅</div><div class="kpi-label">Resueltos</div><div class="kpi-value">${cerrados}</div><div class="kpi-sub">${Math.round(cerrados/all.length*100)}% del total</div></div>
       <div class="kpi-card" style="--kpi-color:#c084fc;"><div class="kpi-icon">🤖</div><div class="kpi-label">Bots Soporte</div><div class="kpi-value">${BOTS_SOPORTE}</div><div class="kpi-sub">en gestión 2NV</div></div>
     </div>
@@ -614,11 +632,12 @@ function renderResumen(){
       <div class="chart-card"><div class="chart-title">⏱ Horas por mes</div><div class="chart-wrap"><canvas id="chMesHoras"></canvas></div></div>
     </div>
     <div class="table-card">
-      <div class="table-header"><h3>📄 Consolidado por mes</h3><span>${perMes.filter(m=>m.casos>0).length} meses · ${totalHoras}h</span></div>
+      <div class="table-header"><h3>📄 Consolidado por mes</h3><span>${perMes.filter(m=>m.horas>0).length} meses · ${totalHoras}h (Diciembre – Julio)</span></div>
       <div class="table-wrap"><table>
         <thead><tr><th>Mes</th><th>Casos</th><th>Horas</th><th>Promedio h/caso</th></tr></thead>
         <tbody>
-        ${perMes.map(m=>`<tr><td class="td-name">${m.mes}</td><td>${m.casos}</td><td class="td-horas">${m.horas}h</td><td>${m.casos?(m.horas/m.casos).toFixed(1):'0'}</td></tr>`).join('')}
+        ${perMes.map(m=>`<tr><td class="td-name">${m.mes}${m.mes==='Diciembre'?' <span style="color:var(--text-dim);font-weight:400;font-size:11px;">(2025)</span>':''}</td><td>${m.casos||'—'}</td><td class="td-horas">${m.horas}h</td><td>${m.casos?(m.horas/m.casos).toFixed(1):'—'}</td></tr>`).join('')}
+        <tr style="background:var(--card-hover);border-top:2px solid var(--border-light);"><td class="td-name" style="font-weight:700;">TOTAL</td><td style="font-weight:700;">${totalCasos}</td><td class="td-horas" style="font-weight:800;">${totalHoras}h</td><td style="font-weight:700;">${(totalHoras/totalCasos).toFixed(1)}</td></tr>
         </tbody>
       </table></div>
     </div>
@@ -782,15 +801,19 @@ async function buildPPTX(){
 
   // SLIDE RESUMEN
   const all=allCases();
-  const totalHoras=Math.round(all.reduce((a,b)=>a+b.horas,0)*10)/10;
+  const DIC_HORAS=49;
+  const totalHoras=Math.round((all.reduce((a,b)=>a+b.horas,0)+DIC_HORAS)*10)/10;
   const cerrados=all.filter(r=>{const x=(r.estado||'').toLowerCase();return x.startsWith('cerrado')||x==='ok';}).length;
   const s0=pptx.addSlide();
-  header(s0,'SEGUIMIENTO DE SOPORTE · ALPINA','Resumen consolidado Enero – Julio 2026');
+  header(s0,'SEGUIMIENTO DE SOPORTE · ALPINA','Resumen consolidado Diciembre 2025 – Julio 2026');
   kpirow(s0,[{l:'Total Casos',v:all.length,c:ACCENT},{l:'Horas Totales',v:totalHoras,c:GREEN},{l:'Resueltos',v:cerrados,c:'34D399'},{l:'Bots Soporte',v:BOTS_SOPORTE,c:'C084FC'}]);
-  s0.addText('CONSOLIDADO POR MES',{x:0.28,y:2.8,w:12.8,h:0.28,fontSize:8,color:MUTED,fontFace:FF,bold:true});
+  s0.addText('CONSOLIDADO POR MES (Diciembre – Julio)',{x:0.28,y:2.8,w:12.8,h:0.28,fontSize:8,color:MUTED,fontFace:FF,bold:true});
   const trr=[[{text:'Mes',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},border:{pt:1,color:BDR}}},{text:'Casos',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}},{text:'Horas',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}},{text:'Promedio h/caso',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}}]];
+  trr.push([{text:'Diciembre (2025)',options:{color:TEXT,fontSize:9,fill:{color:CARD},bold:true,border:{pt:1,color:BDR}}},{text:'19',options:{color:ACCENT,fontSize:9,fill:{color:CARD},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:DIC_HORAS+'h',options:{color:GREEN,fontSize:9,fill:{color:CARD},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:(DIC_HORAS/19).toFixed(1),options:{color:MUTED,fontSize:9,fill:{color:CARD},align:'center',border:{pt:1,color:BDR}}}]);
   MESES.forEach(m=>{const r=getMes(m);const h=Math.round(r.reduce((a,b)=>a+b.horas,0)*10)/10;
     trr.push([{text:m,options:{color:TEXT,fontSize:9,fill:{color:CARD},bold:true,border:{pt:1,color:BDR}}},{text:String(r.length),options:{color:ACCENT,fontSize:9,fill:{color:CARD},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:h+'h',options:{color:GREEN,fontSize:9,fill:{color:CARD},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:r.length?(h/r.length).toFixed(1):'0',options:{color:MUTED,fontSize:9,fill:{color:CARD},align:'center',border:{pt:1,color:BDR}}}]);});
+  const totCasosP=all.length+19;
+  trr.push([{text:'TOTAL',options:{color:TEXT,fontSize:9,fill:{color:'162040'},bold:true,border:{pt:1,color:BDR}}},{text:String(totCasosP),options:{color:ACCENT,fontSize:9,fill:{color:'162040'},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:totalHoras+'h',options:{color:GREEN,fontSize:9,fill:{color:'162040'},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:(totalHoras/totCasosP).toFixed(1),options:{color:MUTED,fontSize:9,fill:{color:'162040'},align:'center',border:{pt:1,color:BDR}}}]);
   s0.addTable(trr,{x:0.28,y:3.1,w:12.8,colW:[3.2,3.2,3.2,3.2],fontFace:FF,border:{pt:1,color:BDR}});
 
   // SLIDE POR MES
