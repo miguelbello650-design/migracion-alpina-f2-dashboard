@@ -601,7 +601,7 @@ Quedo atento a los comentarios,
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - **Nota vigente 2026-07-21**: la tarea **Logica de asociación de WO** queda finalizada (`inProgress:false`) sin modificar sus 40h, 5 dias ni fechas planificadas.
-- **Nota vigente 2026-07-27**: **Pruebas unitarias** queda en curso con **104h / 13 días**, incluyendo el 27-Jul. **Pruebas UAT** permanece en curso y pasa al 28-Jul; las tareas posteriores se corren un día, con salida a producción el 30-Jul y soporte hasta el 6-Aug.
+- **Nota vigente 2026-07-28**: **Pruebas unitarias** queda en curso con **112h / 14 días**, incluyendo el 28-Jul. **Pruebas UAT** permanece en curso y pasa al 29-Jul; las tareas posteriores se corren un día, con salida a producción el 31-Jul y soporte hasta el 7-Aug.
 - 40 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (9 tareas)
 - Vista Gantt: se recorta visualmente desde la primera tarea asignada, **23-Feb-2026** (idx 11). Los datos base conservan sus índices globales para no afectar cálculos, tarjetas ni reportes.
