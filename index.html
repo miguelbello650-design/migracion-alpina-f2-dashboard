@@ -568,6 +568,7 @@
 </div>
 
 <div class="tabs primary-tabs">
+  <button class="primary-tab" data-section="generalidades">GENERALIDADES</button>
   <button class="primary-tab active" data-section="resumen">RESUMEN</button>
   <button class="primary-tab" data-section="desarrollo">SEGUIMIENTO A DESARROLLO</button>
   <button class="primary-tab" data-section="soporte">SEGUIMIENTO A SOPORTE</button>
@@ -580,6 +581,7 @@
 </div>
 
 <div class="tab-content" id="tab-resumen"><div class="support-summary"><h2>CONSUMO DE HORAS</h2><div id="consumption-summary-content"></div><div id="development-summary-content"></div></div><div class="support-summary"><h2>SOPORTE</h2><div id="support-summary-content"></div></div></div>
+<div class="tab-content" id="tab-generalidades"><div class="support-workspace"><div id="generalidades-content"></div></div></div>
 <div class="tab-content" id="tab-desarrollo"></div>
 <div class="tab-content" id="tab-soporte">
   <div class="tabs support-tabs" id="support-tabs"></div>
@@ -842,7 +844,7 @@ let GANTT_ROWS = [
 ];
 
 const GANTT_DATES = [];
-const dateStrs = "6-Feb-26,9-Feb-26,10-Feb-26,11-Feb-26,12-Feb-26,13-Feb-26,16-Feb-26,17-Feb-26,18-Feb-26,19-Feb-26,20-Feb-26,23-Feb-26,24-Feb-26,25-Feb-26,26-Feb-26,27-Feb-26,2-Mar-26,3-Mar-26,4-Mar-26,5-Mar-26,6-Mar-26,9-Mar-26,10-Mar-26,11-Mar-26,12-Mar-26,13-Mar-26,16-Mar-26,17-Mar-26,18-Mar-26,19-Mar-26,20-Mar-26,24-Mar-26,25-Mar-26,26-Mar-26,27-Mar-26,30-Mar-26,31-Mar-26,1-Apr-26,6-Apr-26,7-Apr-26,8-Apr-26,9-Apr-26,10-Apr-26,13-Apr-26,14-Apr-26,15-Apr-26,16-Apr-26,17-Apr-26,20-Apr-26,21-Apr-26,22-Apr-26,23-Apr-26,24-Apr-26,27-Apr-26,28-Apr-26,29-Apr-26,30-Apr-26,4-May-26,5-May-26,6-May-26,7-May-26,8-May-26,11-May-26,12-May-26,13-May-26,14-May-26,15-May-26,19-May-26,20-May-26,21-May-26,22-May-26,25-May-26,26-May-26,27-May-26,28-May-26,29-May-26,1-Jun-26,2-Jun-26,3-Jun-26,4-Jun-26,5-Jun-26,9-Jun-26,10-Jun-26,11-Jun-26,12-Jun-26,16-Jun-26,17-Jun-26,18-Jun-26,19-Jun-26,22-Jun-26,23-Jun-26,24-Jun-26,25-Jun-26,26-Jun-26,30-Jun-26,1-Jul-26,2-Jul-26,3-Jul-26,6-Jul-26,7-Jul-26,8-Jul-26,9-Jul-26,10-Jul-26,14-Jul-26,15-Jul-26,16-Jul-26,17-Jul-26,21-Jul-26,22-Jul-26,23-Jul-26,24-Jul-26,27-Jul-26,28-Jul-26,29-Jul-26,30-Jul-26,31-Jul-26,3-Aug-26,4-Aug-26,5-Aug-26,6-Aug-26,7-Aug-26".split(',');
+const dateStrs = "6-Feb-26,9-Feb-26,10-Feb-26,11-Feb-26,12-Feb-26,13-Feb-26,16-Feb-26,17-Feb-26,18-Feb-26,19-Feb-26,20-Feb-26,23-Feb-26,24-Feb-26,25-Feb-26,26-Feb-26,27-Feb-26,2-Mar-26,3-Mar-26,4-Mar-26,5-Mar-26,6-Mar-26,9-Mar-26,10-Mar-26,11-Mar-26,12-Mar-26,13-Mar-26,16-Mar-26,17-Mar-26,18-Mar-26,19-Mar-26,20-Mar-26,24-Mar-26,25-Mar-26,26-Mar-26,27-Mar-26,30-Mar-26,31-Mar-26,1-Apr-26,6-Apr-26,7-Apr-26,8-Apr-26,9-Apr-26,10-Apr-26,13-Apr-26,14-Apr-26,15-Apr-26,16-Apr-26,17-Apr-26,20-Apr-26,21-Apr-26,22-Apr-26,23-Apr-26,24-Apr-26,27-Apr-26,28-Apr-26,29-Apr-26,30-Apr-26,4-May-26,5-May-26,6-May-26,7-May-26,8-May-26,11-May-26,12-May-26,13-May-26,14-May-26,15-May-26,19-May-26,20-May-26,21-May-26,22-May-26,25-May-26,26-May-26,27-May-26,28-May-26,29-May-26,1-Jun-26,2-Jun-26,3-Jun-26,4-Jun-26,5-Jun-26,9-Jun-26,10-Jun-26,11-Jun-26,12-Jun-26,16-Jun-26,17-Jun-26,18-Jun-26,19-Jun-26,22-Jun-26,23-Jun-26,24-Jun-26,25-Jun-26,26-Jun-26,30-Jun-26,1-Jul-26,2-Jul-26,3-Jul-26,6-Jul-26,7-Jul-26,8-Jul-26,9-Jul-26,10-Jul-26,14-Jul-26,15-Jul-26,16-Jul-26,17-Jul-26,21-Jul-26,22-Jul-26,23-Jul-26,24-Jul-26,27-Jul-26,28-Jul-26,29-Jul-26,30-Jul-26,31-Jul-26,3-Aug-26,4-Aug-26,5-Aug-26,6-Aug-26,7-Aug-26,10-Aug-26".split(',');
 dateStrs.forEach(d => {
   const p = d.split('-');
   GANTT_DATES.push(new Date(2026, ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(p[1]), parseInt(p[0])));
@@ -959,16 +961,16 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Cerrar ticket + adjuntar archivo + cambio de estado",resp:"2NV",hours:40,days:5,fixedIdx:55,fixedEndIdx:64,skipIndices:[57,58,59,60,61],notesIdx:[64] },
   { phase:"",task:"Enviar credenciales (2 correos) + notificación finalización",resp:"2NV",hours:10,days:1.3,fixedIdx:57,fixedEndIdx:57 },
   { phase:"",task:"Elaboración documentación SDD + manual usuario",resp:"2NV",hours:24,days:3,fixedIdx:58,fixedEndIdx:104,skipIndices:[60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,98,99,100,101,102,103,104],notesIdx:[96,98],inProgress:true },
-   { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:112,days:14,fixedIdx:65,fixedEndIdx:112,skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,96,97,98,99,100,101,102,103,104,105,106],notesIdx:[71,94,95,107,108],inProgress:true },
+   { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:120,days:15,fixedIdx:65,fixedEndIdx:113,skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,96,97,98,99,100,101,102,103,104,105,106],notesIdx:[71,94,95,107,108],inProgress:true },
    { phase:"",task:"Validación y creación flujo principal API",resp:"2NV",hours:34.7,days:4.5,fixedIdx:80,fixedEndIdx:85,skipIndices:[81],notesIdx:[80],inProgress:false },
    { phase:"",task:"Logica de asociación de WO",resp:"2NV",hours:40,days:5,fixedIdx:99,fixedEndIdx:106,skipIndices:[99,100,101],notesIdx:[99,100,101],inProgress:false },
-   { phase:"Cierre",task:"Pruebas UAT",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:72,fixedEndIdx:113,skipIndices:[76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112],notesIdx:[113],inProgress:true },
+   { phase:"Cierre",task:"Pruebas UAT",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:72,fixedEndIdx:114,skipIndices:[76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113],notesIdx:[114],inProgress:true },
      { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:40,days:5,fixedIdx:77,fixedEndIdx:87,notesIdx:[76],skipIndices:[78,80,82,83,84,85],inProgress:false },
      { phase:"",task:"Ajuste Migración Google",resp:"2NV",hours:32,days:4,fixedIdx:90,fixedEndIdx:93,notesIdx:[90],inProgress:false },
-     { phase:"",task:"Aprobación de documentación (manual técnico y funcional y PDD)",resp:"2NV",hours:2,days:0.3,fixedIdx:114,fixedEndIdx:114 },
-     { phase:"",task:"Entrega de desarrollo al cliente (Capacitación)",resp:"2NV",hours:2,days:0.3,fixedIdx:114,fixedEndIdx:114 },
-     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,milestone:true,fixedIdx:115,fixedEndIdx:115 },
-     { phase:"",task:"Soporte postproducción y estabilización",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:116,fixedEndIdx:120 }
+     { phase:"",task:"Aprobación de documentación (manual técnico y funcional y PDD)",resp:"2NV",hours:2,days:0.3,fixedIdx:115,fixedEndIdx:115 },
+     { phase:"",task:"Entrega de desarrollo al cliente (Capacitación)",resp:"2NV",hours:2,days:0.3,fixedIdx:115,fixedEndIdx:115 },
+     { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,milestone:true,fixedIdx:116,fixedEndIdx:116 },
+     { phase:"",task:"Soporte postproducción y estabilización",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:117,fixedEndIdx:121 }
 ];
 
 // ---- Migracion Google - BOT NOVA Gantt ----
@@ -2498,9 +2500,6 @@ function execAdminCmd(cmd) {
     default: addMsg('error','Comando no reconocido. Escribe /ayuda');
   }
 }
-// Restore last active tab
-const savedSection = localStorage.getItem('activeSection') || 'resumen';
-openSection(savedSection);
 // Load saved state on startup
 if (IS_SERVER) {
   const btn = document.createElement('span');
@@ -2523,6 +2522,9 @@ function activateSection(section) {
 function openSection(section) {
   if (section === 'desarrollo') {
     openTab(localStorage.getItem('developmentTab') || 'tab-avance', section);
+  } else if (section === 'generalidades') {
+    openTab('tab-generalidades', section);
+    renderGeneralidadesDashboard();
   } else if (section === 'soporte') {
     openTab('tab-soporte', section);
   } else {
@@ -2685,6 +2687,17 @@ function syncSupportSummaryFrame() {
   const frame = document.getElementById('support-summary-embedded');
   if (frame && frame.contentWindow) frame.contentWindow.postMessage({ type:'support-tab', tab:'Resumen' }, '*');
 }
+function renderGeneralidadesDashboard() {
+  const content = document.getElementById('generalidades-content');
+  if (!content) return;
+  if (!supportSourceHtml) { content.innerHTML = '<p style="color:#64748b;padding:24px 0">Cargando generalidades...</p>'; return; }
+  content.innerHTML = '<iframe id="generalidades-embedded" class="support-embedded" title="Generalidades" sandbox="allow-scripts allow-downloads" onload="syncGeneralidadesFrame()"></iframe>';
+  document.getElementById('generalidades-embedded').srcdoc = supportFrameHtml(supportSourceHtml);
+}
+function syncGeneralidadesFrame() {
+  const frame = document.getElementById('generalidades-embedded');
+  if (frame && frame.contentWindow) frame.contentWindow.postMessage({ type:'support-tab', tab:'Generalidades' }, '*');
+}
 function openSupportTab(tab) {
   supportActiveTab = tab;
   syncSupportHours(tab);
@@ -2692,7 +2705,7 @@ function openSupportTab(tab) {
   syncSupportFrame();
 }
 function supportFrameHtml(html) {
-  const style = '<style>html,body{background:transparent!important}:root,[data-theme="light"]{--bg:transparent}.header,.tab-nav,.footer{display:none!important}.main{max-width:none!important;padding:28px 32px!important}.kpi-card,.chart-card,.table-card{transition:transform .32s ease,box-shadow .32s ease}.kpi-card:hover,.chart-card:hover,.table-card:hover{box-shadow:0 16px 32px rgba(15,23,42,.13);transform:translateY(-6px)}</style>';
+  const style = '<style>html,body{background:transparent!important}:root,[data-theme="light"]{--bg:transparent}.header,.tab-nav,.footer{display:none!important}.main{max-width:none!important;padding:28px 32px!important}.kpi-card,.chart-card,.table-card,.section-intro,.lic-hero,.lic-card,.vig-card,.nota-box{transition:transform .32s ease,box-shadow .32s ease}.kpi-card:hover,.chart-card:hover,.table-card:hover,.section-intro:hover,.lic-hero:hover,.lic-card:hover,.vig-card:hover,.nota-box:hover{box-shadow:0 16px 32px rgba(15,23,42,.13);transform:translateY(-6px)}</style>';
   const bridge = '<script>(function(){function send(tab){var rows=typeof DATA!=="undefined"&&Array.isArray(DATA[tab])?DATA[tab]:null;var hours=rows?rows.reduce(function(total,row){return total+Number(row.horas||0)},0):NaN;if(!Number.isFinite(hours)){var card=[].find.call(document.querySelectorAll(".kpi-card"),function(item){return /horas (de )?(soporte|totales)/i.test(item.textContent)});var value=card&&card.querySelector(".kpi-value");hours=value?Number(value.textContent.replace(",",".").replace(/[^0-9.-]/g,"")):NaN}if(Number.isFinite(hours))window.parent.postMessage({type:"support-hours",tab:tab,hours:hours},"*")}function report(tab){if(tab==="Resumen"&&typeof DATA!=="undefined"){var month=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"][new Date().getMonth()];send(Array.isArray(DATA[month])?month:Object.keys(DATA)[Object.keys(DATA).length-1]);return}send(tab)}window.addEventListener("message",function(event){if(event.data&&event.data.type==="support-tab"&&typeof switchTab==="function"){switchTab(event.data.tab);setTimeout(function(){report(event.data.tab)},0)}})})();<' + '/script>';
   const lightHtml = html.replace(/<html\b([^>]*)>/i, function(match, attributes) { return '<html' + attributes.replace(/\sdata-theme\s*=\s*(["']).*?\1/i, '') + ' data-theme="light">'; });
   const withStyle = lightHtml.replace('</head>', style + '</head>');
@@ -2707,6 +2720,7 @@ function setSupportHtml(html, persist) {
     if (persist) localStorage.setItem(SUPPORT_HTML_STORAGE_KEY, html);
     syncSupportHours(supportActiveTab);
     renderSupportDashboard();
+    renderGeneralidadesDashboard();
   } catch (error) {
     alert('No fue posible leer el HTML. Debe conservar la estructura de datos del dashboard de soporte.');
   }
@@ -2741,6 +2755,8 @@ function restoreSupportHtml() {
   resetSupportHtml();
 }
 restoreSupportHtml();
+// Restore the selected view after support variables and loading are initialized.
+openSection(localStorage.getItem('activeSection') || 'resumen');
 function openTab(id, section = 'desarrollo') {
   if (id === 'tab-avance') prepareCardPercentages();
   activateSection(section);

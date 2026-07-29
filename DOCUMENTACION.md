@@ -21,12 +21,14 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 
 ## Actualizacion de resumen y soporte (2026-07-22)
 
-- La navegacion principal incluye **RESUMEN**, **SEGUIMIENTO A DESARROLLO** y **SEGUIMIENTO A SOPORTE**.
+- La navegacion principal incluye **GENERALIDADES**, **RESUMEN**, **SEGUIMIENTO A DESARROLLO** y **SEGUIMIENTO A SOPORTE**.
+- **GENERALIDADES** muestra la vista Generalidades del HTML de soporte cargado. Esta vista no se repite entre las subtabs operativas de soporte y conserva el efecto de elevacion suave en sus bloques al pasar el cursor.
 - **RESUMEN** concentra el consumo de horas: Horas Contratadas vs Horas Restantes, Distribucion por Bloque, Horas por Mes y la tarjeta Horas de Desarrollo por Proyecto.
 - La seccion **DESARROLLO** del resumen incluye una grafica independiente de evolucion mensual, con valores por punto, total y promedio. Usa solo horas de desarrollo y no se altera al filtrar las graficas superiores.
 - **SEGUIMIENTO A SOPORTE** carga `assets/support/dashboard_alpina_2.html` por defecto. Se puede reemplazar desde Cargar HTML o restaurar; conserva sus subtabs nativas, pero muestra el contenido con tema claro, fondo transparente y espaciado del dashboard. Al cargar un HTML, las horas del mes activo se sincronizan automáticamente con el bloque Soporte de Reporte de horas.
 - Los controles **Cargar HTML** y **Restablecer** solo se muestran y operan en `localhost:3000`. Al cargar un HTML localmente, se guarda en `assets/support/dashboard_alpina_2.html`; al hacer push a `main`, ese mismo archivo queda disponible en producción. En producción se usa siempre el HTML publicado.
 - Las tarjetas KPI, graficas y tablas del HTML de soporte tienen hover con elevacion suave.
+- La restauracion de la pestaña Generalidades se realiza despues de inicializar el HTML de soporte, evitando una vista vacia al recargar el dashboard.
 - La Monita Fase 2 conserva el alcance de nuevos clientes. El flujo de creacion de pedidos SAP se muestra en la tarjeta independiente **Requisiciones Internas - La Monita**.
 - `reporte-horas.js` incluye `actividad_f2_lamonita` en el total compartido; Consumo de Horas, Distribucion por Bloque y `/api/data` usan las mismas horas.
 
@@ -601,7 +603,7 @@ Quedo atento a los comentarios,
 
 ### ROBOTINA (GANTT_ROWS_ROBOTINA) — Responsable: Javier Gonzalez
 - **Nota vigente 2026-07-21**: la tarea **Logica de asociación de WO** queda finalizada (`inProgress:false`) sin modificar sus 40h, 5 dias ni fechas planificadas.
-- **Nota vigente 2026-07-28**: **Pruebas unitarias** queda en curso con **112h / 14 días**, incluyendo el 28-Jul. **Pruebas UAT** permanece en curso y pasa al 29-Jul; las tareas posteriores se corren un día, con salida a producción el 31-Jul y soporte hasta el 7-Aug.
+- **Nota vigente 2026-07-29**: **Pruebas unitarias** queda en curso con **120h / 15 días**, incluyendo el 29-Jul. **Pruebas UAT** permanece en curso y pasa al 30-Jul; las tareas posteriores se corren un día, con salida a producción el 3-Aug y soporte hasta el 10-Aug.
 - 40 tareas en 3 fases
 - Fases: Estructura Base | Core/Framework (22 tareas), Gestión Usuarios | Active Directory (9 tareas), Cierre (9 tareas)
 - Vista Gantt: se recorta visualmente desde la primera tarea asignada, **23-Feb-2026** (idx 11). Los datos base conservan sus índices globales para no afectar cálculos, tarjetas ni reportes.
