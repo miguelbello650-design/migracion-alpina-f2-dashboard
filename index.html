@@ -2615,9 +2615,9 @@ function syncSupportHours(month, reportedHours) {
   renderReporte();
 }
 window.addEventListener('message', event => {
-  const frame = document.getElementById('support-embedded');
+  const frames = ['support-embedded', 'support-summary-embedded'].map(id => document.getElementById(id));
   const data = event.data;
-  if (event.source === (frame && frame.contentWindow) && data && data.type === 'support-hours') syncSupportHours(data.tab, Number(data.hours));
+  if (frames.some(frame => event.source === (frame && frame.contentWindow)) && data && data.type === 'support-hours') syncSupportHours(data.tab, Number(data.hours));
 });
 function supportStatus(status) {
   const value = String(status || '').toLowerCase();
@@ -2693,7 +2693,7 @@ function openSupportTab(tab) {
 }
 function supportFrameHtml(html) {
   const style = '<style>html,body{background:transparent!important}:root,[data-theme="light"]{--bg:transparent}.header,.tab-nav,.footer{display:none!important}.main{max-width:none!important;padding:28px 32px!important}.kpi-card,.chart-card,.table-card{transition:transform .32s ease,box-shadow .32s ease}.kpi-card:hover,.chart-card:hover,.table-card:hover{box-shadow:0 16px 32px rgba(15,23,42,.13);transform:translateY(-6px)}</style>';
-  const bridge = '<script>(function(){function report(tab){var rows=typeof DATA!=="undefined"&&Array.isArray(DATA[tab])?DATA[tab]:null;var hours=rows?rows.reduce(function(total,row){return total+Number(row.horas||0)},0):NaN;if(!Number.isFinite(hours)){var card=[].find.call(document.querySelectorAll(".kpi-card"),function(item){return /horas de soporte/i.test(item.textContent)});var value=card&&card.querySelector(".kpi-value");hours=value?Number(value.textContent.replace(",",".").replace(/[^0-9.-]/g,"")):NaN}if(Number.isFinite(hours))window.parent.postMessage({type:"support-hours",tab:tab,hours:hours},"*")}window.addEventListener("message",function(event){if(event.data&&event.data.type==="support-tab"&&typeof switchTab==="function"){switchTab(event.data.tab);setTimeout(function(){report(event.data.tab)},0)}})})();<' + '/script>';
+  const bridge = '<script>(function(){function send(tab){var rows=typeof DATA!=="undefined"&&Array.isArray(DATA[tab])?DATA[tab]:null;var hours=rows?rows.reduce(function(total,row){return total+Number(row.horas||0)},0):NaN;if(!Number.isFinite(hours)){var card=[].find.call(document.querySelectorAll(".kpi-card"),function(item){return /horas (de )?(soporte|totales)/i.test(item.textContent)});var value=card&&card.querySelector(".kpi-value");hours=value?Number(value.textContent.replace(",",".").replace(/[^0-9.-]/g,"")):NaN}if(Number.isFinite(hours))window.parent.postMessage({type:"support-hours",tab:tab,hours:hours},"*")}function report(tab){if(tab==="Resumen"&&typeof DATA!=="undefined"){var month=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"][new Date().getMonth()];send(Array.isArray(DATA[month])?month:Object.keys(DATA)[Object.keys(DATA).length-1]);return}send(tab)}window.addEventListener("message",function(event){if(event.data&&event.data.type==="support-tab"&&typeof switchTab==="function"){switchTab(event.data.tab);setTimeout(function(){report(event.data.tab)},0)}})})();<' + '/script>';
   const lightHtml = html.replace(/<html\b([^>]*)>/i, function(match, attributes) { return '<html' + attributes.replace(/\sdata-theme\s*=\s*(["']).*?\1/i, '') + ' data-theme="light">'; });
   const withStyle = lightHtml.replace('</head>', style + '</head>');
   return withStyle.includes('</body>') ? withStyle.replace('</body>', bridge + '</body>') : withStyle + bridge;
@@ -2729,11 +2729,11 @@ function loadSupportHtml(input) {
 function resetSupportHtml() {
   if (!IS_SERVER) return;
   localStorage.removeItem(SUPPORT_HTML_STORAGE_KEY);
-  fetch('assets/support/dashboard_alpina_2.html').then(response => response.text()).then(html => setSupportHtml(html, false));
+  fetch('assets/support/dashboard_alpina_2.html', { cache:'no-store' }).then(response => response.text()).then(html => setSupportHtml(html, false));
 }
 function restoreSupportHtml() {
   if (!IS_SERVER) {
-    fetch('assets/support/dashboard_alpina_2.html').then(response => response.text()).then(html => setSupportHtml(html, false));
+    fetch('assets/support/dashboard_alpina_2.html', { cache:'no-store' }).then(response => response.text()).then(html => setSupportHtml(html, false));
     return;
   }
   const html = localStorage.getItem(SUPPORT_HTML_STORAGE_KEY);
