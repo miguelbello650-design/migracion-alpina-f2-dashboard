@@ -818,4 +818,10 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 
 ## Actualizacion - Navegacion de cronogramas
 
+## Actualizacion - Robotina cierre de julio (2026-07-30)
+
+- **Pruebas unitarias** queda en **120 horas / 15 dias** e incorpora la jornada del **3-Aug-2026**.
+- **Validacion y creacion flujo principal API** queda en **64 horas / 8 dias**, con un nuevo tramo activo el **29, 30 y 31-Jul-2026**.
+- El cierre se ajusta un dia habil: **Pruebas UAT** el **4-Aug**, aprobacion y entrega el **5-Aug**, salida a produccion el **6-Aug** y soporte postproduccion del **7 al 13-Aug-2026**.
+
 - La pestana **% AVANCE** muestra una nota sobre las tarjetas: para abrir el cronograma de cada proyecto se debe seleccionar su nombre.
