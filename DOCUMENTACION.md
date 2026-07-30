@@ -3,7 +3,7 @@
 ## Descripción
 Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, ROBOTINA) y proyectos históricos/completados:
 - **PROYECTOS ALPINA** — Vista general con proyectos agrupados por estado (Finalizados / En Proceso / Próximos), incluye proyectos activos (con Gantt), estáticos (históricos) y gráfico de dona con horas totales. La tarjeta de NOVA incluye `Ver detalle`, que navega a la pestaña `% AVANCE` y enfoca el bloque de NOVA.
-- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes + 3 gráficos: Desarrollo (NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (5 proyectos con horas mensuales) y Actividades adicionales (8 actividades con horas mensuales). Incluye gráfico de dona (distribución por bloque), gráfico de barras (horas por mes) y gráfico final de horas contratadas vs horas restantes.
+- **REPORTE DE HORAS ALPINA** — 4 bloques con filtro por mes + 3 gráficos: Desarrollo (NOVA, FELI, ROBOTINA con horas dinámicas; OPTIMUS, LA MONITA, HORAS EXTRA con horas fijas mensuales), Soporte (con horas mensuales), Actualización PDD (5 proyectos con horas mensuales) y Actividades adicionales (10 actividades con horas mensuales). Incluye gráfico de dona (distribución por bloque), gráfico de barras (horas por mes) y gráfico final de horas contratadas vs horas restantes.
 - **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
 - **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
 
@@ -684,13 +684,14 @@ Horas fijas por mes definidas en `STATIC_MONTHLY`:
 |---|---|---|---|---|---|---|---|---|---|
 | Sesión Dudas Feli | 0 | 0 | 1 | 6 | 1 | 2 | 0 | 0 | 1 |
 | Sesión Dudas Nova | 0 | 0 | 0 | 3 | 2 | 1 | 0 | 0 | 0 |
-| Sesión API Robotina | 0 | 0 | 0 | 0 | 1.5 | 2.8 | 5.3 | 0 | 5.5 |
+| Sesión API Robotina | 0 | 0 | 0 | 0 | 1.5 | 2.8 | 5.3 | 0 | 10.5 |
 | API Succes SAP Robotina | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 6 | 0 |
 | Ajustes adicionales Nova | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12 | 0 |
 | Estimación Nova y Feli | 0 | 0 | 2 | 12 | 0 | 0 | 0 | 0 | 0 |
 | Sesión con Infra. Alpina | 0 | 0 | 0 | 1.5 | 0 | 0 | 0 | 0 | 0 |
 | Solución correos Feli | 0 | 0 | 0 | 0 | 0 | 0 | 4.5 | 0 | 0 |
 | Sesión F2 La Monita | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0.5 |
+| Sesión de entendimiento La Monita F2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0.5 |
 
 ## Convenciones de Código
 - Sin comentarios en JS
@@ -814,7 +815,8 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - El cronograma posterior de ROBOTINA se desplaza dos dias: Pruebas UAT termina el **27-Jul**, aprobacion y entrega pasan al **28-Jul**, salida a produccion al **29-Jul** y soporte al **5-Aug**.
 - Se registra una alerta el **22-Jul** en Pruebas unitarias: se requieren dos dias adicionales para ajustar reglas de flujo y SAP tras la sesion con el equipo operativo.
 - El calendario compartido incluye **4-Aug-26** y **5-Aug-26** para representar el nuevo final de soporte.
-- En **Actividades adicionales**, **Sesion API Robotina** queda en **8.5 h** para julio.
+- En **Actividades adicionales**, **Sesion API Robotina** queda en **10.5 h** para julio.
+- Se incorpora **Sesion de entendimiento La Monita F2** con **0.5 h** para julio.
 
 ## Actualizacion - Navegacion de cronogramas
 

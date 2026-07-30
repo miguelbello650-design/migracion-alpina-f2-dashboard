@@ -2009,13 +2009,14 @@ let STATIC_MONTHLY = {
   actualizacion_horasextra: { '2025-11':6, '2025-12':0, '2026-1':8, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actividad_dudas_feli: { '2025-11':0, '2025-12':0, '2026-1':1, '2026-2':6, '2026-3':1, '2026-4':2, '2026-5':0, '2026-6':0, '2026-7':1 },
   actividad_dudas_nova: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':3, '2026-3':2, '2026-4':1, '2026-5':0, '2026-6':0 },
-  actividad_api_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':1.5, '2026-4':2.8, '2026-5':5.3, '2026-6':0, '2026-7':8.5 },
+  actividad_api_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':1.5, '2026-4':2.8, '2026-5':5.3, '2026-6':0, '2026-7':10.5 },
   actividad_api_success_robotina: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':6 },
   actividad_ajustes_nova: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':12 },
   actividad_estimacion: { '2025-11':0, '2025-12':0, '2026-1':2, '2026-2':12, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actividad_infra: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':1.5, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0 },
   actividad_correos_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':4.5, '2026-6':0 },
   actividad_f2_lamonita: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0, '2026-7':0.5 },
+  actividad_entendimiento_lamonita_f2: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0, '2026-7':0.5 },
   locked_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':99, '2026-3':137, '2026-4':128, '2026-5':152 },
   locked_nova: { '2026-4':126, _total:398 },
   locked_robotina: { '2026-3':130, '2026-4':134, '2026-5':148, '2026-6':145.6, _total:300 }
@@ -2129,7 +2130,7 @@ function renderReporte() {
   html += '<div class="reporte-block"><h3>Desarrollo</h3>';
   const staticFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
   const actualizKeys = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
-  const actividadKeys = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita'];
+  const actividadKeys = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita','actividad_entendimiento_lamonita_f2'];
   const maxHrs = [...botKeys, ...staticFin.map(p=>p.key), 'soporte', ...actualizKeys, ...actividadKeys].reduce((mx, k) => {
     if (getBotRows(k)) {
       const rows = getBotRows(k);
@@ -2184,6 +2185,8 @@ function renderReporte() {
   const actualizLabels = { actualizacion_feli:'FELI', actualizacion_robotina:'ROBOTINA', actualizacion_optimus:'OPTIMUS', actualizacion_lamonita:'LA MONITA', actualizacion_horasextra:'HORAS EXTRA' };
   const actividadColors = { actividad_dudas_feli:'#a855f7', actividad_dudas_nova:'#3b82f6', actividad_api_robotina:'#14b8a6', actividad_api_success_robotina:'#22c55e', actividad_ajustes_nova:'#0ea5e9', actividad_estimacion:'#f59e0b', actividad_infra:'#ef4444', actividad_correos_feli:'#ec4899', actividad_f2_lamonita:'#dc2626' };
   const actividadLabels = { actividad_dudas_feli:'Sesión Dudas Feli', actividad_dudas_nova:'Sesión Dudas Nova', actividad_api_robotina:'Sesión API Robotina', actividad_api_success_robotina:'API Succes SAP Robotina', actividad_ajustes_nova:'Ajustes adicionales Nova', actividad_estimacion:'Estimación Nova y Feli', actividad_infra:'Sesión con Infra. Alpina', actividad_correos_feli:'Solución correos Feli', actividad_f2_lamonita:'Sesión F2 La Monita' };
+  actividadColors.actividad_entendimiento_lamonita_f2 = '#f59e0b';
+  actividadLabels.actividad_entendimiento_lamonita_f2 = 'Sesión de entendimiento La Monita F2';
   otherBlocks.forEach(b => {
     html += '<div class="reporte-block"><h3>'+b.label+'</h3>';
     if (b.key === 'soporte') {
@@ -2393,9 +2396,10 @@ function exportReporte() {
   const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const stFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
   const actK = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
-  const actvK = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita'];
+  const actvK = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita','actividad_entendimiento_lamonita_f2'];
   const actualizLabels = { actualizacion_feli:'FELI', actualizacion_robotina:'ROBOTINA', actualizacion_optimus:'OPTIMUS', actualizacion_lamonita:'LA MONITA', actualizacion_horasextra:'HORAS EXTRA' };
   const actividadLabels = { actividad_dudas_feli:'Sesión Dudas Feli', actividad_dudas_nova:'Sesión Dudas Nova', actividad_api_robotina:'Sesión API Robotina', actividad_api_success_robotina:'API Succes SAP Robotina', actividad_ajustes_nova:'Ajustes adicionales Nova', actividad_estimacion:'Estimación Nova y Feli', actividad_infra:'Sesión con Infra. Alpina', actividad_correos_feli:'Solución correos Feli', actividad_f2_lamonita:'Sesión F2 La Monita' };
+  actividadLabels.actividad_entendimiento_lamonita_f2 = 'Sesión de entendimiento La Monita F2';
   const filterLabel = filter === 'all' ? 'Todos los meses' : monthNames[parseInt(filter.split('-')[1])-1]+' '+filter.split('-')[0];
   const months = getMonthOptions();
   function cell(v) { return '<td style="padding:4px 8px;border:1px solid #ccc;font-size:11px">'+(v??'')+'</td>'; }
