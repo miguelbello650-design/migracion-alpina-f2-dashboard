@@ -28,6 +28,7 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - **SEGUIMIENTO A SOPORTE** carga `assets/support/dashboard_alpina_2.html` por defecto. Se puede reemplazar desde Cargar HTML o restaurar; conserva sus subtabs nativas, pero muestra el contenido con tema claro, fondo transparente y espaciado del dashboard. Al cargar un HTML, las horas del mes activo se sincronizan automáticamente con el bloque Soporte de Reporte de horas.
 - Los controles **Cargar HTML** y **Restablecer** solo se muestran y operan en `localhost:3000`. Al cargar un HTML localmente, se guarda en `assets/support/dashboard_alpina_2.html`; al hacer push a `main`, ese mismo archivo queda disponible en producción. En producción se usa siempre el HTML publicado.
 - Las tarjetas KPI, graficas y tablas del HTML de soporte tienen hover con elevacion suave.
+- El HTML de soporte fue actualizado localmente el **31-Jul-2026** en `assets/support/dashboard_alpina_2.html`; este archivo es la fuente que se publica en produccion al hacer push a `main`.
 - La restauracion de la pestaña Generalidades se realiza despues de inicializar el HTML de soporte, evitando una vista vacia al recargar el dashboard.
 - La Monita Fase 2 conserva el alcance de nuevos clientes. El flujo de creacion de pedidos SAP se muestra en la tarjeta independiente **Requisiciones Internas - La Monita**.
 - `reporte-horas.js` incluye `actividad_f2_lamonita` en el total compartido; Consumo de Horas, Distribucion por Bloque y `/api/data` usan las mismas horas.
