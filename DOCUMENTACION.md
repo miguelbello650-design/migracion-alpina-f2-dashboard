@@ -828,3 +828,4 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - El cierre se ajusta un dia habil: **Pruebas UAT** el **4-Aug**, aprobacion y entrega el **5-Aug**, salida a produccion el **6-Aug** y soporte postproduccion del **7 al 13-Aug-2026**.
 
 - La pestana **% AVANCE** muestra una nota sobre las tarjetas: para abrir el cronograma de cada proyecto se debe seleccionar su nombre.
+\n## Actualizacion - Robotina festivo 7 de agosto (2026-08-03)\n\n- Se elimina completamente **7-Aug-2026** del calendario del Gantt de **ROBOTINA**; no se muestra como columna gris.\n- La salida a produccion queda el **10-Aug-2026**.\n- El soporte postproduccion queda del **11 al 17-Aug-2026**.\n- La base SQLite local se sincroniza con el calendario actualizado y se conserva un respaldo previo.\n
