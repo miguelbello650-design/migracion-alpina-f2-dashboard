@@ -1701,15 +1701,30 @@ function prepareCardPercentages() {
 }
 
 function animateCardPercentages() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const bars = [...document.querySelectorAll('.card .bar-fill')];
+  const percentages = [...document.querySelectorAll('.card .total-pct, .card .card-footer.total .pct-value')];
+  const finish = () => {
+    bars.forEach(bar => {
+      if (bar.dataset.progressTarget) bar.style.width = bar.dataset.progressTarget;
+    });
+    percentages.forEach(el => {
+      const target = Number.parseFloat(el.dataset.progressTarget);
+      if (Number.isFinite(target)) el.textContent = Math.round(target) + '%';
+    });
+  };
+  if (reducedMotion) {
+    finish();
+    return;
+  }
 
-  document.querySelectorAll('.card .bar-fill').forEach((bar, index) => {
+  bars.forEach((bar, index) => {
     const target = bar.dataset.progressTarget;
     if (!target) return;
     requestAnimationFrame(() => setTimeout(() => { bar.style.width = target; }, index * 65));
   });
 
-  document.querySelectorAll('.card .total-pct, .card .card-footer.total .pct-value').forEach((el, index) => {
+  percentages.forEach((el, index) => {
     const target = Number.parseFloat(el.dataset.progressTarget);
     if (!Number.isFinite(target)) return;
     const start = performance.now() + index * 70;
@@ -1721,8 +1736,9 @@ function animateCardPercentages() {
     };
     requestAnimationFrame(tick);
   });
-}
 
+  window.setTimeout(finish, 1800);
+}
 function animateProjectProgress() {
   const panel = document.getElementById('tab-proyectos');
   if (!panel) return;
