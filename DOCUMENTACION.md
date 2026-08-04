@@ -828,4 +828,22 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - El cierre se ajusta un dia habil: **Pruebas UAT** el **4-Aug**, aprobacion y entrega el **5-Aug**, salida a produccion el **6-Aug** y soporte postproduccion del **7 al 13-Aug-2026**.
 
 - La pestana **% AVANCE** muestra una nota sobre las tarjetas: para abrir el cronograma de cada proyecto se debe seleccionar su nombre.
-\n## Actualizacion - Robotina festivo 7 de agosto (2026-08-03)\n\n- Se elimina completamente **7-Aug-2026** del calendario del Gantt de **ROBOTINA**; no se muestra como columna gris.\n- La salida a produccion queda el **10-Aug-2026**.\n- El soporte postproduccion queda del **11 al 17-Aug-2026**.\n- La base SQLite local se sincroniza con el calendario actualizado y se conserva un respaldo previo.\n
+
+## Actualizacion - Robotina festivo 7 de agosto (2026-08-03)
+
+- Se elimina completamente **7-Aug-2026** del calendario del Gantt de **ROBOTINA**; no se muestra como columna gris.
+- La salida a produccion queda el **10-Aug-2026**.
+- El soporte postproduccion queda del **11 al 17-Aug-2026**.
+- La base SQLite local se sincroniza con el calendario actualizado y se conserva un respaldo previo.
+
+## Actualizacion - Dinamica de porcentajes (2026-08-03)
+
+- Los porcentajes de las tarjetas de la pestana **% AVANCE** se animan desde **0%** hasta el valor calculado al recargar la pagina.
+- La misma animacion se activa al salir y regresar a la pestana **% AVANCE**.
+- Se conserva un cierre de respaldo para mostrar siempre el valor final y evitar que la tarjeta quede congelada.
+
+## Actualizacion - Sesion API Robotina agosto (2026-08-04)
+
+- Se agregan **2.5 horas** a **Sesion API Robotina** para agosto de 2026.
+- El valor se registra en `STATIC_MONTHLY.actividad_api_robotina[2026-8]`.
+- La base local `database.db` se sincroniza para que `/api/data` entregue el mismo valor al reporte.
