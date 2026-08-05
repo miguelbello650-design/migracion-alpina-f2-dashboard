@@ -863,3 +863,7 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - **Pruebas unitarias** queda en **128 horas / 16 dias**, usando la jornada de 8 horas por dia.
 - La tarea mantiene su cierre en el **5-Aug-2026** y permanece finalizada.
 - La base local se sincroniza con la misma duracion.
+## Actualizacion - Robotina pruebas unitarias en curso (2026-08-05)
+
+- **Pruebas unitarias** mantiene **128 horas / 16 dias** y queda nuevamente **en curso** (inProgress:true), por lo que se muestra en azul mientras el dia no ha terminado.
+- Se conserva el cierre planificado del **5-Aug-2026**.
