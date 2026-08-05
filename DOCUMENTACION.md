@@ -847,3 +847,8 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - Se agregan **2.5 horas** a **Sesion API Robotina** para agosto de 2026.
 - El valor se registra en `STATIC_MONTHLY.actividad_api_robotina[2026-8]`.
 - La base local `database.db` se sincroniza para que `/api/data` entregue el mismo valor al reporte.
+## Actualizacion - Robotina pruebas unitarias finalizadas (2026-08-05)
+
+- La tarea **Pruebas unitarias** queda finalizada (`inProgress:false`) y se visualiza con barra verde en el Gantt de Robotina.
+- Se mantienen **120 horas**, **15 dias** y el final en el indice 117.
+- Se sincroniza `database.db` para evitar que `/api/data` restaure el estado anterior en curso.
