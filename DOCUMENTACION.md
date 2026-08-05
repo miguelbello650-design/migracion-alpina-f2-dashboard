@@ -858,3 +858,8 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - El cronograma posterior se desplaza un dia habil: UAT, aprobacion, entrega, salida a produccion y soporte.
 - La salida a produccion queda el **11-Aug-2026** y el soporte postproduccion queda del **12 al 18-Aug-2026**.
 - Se agrega **18-Aug-2026** al calendario del Gantt para cubrir el nuevo cierre.
+## Actualizacion - Robotina 128 horas (2026-08-05)
+
+- **Pruebas unitarias** queda en **128 horas / 16 dias**, usando la jornada de 8 horas por dia.
+- La tarea mantiene su cierre en el **5-Aug-2026** y permanece finalizada.
+- La base local se sincroniza con la misma duracion.
