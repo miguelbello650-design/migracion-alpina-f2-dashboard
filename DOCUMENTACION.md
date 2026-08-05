@@ -852,3 +852,9 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - La tarea **Pruebas unitarias** queda finalizada (`inProgress:false`) y se visualiza con barra verde en el Gantt de Robotina.
 - Se mantienen **120 horas**, **15 dias** y el final en el indice 117.
 - Se sincroniza `database.db` para evitar que `/api/data` restaure el estado anterior en curso.
+## Actualizacion - Robotina pruebas unitarias 5 de agosto (2026-08-05)
+
+- Se agrega el **5-Aug-2026** como dia adicional de **Pruebas unitarias**.
+- El cronograma posterior se desplaza un dia habil: UAT, aprobacion, entrega, salida a produccion y soporte.
+- La salida a produccion queda el **11-Aug-2026** y el soporte postproduccion queda del **12 al 18-Aug-2026**.
+- Se agrega **18-Aug-2026** al calendario del Gantt para cubrir el nuevo cierre.
