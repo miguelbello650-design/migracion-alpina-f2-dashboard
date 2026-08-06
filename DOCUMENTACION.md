@@ -867,3 +867,15 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 
 - **Pruebas unitarias** mantiene **128 horas / 16 dias** y queda nuevamente **en curso** (inProgress:true), por lo que se muestra en azul mientras el dia no ha terminado.
 - Se conserva el cierre planificado del **5-Aug-2026**.
+## Actualizacion - Dos correos semanales documentados (2026-08-05)
+
+- El proceso semanal genera dos correos independientes:
+  - **Alerta de consumo de horas**: usa reporteHoras y comunica horas contratadas, consumidas, restantes, porcentaje y umbral de consumo.
+  - **Plan semanal RPA Alpina**: usa las actividades del Gantt y comunica el trabajo previsto por desarrollador y bot.
+- Ambos correos pueden compartir destinatarios, logos y seguimiento, pero tienen objetivos y fuentes de datos diferentes.
+
+## Actualizacion - Alertas finales del Gantt (2026-08-06)
+
+- Las alertas ubicadas cerca del final de los Gantt ahora anclan su tooltip hacia el interior del cronograma.
+- El ajuste aplica tambien al Gantt de Robotina, cuya vista inicia en una fecha recortada y podia dejar el tooltip de **Pruebas unitarias** fuera de la pantalla.
+- El texto de las alertas conserva ajuste responsive para evitar que se corte en pantallas pequenas.

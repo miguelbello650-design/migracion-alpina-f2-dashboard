@@ -405,6 +405,7 @@
   .gantt-table .task-row:hover td { background: #f0f7ff; }
   .gantt-bar { display: block; height: 20px; border-radius: 4px; position: relative; min-width: 4px; box-shadow: inset 0 -2px 0 rgba(15,23,42,.14), 0 2px 5px rgba(15,23,42,.14); transition: transform .2s ease, box-shadow .2s ease; }
   .gantt-bar:hover { opacity: 1; transform: scaleY(1.12); box-shadow: inset 0 -2px 0 rgba(15,23,42,.14), 0 5px 10px rgba(15,23,42,.22); z-index: 2; }
+  .gantt-bar.tooltip-end .tooltip { left: auto; right: 0; transform: none; }
   .gantt-bar .tooltip {
     display: none;
     position: absolute;
@@ -418,7 +419,8 @@
     font-size: 10px;
     white-space: normal;
     line-height: 1.35;
-    max-width: min(520px, calc(100vw - 48px));
+    max-width: min(520px, calc(100vw - 32px));
+    box-sizing: border-box;
     width: max-content;
     text-align: left;
     overflow-wrap: anywhere;
@@ -896,6 +898,7 @@ GANTT_NOTES["3. Re mapeo ID SAP|103"] = "No se logra avanzar debido a que SAP to
 GANTT_NOTES["3. Re mapeo ID SAP|106"] = "No se logra avanzar debido a que todavía no se cuenta con el acceso completo a la NWBC";
 GANTT_NOTES["3. Re mapeo ID SAP|107"] = "No se logra avanzar debido a que todavía no se cuenta con el acceso completo a la NWBC";
 
+GANTT_NOTES["4. Seguimiento postproducción y soporte inicial|121"] = "Se agregan 5 días adicionales debido a que el Bot requiere ajustes adicionales no tenidos en cuentas en las pruebas UAT, dentro de los 5 días planificados el Bot procesó solo 2 casos por tanto no se logra tener una buena estabilización.";
 // ---- FELI Gantt ----
 let GANTT_ROWS_FELI = [
   { phase:"Estructura Base",task:"1. Revisión de ambientes y validación de accesos (SAP, correo, Excel, Rocketbot)",resp:"2NV",hours:8,days:1,fixedIdx:0,fixedEndIdx:0 },
@@ -927,7 +930,7 @@ let GANTT_ROWS_FELI = [
      { phase:"",task:"2. Aprobación de documentación (manual técnico y funcional y PDD)",resp:"ALPINA",hours:2,days:0.3,fixedIdx:110,fixedEndIdx:110,inProgress:true },
      { phase:"",task:"3. Entrega de desarrollo al cliente (Capacitación)",resp:"2NV - ALPINA",hours:2,days:0.3,fixedIdx:110,fixedEndIdx:110 },
      { phase:"",task:"Salida a Producción",resp:"2NV - ALPINA",hours:0,days:0,fixedIdx:111,fixedEndIdx:111,milestone:true,inProgress:false },
-     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:64,days:8,fixedIdx:112,fixedEndIdx:119 }
+     { phase:"",task:"4. Seguimiento postproducción y soporte inicial",resp:"2NV - ALPINA",hours:80,days:10,fixedIdx:112,fixedEndIdx:121,notesIdx:[121],inProgress:true }
 ];
 
 // ---- ROBOTINA Gantt ----
@@ -962,8 +965,8 @@ let GANTT_ROWS_ROBOTINA = [
   { phase:"",task:"Cerrar ticket + adjuntar archivo + cambio de estado",resp:"2NV",hours:40,days:5,fixedIdx:55,fixedEndIdx:64,skipIndices:[57,58,59,60,61],notesIdx:[64] },
   { phase:"",task:"Enviar credenciales (2 correos) + notificación finalización",resp:"2NV",hours:10,days:1.3,fixedIdx:57,fixedEndIdx:57 },
   { phase:"",task:"Elaboración documentación SDD + manual usuario",resp:"2NV",hours:24,days:3,fixedIdx:58,fixedEndIdx:104,skipIndices:[60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,98,99,100,101,102,103,104],notesIdx:[96,98],inProgress:true },
-   { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:128,days:16,fixedIdx:65,fixedEndIdx:118,skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,96,97,98,99,100,101,102,103,104,105,106,113,114,115,116],notesIdx:[71,94,95,107,108],inProgress:true },
-   { phase:"",task:"Validación y creación flujo principal API",resp:"2NV",hours:34.7,days:4.5,fixedIdx:80,fixedEndIdx:85,skipIndices:[81],notesIdx:[80],inProgress:false },
+   { phase:"",task:"Pruebas unitarias",resp:"2NV",hours:128,days:16,fixedIdx:65,fixedEndIdx:118,skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,96,97,98,99,100,101,102,103,104,105,106,113,114,115,116],notesIdx:[71,94,95,107,108,118],inProgress:true },
+   { phase:"",task:"Validación y creación flujo principal API",resp:"2NV",hours:72,days:9,fixedIdx:80,fixedEndIdx:116,skipIndices:[81],notesIdx:[80,116],inProgress:false },
    { phase:"",task:"Logica de asociación de WO",resp:"2NV",hours:40,days:5,fixedIdx:99,fixedEndIdx:106,skipIndices:[99,100,101],notesIdx:[99,100,101],inProgress:false },
    { phase:"Cierre",task:"Pruebas UAT",resp:"2NV - ALPINA",hours:40,days:5,fixedIdx:72,fixedEndIdx:114,skipIndices:[76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113],notesIdx:[114],inProgress:true },
      { phase:"",task:"Re mapeo ID SAP a producción",resp:"2NV",hours:40,days:5,fixedIdx:77,fixedEndIdx:87,notesIdx:[76],skipIndices:[78,80,82,83,84,85],inProgress:false },
@@ -1378,6 +1381,7 @@ function buildGantt(rows, dates, title, grayDays, notes) {
     }
     if (!r.task) return;
     const hasDates = r.startIdx !== undefined && r.endIdx !== undefined;
+    const tooltipClass = hasDates && r.endIdx >= totalDays - 12 ? ' tooltip-end' : '';
     const barColor = hasDates ? (r.milestone ? COLOR_MILESTONE : !r.inProgress && dates[r.endIdx] <= cutDate ? COLOR_DONE : dates[r.startIdx] > cutDate ? COLOR_PEND : COLOR_PROG) : COLOR_PROG;
     const respShort = r.resp.includes('ALPINA') ? (r.resp.includes('2NV')?'2NV+ALPINA':'Alpina') : '2NV';
     html += '<tr class="task-row">';
@@ -1414,7 +1418,7 @@ function buildGantt(rows, dates, title, grayDays, notes) {
             }
             const segTip = tooltip + (segNotes.length ? ' ⚠ ' + segNotes.join(' | ') : '');
             html += '<td colspan="' + segLen + '" style="border:1px solid #d1d9e6;padding:1px 0;background:#fff">';
-            html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + segTip + '</span>' + (segNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + (r.milestone ? '<span style="position:absolute;top:-6px;right:2px;font-size:14px">🚩</span>' : '') + '</div></td>';
+            html += '<div class="gantt-bar' + tooltipClass + '" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + segTip + '</span>' + (segNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + (r.milestone ? '<span style="position:absolute;top:-6px;right:2px;font-size:14px">🚩</span>' : '') + '</div></td>';
             segStart = -1;
           }
           if (!active && d <= r.endIdx) {
@@ -1439,13 +1443,13 @@ function buildGantt(rows, dates, title, grayDays, notes) {
             }
             const bTip = tooltip + (bNotes.length ? ' ⚠ ' + bNotes.join(' | ') : '');
             html += '<td colspan="' + before + '" style="border:1px solid #d1d9e6;padding:1px 0;background:#fff">';
-            html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + bTip + '</span>' + (bNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
+            html += '<div class="gantt-bar' + tooltipClass + '" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + bTip + '</span>' + (bNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
           }
           const isGrayToday = grayDays && grayDays.includes(todayIdx);
           html += '<td class="' + (isGrayToday?'gray-col':'today-col') + '" style="border:1px solid #d1d9e6;padding:1px 0;background:' + (isGrayToday?'rgba(148,163,184,0.25)':'rgba(239,68,68,0.25)') + '">';
           const todayNoteValue = r.notesIdx && r.notesIdx.includes(todayIdx) ? noteFor(r, todayIdx) : '';
           const todayNote = todayNoteValue ? ' ⚠ ' + todayNoteValue : '';
-          html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative' + (todayNoteValue ? '' : ';opacity:.4') + '"><span class="tooltip">' + tooltip + todayNote + '</span>' + (todayNoteValue ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
+          html += '<div class="gantt-bar' + tooltipClass + '" style="background:' + barColor + ';width:100%;position:relative' + (todayNoteValue ? '' : ';opacity:.4') + '"><span class="tooltip">' + tooltip + todayNote + '</span>' + (todayNoteValue ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
           const after = r.endIdx - todayIdx;
           if (after > 0) {
             const aNotes = [];
@@ -1455,7 +1459,7 @@ function buildGantt(rows, dates, title, grayDays, notes) {
             }
             const aTip = tooltip + (aNotes.length ? ' ⚠ ' + aNotes.join(' | ') : '');
             html += '<td colspan="' + after + '" style="border:1px solid #d1d9e6;padding:1px 0;background:#fff">';
-            html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + aTip + '</span>' + (aNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
+            html += '<div class="gantt-bar' + tooltipClass + '" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + aTip + '</span>' + (aNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
           }
         } else {
           const dur = r.endIdx - r.startIdx + 1;
@@ -1466,7 +1470,7 @@ function buildGantt(rows, dates, title, grayDays, notes) {
           }
           const cTip = tooltip + (cNotes.length ? ' ⚠ ' + cNotes.join(' | ') : '');
           html += '<td colspan="' + dur + '" style="border:1px solid #d1d9e6;padding:1px 0;background:#fff">';
-          html += '<div class="gantt-bar" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + cTip + '</span>' + (cNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + (r.milestone ? '<span style="position:absolute;top:-6px;right:2px;font-size:14px">🚩</span>' : '') + '</div></td>';
+          html += '<div class="gantt-bar' + tooltipClass + '" style="background:' + barColor + ';width:100%;position:relative"><span class="tooltip">' + cTip + '</span>' + (cNotes.length ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + (r.milestone ? '<span style="position:absolute;top:-6px;right:2px;font-size:14px">🚩</span>' : '') + '</div></td>';
         }
       }
       for (let d = r.endIdx + 1; d < totalDays; d++) {
@@ -1538,11 +1542,13 @@ function renderGanttRobotina() {
   robotinaNotes["Pruebas unitarias|95"] = "Se requiere un día adicional para probar que todo esté funcionando correctamente despues de hacer los cambios y ajustes solicitados";
   robotinaNotes["Pruebas unitarias|107"] = "Se requiere un día adicional para probar que todo esté funcionando correctamente después de hacer los cambios y ajustes solicitados";
   robotinaNotes["Pruebas unitarias|108"] = "Se requiere dos días adicionales para ajustar reglas de flujo y SAP según lo encontrado en la sesión del 22 de Julio junto con el equipo operativo";
+  robotinaNotes["Pruebas unitarias|118"] = "Se agrega un día más de pruebas debido a que no se tiene la claridad de la lógica de búsqueda de usuarios para realizar pruebas";
   robotinaNotes["Pruebas UAT|108"] = "Día adicional para probar nuevamente con la parte funcional todos los flujos correspondientes a Robotina, la duración de esta actividad se puede extender dependiendo de los ajustes que pueden surgir";
   robotinaNotes["Ajuste Migración Google|89"] = "Javier solicitó el día";
   robotinaNotes["Ajuste Migración Google|90"] = "Se requiere 4 días adicionales para realizar modificación y migración de todo el tema de notificaciones a Google";
   robotinaNotes["Creación de usuario en SUSI|80"] = "Se requiere tiempo para probar los campos faltantes de Helix de la API";
   robotinaNotes["Validación y creación flujo principal API|80"] = "Conexión de API Succes";
+  robotinaNotes["Validación y creación flujo principal API|116"] = "Se adiciona un día debido a que no se tiene definido las reglas de busqueda de usuarios desde la API";
   const rows = GANTT_ROWS_ROBOTINA.map(r => {
     const copy = { ...r };
     if (copy.fixedIdx !== undefined) copy.fixedIdx -= startIdx;
