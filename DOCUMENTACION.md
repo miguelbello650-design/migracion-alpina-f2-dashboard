@@ -894,3 +894,10 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - Se agregan solicitudes de soporte de Agosto para Nuevo bot Makro, Ventas, Wanda y Alpi Rutas.
 - Los resumenes, KPI, consolidado mensual y exportacion PPTX del HTML ahora muestran el rango Diciembre 2025 - Agosto 2026.
 - El archivo versionado queda como fuente de produccion al publicar el commit en `main`; los controles de carga y restablecimiento siguen disponibles solo en localhost:3000.
+
+## Actualizacion - Sincronizacion de horas entre ambientes (2026-08-10)
+
+- Se alineo `STATIC_MONTHLY.soporte` con la base SQLite local para que localhost:3000 y GitHub Pages utilicen los mismos valores.
+- Soporte queda en **242 h para Julio 2026** y **62 h para Agosto 2026**.
+- Con esta fuente, el reporte muestra **4003.4 h consumidas** y **316.6 h restantes** sobre las 4320 h contratadas.
+- La base SQLite sigue siendo local e ignorada por Git; la fuente estatica versionada en `index.html` es la que se publica en `main`.
