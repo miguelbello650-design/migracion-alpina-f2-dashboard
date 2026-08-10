@@ -886,3 +886,11 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - Se agrega en la duración del **6-Aug-2026** la alerta: "Se agrega un día más debido a que los ambientes no están estables para realizar las respectivas pruebas de forma exitosa".
 - El cronograma posterior se desplaza un día: Pruebas UAT termina el 10-Aug, aprobación y entrega quedan el 11-Aug, salida a producción el 12-Aug y soporte postproducción queda del 12 al 19-Aug.
 - La base local se sincroniza para que localhost:3000 y `/api/data` carguen la misma duración, fechas y alerta.
+
+## Actualizacion - HTML de soporte agosto (2026-08-10)
+
+- Se actualizo `assets/support/dashboard_alpina_2.html` desde localhost:3000 con informacion de soporte hasta **Agosto**.
+- El HTML incorpora el mes **Agosto** en `MESES` y `DATA`, con nuevos casos, horas y estados de soporte.
+- Se agregan solicitudes de soporte de Agosto para Nuevo bot Makro, Ventas, Wanda y Alpi Rutas.
+- Los resumenes, KPI, consolidado mensual y exportacion PPTX del HTML ahora muestran el rango Diciembre 2025 - Agosto 2026.
+- El archivo versionado queda como fuente de produccion al publicar el commit en `main`; los controles de carga y restablecimiento siguen disponibles solo en localhost:3000.
