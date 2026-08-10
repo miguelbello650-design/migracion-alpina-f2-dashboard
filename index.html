@@ -847,7 +847,7 @@ let GANTT_ROWS = [
 
 const GANTT_DATES = [];
 const dateStrs = "6-Feb-26,9-Feb-26,10-Feb-26,11-Feb-26,12-Feb-26,13-Feb-26,16-Feb-26,17-Feb-26,18-Feb-26,19-Feb-26,20-Feb-26,23-Feb-26,24-Feb-26,25-Feb-26,26-Feb-26,27-Feb-26,2-Mar-26,3-Mar-26,4-Mar-26,5-Mar-26,6-Mar-26,9-Mar-26,10-Mar-26,11-Mar-26,12-Mar-26,13-Mar-26,16-Mar-26,17-Mar-26,18-Mar-26,19-Mar-26,20-Mar-26,24-Mar-26,25-Mar-26,26-Mar-26,27-Mar-26,30-Mar-26,31-Mar-26,1-Apr-26,6-Apr-26,7-Apr-26,8-Apr-26,9-Apr-26,10-Apr-26,13-Apr-26,14-Apr-26,15-Apr-26,16-Apr-26,17-Apr-26,20-Apr-26,21-Apr-26,22-Apr-26,23-Apr-26,24-Apr-26,27-Apr-26,28-Apr-26,29-Apr-26,30-Apr-26,4-May-26,5-May-26,6-May-26,7-May-26,8-May-26,11-May-26,12-May-26,13-May-26,14-May-26,15-May-26,19-May-26,20-May-26,21-May-26,22-May-26,25-May-26,26-May-26,27-May-26,28-May-26,29-May-26,1-Jun-26,2-Jun-26,3-Jun-26,4-Jun-26,5-Jun-26,9-Jun-26,10-Jun-26,11-Jun-26,12-Jun-26,16-Jun-26,17-Jun-26,18-Jun-26,19-Jun-26,22-Jun-26,23-Jun-26,24-Jun-26,25-Jun-26,26-Jun-26,30-Jun-26,1-Jul-26,2-Jul-26,3-Jul-26,6-Jul-26,7-Jul-26,8-Jul-26,9-Jul-26,10-Jul-26,14-Jul-26,15-Jul-26,16-Jul-26,17-Jul-26,21-Jul-26,22-Jul-26,23-Jul-26,24-Jul-26,27-Jul-26,28-Jul-26,29-Jul-26,30-Jul-26,31-Jul-26,3-Aug-26,4-Aug-26,5-Aug-26,6-Aug-26,10-Aug-26".split(',');
-dateStrs.push('11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26');
+dateStrs.push('11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26', '19-Aug-26');
 dateStrs.forEach(d => {
   const p = d.split('-');
   GANTT_DATES.push(new Date(2026, ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(p[1]), parseInt(p[0])));
@@ -987,6 +987,13 @@ Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), 
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:120, fixedEndIdx:120 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:121, fixedEndIdx:121 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:122, fixedEndIdx:126 });
+// Robotina: one extra unit-testing day on 6-Aug-26.
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas unitarias'), { hours:136, days:17, fixedEndIdx:119, notesIdx:[71,94,95,107,108,118,119] });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { fixedEndIdx:120, skipIndices:[76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119], notesIdx:[120] });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:121, fixedEndIdx:121 });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:121, fixedEndIdx:121 });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:122, fixedEndIdx:122 });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:123, fixedEndIdx:127 });
 
 // ---- Migracion Google - BOT NOVA Gantt ----
 let GANTT_ROWS_GOOGLE_NOVA = [
@@ -1543,6 +1550,7 @@ function renderGanttRobotina() {
   robotinaNotes["Pruebas unitarias|107"] = "Se requiere un día adicional para probar que todo esté funcionando correctamente después de hacer los cambios y ajustes solicitados";
   robotinaNotes["Pruebas unitarias|108"] = "Se requiere dos días adicionales para ajustar reglas de flujo y SAP según lo encontrado en la sesión del 22 de Julio junto con el equipo operativo";
   robotinaNotes["Pruebas unitarias|118"] = "Se agrega un día más de pruebas debido a que no se tiene la claridad de la lógica de búsqueda de usuarios para realizar pruebas";
+  robotinaNotes["Pruebas unitarias|119"] = "Se agrega un d\u00eda m\u00e1s debido a que los ambientes no est\u00e1n estables para realizar las respectivas pruebas de forma exitosa";
   robotinaNotes["Pruebas UAT|108"] = "Día adicional para probar nuevamente con la parte funcional todos los flujos correspondientes a Robotina, la duración de esta actividad se puede extender dependiendo de los ajustes que pueden surgir";
   robotinaNotes["Ajuste Migración Google|89"] = "Javier solicitó el día";
   robotinaNotes["Ajuste Migración Google|90"] = "Se requiere 4 días adicionales para realizar modificación y migración de todo el tema de notificaciones a Google";
@@ -1842,7 +1850,7 @@ let PROYECTOS = [
   { key:'lamonitafase2nuevoflujo', name:'Requisiciones Internas - La Monita', icon:'M', responsable:'Johan Sabino', color:'#dc2626', rows: null, staticData:{ status:'proximo', desc:'Incorporación de nuevo flujo, Proceso para la creación de pedidos (bajas) SAP' } },
   { key:'horasextra', name:'HORAS EXTRA', icon:'H', responsable:'Javier Gonzalez', color:'#b45309', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,11,9), endDate:new Date(2026,1,20), hours:304, desc:'Proyecto finalizado' } },
   { key:'googlenova', name:'Migración Google - BOT NOVA', icon:'N', responsable:'Johan Sabino', color:'#4285F4', rows: null, staticData:{ status:'proximo', desc:'La migración de los bots RPA a Google Cloud Platform contempla el traslado, configuración y validación de las automatizaciones en el nuevo entorno, asegurando sus accesos, dependencias, conectividad, permisos, software base y continuidad operativa.' } },
-  { key:'felifase2', name:'FELI - FASE 2', icon:'F', responsable:'Cristian Bonilla', color:'#6366f1', rows: null, staticData:{ status:'proximo', desc:'Inclusión del flujo para crear materiales HALL<br>Incluir la creación de materiales cuando sea para Ecuador u otro país (Configuración variable)<br>Reemplazo de MDG / Data Hub<br>Lógica para que en el asunto del caso pueda traer números o caracteres especiales<br>Automatización de precios' } },
+  { key:'felifase2', name:'FELI - FASE 2', icon:'F', responsable:'Cristian Bonilla', color:'#6366f1', rows: null, staticData:{ status:'proximo', desc:'Inclusión del flujo para crear materiales HALL<br>Incluir la creación de materiales cuando sea para Ecuador u otro país (Configuración variable)<br>Reemplazo de MDG / Data Hub<br>Lógica para que en el asunto del caso pueda traer números o caracteres especiales<br>Automatización de precios<br>Ajustar lógica de ZROH de almacén 1079 en vez de 1000 ya que al extender el material sale como Almacén No Existe para los ZRHO es diferente' } },
   { key:'googlefeli', name:'Migración Google - BOT FELI', icon:'F', responsable:'Cristian Bonilla', color:'#4285F4', rows: null, staticData:{ status:'proximo', desc:'La migración de los bots RPA a Google Cloud Platform contempla el traslado, configuración y validación de las automatizaciones en el nuevo entorno, asegurando sus accesos, dependencias, conectividad, permisos, software base y continuidad operativa.' } },
   { key:'robotinafase2', name:'ROBOTINA - FASE 2', icon:'R', responsable:'Javier Gonzalez', color:'#0891b2', rows: null, staticData:{ status:'proximo', desc:'Generar el "Excel para el Robot" (paso 29 del PDD)<br>Adjuntar dicho archivo en el cierre del ticket (paso 30.3 del PDD)' } },
   { key:'googlerobotina', name:'Migración Google - BOT ROBOTINA', icon:'R', responsable:'Javier Gonzalez', color:'#4285F4', rows: null, staticData:{ status:'proximo', desc:'La migración de los bots RPA a Google Cloud Platform contempla el traslado, configuración y validación de las automatizaciones en el nuevo entorno, asegurando sus accesos, dependencias, conectividad, permisos, software base y continuidad operativa.' } }

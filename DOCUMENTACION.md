@@ -879,3 +879,10 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - Las alertas ubicadas cerca del final de los Gantt ahora anclan su tooltip hacia el interior del cronograma.
 - El ajuste aplica tambien al Gantt de Robotina, cuya vista inicia en una fecha recortada y podia dejar el tooltip de **Pruebas unitarias** fuera de la pantalla.
 - El texto de las alertas conserva ajuste responsive para evitar que se corte en pantallas pequenas.
+
+## Actualizacion - Robotina pruebas unitarias 6 de agosto (2026-08-10)
+
+- **Pruebas unitarias** queda en **136 horas / 17 días**, incluye el **6-Aug-2026** y conserva `inProgress:true`, por lo que se muestra en azul mientras está en curso.
+- Se agrega en la duración del **6-Aug-2026** la alerta: "Se agrega un día más debido a que los ambientes no están estables para realizar las respectivas pruebas de forma exitosa".
+- El cronograma posterior se desplaza un día: Pruebas UAT termina el 10-Aug, aprobación y entrega quedan el 11-Aug, salida a producción el 12-Aug y soporte postproducción queda del 12 al 19-Aug.
+- La base local se sincroniza para que localhost:3000 y `/api/data` carguen la misma duración, fechas y alerta.
