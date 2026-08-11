@@ -901,3 +901,12 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - Soporte queda en **242 h para Julio 2026** y **62 h para Agosto 2026**.
 - Con esta fuente, el reporte muestra **4003.4 h consumidas** y **316.6 h restantes** sobre las 4320 h contratadas.
 - La base SQLite sigue siendo local e ignorada por Git; la fuente estatica versionada en `index.html` es la que se publica en `main`.
+
+
+## Actualizacion - Robotina UAT y corrimiento del cronograma (2026-08-11)
+
+- El 10-Aug-2026 queda como dia no laborado, con columna gris y alerta en **Pruebas UAT** por perdida de conectividad y energia.
+- **Pruebas UAT** se mueve al **11-Aug-2026**.
+- El cronograma posterior se desplaza un dia: aprobacion y entrega quedan el **12-Aug**, salida a produccion el **13-Aug** y soporte postproduccion del **14 al 20-Aug-2026**.
+- Se agrega **20-Aug-2026** al calendario del Gantt para cubrir el nuevo cierre.
+- Se sincroniza el estado persistido de Robotina en /api/sync/gantt para que localhost:3000 cargue las mismas fechas que `index.html`.
