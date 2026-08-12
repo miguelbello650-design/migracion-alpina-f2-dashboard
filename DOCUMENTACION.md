@@ -910,3 +910,16 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - El cronograma posterior se desplaza un dia: aprobacion y entrega quedan el **12-Aug**, salida a produccion el **13-Aug** y soporte postproduccion del **14 al 20-Aug-2026**.
 - Se agrega **20-Aug-2026** al calendario del Gantt para cubrir el nuevo cierre.
 - Se sincroniza el estado persistido de Robotina en /api/sync/gantt para que localhost:3000 cargue las mismas fechas que `index.html`.
+
+## Actualizacion - Robotina 11 de agosto no laborado y nuevo corrimiento (2026-08-12)
+
+- Los dias 10 y 11-Aug-2026 quedan como no laborados, con columnas grises y la misma alerta de contingencia en **Pruebas UAT**.
+- **Pruebas UAT** se mueve al **12-Aug-2026**.
+- El cronograma posterior queda asi: aprobacion y entrega el **13-Aug**, salida a produccion el **14-Aug** y soporte postproduccion del **15 al 21-Aug-2026**.
+- Se agrega **21-Aug-2026** al calendario del Gantt y se sincroniza el estado persistido de Robotina en localhost:3000.
+
+## Actualizacion - Feli estabilizacion postproduccion (2026-08-12)
+
+- **Seguimiento postproduccion y soporte inicial** queda en **88 horas / 11 dias**, del indice 112 al 122, y permanece en curso.
+- Se agrega para el **12-Aug-2026** la alerta: "Se agrega un día de estabilización para monitoreo del Bot en los horarios ya configurados".
+- La alerta queda persistida en notesIdx y sincronizada con localhost:3000.
