@@ -924,3 +924,11 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - **Seguimiento postproduccion y soporte inicial** queda en **88 horas / 11 dias**, del indice 112 al 122, y permanece en curso.
 - Se agrega para el **12-Aug-2026** la alerta: "Se agrega un día de estabilización para monitoreo del Bot en los horarios ya configurados".
 - La alerta queda persistida en notesIdx y sincronizada con localhost:3000.
+
+## Actualizacion Gantt Robotina (2026-08-13)
+
+- **Pruebas unitarias**: permanece en curso, con 144 horas y 18 dias planificados hasta el 14 de agosto de 2026.
+- La alerta de Pruebas unitarias sobre la validacion del flujo automatico completo queda ubicada en la duracion del 14 de agosto de 2026.
+- **Pruebas UAT**: conserva 40 horas y 5 dias, queda en curso y su duracion se visualiza hasta el 18 de agosto de 2026.
+- El 17 de agosto de 2026 se excluye del calendario de Robotina por ser festivo; no se excluye la fecha final del 18 de agosto.
+- La correccion mantiene la sincronizacion entre index.html y la configuracion persistida de la API local.
