@@ -17,6 +17,7 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 
 ### Estado operativo reciente
 
+- **FELI**: Documentacion tecnica, documentacion funcional, aprobacion de documentacion y seguimiento postproduccion quedan finalizadas (inProgress:false). Sus horas, fechas y alertas se mantienen sin cambios.
 - **ROBOTINA**: la tarea **Logica de asociación de WO** permanece en curso (`inProgress:true`), con 40h, 5 días, fechas y alertas sin cambios.
 
 ## Actualizacion de resumen y soporte (2026-07-22)
@@ -43,7 +44,7 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - `.gitignore` excluye respaldos, secretos, logs y salidas generadas. `sync-github.ps1` ya no hace commits ni push automáticos: `main` se actualiza solo mediante una publicación solicitada explícitamente.
 - El cambio externo `ddced34`, no solicitado en esta conversación, fue revertido en `main` mediante `a0196d8`; la tarea **Ajustes finales y paso a producción** de FELI conserva 16h.
 - Al abrir un Gantt, el dashboard persiste la subpestaña en `developmentTab`. Tras recargar, se restaura el mismo cronograma de NOVA, FELI, ROBOTINA o Migración Google, en lugar de volver a `% AVANCE`.
-- En FELI, **Documentación técnica (SDD, instalación)**, **Documentación funcional y manual usuario** y **Aprobación de documentación (manual técnico y funcional y PDD)** están en curso, sin alterar sus duraciones ni planificación. **Salida a Producción** y **Ajustes finales y paso a producción** están finalizadas.
+- En FELI, **Documentacion tecnica (SDD, instalacion)**, **Documentacion funcional y manual usuario**, **Aprobacion de documentacion (manual tecnico y funcional y PDD)** y **Seguimiento postproduccion y soporte inicial** estan finalizadas, sin alterar sus duraciones ni planificacion. **Salida a Produccion** y **Ajustes finales y paso a produccion** tambien estan finalizadas.
 
 ## Stack
 - **Lenguaje**: HTML + CSS + JavaScript (vanilla, un solo archivo `index.html`)
