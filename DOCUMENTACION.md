@@ -946,3 +946,10 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - En REPORTE DE HORAS, Robotina registra 128 horas ejecutadas para julio de 2026.
 - Se actualizo unicamente STATIC_MONTHLY.locked_robotina[2026-7]; marzo-junio, otros proyectos y la logica restante no fueron modificados.
 - El valor se sincronizo en la base local mediante /api/sync/static.
+
+## Sincronizacion de estado entre localhost y GitHub Pages (2026-08-18)
+
+- El estado persistido del ambiente local se exporta a public-state.json para que GitHub Pages muestre las mismas horas, tareas y proyectos que localhost:3000.
+- En localhost:3000, el dashboard continua leyendo /api/data; en produccion, carga public-state.json como fuente estatica versionada.
+- La carga publica evita depender de database.db, localStorage o del cache de una pestana anterior.
+- Para actualizar produccion despues de cambios locales, sincronizar el estado, versionar public-state.json e index.html y hacer push a main.

@@ -1679,9 +1679,8 @@ function loadState() {
   });
 }
 async function loadServerState() {
-  if (!IS_SERVER) return;
   try {
-    const r = await fetch('/api/data');
+    const r = await fetch(IS_SERVER ? '/api/data' : './public-state.json');
     const data = await r.json();
     if (data.ganttRows) {
       if (data.ganttRows.nova) { GANTT_ROWS.length = 0; data.ganttRows.nova.forEach(t => GANTT_ROWS.push(t)); }
@@ -2576,8 +2575,10 @@ if (IS_SERVER) {
   document.querySelector('.topbar-right').appendChild(btn);
   loadServerState().then(() => { if (supportDashboard) syncSupportHours(supportActiveTab); renderAll(); });
 } else {
-  loadState();
-  renderAll();
+  loadServerState().then(() => renderAll()).catch(() => {
+    loadState();
+    renderAll();
+  });
 }
 function activateSection(section) {
   document.querySelectorAll('.primary-tab').forEach(x => x.classList.toggle('active', x.dataset.section === section));
