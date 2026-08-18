@@ -52,6 +52,15 @@ function notFound(res) {
   res.end('404 Not Found');
 }
 
+function reportDates(ganttDates) {
+  // Fechas tecnicas para calcular jornadas desplazadas sin mostrarlas en el Gantt.
+  const extended = [...ganttDates]
+  for (const date of ['11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26']) {
+    if (!extended.includes(date)) extended.push(date)
+  }
+  return extended
+}
+
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
   const pathname = url.pathname;
@@ -70,7 +79,7 @@ const server = http.createServer((req, res) => {
       ganttRows: data.ganttRows,
       staticMonthly: data.staticMonthly,
       proyectos: data.proyectos,
-      ganttDates: data.ganttDates,
+      ganttDates: reportDates(data.ganttDates),
       contratadas: 4320
     });
     res.writeHead(200, { 'Content-Type': 'application/json' });

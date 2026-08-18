@@ -959,3 +959,7 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - El dashboard espera la respuesta de /api/sync/static y recarga /api/data antes de renderizar nuevamente las horas de soporte.
 - El correo de consumo y la grafica Horas Contratadas vs Horas Restantes consumen el mismo objeto reporteHoras.
 - El correo semanal incluye tareas en curso y tareas pendientes con al menos un dia programado dentro de la semana vigente.
+
+## Reconciliacion del consumo de horas (2026-08-18)
+
+El calculo compartido del Dashboard, la API y los correos completa las fechas tecnicas desplazadas del cronograma de Robotina sin agregarlas a la visual del Gantt. El indicador oficial queda alineado en 4,087.8 horas consumidas, 232.2 horas restantes y 94.6% sobre 4,320 horas contratadas. public-state.json se regenera con la misma respuesta para mantener consistencia entre localhost:3000, GitHub Pages y las automatizaciones.
