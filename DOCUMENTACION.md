@@ -967,3 +967,7 @@ El calculo compartido del Dashboard, la API y los correos completa las fechas te
 ## Fuente de datos de mensajeria (2026-08-18)
 
 Los dos scripts de correo (gente/reporte_horas.py y gente/enviar_semanal.py) consumen siempre el public-state.json de GitHub Pages, incluso durante pruebas. Cada consulta agrega un parametro de cache para obtener la version publica mas reciente y evitar dependencias del servidor local.
+
+## Filtro del plan semanal (2026-08-18)
+
+El correo semanal incluye tareas en curso y tareas pendientes cuyo rango real tenga al menos una fecha dentro de la semana vigente. Para cronogramas con indices desplazados, el generador completa internamente las fechas tecnicas posteriores al ultimo dia visual, sin modificar la visual del Gantt.

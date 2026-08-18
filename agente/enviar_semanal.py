@@ -77,6 +77,11 @@ try:
         except Exception:
             fechas.append(None)
 
+    # Completa indices tecnicos posteriores al ultimo dia visual del Gantt.
+    # No cambia la visual; permite identificar tareas pendientes de la semana.
+    for s in ["11-Aug-26", "12-Aug-26", "13-Aug-26", "14-Aug-26", "17-Aug-26", "18-Aug-26", "19-Aug-26", "20-Aug-26", "21-Aug-26"]:
+        partes = s.split("-")
+        fechas.append(datetime(2000 + int(partes[2]), MESES[partes[1]], int(partes[0])))
     BOTS = {
         "nova": (
             "Johan Sabino",
