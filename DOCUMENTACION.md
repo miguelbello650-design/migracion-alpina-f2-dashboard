@@ -963,3 +963,7 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 ## Reconciliacion del consumo de horas (2026-08-18)
 
 El calculo compartido del Dashboard, la API y los correos completa las fechas tecnicas desplazadas del cronograma de Robotina sin agregarlas a la visual del Gantt. El indicador oficial queda alineado en 4,087.8 horas consumidas, 232.2 horas restantes y 94.6% sobre 4,320 horas contratadas. public-state.json se regenera con la misma respuesta para mantener consistencia entre localhost:3000, GitHub Pages y las automatizaciones.
+
+## Fuente de datos de mensajeria (2026-08-18)
+
+Los dos scripts de correo (gente/reporte_horas.py y gente/enviar_semanal.py) consumen siempre el public-state.json de GitHub Pages, incluso durante pruebas. Cada consulta agrega un parametro de cache para obtener la version publica mas reciente y evitar dependencias del servidor local.

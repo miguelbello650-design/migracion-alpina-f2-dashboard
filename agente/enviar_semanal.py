@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 BASE = r"C:\Users\2NV\Desktop\Prueba de IPM\agente"
 LOG = os.path.join(BASE, "reporte_semanal.log")
-API_URL = "http://127.0.0.1:3000/api/data"
+API_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/public-state.json"
 
 os.makedirs(BASE, exist_ok=True)
 
@@ -28,14 +28,15 @@ log_msg("=== INICIO REPORTE SEMANAL ===")
 log_msg("Usuario ejecutando: %s" % getpass.getuser())
 log_msg("Python ejecutable: %s" % sys.executable)
 log_msg("Directorio actual: %s" % os.getcwd())
-log_msg("API_URL: %s" % API_URL)
+SOURCE_URL = API_URL + "?v=" + str(int(datetime.now().timestamp()))
+log_msg("SOURCE_URL: %s" % SOURCE_URL)
 
 data = None
 
 try:
     import requests
     log_msg("Intentando con requests...")
-    resp = requests.get(API_URL, timeout=15)
+    resp = requests.get(SOURCE_URL, timeout=15)
     log_msg("Status Code: %s" % resp.status_code)
     resp.raise_for_status()
     data = resp.json()
@@ -45,7 +46,7 @@ except Exception as e1:
     try:
         import urllib.request
         log_msg("Fallback con urllib...")
-        with urllib.request.urlopen(API_URL, timeout=15) as f:
+        with urllib.request.urlopen(SOURCE_URL, timeout=15) as f:
             data = json.loads(f.read().decode("utf-8"))
         log_msg("urllib OK")
     except Exception as e2:
