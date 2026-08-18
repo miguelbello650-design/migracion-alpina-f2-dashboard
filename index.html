@@ -2679,7 +2679,14 @@ function syncSupportHours(month, reportedHours) {
   const yearMatch = Array.isArray(rows) && rows.map(row => /\/(\d{4})$/.exec(row.fecha || '')).find(Boolean);
   const monthKey = (yearMatch ? yearMatch[1] : new Date().getFullYear()) + '-' + (monthIndex + 1);
   STATIC_MONTHLY.soporte[monthKey] = Number(hours.toFixed(1));
-  if (IS_SERVER) fetch('/api/sync/static', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(STATIC_MONTHLY) });
+  if (IS_SERVER) {
+    fetch('/api/sync/static', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(STATIC_MONTHLY) })
+      .then(response => { if (!response.ok) throw new Error('No se pudo sincronizar horas'); return response.json(); })
+      .then(() => loadServerState())
+      .then(() => renderReporte())
+      .catch(() => renderReporte());
+    return;
+  }
   renderReporte();
 }
 window.addEventListener('message', event => {

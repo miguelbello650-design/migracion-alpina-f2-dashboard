@@ -953,3 +953,9 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - En localhost:3000, el dashboard continua leyendo /api/data; en produccion, carga public-state.json como fuente estatica versionada.
 - La carga publica evita depender de database.db, localStorage o del cache de una pestana anterior.
 - Para actualizar produccion despues de cambios locales, sincronizar el estado, versionar public-state.json e index.html y hacer push a main.
+
+## Correccion de sincronizacion de horas y correo semanal (2026-08-18)
+
+- El dashboard espera la respuesta de /api/sync/static y recarga /api/data antes de renderizar nuevamente las horas de soporte.
+- El correo de consumo y la grafica Horas Contratadas vs Horas Restantes consumen el mismo objeto reporteHoras.
+- El correo semanal incluye tareas en curso y tareas pendientes con al menos un dia programado dentro de la semana vigente.

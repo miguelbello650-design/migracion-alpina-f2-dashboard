@@ -143,7 +143,8 @@ try:
             # de la semana del reporte. Se excluyen los índices marcados como
             # skipIndices para evitar mostrar tareas abiertas pero sin trabajo
             # planificado durante la semana.
-            tiene_dia_en_semana = False
+            # Una tarea en curso representa trabajo vigente aunque el calendario persistido aun no tenga sus fechas finales.
+            tiene_dia_en_semana = bool(r.get("inProgress"))
 
             if fixed_ini is not None and fixed_fin is not None:
                 for idx in range(fixed_ini, fixed_fin + 1):
