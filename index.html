@@ -1682,6 +1682,7 @@ async function loadServerState() {
   try {
     const r = await fetch(IS_SERVER ? '/api/data' : './public-state.json');
     const data = await r.json();
+    SERVER_REPORTE_HORAS = data.reporteHoras || null;
     if (data.ganttRows) {
       if (data.ganttRows.nova) { GANTT_ROWS.length = 0; data.ganttRows.nova.forEach(t => GANTT_ROWS.push(t)); }
       if (data.ganttRows.feli) { GANTT_ROWS_FELI.length = 0; data.ganttRows.feli.forEach(t => GANTT_ROWS_FELI.push(t)); }
@@ -2045,6 +2046,7 @@ function renderProyectosChart() {
 const REPORTE_MONTH_KEY = 'reporteMonthFilter';
 localStorage.removeItem(REPORTE_MONTH_KEY);
 const REPORTE_HORAS_CONTRATADAS = 4320;
+let SERVER_REPORTE_HORAS = null;
 let STATIC_MONTHLY = {
   optimus: { '2025-11':57.5, '2025-12':182.5, '2026-1':46 },
   lamonita: { '2025-11':44.5, '2025-12':189.5, '2026-1':139 },
@@ -2350,7 +2352,7 @@ function renderReporte() {
   } else { html += '<p style="text-align:center;color:#94a3b8;padding:30px 0;font-size:13px">Sin datos</p>'; }
   html += '</div></div>';
 
-  const reporteHoras = ReporteHoras.calculateReporteHoras({
+  const reporteHoras = SERVER_REPORTE_HORAS || ReporteHoras.calculateReporteHoras({
     ganttRows: { nova:GANTT_ROWS, feli:GANTT_ROWS_FELI, robotina:GANTT_ROWS_ROBOTINA, googlenova:GANTT_ROWS_GOOGLE_NOVA },
     staticMonthly: STATIC_MONTHLY,
     proyectos: PROYECTOS,
