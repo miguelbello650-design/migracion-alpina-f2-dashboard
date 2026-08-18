@@ -940,3 +940,9 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - **Pruebas unitarias** finaliza el 18-Aug-2026 y conserva la alerta de validacion del flujo automatico en su duracion.
 - **Pruebas UAT** continua el 19-Aug-2026; aprobacion y entrega quedan el 20-Aug, salida a produccion el 21-Aug y soporte postproduccion del 24 al 28-Aug-2026.
 - Se agrega 28-Aug-2026 al calendario y se sincronizan los indices con la API local para conservar el estado al recargar.
+
+## Actualizacion - Horas Robotina julio (2026-08-18)
+
+- En REPORTE DE HORAS, Robotina registra 128 horas ejecutadas para julio de 2026.
+- Se actualizo unicamente STATIC_MONTHLY.locked_robotina[2026-7]; marzo-junio, otros proyectos y la logica restante no fueron modificados.
+- El valor se sincronizo en la base local mediante /api/sync/static.
