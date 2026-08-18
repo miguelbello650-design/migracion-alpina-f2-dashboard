@@ -932,3 +932,11 @@ El bloque **Desarrollo** de la pestana **REPORTE DE HORAS ALPINA** incluye `goog
 - **Pruebas UAT**: conserva 40 horas y 5 dias, queda en curso y su duracion se visualiza hasta el 18 de agosto de 2026.
 - El 17 de agosto de 2026 se excluye del calendario de Robotina por ser festivo; no se excluye la fecha final del 18 de agosto.
 - La correccion mantiene la sincronizacion entre index.html y la configuracion persistida de la API local.
+
+## Actualizacion - Robotina corrimiento desde el 14 de agosto (2026-08-18)
+
+- El 14-Aug-2026 se muestra como dia no laborado, con columna gris y la misma alerta de contingencia de Pruebas UAT usada el 13-Aug-2026.
+- El corrimiento del cronograma respeta el fin de semana y el festivo del 17-Aug-2026.
+- **Pruebas unitarias** finaliza el 18-Aug-2026 y conserva la alerta de validacion del flujo automatico en su duracion.
+- **Pruebas UAT** continua el 19-Aug-2026; aprobacion y entrega quedan el 20-Aug, salida a produccion el 21-Aug y soporte postproduccion del 24 al 28-Aug-2026.
+- Se agrega 28-Aug-2026 al calendario y se sincronizan los indices con la API local para conservar el estado al recargar.
