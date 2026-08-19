@@ -971,3 +971,7 @@ Los dos scripts de correo (gente/reporte_horas.py y gente/enviar_semanal.py) c
 ## Filtro del plan semanal (2026-08-18)
 
 El correo semanal incluye tareas en curso y tareas pendientes cuyo rango real tenga al menos una fecha dentro de la semana vigente. Para cronogramas con indices desplazados, el generador completa internamente las fechas tecnicas posteriores al ultimo dia visual, sin modificar la visual del Gantt.
+
+## Actualizacion de Robotina (2026-08-19)
+
+La tarea Pruebas unitarias del Gantt de Robotina se marco como ejecutada, conservando sus 18 dias, 144 horas, fechas y alertas. El cambio fue sincronizado en el estado local y en public-state.json.
