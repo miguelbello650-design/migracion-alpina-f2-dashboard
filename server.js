@@ -55,7 +55,7 @@ function notFound(res) {
 function reportDates(ganttDates) {
   // Fechas tecnicas para calcular jornadas desplazadas sin mostrarlas en el Gantt.
   const extended = [...ganttDates]
-  for (const date of ['11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26']) {
+  for (const date of ['11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26', '19-Aug-26', '20-Aug-26', '21-Aug-26']) {
     if (!extended.includes(date)) extended.push(date)
   }
   return extended
