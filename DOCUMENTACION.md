@@ -994,3 +994,9 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - La tarea mantiene 8 horas, 1 dia y estado **en curso**; su barra conserva el color azul aun cuando corresponde al dia actual.
 - Se corrigio la opacidad visual que hacia que una tarea en curso se viera gris/lila cuando no tenia una alerta en el dia actual.
 - Las alertas se sincronizaron en el estado persistido de `localhost:3000` y en `public-state.json` para mantener consistencia con produccion.
+## Distribucion de horas Feli (2026-08-20)
+
+- Se redistribuyeron los ajustes de horas entre todas las tareas de Feli que pertenecen a marzo y abril, evitando concentrarlos en una sola actividad.
+- Marzo queda en **137 horas** y abril en **128 horas**.
+- El total acumulado del Gantt de Feli queda en **798.7 horas**.
+- Los valores se actualizaron en index.html, se sincronizaron en el estado local y se regeneraron en public-state.json para mantener la misma informacion entre localhost:3000 y el ambiente publico.
