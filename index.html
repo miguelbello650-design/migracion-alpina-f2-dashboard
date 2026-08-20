@@ -983,14 +983,14 @@ Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.includes('flujo principal
   skipIndices:[81,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112],
   inProgress:false
 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:8, days:1, fixedIdx:128, fixedEndIdx:128, skipIndices:[], notesIdx:[], inProgress:true });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:8, days:1, fixedIdx:128, fixedEndIdx:128, skipIndices:[], notesIdx:[120,121,122,123,124], inProgress:true });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:129, fixedEndIdx:129 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:129, fixedEndIdx:129 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:130, fixedEndIdx:130 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:131, fixedEndIdx:135 });
 // Robotina: one extra unit-testing day on 6-Aug-26.
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas unitarias'), { hours:152, days:19, fixedEndIdx:127, skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,96,97,98,99,100,101,102,103,104,105,106,113,114,115,116,120,121,122,123,124], notesIdx:[71,94,95,107,108,118,119,126], inProgress:false });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:8, days:1, fixedIdx:128, fixedEndIdx:128, skipIndices:[], notesIdx:[], inProgress:true });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:8, days:1, fixedIdx:128, fixedEndIdx:128, skipIndices:[], notesIdx:[120,121,122,123,124], inProgress:true });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:129, fixedEndIdx:129 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:129, fixedEndIdx:129 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:130, fixedEndIdx:130 });
@@ -1457,7 +1457,7 @@ function buildGantt(rows, dates, title, grayDays, notes) {
           html += '<td class="' + (isGrayToday?'gray-col':'today-col') + '" style="border:1px solid #d1d9e6;padding:1px 0;background:' + (isGrayToday?'rgba(148,163,184,0.25)':'rgba(239,68,68,0.25)') + '">';
           const todayNoteValue = r.notesIdx && r.notesIdx.includes(todayIdx) ? noteFor(r, todayIdx) : '';
           const todayNote = todayNoteValue ? ' ⚠ ' + todayNoteValue : '';
-          html += '<div class="gantt-bar' + tooltipClass + '" style="background:' + barColor + ';width:100%;position:relative' + (todayNoteValue ? '' : ';opacity:.4') + '"><span class="tooltip">' + tooltip + todayNote + '</span>' + (todayNoteValue ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
+          html += '<div class="gantt-bar' + tooltipClass + '" style="background:' + barColor + ';width:100%;position:relative' + (todayNoteValue || r.inProgress ? '' : ';opacity:.4') + '"><span class="tooltip">' + tooltip + todayNote + '</span>' + (todayNoteValue ? '<span style="position:absolute;top:-4px;right:2px;font-size:10px;color:#ef4444;font-weight:700">⚠</span>' : '') + '</div></td>';
           const after = r.endIdx - todayIdx;
           if (after > 0) {
             const aNotes = [];

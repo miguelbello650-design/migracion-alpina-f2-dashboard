@@ -987,3 +987,10 @@ Se agrego la fecha tecnica 31 de agosto al calendario visible para cubrir el nue
 ## Ajuste de Pruebas UAT Robotina (2026-08-20)
 
 Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 día, manteniéndose en curso.
+
+## Restauracion de alertas UAT Robotina (2026-08-20)
+
+- Se restauraron las alertas de **Pruebas UAT** correspondientes al 10, 11, 12, 13 y 14 de agosto de 2026.
+- La tarea mantiene 8 horas, 1 dia y estado **en curso**; su barra conserva el color azul aun cuando corresponde al dia actual.
+- Se corrigio la opacidad visual que hacia que una tarea en curso se viera gris/lila cuando no tenia una alerta en el dia actual.
+- Las alertas se sincronizaron en el estado persistido de `localhost:3000` y en `public-state.json` para mantener consistencia con produccion.
