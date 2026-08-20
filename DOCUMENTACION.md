@@ -979,3 +979,7 @@ La tarea Pruebas unitarias del Gantt de Robotina se marco como ejecutada, conser
 ## Actualizacion de Robotina (2026-08-20)
 
 Se adiciono el 19 de agosto a Pruebas unitarias de Robotina, quedando en 152 horas y 19 dias como ejecutada. Pruebas UAT queda en curso desde el 20 de agosto y las actividades posteriores se desplazaron un dia. El reporte sincronizado queda en 4108.8 horas consumidas, 211.2 restantes y 95.1%.
+
+## Correccion visual del Gantt Robotina (2026-08-20)
+
+Se agrego la fecha tecnica 31 de agosto al calendario visible para cubrir el nuevo indice final del cronograma. El Gantt dejaba el contenedor vacio porque intentaba formatear una fecha inexistente despues del desplazamiento de las actividades.
