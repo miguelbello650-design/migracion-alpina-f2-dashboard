@@ -983,3 +983,7 @@ Se adiciono el 19 de agosto a Pruebas unitarias de Robotina, quedando en 152 hor
 ## Correccion visual del Gantt Robotina (2026-08-20)
 
 Se agrego la fecha tecnica 31 de agosto al calendario visible para cubrir el nuevo indice final del cronograma. El Gantt dejaba el contenedor vacio porque intentaba formatear una fecha inexistente despues del desplazamiento de las actividades.
+
+## Ajuste de Pruebas UAT Robotina (2026-08-20)
+
+Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 día, manteniéndose en curso.
