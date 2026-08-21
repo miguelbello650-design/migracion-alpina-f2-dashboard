@@ -1000,3 +1000,12 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Marzo queda en **137 horas** y abril en **128 horas**.
 - El total acumulado del Gantt de Feli queda en **798.7 horas**.
 - Los valores se actualizaron en index.html, se sincronizaron en el estado local y se regeneraron en public-state.json para mantener la misma informacion entre localhost:3000 y el ambiente publico.
+## Ajuste de horas Nova (2026-08-21)
+
+- Se distribuyeron equitativamente **28 horas adicionales** entre las siete tareas de Nova con actividad en abril, agregando 4 horas a cada una.
+- Abril queda en **126 horas** y el total acumulado del proyecto Nova en **550 horas**.
+- La columna de días no fue modificada; el estado local y public-state.json quedaron sincronizados.
+
+## Correccion calendario Robotina (2026-08-21)
+
+- Se agregó 1-Sep-26 como fecha técnica final para cubrir el desplazamiento de Pruebas UAT al 21 de agosto y evitar que el Gantt quedara vacío por una actividad fuera del rango de fechas.
