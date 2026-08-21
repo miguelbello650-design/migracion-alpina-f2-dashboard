@@ -1142,7 +1142,7 @@ function renderRobotinaCard() {
       if (!skipSet.has(i)) completed++;
     }
     const pct = Math.min(1, completed / effectiveDays);
-    a.inProgress += Math.round((r.hours || 0) * pct);
+    a.inProgress += (r.hours || 0) * pct;
     return a;
   }, { completed: 0, inProgress: 0 });
   const totalHours = hours.completed + hours.inProgress;

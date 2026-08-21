@@ -1009,3 +1009,11 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 ## Correccion calendario Robotina (2026-08-21)
 
 - Se agregó 1-Sep-26 como fecha técnica final para cubrir el desplazamiento de Pruebas UAT al 21 de agosto y evitar que el Gantt quedara vacío por una actividad fuera del rango de fechas.
+
+## Ajuste de precision en total Robotina (2026-08-21)
+
+- La tarjeta de Robotina mostraba **790.3 h** aunque el Reporte de horas acumulado correspondia a **791.2 h**.
+- La causa era un `Math.round` aplicado individualmente a cada tarea en curso antes de sumar las horas.
+- Se corrigio `renderRobotinaCard()` para acumular los decimales completos y evitar la perdida de **0.9 h**.
+- No se modificaron las duraciones en dias ni la informacion de las tareas.
+- La correccion se mantiene alineada entre `localhost:3000` y `public-state.json`.
