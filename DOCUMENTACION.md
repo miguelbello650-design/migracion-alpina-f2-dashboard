@@ -1035,3 +1035,9 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Se publicaron `public-state.json`, `index.html` y `assets/support/dashboard_alpina_2.html` para alinear el ambiente publico con el local.
 - Se verifico en GitHub Pages que Robotina mantiene **56 horas y 7 dias** en Pruebas UAT y que la tarjeta muestra **800.8 horas**.
 - GitHub Pages puede conservar los archivos en cache hasta 10 minutos; se recomienda recargar con `Ctrl + F5` o agregar un parametro de consulta para validar cambios recientes.
+
+## Ajuste Nova: documentacion y alerta de consolidado (2026-08-24)
+
+- La tarea **3. Documentación técnica (SDD + guía instalación + manual usuario)** del Gantt de Nova queda programada para el **15 y 16 de abril de 2026**, conservando sus 12 horas y 1.5 días.
+- Se corrigió el estado SQLite local para evitar que `/api/data` sobrescribiera esas fechas con los índices antiguos.
+- Se actualizó la alerta de **3. Manejo de errores en ajuste de consolidado definitivo** a: "Se requiere un día adicional debido a que no se ha solucionado el error en las transacciones de SAP por la copia a Calidad".
