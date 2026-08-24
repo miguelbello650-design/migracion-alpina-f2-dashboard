@@ -1022,3 +1022,10 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Se agregó en la duración del **24 de agosto de 2026** la alerta: "Se extiende 2 días debido a que Javier tiene que hacer ajustes en reglas que no estaban contempladas dentro del alcance inicial".
 - Se conservaron las alertas históricas, las **56 horas**, los **7 días** y el estado en curso de la tarea **Pruebas UAT**.
 - El cambio quedó reflejado en index.html y en el estado local del dashboard.
+## Correccion del correo semanal: tareas completas por semana (2026-08-24)
+
+- El correo semanal ahora incluye todas las tareas cuyo rango tenga al menos un día efectivo dentro de la semana, tanto pendientes como en curso.
+- Se excluyen únicamente los índices marcados en `skipIndices`, que representan días sin trabajo programado.
+- El generador incorpora las fechas técnicas extendidas del Gantt hasta el 2 de septiembre de 2026 y evita duplicarlas si ya existen en el estado público.
+- El cuerpo HTML ya no limita la lista a cuatro actividades por desarrollador.
+- Se actualizaron `generar-correo-semanal.js` y `agente/enviar_semanal.py`; ambos validaron sintaxis correctamente.

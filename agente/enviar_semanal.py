@@ -79,9 +79,12 @@ try:
 
     # Completa indices tecnicos posteriores al ultimo dia visual del Gantt.
     # No cambia la visual; permite identificar tareas pendientes de la semana.
-    for s in ["11-Aug-26", "12-Aug-26", "13-Aug-26", "14-Aug-26", "17-Aug-26", "18-Aug-26", "19-Aug-26", "20-Aug-26", "21-Aug-26"]:
+    fechas_tecnicas = ["11-Aug-26", "12-Aug-26", "13-Aug-26", "14-Aug-26", "17-Aug-26", "18-Aug-26", "19-Aug-26", "20-Aug-26", "21-Aug-26", "24-Aug-26", "25-Aug-26", "26-Aug-26", "27-Aug-26", "28-Aug-26", "31-Aug-26", "1-Sep-26", "2-Sep-26"]
+    for s in fechas_tecnicas:
         partes = s.split("-")
-        fechas.append(datetime(2000 + int(partes[2]), MESES[partes[1]], int(partes[0])))
+        fecha_tecnica = datetime(2000 + int(partes[2]), MESES[partes[1]], int(partes[0]))
+        if not any(fecha == fecha_tecnica for fecha in fechas if fecha is not None):
+            fechas.append(fecha_tecnica)
     BOTS = {
         "nova": (
             "Johan Sabino",
@@ -150,7 +153,7 @@ try:
             # skipIndices para evitar mostrar tareas abiertas pero sin trabajo
             # planificado durante la semana.
             # Una tarea en curso representa trabajo vigente aunque el calendario persistido aun no tenga sus fechas finales.
-            tiene_dia_en_semana = bool(r.get("inProgress"))
+            tiene_dia_en_semana = False
 
             if fixed_ini is not None and fixed_fin is not None:
                 for idx in range(fixed_ini, fixed_fin + 1):

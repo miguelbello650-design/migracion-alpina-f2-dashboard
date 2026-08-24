@@ -58,7 +58,9 @@ function extractDates(script) {
   if (!match) throw new Error('No se encontro dateStrs')
 
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
-  return match[1].split(',').map(value => {
+  const pushedMatch = /dateStrs\.push\(([^\)]*)\)/.exec(script)
+  const pushedDates = pushedMatch ? Array.from(pushedMatch[1].matchAll(/['"]([^'"]+)['"]/g)).map(match => match[1]) : []
+  return match[1].split(',').concat(pushedDates).map(value => {
     const p = value.split('-')
     return new Date(2026, months.indexOf(p[1]), parseInt(p[0], 10))
   })
@@ -110,7 +112,7 @@ function isTaskInWeek(row, dates, weekStart, weekEnd) {
   const start = dates[row.fixedIdx]
   const end = dates[row.fixedEndIdx !== undefined ? row.fixedEndIdx : row.fixedIdx]
   if (!start || !end) return false
-  return row.inProgress || (sameOrBefore(start, weekEnd) && sameOrAfter(end, weekStart))
+  return sameOrBefore(start, weekEnd) && sameOrAfter(end, weekStart)
 }
 
 function taskLine(row, dates) {
@@ -136,8 +138,7 @@ function taskInfo(row, dates) {
 
 function buildHtmlEmail(subject, sections, weekStart, weekEnd) {
   const cards = sections.map(section => {
-    const visibleTasks = section.tasks.slice(0, 4)
-    const extraCount = Math.max(0, section.tasks.length - visibleTasks.length)
+    const visibleTasks = section.tasks
     const tasksHtml = visibleTasks.length
       ? visibleTasks.map(task => {
           const statusColor = task.milestone ? '#f59e0b' : task.inProgress ? '#2563eb' : section.color
@@ -152,8 +153,7 @@ function buildHtmlEmail(subject, sections, weekStart, weekEnd) {
               '<span style="display:inline-block;border:1px solid ' + statusColor + ';color:' + statusColor + ';border-radius:11px;padding:2px 8px;font-size:10px;font-weight:700;white-space:nowrap">' + statusText + '</span>' +
             '</td>' +
           '</tr>'
-        }).join('') +
-        (extraCount ? '<tr><td colspan="2" style="padding:8px 0 0;color:#64748b;font-size:12px">+' + extraCount + ' actividades adicionales en el Gantt.</td></tr>' : '')
+        }).join('')
       : '<tr><td colspan="2" style="padding:8px 0;color:#94a3b8;font-size:13px">Sin actividades programadas en el Gantt para esta semana.</td></tr>'
 
     return '<table role="presentation" cellpadding="0" cellspacing="0" align="left" style="width:100%;border-collapse:collapse;background:#ffffff;border:1px solid #e2e8f0;border-left:5px solid ' + section.color + ';border-radius:8px;margin:0 0 12px;text-align:left">' +
