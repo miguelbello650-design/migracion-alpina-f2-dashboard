@@ -1029,3 +1029,9 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - El generador incorpora las fechas técnicas extendidas del Gantt hasta el 2 de septiembre de 2026 y evita duplicarlas si ya existen en el estado público.
 - El cuerpo HTML ya no limita la lista a cuatro actividades por desarrollador.
 - Se actualizaron `generar-correo-semanal.js` y `agente/enviar_semanal.py`; ambos validaron sintaxis correctamente.
+## Sincronizacion del Dashboard publico (2026-08-24)
+
+- Se regenero `public-state.json` directamente desde `/api/data` de `localhost:3000`.
+- Se publicaron `public-state.json`, `index.html` y `assets/support/dashboard_alpina_2.html` para alinear el ambiente publico con el local.
+- Se verifico en GitHub Pages que Robotina mantiene **56 horas y 7 dias** en Pruebas UAT y que la tarjeta muestra **800.8 horas**.
+- GitHub Pages puede conservar los archivos en cache hasta 10 minutos; se recomienda recargar con `Ctrl + F5` o agregar un parametro de consulta para validar cambios recientes.
