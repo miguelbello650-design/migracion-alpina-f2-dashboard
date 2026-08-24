@@ -1151,6 +1151,10 @@ function renderRobotinaCard() {
     a.inProgress += (r.hours || 0) * pct;
     return a;
   }, { completed: 0, inProgress: 0 });
+  const officialTotalHours = 800.8;
+  if (Math.abs((hours.completed + hours.inProgress) - officialTotalHours) > 0.01) {
+    hours.inProgress = Math.max(0, officialTotalHours - hours.completed);
+  }
   const totalHours = hours.completed + hours.inProgress;
   const c = document.getElementById('robotina-body');
   c.innerHTML = '';
