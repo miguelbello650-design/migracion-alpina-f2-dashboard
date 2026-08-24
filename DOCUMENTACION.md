@@ -1017,3 +1017,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Se corrigio `renderRobotinaCard()` para acumular los decimales completos y evitar la perdida de **0.9 h**.
 - No se modificaron las duraciones en dias ni la informacion de las tareas.
 - La correccion se mantiene alineada entre `localhost:3000` y `public-state.json`.
+## Alerta de extension de Pruebas UAT Robotina (2026-08-24)
+
+- Se agregó en la duración del **24 de agosto de 2026** la alerta: "Se extiende 2 días debido a que Javier tiene que hacer ajustes en reglas que no estaban contempladas dentro del alcance inicial".
+- Se conservaron las alertas históricas, las **56 horas**, los **7 días** y el estado en curso de la tarea **Pruebas UAT**.
+- El cambio quedó reflejado en index.html y en el estado local del dashboard.
