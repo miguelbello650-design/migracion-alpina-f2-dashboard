@@ -325,8 +325,8 @@
         "resp": "2NV",
         "hours": 12,
         "days": 1.5,
-        "fixedIdx": 57,
-        "fixedEndIdx": 58
+        "fixedIdx": 45,
+        "fixedEndIdx": 46
       },
       {
         "phase": "",
@@ -1461,10 +1461,10 @@
         "phase": "Cierre",
         "task": "Pruebas UAT",
         "resp": "2NV - ALPINA",
-        "hours": 56,
-        "days": 7,
+        "hours": 64,
+        "days": 8,
         "fixedIdx": 72,
-        "fixedEndIdx": 130,
+        "fixedEndIdx": 131,
         "skipIndices": [
           76,
           77,
@@ -1525,7 +1525,7 @@
           122,
           123,
           124,
-          130
+          131
         ],
         "inProgress": true
       },
@@ -1567,8 +1567,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 131,
-        "fixedEndIdx": 131
+        "fixedIdx": 132,
+        "fixedEndIdx": 132
       },
       {
         "phase": "",
@@ -1576,8 +1576,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 131,
-        "fixedEndIdx": 131
+        "fixedIdx": 132,
+        "fixedEndIdx": 132
       },
       {
         "phase": "",
@@ -1585,8 +1585,8 @@
         "resp": "2NV - ALPINA",
         "hours": 0,
         "days": 0,
-        "fixedIdx": 132,
-        "fixedEndIdx": 132,
+        "fixedIdx": 133,
+        "fixedEndIdx": 133,
         "milestone": true
       },
       {
@@ -1595,8 +1595,8 @@
         "resp": "2NV - ALPINA",
         "hours": 40,
         "days": 5,
-        "fixedIdx": 133,
-        "fixedEndIdx": 137
+        "fixedIdx": 134,
+        "fixedEndIdx": 138
       }
     ],
     "googlenova": [
@@ -1858,6 +1858,17 @@
       "2026-6": 0,
       "2026-7": 0.5
     },
+    "actividad_entendimiento_lamonita_f2": {
+      "2025-11": 0,
+      "2025-12": 0,
+      "2026-1": 0,
+      "2026-2": 0,
+      "2026-3": 0,
+      "2026-4": 0,
+      "2026-5": 0,
+      "2026-6": 0,
+      "2026-7": 0.5
+    },
     "locked_feli": {
       "2025-11": 0,
       "2025-12": 0,
@@ -1868,7 +1879,8 @@
       "2026-5": 152
     },
     "locked_nova": {
-      "2026-4": 126
+      "2026-4": 126,
+      "2026-5": 152
     },
     "locked_robotina": {
       "2026-3": 130,
@@ -1876,9 +1888,6 @@
       "2026-5": 148,
       "2026-6": 145.6,
       "2026-7": 128
-    },
-    "actividad_entendimiento_lamonita_f2": {
-      "2026-7": 0.5
     }
   },
   "proyectos": [
@@ -2169,14 +2178,32 @@
     "4-Aug-26",
     "5-Aug-26",
     "6-Aug-26",
-    "10-Aug-26"
+    "10-Aug-26",
+    "11-Aug-26",
+    "12-Aug-26",
+    "13-Aug-26",
+    "14-Aug-26",
+    "17-Aug-26",
+    "18-Aug-26",
+    "19-Aug-26",
+    "20-Aug-26",
+    "21-Aug-26",
+    "24-Aug-26",
+    "25-Aug-26",
+    "26-Aug-26",
+    "27-Aug-26",
+    "28-Aug-26",
+    "31-Aug-26",
+    "1-Sep-26",
+    "2-Sep-26",
+    "3-Sep-26"
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4110.5,
-    "restantes": 209.5,
-    "porcentaje": 95.2,
-    "desarrollo": 3242,
+    "consumidas": 4142.6,
+    "restantes": 177.4,
+    "porcentaje": 95.9,
+    "desarrollo": 3274.1,
     "soporte": 868.5
   }
 }

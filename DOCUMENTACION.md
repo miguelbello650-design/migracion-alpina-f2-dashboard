@@ -1047,3 +1047,9 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Se actualizó el corte de la tarjeta de **800.8 h** a **808.8 h**, conservando **740.3 h ejecutadas** y **68.5 h en curso**.
 - No se modificaron las duraciones, fechas, alertas ni horas de las tareas del Gantt; el cambio aplica únicamente a la contabilización mostrada en la tarjeta.
 - Se verificó el resultado renderizado en `http://127.0.0.1:3000/`.
+## Sincronización del estado público con el local (2026-08-25)
+
+- GitHub Pages ya tenía el `index.html` actualizado, pero `public-state.json` conservaba una versión anterior de los datos.
+- Se regeneró `public-state.json` directamente desde `http://127.0.0.1:3000/api/data`.
+- El estado quedó alineado con el local: **4142.6 h** consumidas y calendario hasta el **3 de septiembre de 2026**.
+- No se modificaron tareas ni duraciones; únicamente se actualizó la copia de estado utilizada por el ambiente público.
