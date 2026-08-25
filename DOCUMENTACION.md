@@ -1060,3 +1060,11 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Se corrigió únicamente esa comparación en `index.html`.
 - Se conservan los valores del reporte: **110,0**, **555,0**, **359,5**, **371,5**, **462,5**, **485,3**, **535,8**, **496,3**, **483,0** y **283,7 h**, con total **4.142,6 h**.
 - No se modificaron horas de tareas, fechas, duraciones, estados ni alertas.
+
+## Prevención de discrepancias en gráficas y reporte (2026-08-25)
+
+- Las etiquetas de los bloques de horas deben conservar exactamente el mismo texto y codificación en la definición visual y en la función de cálculo. En particular, se debe usar siempre `Actualización PDD` y no duplicar ni reconstruir el nombre manualmente.
+- Antes de publicar cambios en las vistas, se debe comparar el total de las gráficas con `reporteHoras.consumidas` y con la suma de `staticMonthly` por mes.
+- La validación mínima debe confirmar que la suma mensual coincide con el reporte y que ningún bloque con horas positivas desaparece de **Distribución por Bloque**.
+- Si se modifican textos con tildes, se debe conservar el archivo en UTF-8 y verificar que no aparezcan caracteres `?` en el código ni en la interfaz.
+- Esta regla evita que un error de codificación excluya silenciosamente horas de las gráficas sin alterar los datos fuente.
