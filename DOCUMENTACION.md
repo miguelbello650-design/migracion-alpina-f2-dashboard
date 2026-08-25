@@ -81,7 +81,7 @@ Agrupa los bots por estado general calculado automáticamente:
 - **🔄 En Proceso**: alguna tarea en curso o activa
 - **📅 Próximos**: todas las tareas con fecha inicio posterior a hoy
 
-Cada proyecto muestra en tarjeta: nombre, responsable, badge de estado, barra de progreso (o link "Ver más detalle" si no tiene datos), conteo de tareas, fecha inicio y fin estimado.
+Cada proyecto muestra en tarjeta: nombre, responsable y badge de estado. Las tarjetas Finalizadas y En Proceso muestran progreso cuando aplica, horas totales, Inicio, Salida a Producción y Fin, además de Tecnología usada cuando está configurada. Las tarjetas Próximas conservan el formato compacto anterior: nombre, responsable, estado y link "Ver más detalle".
 
 Los proyectos se organizan dentro de cada sección usando el mismo grid que Finalizados/En Proceso (`auto-fill minmax(280px, 1fr)`), con posicionamiento explícito (`grid-column` / `grid-row`) para la sección Próximos, asegurando que todas las tarjetas tengan idénticas dimensiones.
 
@@ -109,7 +109,7 @@ Proyectos que no tienen datos en Gantt. Se definen con `staticData` en el array 
 | BOT ROBOTINA - FASE 2 | Javier Gonzalez | `#0891b2` | Generar el "Excel para el Robot" (paso 29 del PDD) · Adjuntar archivo en el cierre del ticket (paso 30.3 del PDD) |
 | Migración Google - BOT ROBOTINA | Javier Gonzalez | `#4285F4` | Migración de los bots RPA a Google Cloud Platform: traslado, configuración y validación de automatizaciones en el nuevo entorno, asegurando accesos, dependencias, conectividad, permisos, software base y continuidad operativa |
 
-Campos de `staticData`: `{ status, progress?, startDate?, endDate?, hours?, desc }`. 
+Campos de `staticData`: `{ status, progress?, startDate?, productionDate?, endDate?, hours?, desc }`. `productionDate` alimenta únicamente la fila visual Salida a Producción de tarjetas Finalizadas/En Proceso; las tarjetas Próximas no muestran estos metadatos.
 - Si `progress` es `undefined`, se muestra "Ver más detalle →" que abre un modal con el contenido de `desc` (soporta `<br>` para múltiples líneas).
 - Si `hours`, `startDate` o `endDate` son `undefined`, se omiten esas filas.
 - `startDate` y `endDate` se persisten a través del ciclo SQLite (seed → DB → API → cliente) como strings ISO.
@@ -132,7 +132,7 @@ Array de fechas (índice 0-95, 96 fechas total) compartido por los 3 Gantts:
 | 9 | 19-Feb-26 | 18 | 4-Mar-26 | 30 | 20-Mar-26 |
 | 10 | 20-Feb-26 | 19 | 5-Mar-26 | 31 | 24-Mar-26 |
 
-**Rango completo**: 6-Feb-26 a 1-Jul-26  
+**Rango completo**: 6-Feb-26 a 1-Jul-26
 **Findes de semana**: Excluidos del array (solo días laborables)
 
 ### GANTT_NOTES
@@ -290,7 +290,7 @@ renderFeliCard()          // Renderiza tarjeta FELI
 renderRobotinaCard()      // Renderiza tarjeta ROBOTINA
 renderProyectos()         // Renderiza pestaña PROYECTOS ALPINA (tarjetas + gráfico de dona)
 renderProyectoCard(p, key, gridStyle?)  // Renderiza una tarjeta de proyecto (staticData o Gantt), acepta estilo grid opcional
-openProyectoAvance(key)   // Navega desde Proyectos Alpina a % Avance y enfoca la tarjeta del bot
+openProyectoAvance(key)   // Navega desde Proyectos Alpina a % Avance y enfoca el Gantt de NOVA, FELI o Migración Google - BOT NOVA
 renderProyectosChart()    // Renderiza el gráfico de dona con horas por proyecto; para bots activos usa botHours(key, 'all'), la misma fuente del bloque Desarrollo del Reporte de horas
 showProyectoDetalle(key)  // Abre modal con el alcance del proyecto (staticData.desc con <br>)
 renderReporte()           // Renderiza 4 bloques + gráficos (dona, barras y horas contratadas/restantes) con filtro por mes en REPORTE DE HORAS ALPINA
@@ -430,7 +430,7 @@ Cuando se abre `localhost:3000`, `IS_SERVER=true` activa:
 
 > No se usará automatización por Excel. Las reglas, fechas, estados y horas se actualizarán manualmente en el proyecto local a partir de las instrucciones dadas en este chat.
 
-> **Nota**: `database.db` se genera automáticamente y está en `.gitignore`.  
+> **Nota**: `database.db` se genera automáticamente y está en `.gitignore`.
 > Si se corrompe, simplemente borrarlo y reiniciar el servidor para que se regenere desde `index.html`.
 
 ### Archivos

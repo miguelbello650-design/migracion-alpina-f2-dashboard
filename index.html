@@ -172,7 +172,7 @@
   .proyectos-section.en-proceso h3 { background: #dbeafe; color: #1e40af; }
   .proyectos-section.proximos h3 { background: #fef3c7; color: #92400e; }
   .proyectos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-  .proyecto-card { background: #fff; border: 1px solid rgba(148,163,184,0.18); border-radius: 8px; box-shadow: 0 4px 24px rgba(15,23,42,0.07); overflow: hidden; transition: transform .32s ease, box-shadow .32s ease; }
+  .proyecto-card { background: #fff; border: 1px solid rgba(148,163,184,0.18); border-radius: 8px; box-shadow: 0 4px 24px rgba(15,23,42,0.07); display: flex; flex-direction: column; overflow: hidden; transition: transform .32s ease, box-shadow .32s ease; }
   .proyecto-card:hover { box-shadow: 0 16px 32px rgba(15,23,42,0.13); transform: translateY(-6px); }
   .proyecto-card .p-header { padding: 16px; display: flex; align-items: center; gap: 12px; }
   .proyecto-card .p-header .p-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; flex-shrink: 0; }
@@ -197,7 +197,7 @@
   .p-badge.finalizado { background: #d1fae5; color: #047857; }
   .p-badge.en-proceso { background: #e0e7ff; color: #4338ca; }
   .p-badge.proximo { background: #fef3c7; color: #92400e; }
-  .proyecto-card .p-body { padding: 0 16px 16px; }
+  .proyecto-card .p-body { flex: 1; padding: 0 16px 16px; }
   .proyecto-card .p-stat { display: flex; justify-content: space-between; font-size: 12px; padding: 4px 0; }
   .proyecto-card .p-stat .p-label { color: #64748b; }
   .proyecto-card .p-stat .p-value { font-weight: 600; color: #1e3a5f; }
@@ -205,6 +205,16 @@
   .proyecto-card .p-body .p-bar .p-fill { height: 100%; border-radius: 4px; transition: width 1.2s ease-out; }
   .proyecto-card .p-body .p-detail-link { padding: 8px 0; color: #2563eb; cursor: pointer; font-size: 13px; font-weight: 500; }
   .proyecto-card .p-body .p-detail-link:hover { text-decoration: underline; }
+  .proyecto-card .p-techs { border-top: 1px solid #e2e8f0; margin: 0; padding: 11px 16px 13px; }
+  .proyecto-card .p-tech-title { color: #64748b; display: block; font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+  .proyecto-card .p-tech-list { align-items: center; display: flex; flex-wrap: wrap; gap: 8px; }
+  .proyecto-card .p-tech { align-items: center; color: #334155; display: inline-flex; font-size: 11px; font-weight: 600; gap: 5px; }
+  .proyecto-card .tech-logo { border-radius: 5px; display: block; height: 24px; object-fit: contain; width: 24px; }
+  .proyecto-card .tech-mark { align-items: center; border-radius: 50%; color: #fff; display: inline-flex; font-size: 9px; font-weight: 800; height: 24px; justify-content: center; letter-spacing: -.2px; width: 24px; }
+  .proyecto-card .tech-mark.rocketbot { background: #173b73; }
+  .proyecto-card .tech-mark.python { background: linear-gradient(135deg, #3776ab 0 50%, #ffd343 50% 100%); color: #102a43; }
+  .proyecto-card .tech-mark.sql-express { background: #a91d22; border-radius: 50%; }
+  @media (max-width: 640px) { .proyecto-card .p-tech-list { gap: 6px 10px; } }
   .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 1000; }
   .modal-box { background: #fff; border-radius: 12px; padding: 28px 32px; max-width: 480px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.15); text-align: center; }
   .modal-box .modal-title { font-size: 18px; font-weight: 700; color: #1e3a5f; margin-bottom: 16px; }
@@ -1865,17 +1875,37 @@ let PROYECTOS = [
   { key:'nova', name:'NOVA', icon:'N', responsable:'Johan Sabino', color:'#0033a0', rows: null },
   { key:'feli', name:'FELI', icon:'F', responsable:'Cristian Bonilla', color:'#6366f1', rows: null },
   { key:'robotina', name:'ROBOTINA', icon:'R', responsable:'Javier Gonzalez', color:'#0891b2', rows: null },
-  { key:'optimus', name:'OPTIMUS', icon:'O', responsable:'Cristian Bonilla', color:'#7c3aed', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,10,20), endDate:new Date(2026,0,9), hours:286, desc:'Proyecto finalizado' } },
-  { key:'lamonita', name:'LA MONITA', icon:'M', responsable:'Johan Sabino', color:'#dc2626', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,10,20), endDate:new Date(2026,0,26), hours:373, desc:'Proyecto finalizado' } },
+  { key:'optimus', name:'OPTIMUS', icon:'O', responsable:'Cristian Bonilla', color:'#7c3aed', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,10,20), productionDate:new Date(2026,0,2), endDate:new Date(2026,0,9), hours:286, desc:'Proyecto finalizado' } },
+  { key:'lamonita', name:'LA MONITA', icon:'M', responsable:'Johan Sabino', color:'#dc2626', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,10,20), productionDate:new Date(2026,0,16), endDate:new Date(2026,0,26), hours:373, desc:'Proyecto finalizado' } },
   { key:'lamonitafase2', name:'La Monita Fase 2', icon:'M', responsable:'Johan Sabino', color:'#dc2626', rows: null, staticData:{ status:'proximo', desc:'Incorporación de nuevos clientes en el flujo del Bot' } },
   { key:'lamonitafase2nuevoflujo', name:'Requisiciones Internas - La Monita', icon:'M', responsable:'Johan Sabino', color:'#dc2626', rows: null, staticData:{ status:'proximo', desc:'Incorporación de nuevo flujo, Proceso para la creación de pedidos (bajas) SAP' } },
-  { key:'horasextra', name:'HORAS EXTRA', icon:'H', responsable:'Javier Gonzalez', color:'#b45309', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,11,9), endDate:new Date(2026,1,20), hours:304, desc:'Proyecto finalizado' } },
+  { key:'horasextra', name:'HORAS EXTRA', icon:'H', responsable:'Javier Gonzalez', color:'#b45309', rows: null, staticData:{ status:'finalizado', progress:100, startDate:new Date(2025,11,9), productionDate:new Date(2026,1,16), endDate:new Date(2026,1,20), hours:304, desc:'Proyecto finalizado' } },
   { key:'googlenova', name:'Migración Google - BOT NOVA', icon:'N', responsable:'Johan Sabino', color:'#4285F4', rows: null, staticData:{ status:'proximo', desc:'La migración de los bots RPA a Google Cloud Platform contempla el traslado, configuración y validación de las automatizaciones en el nuevo entorno, asegurando sus accesos, dependencias, conectividad, permisos, software base y continuidad operativa.' } },
   { key:'felifase2', name:'FELI - FASE 2', icon:'F', responsable:'Cristian Bonilla', color:'#6366f1', rows: null, staticData:{ status:'proximo', desc:'Inclusi&oacute;n del flujo para crear materiales HALL<br>Incluir la creaci&oacute;n de materiales cuando sea para Ecuador u otro pa&iacute;s (Configuraci&oacute;n variable)<br>Reemplazo de MDG / Data Hub<br>L&oacute;gica para que en el asunto del caso pueda traer n&uacute;meros o caracteres especiales<br>Automatizaci&oacute;n de precios<br>Ajustar l&oacute;gica de ZROH de almac&eacute;n 1079 en vez de 1000 ya que al extender el material sale como Almac&eacute;n No Existe para los ZRHO es diferente<br>Incluir la l&oacute;gica desde la MM01 vaya sumando cada duraci&oacute;n de cada transacci&oacute;n, las guarde y cuando termine (Cierre el caso) coloca el total en el ACI del campo Duraci&oacute;n Total_Min Creaci&oacute;n' } },
   { key:'googlefeli', name:'Migración Google - BOT FELI', icon:'F', responsable:'Cristian Bonilla', color:'#4285F4', rows: null, staticData:{ status:'proximo', desc:'La migración de los bots RPA a Google Cloud Platform contempla el traslado, configuración y validación de las automatizaciones en el nuevo entorno, asegurando sus accesos, dependencias, conectividad, permisos, software base y continuidad operativa.' } },
   { key:'robotinafase2', name:'ROBOTINA - FASE 2', icon:'R', responsable:'Javier Gonzalez', color:'#0891b2', rows: null, staticData:{ status:'proximo', desc:'Generar el "Excel para el Robot" (paso 29 del PDD)<br>Adjuntar dicho archivo en el cierre del ticket (paso 30.3 del PDD)' } },
   { key:'googlerobotina', name:'Migración Google - BOT ROBOTINA', icon:'R', responsable:'Javier Gonzalez', color:'#4285F4', rows: null, staticData:{ status:'proximo', desc:'La migración de los bots RPA a Google Cloud Platform contempla el traslado, configuración y validación de las automatizaciones en el nuevo entorno, asegurando sus accesos, dependencias, conectividad, permisos, software base y continuidad operativa.' } }
 ];
+const PROJECT_TECHNOLOGIES = {
+  nova: ['rocketbot', 'python'],
+  optimus: ['rocketbot', 'python'],
+  horasextra: ['rocketbot', 'python', 'sql-express'],
+  lamonita: ['rocketbot', 'python'],
+  feli: ['rocketbot', 'python'],
+  robotina: ['rocketbot', 'python', 'sql-express'],
+  googlenova: ['rocketbot', 'python']
+};
+const TECHNOLOGY_META = {
+  rocketbot: { label: 'Rocketbot', mark: 'RB', className: 'rocketbot', src: 'assets/logos/rocketbot.png' },
+  python: { label: 'Python', mark: 'Py', className: 'python', src: 'assets/logos/python.png' },
+  'sql-express': { label: 'SQL Express', mark: 'SQL', className: 'sql-express' }
+};
+function renderProjectTechnologies(project, status) {
+  if (status !== 'finalizado' && project.key !== 'robotina') return '';
+  const technologies = PROJECT_TECHNOLOGIES[project.key] || [];
+  if (!technologies.length) return '';
+  return '<div class="p-techs"><span class="p-tech-title">Tecnología usada</span><div class="p-tech-list">' + technologies.map(key => { const tech = TECHNOLOGY_META[key]; const icon = tech.src ? '<img class="tech-logo" src="' + tech.src + '" alt="">' : '<span class="tech-mark ' + tech.className + '" aria-hidden="true">' + tech.mark + '</span>'; return '<span class="p-tech">' + icon + '<span>' + tech.label + '</span></span>'; }).join('') + '</div></div>';
+}
 function getBotStatus(rows) {
   const now = new Date(); now.setHours(0,0,0,0);
   let hasActive = false, hasFuture = false, allPast = true;
@@ -1930,6 +1960,31 @@ function renderProyectos() {
   container.innerHTML = html || '<p style="padding:20px;color:#94a3b8">No hay proyectos registrados</p>';
   renderProyectosChart();
 }
+function formatProjectCardDate(value) {
+  if (!value) return '—';
+  const d = typeof value === 'string' ? new Date(value + 'T12:00:00') : new Date(value);
+  return Number.isNaN(d.getTime()) ? '—' : d.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'});
+}
+function getProjectCardDates(p) {
+  if (p.staticData) {
+    return { start: p.staticData.startDate || null, production: p.staticData.productionDate || null, end: p.staticData.endDate || null };
+  }
+  const allTasks = (p.rows || []).filter(r => r.task && r.fixedIdx !== undefined);
+  const firstTask = allTasks[0];
+  const lastTask = allTasks[allTasks.length - 1];
+  const milestone = (p.rows || []).find(r => r.milestone && r.fixedIdx !== undefined);
+  return {
+    start: firstTask ? GANTT_DATES[firstTask.fixedIdx] : null,
+    production: milestone ? GANTT_DATES[milestone.fixedIdx] : null,
+    end: lastTask ? GANTT_DATES[lastTask.fixedEndIdx !== undefined ? lastTask.fixedEndIdx : lastTask.fixedIdx] : null
+  };
+}
+function getProjectCardHours(p) {
+  if (p.staticData && p.staticData.hours !== undefined) return p.staticData.hours;
+  if (!p.rows) return null;
+  const hours = botHours(p.key, 'all');
+  return hours.completed + hours.inProgress;
+}
 function renderProyectoCard(p, key, gridStyle) {
   const gs = gridStyle ? ` style="${gridStyle}"` : '';
   if (p.staticData) {
@@ -1943,16 +1998,17 @@ function renderProyectoCard(p, key, gridStyle) {
     } else {
       h += `<div class="p-detail-link" onclick="showProyectoDetalle('${p.key}')">Ver más detalle →</div>`;
     }
-    if (sd.hours !== undefined) h += `<div class="p-stat"><span class="p-label">Horas</span><span class="p-value">${sd.hours.toFixed(1)}h totales</span></div>`;
-    if (sd.startDate) {
-      const d = typeof sd.startDate === 'string' ? new Date(sd.startDate + 'T12:00:00') : new Date(sd.startDate);
-      h += `<div class="p-stat"><span class="p-label">Inicio</span><span class="p-value">${d.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
+    if (sd.status !== 'proximo') {
+      const cardDates = getProjectCardDates(p);
+      const cardHours = getProjectCardHours(p);
+    h += `<div class="p-stat"><span class="p-label">Horas</span><span class="p-value">${cardHours === null ? '—' : cardHours.toFixed(1) + 'h totales'}</span></div>`;
+    h += `<div class="p-stat"><span class="p-label">Inicio</span><span class="p-value">${formatProjectCardDate(cardDates.start)}</span></div>`;
+    h += `<div class="p-stat"><span class="p-label">Salida a Producción</span><span class="p-value">${formatProjectCardDate(cardDates.production)}</span></div>`;
+      h += `<div class="p-stat"><span class="p-label">Fin</span><span class="p-value">${formatProjectCardDate(cardDates.end)}</span></div>`;
     }
-    if (sd.endDate) {
-      const d = typeof sd.endDate === 'string' ? new Date(sd.endDate + 'T12:00:00') : new Date(sd.endDate);
-      h += `<div class="p-stat"><span class="p-label">Fin</span><span class="p-value">${d.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
-    }
-    h += `</div></div>`;
+    h += `</div>`;
+    h += renderProjectTechnologies(p, sd.status);
+    h += `</div>`;
     return h;
   }
   const now = new Date(); now.setHours(0,0,0,0);
@@ -1970,17 +2026,25 @@ function renderProyectoCard(p, key, gridStyle) {
   const endDate = lastTask && lastTask.fixedEndIdx !== undefined ? GANTT_DATES[lastTask.fixedEndIdx] : (lastTask && lastTask.fixedIdx !== undefined ? GANTT_DATES[lastTask.fixedIdx] : null);
   const badge = { 'finalizado':'finalizado', 'en-proceso':'en-proceso', 'proximo':'proximo' }[key];
   let h = `<div class="proyecto-card"${gs}>`;
-  const detailBtn = ['nova', 'googlenova'].includes(p.key) ? `<button class="p-toggle-detail" type="button" onclick="openProyectoAvance('${p.key}')">Ver detalle</button>` : '';
+  const detailBtn = ['nova', 'feli', 'googlenova'].includes(p.key) ? `<button class="p-toggle-detail" type="button" onclick="openProyectoAvance('${p.key}')">Ver detalle</button>` : '';
   h += `<div class="p-header"><div class="p-icon ${p.key}">${p.icon}</div><div class="p-info"><h4>${p.name}</h4><div class="p-responsable">${p.responsable}</div>${detailBtn}</div><span class="p-badge ${badge}">${key==='finalizado'?'Finalizado':key==='en-proceso'?'En Proceso':'Próximo'}</span></div>`;
-  h += `<div class="p-body"><div class="p-stat"><span class="p-label">Progreso</span><span class="p-value">${res.total}%</span></div><div class="p-bar"><div class="p-fill ${key==='finalizado'?'completed':p.key}" style="width:${res.total}%"></div></div>`;
-  h += `<div class="p-stat"><span class="p-label">Tareas</span><span class="p-value">${tasksDone} completadas · ${inProg} en curso · ${tasksTotal} total</span></div>`;
-  if (startDate) h += `<div class="p-stat"><span class="p-label">Inicio</span><span class="p-value">${startDate.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
-  if (endDate) h += `<div class="p-stat"><span class="p-label">Fin estimado</span><span class="p-value">${endDate.toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'})}</span></div>`;
-  h += `</div></div>`;
+  const cardDates = getProjectCardDates(p);
+  const cardHours = getProjectCardHours(p);
+  h += `<div class="p-body">`;
+  if (key !== 'proximo') {
+    h += `<div class="p-stat"><span class="p-label">Progreso</span><span class="p-value">${res.total}%</span></div><div class="p-bar"><div class="p-fill ${key==='finalizado'?'completed':p.key}" style="width:${res.total}%"></div></div>`;
+  h += `<div class="p-stat"><span class="p-label">Horas</span><span class="p-value">${cardHours === null ? '—' : cardHours.toFixed(1) + 'h totales'}</span></div>`;
+  h += `<div class="p-stat"><span class="p-label">Inicio</span><span class="p-value">${formatProjectCardDate(cardDates.start)}</span></div>`;
+  h += `<div class="p-stat"><span class="p-label">Salida a Producción</span><span class="p-value">${formatProjectCardDate(cardDates.production)}</span></div>`;
+  h += `<div class="p-stat"><span class="p-label">Fin</span><span class="p-value">${formatProjectCardDate(cardDates.end)}</span></div>`;
+  }
+  h += `</div>`;
+  h += renderProjectTechnologies(p, key);
+  h += `</div>`;
   return h;
 }
 function openProyectoAvance(key) {
-  const ganttTabs = { nova: 'tab-gantt', googlenova: 'tab-gantt-googlenova' };
+  const ganttTabs = { nova: 'tab-gantt', feli: 'tab-gantt-feli', googlenova: 'tab-gantt-googlenova' };
   if (ganttTabs[key]) openGantt(ganttTabs[key]);
 }
 function showProyectoDetalle(key) {
