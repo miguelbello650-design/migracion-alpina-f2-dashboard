@@ -1,0 +1,11 @@
+{
+    "schema_version": 2,
+    "commit": "204f85e9a03a3bd448ded31728f948d6c9ed0f49",
+    "indexed_at": "2026-08-05T20:34:47Z",
+    "project": "migracion-alpina-f2-dashboard",
+    "nodes": 536,
+    "edges": 1677,
+    "original_size": 2424832,
+    "compressed_size": 425091,
+    "compression_level": 9
+}

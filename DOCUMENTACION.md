@@ -1041,3 +1041,9 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - La tarea **3. Documentación técnica (SDD + guía instalación + manual usuario)** del Gantt de Nova queda programada para el **15 y 16 de abril de 2026**, conservando sus 12 horas y 1.5 días.
 - Se corrigió el estado SQLite local para evitar que `/api/data` sobrescribiera esas fechas con los índices antiguos.
 - Se actualizó la alerta de **3. Manejo de errores en ajuste de consolidado definitivo** a: "Se requiere un día adicional debido a que no se ha solucionado el error en las transacciones de SAP por la copia a Calidad".
+## Corrección del corte de horas de Robotina (2026-08-25)
+
+- La tarjeta de Robotina no estaba reflejando las 8 horas correspondientes al corte del 25 de agosto de 2026.
+- Se actualizó el corte de la tarjeta de **800.8 h** a **808.8 h**, conservando **740.3 h ejecutadas** y **68.5 h en curso**.
+- No se modificaron las duraciones, fechas, alertas ni horas de las tareas del Gantt; el cambio aplica únicamente a la contabilización mostrada en la tarjeta.
+- Se verificó el resultado renderizado en `http://127.0.0.1:3000/`.

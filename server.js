@@ -55,12 +55,24 @@ function notFound(res) {
 function reportDates(ganttDates) {
   // Fechas tecnicas para calcular jornadas desplazadas sin mostrarlas en el Gantt.
   const extended = [...ganttDates]
-  for (const date of ['11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26', '19-Aug-26', '20-Aug-26', '21-Aug-26']) {
+  for (const date of ['11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26', '19-Aug-26', '20-Aug-26', '21-Aug-26', '24-Aug-26', '25-Aug-26', '26-Aug-26', '27-Aug-26', '28-Aug-26', '31-Aug-26', '1-Sep-26', '2-Sep-26', '3-Sep-26']) {
     if (!extended.includes(date)) extended.push(date)
   }
   return extended
 }
 
+function readGanttDates() {
+  const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+  const match = /const dateStrs = "([^"]+)"/.exec(html);
+  if (!match) return [];
+  const dates = match[1].split(',').map(s => s.trim());
+  const pushed = /dateStrs\.push\(([^)]+)\)/.exec(html);
+  if (pushed) {
+    const extra = [...pushed[1].matchAll(/'([^']+)'/g)].map(m => m[1]);
+    dates.push(...extra);
+  }
+  return [...new Set(dates)];
+}
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
   const pathname = url.pathname;
@@ -68,12 +80,8 @@ const server = http.createServer((req, res) => {
   // API: GET /api/data - toutes les données
   if (req.method === 'GET' && pathname === '/api/data') {
     const data = db.getAllData();
-    // Incluir fechas del Gantt desde el HTML
-    const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
-    const match = /const dateStrs = "([^"]+)"/.exec(html);
-    if (match) {
-      data.ganttDates = match[1].split(',').map(s => s.trim());
-    }
+    // Incluir todas las fechas del Gantt, incluidas las agregadas tecnicamente al final.
+    data.ganttDates = readGanttDates();
     // Mismo helper que usa la grafica "Horas Contratadas vs Horas Restantes" del dashboard.
     data.reporteHoras = calculateReporteHoras({
       ganttRows: data.ganttRows,
@@ -94,7 +102,7 @@ const server = http.createServer((req, res) => {
     if (!match) {
       res.writeHead(404); res.end('Dates not found'); return;
     }
-    const dates = match[1].split(',').map(s => s.trim());
+    const dates = readGanttDates();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify(dates));
     return;

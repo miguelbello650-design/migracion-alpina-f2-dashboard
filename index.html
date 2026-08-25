@@ -847,7 +847,7 @@ let GANTT_ROWS = [
 
 const GANTT_DATES = [];
 const dateStrs = "6-Feb-26,9-Feb-26,10-Feb-26,11-Feb-26,12-Feb-26,13-Feb-26,16-Feb-26,17-Feb-26,18-Feb-26,19-Feb-26,20-Feb-26,23-Feb-26,24-Feb-26,25-Feb-26,26-Feb-26,27-Feb-26,2-Mar-26,3-Mar-26,4-Mar-26,5-Mar-26,6-Mar-26,9-Mar-26,10-Mar-26,11-Mar-26,12-Mar-26,13-Mar-26,16-Mar-26,17-Mar-26,18-Mar-26,19-Mar-26,20-Mar-26,24-Mar-26,25-Mar-26,26-Mar-26,27-Mar-26,30-Mar-26,31-Mar-26,1-Apr-26,6-Apr-26,7-Apr-26,8-Apr-26,9-Apr-26,10-Apr-26,13-Apr-26,14-Apr-26,15-Apr-26,16-Apr-26,17-Apr-26,20-Apr-26,21-Apr-26,22-Apr-26,23-Apr-26,24-Apr-26,27-Apr-26,28-Apr-26,29-Apr-26,30-Apr-26,4-May-26,5-May-26,6-May-26,7-May-26,8-May-26,11-May-26,12-May-26,13-May-26,14-May-26,15-May-26,19-May-26,20-May-26,21-May-26,22-May-26,25-May-26,26-May-26,27-May-26,28-May-26,29-May-26,1-Jun-26,2-Jun-26,3-Jun-26,4-Jun-26,5-Jun-26,9-Jun-26,10-Jun-26,11-Jun-26,12-Jun-26,16-Jun-26,17-Jun-26,18-Jun-26,19-Jun-26,22-Jun-26,23-Jun-26,24-Jun-26,25-Jun-26,26-Jun-26,30-Jun-26,1-Jul-26,2-Jul-26,3-Jul-26,6-Jul-26,7-Jul-26,8-Jul-26,9-Jul-26,10-Jul-26,14-Jul-26,15-Jul-26,16-Jul-26,17-Jul-26,21-Jul-26,22-Jul-26,23-Jul-26,24-Jul-26,27-Jul-26,28-Jul-26,29-Jul-26,30-Jul-26,31-Jul-26,3-Aug-26,4-Aug-26,5-Aug-26,6-Aug-26,10-Aug-26".split(',');
-dateStrs.push('11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26', '19-Aug-26', '20-Aug-26', '21-Aug-26', '24-Aug-26', '25-Aug-26', '26-Aug-26', '27-Aug-26', '28-Aug-26', '31-Aug-26', '1-Sep-26', '2-Sep-26');
+dateStrs.push('11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26', '19-Aug-26', '20-Aug-26', '21-Aug-26', '24-Aug-26', '25-Aug-26', '26-Aug-26', '27-Aug-26', '28-Aug-26', '31-Aug-26', '1-Sep-26', '2-Sep-26', '3-Sep-26');
 dateStrs.forEach(d => {
   const p = d.split('-');
   GANTT_DATES.push(new Date(2026, ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(p[1]), parseInt(p[0])));
@@ -997,12 +997,12 @@ Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), {
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:131, fixedEndIdx:131 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:132, fixedEndIdx:136 });
 
-// Robotina: add UAT workday on 24-Aug-26 and shift downstream activities from 25-Aug-26.
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:56, days:7, fixedIdx:72, fixedEndIdx:130, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,130], inProgress:true });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:131, fixedEndIdx:131 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:131, fixedEndIdx:131 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:132, fixedEndIdx:132 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:133, fixedEndIdx:137 });
+// Robotina: add UAT workday on 25-Aug-26 and shift downstream activities from 26-Aug-26.
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:64, days:8, fixedIdx:72, fixedEndIdx:131, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:132, fixedEndIdx:132 });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:132, fixedEndIdx:132 });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:133, fixedEndIdx:133 });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:134, fixedEndIdx:138 });
 // ---- Migracion Google - BOT NOVA Gantt ----
 let GANTT_ROWS_GOOGLE_NOVA = [
   { phase:"Gestion Gmail",task:"1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS",resp:"2NV",hours:6,days:0.75,fixedIdx:82,fixedEndIdx:82 },
@@ -1152,7 +1152,7 @@ function renderRobotinaCard() {
     a.inProgress += (r.hours || 0) * pct;
     return a;
   }, { completed: 0, inProgress: 0 });
-  const officialTotalHours = 800.8;
+  const officialTotalHours = 808.8;
   if (Math.abs((hours.completed + hours.inProgress) - officialTotalHours) > 0.01) {
     hours.inProgress = Math.max(0, officialTotalHours - hours.completed);
   }
@@ -1568,7 +1568,7 @@ function renderGanttRobotina() {
   robotinaNotes["Pruebas unitarias|126"] = "Se agrega d\u00eda adicional de pruebas para completar la validaci\u00f3n del flujo autom\u00e1tico completo como paso previo a las pruebas UAT";
   robotinaNotes["Pruebas UAT|108"] = "Día adicional para probar nuevamente con la parte funcional todos los flujos correspondientes a Robotina, la duración de esta actividad se puede extender dependiendo de los ajustes que pueden surgir";
   robotinaNotes["Pruebas UAT|120"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
-  robotinaNotes["Pruebas UAT|130"] = "Se extiende 2 d\u00edas debido a que Javier tiene que hacer ajustes en reglas que no estaban contempladas dentro del alcance inicial";
+  robotinaNotes["Pruebas UAT|131"] = "Se extiende 3 d\u00edas debido a que Javier tiene que hacer ajustes en reglas que no estaban contempladas dentro del alcance inicial";
   robotinaNotes["Pruebas UAT|121"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
   robotinaNotes["Pruebas UAT|122"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
   robotinaNotes["Pruebas UAT|123"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
@@ -2080,7 +2080,7 @@ let STATIC_MONTHLY = {
   actividad_f2_lamonita: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0, '2026-7':0.5 },
   actividad_entendimiento_lamonita_f2: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0, '2026-7':0.5 },
   locked_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':99, '2026-3':137, '2026-4':128, '2026-5':152 },
-  locked_nova: { '2026-4':126, _total:398 },
+  locked_nova: { '2026-4':126, '2026-5':152, _total:398 },
   locked_robotina: { '2026-3':130, '2026-4':134, '2026-5':148, '2026-6':145.6, '2026-7':128, _total:300 }
 };
 function getReporteMonthFilter() { return localStorage.getItem(REPORTE_MONTH_KEY) || 'all'; }
@@ -2284,15 +2284,16 @@ function renderReporte() {
     { key:'Actividades adicionales', color:'#f97316' }
   ];
   function blockTotal(key, m) {
+    if (m === 'all') return getMonthOptions().reduce((s, mo) => s + blockTotal(key, mo), 0);
     if (key === 'Desarrollo') {
       let t = 0;
       botKeys.forEach(k => { const h = botHours(k, m); t += roundHours(h.completed + h.inProgress); });
-      staticFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (d) t += m !== 'all' ? (d[m]||0) : getMonthOptions().reduce((s,mo)=>s+(d[mo]||0),0); });
+      staticFin.forEach(p => { const d = STATIC_MONTHLY[p.key]; if (d) t += d[m] || 0; });
       return t;
     }
-    if (key === 'Soporte') { const d = STATIC_MONTHLY.soporte; return m !== 'all' ? (d[m]||0) : getMonthOptions().reduce((s,mo)=>s+(d[mo]||0),0); }
-    if (key === 'Actualización PDD') { let t = 0; actualizKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += m !== 'all' ? (d[m]||0) : getMonthOptions().reduce((s,mo)=>s+(d[mo]||0),0); }); return t; }
-    if (key === 'Actividades adicionales') { let t = 0; actividadKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += m !== 'all' ? (d[m]||0) : getMonthOptions().reduce((s,mo)=>s+(d[mo]||0),0); }); return t; }
+    if (key === 'Soporte') { const d = STATIC_MONTHLY.soporte; return d[m] || 0; }
+    if (key === 'Actualizaci??n PDD') { let t = 0; actualizKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += d[m] || 0; }); return t; }
+    if (key === 'Actividades adicionales') { let t = 0; actividadKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += d[m] || 0; }); return t; }
     return 0;
   }
   const donutTotals = blockDefs.map(b => ({ label: b.key, value: blockTotal(b.key, filter), color: b.color })).filter(d => d.value > 0);

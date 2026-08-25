@@ -146,9 +146,21 @@
       if (key === 'Actividades adicionales') return ACTIVIDAD_KEYS.reduce((t, k) => t + sumMonths(staticMonthly[k] || {}), 0);
       return 0;
     };
-    const desarrolloRaw = blockTotal('Desarrollo') + blockTotal('Actualizacion PDD') + blockTotal('Actividades adicionales');
-    const soporteRaw = blockTotal('Soporte');
-    const consumidasRaw = desarrolloRaw + soporteRaw;
+    // Mantener el mismo criterio del reporte: cada mes se cierra a un decimal antes de sumar.
+    const roundReport = value => Number(value.toFixed(1));
+    const monthlyBlocks = monthOptions.map(m => {
+      const desarrollo = BOT_KEYS.reduce((t, k) => {
+        const h = botHours(k, m);
+        return t + roundReport(h.completed + h.inProgress);
+      }, 0) + staticFin.reduce((t, p) => t + ((staticMonthly[p.key] && staticMonthly[p.key][m]) || 0), 0);
+      const soporte = staticMonthly.soporte ? (staticMonthly.soporte[m] || 0) : 0;
+      const actualizacion = ACTUALIZ_KEYS.reduce((t, k) => t + ((staticMonthly[k] && staticMonthly[k][m]) || 0), 0);
+      const actividades = ACTIVIDAD_KEYS.reduce((t, k) => t + ((staticMonthly[k] && staticMonthly[k][m]) || 0), 0);
+      return { desarrollo, soporte, actualizacion, actividades, total: desarrollo + soporte + actualizacion + actividades };
+    });
+    const desarrolloRaw = monthlyBlocks.reduce((t, m) => t + m.desarrollo + m.actualizacion + m.actividades, 0);
+    const soporteRaw = monthlyBlocks.reduce((t, m) => t + m.soporte, 0);
+    const consumidasRaw = monthlyBlocks.reduce((t, m) => t + m.total, 0);
     const consumidas = Number(consumidasRaw.toFixed(1));
     const restantes = Number(Math.max(0, contratadas - consumidasRaw).toFixed(1));
     const porcentaje = contratadas > 0 ? Number(Math.min(100, (consumidasRaw / contratadas) * 100).toFixed(1)) : 0;
