@@ -2292,7 +2292,7 @@ function renderReporte() {
       return t;
     }
     if (key === 'Soporte') { const d = STATIC_MONTHLY.soporte; return d[m] || 0; }
-    if (key === 'Actualizaci??n PDD') { let t = 0; actualizKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += d[m] || 0; }); return t; }
+    if (key === 'Actualización PDD') { let t = 0; actualizKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += d[m] || 0; }); return t; }
     if (key === 'Actividades adicionales') { let t = 0; actividadKeys.forEach(k => { const d = STATIC_MONTHLY[k]; t += d[m] || 0; }); return t; }
     return 0;
   }

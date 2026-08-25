@@ -1053,3 +1053,10 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Se regeneró `public-state.json` directamente desde `http://127.0.0.1:3000/api/data`.
 - El estado quedó alineado con el local: **4142.6 h** consumidas y calendario hasta el **3 de septiembre de 2026**.
 - No se modificaron tareas ni duraciones; únicamente se actualizó la copia de estado utilizada por el ambiente público.
+## Corrección de Actualización PDD en las gráficas de resumen (2026-08-25)
+
+- Se identificó que las gráficas **Distribución por Bloque** y **Horas por Mes** omitían las **35,0 h de Actualización PDD**, aunque los valores permanecían correctamente almacenados en `staticMonthly` y en `reporteHoras`.
+- La causa era una comparación interna con el texto corrupto `Actualizaci??n PDD`, que no coincidía con la etiqueta visible `Actualización PDD`.
+- Se corrigió únicamente esa comparación en `index.html`.
+- Se conservan los valores del reporte: **110,0**, **555,0**, **359,5**, **371,5**, **462,5**, **485,3**, **535,8**, **496,3**, **483,0** y **283,7 h**, con total **4.142,6 h**.
+- No se modificaron horas de tareas, fechas, duraciones, estados ni alertas.
