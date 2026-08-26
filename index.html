@@ -857,7 +857,7 @@ let GANTT_ROWS = [
 
 const GANTT_DATES = [];
 const dateStrs = "6-Feb-26,9-Feb-26,10-Feb-26,11-Feb-26,12-Feb-26,13-Feb-26,16-Feb-26,17-Feb-26,18-Feb-26,19-Feb-26,20-Feb-26,23-Feb-26,24-Feb-26,25-Feb-26,26-Feb-26,27-Feb-26,2-Mar-26,3-Mar-26,4-Mar-26,5-Mar-26,6-Mar-26,9-Mar-26,10-Mar-26,11-Mar-26,12-Mar-26,13-Mar-26,16-Mar-26,17-Mar-26,18-Mar-26,19-Mar-26,20-Mar-26,24-Mar-26,25-Mar-26,26-Mar-26,27-Mar-26,30-Mar-26,31-Mar-26,1-Apr-26,6-Apr-26,7-Apr-26,8-Apr-26,9-Apr-26,10-Apr-26,13-Apr-26,14-Apr-26,15-Apr-26,16-Apr-26,17-Apr-26,20-Apr-26,21-Apr-26,22-Apr-26,23-Apr-26,24-Apr-26,27-Apr-26,28-Apr-26,29-Apr-26,30-Apr-26,4-May-26,5-May-26,6-May-26,7-May-26,8-May-26,11-May-26,12-May-26,13-May-26,14-May-26,15-May-26,19-May-26,20-May-26,21-May-26,22-May-26,25-May-26,26-May-26,27-May-26,28-May-26,29-May-26,1-Jun-26,2-Jun-26,3-Jun-26,4-Jun-26,5-Jun-26,9-Jun-26,10-Jun-26,11-Jun-26,12-Jun-26,16-Jun-26,17-Jun-26,18-Jun-26,19-Jun-26,22-Jun-26,23-Jun-26,24-Jun-26,25-Jun-26,26-Jun-26,30-Jun-26,1-Jul-26,2-Jul-26,3-Jul-26,6-Jul-26,7-Jul-26,8-Jul-26,9-Jul-26,10-Jul-26,14-Jul-26,15-Jul-26,16-Jul-26,17-Jul-26,21-Jul-26,22-Jul-26,23-Jul-26,24-Jul-26,27-Jul-26,28-Jul-26,29-Jul-26,30-Jul-26,31-Jul-26,3-Aug-26,4-Aug-26,5-Aug-26,6-Aug-26,10-Aug-26".split(',');
-dateStrs.push('11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26', '19-Aug-26', '20-Aug-26', '21-Aug-26', '24-Aug-26', '25-Aug-26', '26-Aug-26', '27-Aug-26', '28-Aug-26', '31-Aug-26', '1-Sep-26', '2-Sep-26', '3-Sep-26');
+dateStrs.push('11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26', '19-Aug-26', '20-Aug-26', '21-Aug-26', '24-Aug-26', '25-Aug-26', '26-Aug-26', '27-Aug-26', '28-Aug-26', '31-Aug-26', '1-Sep-26', '2-Sep-26', '3-Sep-26', '4-Sep-26');
 dateStrs.forEach(d => {
   const p = d.split('-');
   GANTT_DATES.push(new Date(2026, ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(p[1]), parseInt(p[0])));
@@ -1013,6 +1013,20 @@ Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), 
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:132, fixedEndIdx:132 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:133, fixedEndIdx:133 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:134, fixedEndIdx:138 });
+// Robotina: add UAT workday on 26-Aug-26 and shift downstream activities from 27-Aug-26.
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:72, days:9, fixedIdx:72, fixedEndIdx:132, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:133, fixedEndIdx:133 });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:133, fixedEndIdx:133 });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:134, fixedEndIdx:134 });
+Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:135, fixedEndIdx:139 });
+function applyRobotinaLatestOverrides() {
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:72, days:9, fixedIdx:72, fixedEndIdx:132, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:133, fixedEndIdx:133 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:133, fixedEndIdx:133 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:134, fixedEndIdx:134 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:135, fixedEndIdx:139 });
+}
+
 // ---- Migracion Google - BOT NOVA Gantt ----
 let GANTT_ROWS_GOOGLE_NOVA = [
   { phase:"Gestion Gmail",task:"1. Busqueda de correos + validacion de adjuntos SKU/FAMILIA/RUTAS",resp:"2NV",hours:6,days:0.75,fixedIdx:82,fixedEndIdx:82 },
@@ -1162,7 +1176,18 @@ function renderRobotinaCard() {
     a.inProgress += (r.hours || 0) * pct;
     return a;
   }, { completed: 0, inProgress: 0 });
-  const officialTotalHours = 808.8;
+  // Keep the 25-Aug cut as baseline and add only effective UAT days after it.
+  const uat = GANTT_ROWS_ROBOTINA.find(r => r.task === 'Pruebas UAT');
+  const todayIdx = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
+  const baselineIdx = GANTT_DATES.findIndex(d => isSameDay(d, new Date(2026, 7, 25)));
+  const uatSkip = new Set((uat && uat.skipIndices) || []);
+  let additionalUatDays = 0;
+  if (uat && todayIdx >= 0 && baselineIdx >= 0) {
+    for (let i = baselineIdx + 1; i <= Math.min(todayIdx, uat.fixedEndIdx); i++) {
+      if (!uatSkip.has(i)) additionalUatDays++;
+    }
+  }
+  const officialTotalHours = 808.8 + (additionalUatDays * 8);
   if (Math.abs((hours.completed + hours.inProgress) - officialTotalHours) > 0.01) {
     hours.inProgress = Math.max(0, officialTotalHours - hours.completed);
   }
@@ -2177,6 +2202,7 @@ function lockedBotHours(key, filter) {
   return null;
 }
 function botHours(key, filter) {
+  if (key === 'robotina' && typeof applyRobotinaLatestOverrides === 'function') applyRobotinaLatestOverrides();
   if (filter === 'all') {
     const months = getMonthOptions();
     let c = 0, p = 0;
@@ -2652,9 +2678,9 @@ if (IS_SERVER) {
   btn.textContent = '⚙';
   btn.onclick = showAdminLogin;
   document.querySelector('.topbar-right').appendChild(btn);
-  loadServerState().then(() => { if (supportDashboard) syncSupportHours(supportActiveTab); renderAll(); });
+  loadServerState().then(() => { applyRobotinaLatestOverrides(); if (supportDashboard) syncSupportHours(supportActiveTab); renderAll(); });
 } else {
-  loadServerState().then(() => renderAll()).catch(() => {
+  loadServerState().then(() => { applyRobotinaLatestOverrides(); renderAll(); }).catch(() => {
     loadState();
     renderAll();
   });

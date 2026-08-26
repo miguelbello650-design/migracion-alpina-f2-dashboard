@@ -1068,3 +1068,24 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - La validación mínima debe confirmar que la suma mensual coincide con el reporte y que ningún bloque con horas positivas desaparece de **Distribución por Bloque**.
 - Si se modifican textos con tildes, se debe conservar el archivo en UTF-8 y verificar que no aparezcan caracteres `?` en el código ni en la interfaz.
 - Esta regla evita que un error de codificación excluya silenciosamente horas de las gráficas sin alterar los datos fuente.
+## Extension de Pruebas UAT Robotina (2026-08-26)
+
+- Se agregó un día laborable adicional a **Pruebas UAT** de Robotina, extendiéndola hasta el **26 de agosto de 2026**.
+- La actividad queda en **72 horas y 9 días**, conservando su estado **En curso** y las alertas existentes.
+- Las actividades posteriores se desplazaron un día: aprobación y entrega, salida a producción y soporte postproducción.
+- No se modificaron los demás Gantt, festivos ni información histórica.`r`n- El override final se reaplica después de cargar el estado persistido del servidor para evitar que `/api/data` revierta el cronograma actualizado.
+## Correccion de fecha final del Gantt Robotina (2026-08-26)
+
+- Se agregó el **4 de septiembre de 2026** como fecha técnica final del calendario.
+- La fecha no representa trabajo adicional; únicamente cubre el índice final del soporte desplazado y evita que el Gantt quede en blanco al avanzar el cronograma.
+- No se modificaron horas, tareas, alertas ni días laborables.
+## Corte dinámico de horas de Robotina (2026-08-26)
+
+- La tarjeta de Robotina deja de depender de un total fijo de **808.8 h**.
+- Desde el corte del 25 de agosto, suma automáticamente **8 h por cada día efectivo de UAT** transcurrido, incluyendo el día actual.
+- El cambio evita que la tarjeta quede un día atrás respecto al Gantt y al reporte, sin modificar las horas base de las tareas.
+## Sincronizacion del Reporte de horas Robotina (2026-08-26)
+
+- El Reporte de horas podía usar la fila persistida de UAT (**64 h / 8 días**) aunque el Gantt vigente tenía **72 h / 9 días**.
+- `botHours()` reaplica la configuración vigente de Robotina antes de calcular el mes y el acumulado.
+- Agosto queda con las 8 horas completas del día actual y el total acumulado esperado es **816.8 h**.
