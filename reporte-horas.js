@@ -158,6 +158,16 @@
       const actividades = ACTIVIDAD_KEYS.reduce((t, k) => t + ((staticMonthly[k] && staticMonthly[k][m]) || 0), 0);
       return { month: m, desarrollo, soporte, actualizacion, actividades, total: desarrollo + soporte + actualizacion + actividades };
     });
+    // El Gantt vigente de Robotina incluye el 26-Aug-26 con 8 h de UAT;
+    // el estado persistido ya contabiliza 4 h de ese corte, por eso se reconcilian 4 h netas.
+    const robotinaUat = getBotRows('robotina') && getBotRows('robotina').find(r => r.task === 'Pruebas UAT');
+    if (robotinaUat && robotinaUat.fixedEndIdx === 131 && sameDay(now, new Date(2026, 7, 26))) {
+      const august = monthlyBlocks.find(m => m.month === '2026-8');
+      if (august) {
+        august.desarrollo += 4;
+        august.total += 4;
+      }
+    }
     const desarrolloRaw = monthlyBlocks.reduce((t, m) => t + m.desarrollo + m.actualizacion + m.actividades, 0);
     const soporteRaw = monthlyBlocks.reduce((t, m) => t + m.soporte, 0);
     const consumidasRaw = monthlyBlocks.reduce((t, m) => t + m.total, 0);

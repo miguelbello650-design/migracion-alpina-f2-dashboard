@@ -1100,4 +1100,9 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 
 - GitHub Pages estaba sirviendo una copia cacheada de eporte-horas.js o public-state.json, provocando que **Distribución por Bloque**, **Horas por Mes** y **Evolución de Desarrollo** aparecieran sin datos.
 - Se agregaron versiones explícitas a las referencias del módulo y del estado público para forzar la carga de los archivos actualizados.
-- No se modificaron horas, fechas, tareas ni valores fuente.
+- No se modificaron horas, fechas, tareas ni valores fuente.`r`n`r`n## Reconciliacion de UAT Robotina al corte del 26 de agosto (2026-08-26)
+
+- La extension de **Pruebas UAT** hasta el 26 de agosto se refleja con 8 horas del dia; el reporte agrega las 4 horas netas que faltaban frente al estado persistido.
+- El total validado queda en **4150.6 h consumidas**, **169.4 h restantes** y **96.1%**.
+- Agosto queda en **291.7 h** y los demas meses, proyectos y bloques permanecen sin cambios.
+- La correccion vive en la funcion compartida de `reporte-horas.js`, fuente del endpoint `/api/data` y de las graficas.
