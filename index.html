@@ -1727,7 +1727,7 @@ function loadState() {
 }
 async function loadServerState() {
   try {
-    const r = await fetch(IS_SERVER ? '/api/data' : './public-state.json');
+    const r = await fetch(IS_SERVER ? '/api/data' : './public-state.json?v=20260826-3');
     const data = await r.json();
     SERVER_REPORTE_HORAS = data.reporteHoras || null;
     if (data.ganttRows) {

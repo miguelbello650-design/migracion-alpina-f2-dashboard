@@ -1105,4 +1105,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - La extension de **Pruebas UAT** hasta el 26 de agosto se refleja con 8 horas del dia; el reporte agrega las 4 horas netas que faltaban frente al estado persistido.
 - El total validado queda en **4150.6 h consumidas**, **169.4 h restantes** y **96.1%**.
 - Agosto queda en **291.7 h** y los demas meses, proyectos y bloques permanecen sin cambios.
-- La correccion vive en la funcion compartida de `reporte-horas.js`, fuente del endpoint `/api/data` y de las graficas.
+- La correccion vive en la funcion compartida de `reporte-horas.js`, fuente del endpoint `/api/data` y de las graficas.## Correccion de cache del estado publico (2026-08-26)
+
+- GitHub Pages entregaba una copia cacheada de `public-state.json` aunque `main` ya contenia el total corregido.
+- Se agrego una version de consulta al `fetch` del estado publico para solicitar la copia vigente despues de cada publicacion de datos.
+- No se modificaron las metricas; el estado esperado permanece en **4150.6 h**, **169.4 h restantes** y **96.1%**.
