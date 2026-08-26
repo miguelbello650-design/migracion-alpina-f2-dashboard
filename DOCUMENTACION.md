@@ -1089,3 +1089,10 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - El Reporte de horas podía usar la fila persistida de UAT (**64 h / 8 días**) aunque el Gantt vigente tenía **72 h / 9 días**.
 - `botHours()` reaplica la configuración vigente de Robotina antes de calcular el mes y el acumulado.
 - Agosto queda con las 8 horas completas del día actual y el total acumulado esperado es **816.8 h**.
+## Alineación de gráficas con el Reporte de horas (2026-08-26)
+
+- **Distribución por Bloque**, **Horas por Mes** y **Evolución de Desarrollo** ahora consumen el mismo desglose mensual calculado por eporte-horas.js.
+- Cada registro mensual conserva su clave month, evitando que las series se rendericen como  .0 h.
+- El total validado es **4.146,6 h**, con bloques y meses sumando exactamente el mismo valor.
+- Se mantienen intactos los datos fuente, las horas de tareas, fechas, duraciones, estados y alertas.
+- public-state.json fue regenerado con la misma estructura para mantener consistencia entre el ambiente local y el público.

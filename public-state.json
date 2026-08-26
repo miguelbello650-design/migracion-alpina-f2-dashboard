@@ -2196,14 +2196,103 @@
     "31-Aug-26",
     "1-Sep-26",
     "2-Sep-26",
-    "3-Sep-26"
+    "3-Sep-26",
+    "4-Sep-26"
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4142.6,
-    "restantes": 177.4,
-    "porcentaje": 95.9,
-    "desarrollo": 3274.1,
-    "soporte": 868.5
+    "consumidas": 4146.6,
+    "restantes": 173.4,
+    "porcentaje": 96,
+    "desarrollo": 3278.1,
+    "soporte": 868.5,
+    "bloques": {
+      "Desarrollo": 3164.5,
+      "Soporte": 868.5,
+      "Actualización PDD": 35,
+      "Actividades adicionales": 78.6
+    },
+    "mensuales": [
+      {
+        "month": "2025-11",
+        "desarrollo": 102,
+        "soporte": 0,
+        "actualizacion": 8,
+        "actividades": 0,
+        "total": 110
+      },
+      {
+        "month": "2025-12",
+        "desarrollo": 502,
+        "soporte": 49,
+        "actualizacion": 4,
+        "actividades": 0,
+        "total": 555
+      },
+      {
+        "month": "2026-1",
+        "desarrollo": 316,
+        "soporte": 29.5,
+        "actualizacion": 11,
+        "actividades": 3,
+        "total": 359.5
+      },
+      {
+        "month": "2026-2",
+        "desarrollo": 298,
+        "soporte": 42,
+        "actualizacion": 9,
+        "actividades": 22.5,
+        "total": 371.5
+      },
+      {
+        "month": "2026-3",
+        "desarrollo": 419,
+        "soporte": 39,
+        "actualizacion": 0,
+        "actividades": 4.5,
+        "total": 462.5
+      },
+      {
+        "month": "2026-4",
+        "desarrollo": 388,
+        "soporte": 90,
+        "actualizacion": 1.5,
+        "actividades": 5.8,
+        "total": 485.3
+      },
+      {
+        "month": "2026-5",
+        "desarrollo": 452,
+        "soporte": 73,
+        "actualizacion": 1,
+        "actividades": 9.8,
+        "total": 535.8
+      },
+      {
+        "month": "2026-6",
+        "desarrollo": 312.3,
+        "soporte": 166,
+        "actualizacion": 0,
+        "actividades": 18,
+        "total": 496.3
+      },
+      {
+        "month": "2026-7",
+        "desarrollo": 228,
+        "soporte": 242,
+        "actualizacion": 0.5,
+        "actividades": 12.5,
+        "total": 483
+      },
+      {
+        "month": "2026-8",
+        "desarrollo": 147.2,
+        "soporte": 138,
+        "actualizacion": 0,
+        "actividades": 2.5,
+        "total": 287.7
+      }
+    ]
   }
 }

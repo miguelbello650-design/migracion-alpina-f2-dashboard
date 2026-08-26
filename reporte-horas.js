@@ -156,7 +156,7 @@
       const soporte = staticMonthly.soporte ? (staticMonthly.soporte[m] || 0) : 0;
       const actualizacion = ACTUALIZ_KEYS.reduce((t, k) => t + ((staticMonthly[k] && staticMonthly[k][m]) || 0), 0);
       const actividades = ACTIVIDAD_KEYS.reduce((t, k) => t + ((staticMonthly[k] && staticMonthly[k][m]) || 0), 0);
-      return { desarrollo, soporte, actualizacion, actividades, total: desarrollo + soporte + actualizacion + actividades };
+      return { month: m, desarrollo, soporte, actualizacion, actividades, total: desarrollo + soporte + actualizacion + actividades };
     });
     const desarrolloRaw = monthlyBlocks.reduce((t, m) => t + m.desarrollo + m.actualizacion + m.actividades, 0);
     const soporteRaw = monthlyBlocks.reduce((t, m) => t + m.soporte, 0);
@@ -164,7 +164,8 @@
     const consumidas = Number(consumidasRaw.toFixed(1));
     const restantes = Number(Math.max(0, contratadas - consumidasRaw).toFixed(1));
     const porcentaje = contratadas > 0 ? Number(Math.min(100, (consumidasRaw / contratadas) * 100).toFixed(1)) : 0;
-    return { contratadas, consumidas, restantes, porcentaje, desarrollo: Number(desarrolloRaw.toFixed(1)), soporte: Number(soporteRaw.toFixed(1)) };
+    const bloques = { Desarrollo: Number(monthlyBlocks.reduce((t, m) => t + m.desarrollo, 0).toFixed(1)), Soporte: Number(soporteRaw.toFixed(1)), 'Actualización PDD': Number(monthlyBlocks.reduce((t, m) => t + m.actualizacion, 0).toFixed(1)), 'Actividades adicionales': Number(monthlyBlocks.reduce((t, m) => t + m.actividades, 0).toFixed(1)) };
+    return { contratadas, consumidas, restantes, porcentaje, desarrollo: Number(desarrolloRaw.toFixed(1)), soporte: Number(soporteRaw.toFixed(1)), bloques, mensuales: monthlyBlocks };
   }
 
   return { calculateReporteHoras };
