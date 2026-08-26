@@ -1096,3 +1096,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - El total validado es **4.146,6 h**, con bloques y meses sumando exactamente el mismo valor.
 - Se mantienen intactos los datos fuente, las horas de tareas, fechas, duraciones, estados y alertas.
 - public-state.json fue regenerado con la misma estructura para mantener consistencia entre el ambiente local y el público.
+## Correccion de cache de graficas en ambiente publico (2026-08-26)
+
+- GitHub Pages estaba sirviendo una copia cacheada de eporte-horas.js o public-state.json, provocando que **Distribución por Bloque**, **Horas por Mes** y **Evolución de Desarrollo** aparecieran sin datos.
+- Se agregaron versiones explícitas a las referencias del módulo y del estado público para forzar la carga de los archivos actualizados.
+- No se modificaron horas, fechas, tareas ni valores fuente.
