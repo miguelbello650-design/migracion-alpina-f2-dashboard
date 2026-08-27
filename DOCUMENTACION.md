@@ -1110,3 +1110,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - GitHub Pages entregaba una copia cacheada de `public-state.json` aunque `main` ya contenia el total corregido.
 - Se agrego una version de consulta al `fetch` del estado publico para solicitar la copia vigente despues de cada publicacion de datos.
 - No se modificaron las metricas; el estado esperado permanece en **4150.6 h**, **169.4 h restantes** y **96.1%**.
+
+## Actualizacion de alerta de Pruebas UAT Robotina (2026-08-27)
+
+- Se actualizo el texto de la alerta asociada a Pruebas UAT para indicar que se extiende **5 dias** por ajustes de reglas fuera del alcance inicial.
+- No se modificaron fechas, horas, estados ni otras alertas.
