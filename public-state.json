@@ -885,7 +885,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 11,
-        "fixedEndIdx": 11
+        "fixedEndIdx": 11,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -894,7 +895,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 12,
-        "fixedEndIdx": 12
+        "fixedEndIdx": 12,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -903,7 +905,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 13,
-        "fixedEndIdx": 13
+        "fixedEndIdx": 13,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -912,7 +915,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 13,
-        "fixedEndIdx": 13
+        "fixedEndIdx": 13,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -921,7 +925,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 14,
-        "fixedEndIdx": 14
+        "fixedEndIdx": 14,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -930,7 +935,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 14,
-        "fixedEndIdx": 14
+        "fixedEndIdx": 14,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -939,7 +945,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 15,
-        "fixedEndIdx": 15
+        "fixedEndIdx": 15,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -948,7 +955,8 @@
         "hours": 5.85,
         "days": 0.8,
         "fixedIdx": 16,
-        "fixedEndIdx": 16
+        "fixedEndIdx": 16,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -957,7 +965,8 @@
         "hours": 2.92,
         "days": 0.4,
         "fixedIdx": 17,
-        "fixedEndIdx": 17
+        "fixedEndIdx": 17,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -966,7 +975,8 @@
         "hours": 4.92,
         "days": 0.6,
         "fixedIdx": 18,
-        "fixedEndIdx": 18
+        "fixedEndIdx": 18,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -975,7 +985,8 @@
         "hours": 7.92,
         "days": 1,
         "fixedIdx": 19,
-        "fixedEndIdx": 19
+        "fixedEndIdx": 19,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -984,7 +995,8 @@
         "hours": 15.92,
         "days": 2,
         "fixedIdx": 20,
-        "fixedEndIdx": 21
+        "fixedEndIdx": 21,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -993,7 +1005,8 @@
         "hours": 9.92,
         "days": 1.3,
         "fixedIdx": 22,
-        "fixedEndIdx": 22
+        "fixedEndIdx": 22,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1002,7 +1015,8 @@
         "hours": 9.92,
         "days": 1.3,
         "fixedIdx": 23,
-        "fixedEndIdx": 23
+        "fixedEndIdx": 23,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1012,6 +1026,7 @@
         "days": 5,
         "fixedIdx": 27,
         "fixedEndIdx": 88,
+        "hourAdjustments": {},
         "skipIndices": [
           29,
           30,
@@ -1085,7 +1100,8 @@
         "hours": 11.92,
         "days": 1.5,
         "fixedIdx": 29,
-        "fixedEndIdx": 30
+        "fixedEndIdx": 30,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1095,6 +1111,7 @@
         "days": 4,
         "fixedIdx": 32,
         "fixedEndIdx": 35,
+        "hourAdjustments": {},
         "notesIdx": [
           31
         ]
@@ -1106,7 +1123,8 @@
         "hours": 18.8,
         "days": 2.5,
         "fixedIdx": 36,
-        "fixedEndIdx": 38
+        "fixedEndIdx": 38,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1115,7 +1133,8 @@
         "hours": 14.24,
         "days": 2,
         "fixedIdx": 39,
-        "fixedEndIdx": 40
+        "fixedEndIdx": 40,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1125,6 +1144,7 @@
         "days": 2.5,
         "fixedIdx": 24,
         "fixedEndIdx": 42,
+        "hourAdjustments": {},
         "skipIndices": [
           25,
           26,
@@ -1151,7 +1171,8 @@
         "hours": 20.24,
         "days": 2.8,
         "fixedIdx": 43,
-        "fixedEndIdx": 45
+        "fixedEndIdx": 45,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1160,7 +1181,8 @@
         "hours": 6.24,
         "days": 1,
         "fixedIdx": 46,
-        "fixedEndIdx": 46
+        "fixedEndIdx": 46,
+        "hourAdjustments": {}
       },
       {
         "phase": "Gestión Usuarios | Active Directory",
@@ -1169,7 +1191,8 @@
         "hours": 2.24,
         "days": 0.5,
         "fixedIdx": 47,
-        "fixedEndIdx": 47
+        "fixedEndIdx": 47,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1179,6 +1202,7 @@
         "days": 5,
         "fixedIdx": 48,
         "fixedEndIdx": 80,
+        "hourAdjustments": {},
         "skipIndices": [
           51,
           52,
@@ -1223,7 +1247,8 @@
         "hours": 10.24,
         "days": 1.5,
         "fixedIdx": 51,
-        "fixedEndIdx": 52
+        "fixedEndIdx": 52,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1232,7 +1257,8 @@
         "hours": 6.24,
         "days": 1,
         "fixedIdx": 53,
-        "fixedEndIdx": 53
+        "fixedEndIdx": 53,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1241,7 +1267,8 @@
         "hours": 6.24,
         "days": 1,
         "fixedIdx": 54,
-        "fixedEndIdx": 54
+        "fixedEndIdx": 54,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1251,6 +1278,7 @@
         "days": 5,
         "fixedIdx": 55,
         "fixedEndIdx": 64,
+        "hourAdjustments": {},
         "skipIndices": [
           57,
           58,
@@ -1269,7 +1297,8 @@
         "hours": 30.18,
         "days": 1.3,
         "fixedIdx": 57,
-        "fixedEndIdx": 57
+        "fixedEndIdx": 57,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1279,6 +1308,7 @@
         "days": 3,
         "fixedIdx": 58,
         "fixedEndIdx": 104,
+        "hourAdjustments": {},
         "skipIndices": [
           60,
           61,
@@ -1339,6 +1369,7 @@
         "days": 19,
         "fixedIdx": 65,
         "fixedEndIdx": 127,
+        "hourAdjustments": {},
         "skipIndices": [
           72,
           73,
@@ -1403,6 +1434,7 @@
         "days": 9,
         "fixedIdx": 80,
         "fixedEndIdx": 116,
+        "hourAdjustments": {},
         "skipIndices": [
           81,
           86,
@@ -1446,6 +1478,7 @@
         "days": 5,
         "fixedIdx": 99,
         "fixedEndIdx": 106,
+        "hourAdjustments": {},
         "skipIndices": [
           99,
           100,
@@ -1461,10 +1494,11 @@
         "phase": "Cierre",
         "task": "Pruebas UAT",
         "resp": "2NV - ALPINA",
-        "hours": 80,
-        "days": 10,
+        "hours": 80.3,
+        "days": 11,
         "fixedIdx": 72,
-        "fixedEndIdx": 133,
+        "fixedEndIdx": 134,
+        "hourAdjustments": {},
         "skipIndices": [
           76,
           77,
@@ -1537,6 +1571,7 @@
         "days": 5,
         "fixedIdx": 77,
         "fixedEndIdx": 87,
+        "hourAdjustments": {},
         "skipIndices": [
           78,
           80,
@@ -1557,6 +1592,7 @@
         "days": 4,
         "fixedIdx": 90,
         "fixedEndIdx": 93,
+        "hourAdjustments": {},
         "notesIdx": [
           90
         ]
@@ -1567,8 +1603,9 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 134,
-        "fixedEndIdx": 134
+        "fixedIdx": 135,
+        "fixedEndIdx": 135,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1576,8 +1613,9 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 134,
-        "fixedEndIdx": 134
+        "fixedIdx": 135,
+        "fixedEndIdx": 135,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1585,8 +1623,9 @@
         "resp": "2NV - ALPINA",
         "hours": 0,
         "days": 0,
-        "fixedIdx": 135,
-        "fixedEndIdx": 135,
+        "fixedIdx": 136,
+        "fixedEndIdx": 136,
+        "hourAdjustments": {},
         "milestone": true
       },
       {
@@ -1595,8 +1634,9 @@
         "resp": "2NV - ALPINA",
         "hours": 40,
         "days": 5,
-        "fixedIdx": 136,
-        "fixedEndIdx": 140
+        "fixedIdx": 137,
+        "fixedEndIdx": 141,
+        "hourAdjustments": {}
       }
     ],
     "googlenova": [
@@ -1888,6 +1928,21 @@
       "2026-5": 148,
       "2026-6": 145.6,
       "2026-7": 128
+    },
+    "actividad_validacion_api_robotina": {
+      "2026-8": 0.2
+    },
+    "actividad_ciberseguridad_robotina": {
+      "2026-8": 2.5
+    },
+    "actividad_ssff_robotina": {
+      "2026-8": 2
+    },
+    "actividad_robotina_mesa": {
+      "2026-8": 2
+    },
+    "actividad_gd_robotina": {
+      "2026-8": 1
     }
   },
   "proyectos": [
@@ -2198,20 +2253,21 @@
     "2-Sep-26",
     "3-Sep-26",
     "4-Sep-26",
-    "7-Sep-26"
+    "7-Sep-26",
+    "8-Sep-26"
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4158.6,
-    "restantes": 161.4,
-    "porcentaje": 96.3,
-    "desarrollo": 3290.1,
+    "consumidas": 4169.4,
+    "restantes": 150.6,
+    "porcentaje": 96.5,
+    "desarrollo": 3300.9,
     "soporte": 868.5,
     "bloques": {
-      "Desarrollo": 3176.5,
+      "Desarrollo": 3179.6,
       "Soporte": 868.5,
       "Actualización PDD": 35,
-      "Actividades adicionales": 78.6
+      "Actividades adicionales": 86.3
     },
     "mensuales": [
       {
@@ -2288,11 +2344,11 @@
       },
       {
         "month": "2026-8",
-        "desarrollo": 159.2,
+        "desarrollo": 162.3,
         "soporte": 138,
         "actualizacion": 0,
-        "actividades": 2.5,
-        "total": 299.7
+        "actividades": 10.2,
+        "total": 310.5
       }
     ]
   }

@@ -5,7 +5,7 @@
   const DEFAULT_HORAS_CONTRATADAS = 4320;
   const BOT_KEYS = ['nova', 'feli', 'robotina', 'googlenova'];
   const ACTUALIZ_KEYS = ['actualizacion_feli', 'actualizacion_robotina', 'actualizacion_optimus', 'actualizacion_lamonita', 'actualizacion_horasextra'];
-  const ACTIVIDAD_KEYS = ['actividad_dudas_feli', 'actividad_dudas_nova', 'actividad_api_robotina', 'actividad_api_success_robotina', 'actividad_ajustes_nova', 'actividad_estimacion', 'actividad_infra', 'actividad_correos_feli', 'actividad_f2_lamonita', 'actividad_entendimiento_lamonita_f2'];
+  const ACTIVIDAD_KEYS = ['actividad_dudas_feli', 'actividad_dudas_nova', 'actividad_api_robotina', 'actividad_api_success_robotina', 'actividad_ajustes_nova', 'actividad_estimacion', 'actividad_infra', 'actividad_correos_feli', 'actividad_f2_lamonita', 'actividad_entendimiento_lamonita_f2', 'actividad_validacion_api_robotina', 'actividad_ciberseguridad_robotina', 'actividad_ssff_robotina', 'actividad_robotina_mesa', 'actividad_gd_robotina'];
 
   function toDate(value) {
     if (value instanceof Date) {
@@ -58,6 +58,12 @@
     return null;
   }
 
+  function effectiveRowHours(row) {
+    const adjustments = row.hourAdjustments || {};
+    const deducted = Object.values(adjustments).reduce((sum, value) => sum + Number(value || 0), 0);
+    return Math.max(0, (row.hours || 0) - deducted);
+  }
+
   function calcBotHoursMonth(rows, filter, dates, now, monthOptions) {
     if (!rows) return { completed: 0, inProgress: 0 };
     if (filter === 'all') {
@@ -94,15 +100,23 @@
       if (daysIn <= 0) return;
       const pct = daysIn / effectiveDays;
       const taskH = (r.hours || 0) * pct;
-      if (month < now.getMonth() + 1 || year < now.getFullYear()) { completed += taskH; return; }
-      if (month > now.getMonth() + 1 || year > now.getFullYear()) { inProgress += taskH; return; }
-      if (dates[end] <= now && !r.inProgress) { completed += taskH; return; }
+      const deducted = Object.entries(r.hourAdjustments || {}).reduce((sum, [date, value]) => {
+        const adjustmentDate = toDate(date);
+        const adjustmentIdx = adjustmentDate ? dates.findIndex(d => sameDay(d, adjustmentDate)) : -1;
+        if (adjustmentIdx < firstIdx || adjustmentIdx > lastIdx || skipSet.has(adjustmentIdx)) return sum;
+        if (year === now.getFullYear() && month === now.getMonth() + 1 && adjustmentIdx > todayIdx) return sum;
+        return sum + Number(value || 0);
+      }, 0);
+      const adjustedTaskH = Math.max(0, taskH - deducted);
+      if (month < now.getMonth() + 1 || year < now.getFullYear()) { completed += adjustedTaskH; return; }
+      if (month > now.getMonth() + 1 || year > now.getFullYear()) { inProgress += adjustedTaskH; return; }
+      if (dates[end] <= now && !r.inProgress) { completed += adjustedTaskH; return; }
       if (dates[start] > now) return;
       let completedDays = 0;
       for (let i = Math.max(start, firstIdx); i <= Math.min(end, todayIdx, lastIdx); i++) if (!skipSet.has(i)) completedDays++;
       const donePct = Math.min(1, completedDays / daysIn);
-      if (donePct === 1 && !r.inProgress) completed += taskH;
-      else inProgress += taskH * donePct;
+      if (donePct === 1 && !r.inProgress) completed += adjustedTaskH;
+      else inProgress += Math.max(0, taskH * donePct - deducted);
     });
     return { completed, inProgress };
   }
@@ -175,7 +189,12 @@
     const restantes = Number(Math.max(0, contratadas - consumidasRaw).toFixed(1));
     const porcentaje = contratadas > 0 ? Number(Math.min(100, (consumidasRaw / contratadas) * 100).toFixed(1)) : 0;
     const bloques = { Desarrollo: Number(monthlyBlocks.reduce((t, m) => t + m.desarrollo, 0).toFixed(1)), Soporte: Number(soporteRaw.toFixed(1)), 'Actualización PDD': Number(monthlyBlocks.reduce((t, m) => t + m.actualizacion, 0).toFixed(1)), 'Actividades adicionales': Number(monthlyBlocks.reduce((t, m) => t + m.actividades, 0).toFixed(1)) };
-    return { contratadas, consumidas, restantes, porcentaje, desarrollo: Number(desarrolloRaw.toFixed(1)), soporte: Number(soporteRaw.toFixed(1)), bloques, mensuales: monthlyBlocks };
+    const bots = {};
+    BOT_KEYS.forEach(key => {
+      const h = botHours(key, 'all');
+      bots[key] = { completed: Number(h.completed.toFixed(1)), inProgress: Number(h.inProgress.toFixed(1)), total: Number((h.completed + h.inProgress).toFixed(1)) };
+    });
+    return { contratadas, consumidas, restantes, porcentaje, desarrollo: Number(desarrolloRaw.toFixed(1)), soporte: Number(soporteRaw.toFixed(1)), bloques, mensuales: monthlyBlocks, bots };
   }
 
   return { calculateReporteHoras };

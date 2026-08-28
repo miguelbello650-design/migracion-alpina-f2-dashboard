@@ -857,7 +857,7 @@ let GANTT_ROWS = [
 
 const GANTT_DATES = [];
 const dateStrs = "6-Feb-26,9-Feb-26,10-Feb-26,11-Feb-26,12-Feb-26,13-Feb-26,16-Feb-26,17-Feb-26,18-Feb-26,19-Feb-26,20-Feb-26,23-Feb-26,24-Feb-26,25-Feb-26,26-Feb-26,27-Feb-26,2-Mar-26,3-Mar-26,4-Mar-26,5-Mar-26,6-Mar-26,9-Mar-26,10-Mar-26,11-Mar-26,12-Mar-26,13-Mar-26,16-Mar-26,17-Mar-26,18-Mar-26,19-Mar-26,20-Mar-26,24-Mar-26,25-Mar-26,26-Mar-26,27-Mar-26,30-Mar-26,31-Mar-26,1-Apr-26,6-Apr-26,7-Apr-26,8-Apr-26,9-Apr-26,10-Apr-26,13-Apr-26,14-Apr-26,15-Apr-26,16-Apr-26,17-Apr-26,20-Apr-26,21-Apr-26,22-Apr-26,23-Apr-26,24-Apr-26,27-Apr-26,28-Apr-26,29-Apr-26,30-Apr-26,4-May-26,5-May-26,6-May-26,7-May-26,8-May-26,11-May-26,12-May-26,13-May-26,14-May-26,15-May-26,19-May-26,20-May-26,21-May-26,22-May-26,25-May-26,26-May-26,27-May-26,28-May-26,29-May-26,1-Jun-26,2-Jun-26,3-Jun-26,4-Jun-26,5-Jun-26,9-Jun-26,10-Jun-26,11-Jun-26,12-Jun-26,16-Jun-26,17-Jun-26,18-Jun-26,19-Jun-26,22-Jun-26,23-Jun-26,24-Jun-26,25-Jun-26,26-Jun-26,30-Jun-26,1-Jul-26,2-Jul-26,3-Jul-26,6-Jul-26,7-Jul-26,8-Jul-26,9-Jul-26,10-Jul-26,14-Jul-26,15-Jul-26,16-Jul-26,17-Jul-26,21-Jul-26,22-Jul-26,23-Jul-26,24-Jul-26,27-Jul-26,28-Jul-26,29-Jul-26,30-Jul-26,31-Jul-26,3-Aug-26,4-Aug-26,5-Aug-26,6-Aug-26,10-Aug-26".split(',');
-dateStrs.push('11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26', '19-Aug-26', '20-Aug-26', '21-Aug-26', '24-Aug-26', '25-Aug-26', '26-Aug-26', '27-Aug-26', '28-Aug-26', '31-Aug-26', '1-Sep-26', '2-Sep-26', '3-Sep-26', '4-Sep-26','7-Sep-26');
+dateStrs.push('11-Aug-26', '12-Aug-26', '13-Aug-26', '14-Aug-26', '17-Aug-26', '18-Aug-26', '19-Aug-26', '20-Aug-26', '21-Aug-26', '24-Aug-26', '25-Aug-26', '26-Aug-26', '27-Aug-26', '28-Aug-26', '31-Aug-26', '1-Sep-26', '2-Sep-26', '3-Sep-26', '4-Sep-26','7-Sep-26','8-Sep-26');
 dateStrs.forEach(d => {
   const p = d.split('-');
   GANTT_DATES.push(new Date(2026, ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(p[1]), parseInt(p[0])));
@@ -1020,11 +1020,11 @@ Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), {
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:134, fixedEndIdx:134 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:135, fixedEndIdx:139 });
 function applyRobotinaLatestOverrides() {
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:80, days:10, fixedIdx:72, fixedEndIdx:133, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:134, fixedEndIdx:134 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:134, fixedEndIdx:134 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:135, fixedEndIdx:135 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:136, fixedEndIdx:140 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:80.3, days:11, fixedIdx:72, fixedEndIdx:134, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:135, fixedEndIdx:135 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:135, fixedEndIdx:135 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:136, fixedEndIdx:136 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:137, fixedEndIdx:141 });
 }
 
 
@@ -1041,6 +1041,8 @@ let GANTT_ROWS_GOOGLE_NOVA = [
   { phase:"Ajuste documentacion",task:"1. Ajuste documentacion",resp:"2NV",hours:8,days:1,fixedIdx:87,fixedEndIdx:87,inProgress:false }
 ];
 
+let SERVER_REPORTE_HORAS = null;
+
 function renderFeliCard() {
   const result = calcPhaseProgress(GANTT_ROWS_FELI, GANTT_DATES);
   const nowH = new Date(); nowH.setHours(0,0,0,0);
@@ -1051,7 +1053,7 @@ function renderFeliCard() {
     const skipCount = r.skipIndices ? r.skipIndices.length : 0;
     const effectiveDays = totalSpan - skipCount;
     if (effectiveDays <= 0) return a;
-    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += (r.hours || 0); return a; }
+    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += effectiveRowHours(r); return a; }
     if (GANTT_DATES[start] > nowH) return a;
     const skipSet = r.skipIndices ? new Set(r.skipIndices) : new Set();
     const ti = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
@@ -1060,7 +1062,7 @@ function renderFeliCard() {
       if (!skipSet.has(i)) completed++;
     }
     const pct = Math.min(1, completed / effectiveDays);
-    a.inProgress += Math.round((r.hours || 0) * pct);
+    a.inProgress += Math.round(effectiveRowHours(r) * pct);
     return a;
   }, { completed: 0, inProgress: 0 });
   const totalHours = hours.completed + hours.inProgress;
@@ -1108,7 +1110,7 @@ function renderNovaCard() {
     const skipCount = r.skipIndices ? r.skipIndices.length : 0;
     const effectiveDays = totalSpan - skipCount;
     if (effectiveDays <= 0) return a;
-    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += (r.hours || 0); return a; }
+    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += effectiveRowHours(r); return a; }
     if (GANTT_DATES[start] > nowH) return a;
     const skipSet = r.skipIndices ? new Set(r.skipIndices) : new Set();
     const ti = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
@@ -1117,7 +1119,7 @@ function renderNovaCard() {
       if (!skipSet.has(i)) completed++;
     }
     const pct = Math.min(1, completed / effectiveDays);
-    a.inProgress += Math.round((r.hours || 0) * pct);
+    a.inProgress += Math.round(effectiveRowHours(r) * pct);
     return a;
   }, { completed: 0, inProgress: 0 });
   const totalHours = hours.completed + hours.inProgress;
@@ -1165,7 +1167,7 @@ function renderRobotinaCard() {
     const skipCount = r.skipIndices ? r.skipIndices.length : 0;
     const effectiveDays = totalSpan - skipCount;
     if (effectiveDays <= 0) return a;
-    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += (r.hours || 0); return a; }
+    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += effectiveRowHours(r); return a; }
     if (GANTT_DATES[start] > nowH) return a;
     const skipSet = r.skipIndices ? new Set(r.skipIndices) : new Set();
     const ti = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
@@ -1174,7 +1176,7 @@ function renderRobotinaCard() {
       if (!skipSet.has(i)) completed++;
     }
     const pct = Math.min(1, completed / effectiveDays);
-    a.inProgress += (r.hours || 0) * pct;
+    a.inProgress += effectiveRowHours(r) * pct;
     return a;
   }, { completed: 0, inProgress: 0 });
   // Keep the 25-Aug cut as baseline and add only effective UAT days after it.
@@ -1188,9 +1190,10 @@ function renderRobotinaCard() {
       if (!uatSkip.has(i)) additionalUatDays++;
     }
   }
-  const officialTotalHours = 808.8 + (additionalUatDays * 8);
-  if (Math.abs((hours.completed + hours.inProgress) - officialTotalHours) > 0.01) {
-    hours.inProgress = Math.max(0, officialTotalHours - hours.completed);
+  const serverRobotinaTotal = Number(SERVER_REPORTE_HORAS?.bots?.robotina?.total);
+  // Durante la carga inicial, conserva el cálculo local del Gantt hasta recibir la API.
+  if (Number.isFinite(serverRobotinaTotal) && serverRobotinaTotal > 0 && Math.abs((hours.completed + hours.inProgress) - serverRobotinaTotal) > 0.01) {
+    hours.inProgress = Math.max(0, serverRobotinaTotal - hours.completed);
   }
   const totalHours = hours.completed + hours.inProgress;
   const c = document.getElementById('robotina-body');
@@ -1237,7 +1240,7 @@ function renderGoogleNovaCard() {
     const skipCount = r.skipIndices ? r.skipIndices.length : 0;
     const effectiveDays = totalSpan - skipCount;
     if (effectiveDays <= 0) return a;
-    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += (r.hours || 0); return a; }
+    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += effectiveRowHours(r); return a; }
     if (GANTT_DATES[start] > nowH) return a;
     const skipSet = r.skipIndices ? new Set(r.skipIndices) : new Set();
     const ti = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
@@ -1246,7 +1249,7 @@ function renderGoogleNovaCard() {
       if (!skipSet.has(i)) completed++;
     }
     const pct = Math.min(1, completed / effectiveDays);
-    a.inProgress += Math.round((r.hours || 0) * pct);
+    a.inProgress += Math.round(effectiveRowHours(r) * pct);
     return a;
   }, { completed: 0, inProgress: 0 });
   const totalHours = hours.completed + hours.inProgress;
@@ -1283,6 +1286,12 @@ function renderGoogleNovaCard() {
 }
 
 renderGoogleNovaCard();
+
+function effectiveRowHours(row) {
+  const adjustments = row.hourAdjustments || {};
+  const deducted = Object.values(adjustments).reduce((sum, value) => sum + Number(value || 0), 0);
+  return Math.max(0, (row.hours || 0) - deducted);
+}
 
 function isSameDay(a, b) {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -1604,7 +1613,7 @@ function renderGanttRobotina() {
   robotinaNotes["Pruebas unitarias|126"] = "Se agrega d\u00eda adicional de pruebas para completar la validaci\u00f3n del flujo autom\u00e1tico completo como paso previo a las pruebas UAT";
   robotinaNotes["Pruebas UAT|108"] = "Día adicional para probar nuevamente con la parte funcional todos los flujos correspondientes a Robotina, la duración de esta actividad se puede extender dependiendo de los ajustes que pueden surgir";
   robotinaNotes["Pruebas UAT|120"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
-  robotinaNotes["Pruebas UAT|131"] = "Se extiende 5 d\u00edas debido a que Javier tiene que hacer ajustes en reglas que no estaban contempladas dentro del alcance inicial";
+  robotinaNotes["Pruebas UAT|131"] = "Se extiende 6 d\u00edas debido a que Javier tiene que hacer ajustes en reglas que no estaban contempladas dentro del alcance inicial";
   robotinaNotes["Pruebas UAT|121"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
   robotinaNotes["Pruebas UAT|122"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
   robotinaNotes["Pruebas UAT|123"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
@@ -1696,7 +1705,7 @@ function saveState() {
   localStorage.setItem('gantt_robotina', JSON.stringify(GANTT_ROWS_ROBOTINA.map(r=>({task:r.task,fixedIdx:r.fixedIdx,fixedEndIdx:r.fixedEndIdx,inProgress:r.inProgress,notesIdx:r.notesIdx,skipIndices:r.skipIndices}))));
   localStorage.setItem('gantt_googlenova', JSON.stringify(GANTT_ROWS_GOOGLE_NOVA.map(r=>({task:r.task,fixedIdx:r.fixedIdx,fixedEndIdx:r.fixedEndIdx,inProgress:r.inProgress,notesIdx:r.notesIdx,skipIndices:r.skipIndices}))));
   if (IS_SERVER) {
-    const clean = arr => arr.map(r => ({phase:r.phase,task:r.task,resp:r.resp,hours:r.hours,days:r.days,fixedIdx:r.fixedIdx,fixedEndIdx:r.fixedEndIdx,skipIndices:r.skipIndices,notesIdx:r.notesIdx,inProgress:r.inProgress,milestone:r.milestone}));
+    const clean = arr => arr.map(r => ({phase:r.phase,task:r.task,resp:r.resp,hours:r.hours,days:r.days,fixedIdx:r.fixedIdx,fixedEndIdx:r.fixedEndIdx,skipIndices:r.skipIndices,notesIdx:r.notesIdx,hourAdjustments:r.hourAdjustments,inProgress:r.inProgress,milestone:r.milestone}));
     fetch('/api/sync', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -1728,7 +1737,7 @@ function loadState() {
 }
 async function loadServerState() {
   try {
-    const r = await fetch(IS_SERVER ? '/api/data' : './public-state.json?v=20260827-2');
+    const r = await fetch(IS_SERVER ? '/api/data' : './public-state.json?v=20260827-4');
     const data = await r.json();
     SERVER_REPORTE_HORAS = data.reporteHoras || null;
     if (data.ganttRows) {
@@ -2093,7 +2102,7 @@ function calcBotHours(rows) {
     const skipCount = r.skipIndices ? r.skipIndices.length : 0;
     const effectiveDays = totalSpan - skipCount;
     if (effectiveDays <= 0) return a;
-    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += (r.hours || 0); return a; }
+    if (GANTT_DATES[end] <= nowH && !r.inProgress) { a.completed += effectiveRowHours(r); return a; }
     if (GANTT_DATES[start] > nowH) return a;
     const skipSet = r.skipIndices ? new Set(r.skipIndices) : new Set();
     const ti = GANTT_DATES.findIndex(d => isSameDay(d, nowH));
@@ -2102,7 +2111,7 @@ function calcBotHours(rows) {
       if (!skipSet.has(i)) completed++;
     }
     const pct = Math.min(1, completed / effectiveDays);
-    a.inProgress += (r.hours || 0) * pct;
+    a.inProgress += effectiveRowHours(r) * pct;
     return a;
   }, { completed: 0, inProgress: 0 });
 }
@@ -2148,7 +2157,7 @@ function renderProyectosChart() {
 const REPORTE_MONTH_KEY = 'reporteMonthFilter';
 localStorage.removeItem(REPORTE_MONTH_KEY);
 const REPORTE_HORAS_CONTRATADAS = 4320;
-let SERVER_REPORTE_HORAS = null;
+
 let STATIC_MONTHLY = {
   optimus: { '2025-11':57.5, '2025-12':182.5, '2026-1':46 },
   lamonita: { '2025-11':44.5, '2025-12':189.5, '2026-1':139 },
@@ -2169,6 +2178,11 @@ let STATIC_MONTHLY = {
   actividad_correos_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':4.5, '2026-6':0 },
   actividad_f2_lamonita: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0, '2026-7':0.5 },
   actividad_entendimiento_lamonita_f2: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':0, '2026-3':0, '2026-4':0, '2026-5':0, '2026-6':0, '2026-7':0.5 },
+  actividad_validacion_api_robotina: { '2026-8':0.2 },
+  actividad_ciberseguridad_robotina: { '2026-8':2.5 },
+  actividad_ssff_robotina: { '2026-8':2 },
+  actividad_robotina_mesa: { '2026-8':2 },
+  actividad_gd_robotina: { '2026-8':1 },
   locked_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':99, '2026-3':137, '2026-4':128, '2026-5':152 },
   locked_nova: { '2026-4':126, '2026-5':152, _total:398 },
   locked_robotina: { '2026-3':130, '2026-4':134, '2026-5':148, '2026-6':145.6, '2026-7':128, _total:300 }
@@ -2252,7 +2266,7 @@ function calcBotHoursMonth(rows, filter) {
     for (let i = Math.max(start, firstIdx); i <= Math.min(end, lastIdx); i++) { if (!skipSet.has(i)) daysIn++; }
     if (daysIn <= 0) return;
     const pct = daysIn / effectiveDays;
-    const taskH = (r.hours || 0) * pct;
+    const taskH = effectiveRowHours(r) * pct;
     if (month < nowH.getMonth()+1 || year < nowH.getFullYear()) { completed += taskH; return; }
     if (month > nowH.getMonth()+1 || year > nowH.getFullYear()) { inProgress += taskH; return; }
     if (GANTT_DATES[end] <= nowH && !r.inProgress) { completed += taskH; return; }
@@ -2283,7 +2297,7 @@ function renderReporte() {
   html += '<div class="reporte-block"><h3>Desarrollo</h3>';
   const staticFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
   const actualizKeys = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
-  const actividadKeys = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita','actividad_entendimiento_lamonita_f2'];
+  const actividadKeys = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita','actividad_entendimiento_lamonita_f2','actividad_validacion_api_robotina','actividad_ciberseguridad_robotina','actividad_ssff_robotina','actividad_robotina_mesa','actividad_gd_robotina'];
   const maxHrs = [...botKeys, ...staticFin.map(p=>p.key), 'soporte', ...actualizKeys, ...actividadKeys].reduce((mx, k) => {
     if (getBotRows(k)) {
       const rows = getBotRows(k);
@@ -2339,7 +2353,17 @@ function renderReporte() {
   const actividadColors = { actividad_dudas_feli:'#a855f7', actividad_dudas_nova:'#3b82f6', actividad_api_robotina:'#14b8a6', actividad_api_success_robotina:'#22c55e', actividad_ajustes_nova:'#0ea5e9', actividad_estimacion:'#f59e0b', actividad_infra:'#ef4444', actividad_correos_feli:'#ec4899', actividad_f2_lamonita:'#dc2626' };
   const actividadLabels = { actividad_dudas_feli:'Sesión Dudas Feli', actividad_dudas_nova:'Sesión Dudas Nova', actividad_api_robotina:'Sesión API Robotina', actividad_api_success_robotina:'API Succes SAP Robotina', actividad_ajustes_nova:'Ajustes adicionales Nova', actividad_estimacion:'Estimación Nova y Feli', actividad_infra:'Sesión con Infra. Alpina', actividad_correos_feli:'Solución correos Feli', actividad_f2_lamonita:'Sesión F2 La Monita' };
   actividadColors.actividad_entendimiento_lamonita_f2 = '#f59e0b';
+  actividadColors.actividad_validacion_api_robotina = '#0ea5e9';
+  actividadColors.actividad_ciberseguridad_robotina = '#8b5cf6';
+  actividadColors.actividad_ssff_robotina = '#64748b';
+  actividadColors.actividad_robotina_mesa = '#f43f5e';
+  actividadColors.actividad_gd_robotina = '#14b8a6';
   actividadLabels.actividad_entendimiento_lamonita_f2 = 'Sesión de entendimiento La Monita F2';
+  actividadLabels.actividad_validacion_api_robotina = 'Validación API - Robotina';
+  actividadLabels.actividad_ciberseguridad_robotina = 'Revisión Ciberseguridad Robotina';
+  actividadLabels.actividad_ssff_robotina = 'Revisión SSFF Robotina';
+  actividadLabels.actividad_robotina_mesa = 'Revisión Robotina-Mesa';
+  actividadLabels.actividad_gd_robotina = 'Revisión GD-Robotina';
   otherBlocks.forEach(b => {
     html += '<div class="reporte-block"><h3>'+b.label+'</h3>';
     if (b.key === 'soporte') {
@@ -2547,10 +2571,15 @@ function exportReporte() {
   const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const stFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
   const actK = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
-  const actvK = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita','actividad_entendimiento_lamonita_f2'];
+  const actvK = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita','actividad_entendimiento_lamonita_f2','actividad_validacion_api_robotina','actividad_ciberseguridad_robotina','actividad_ssff_robotina','actividad_robotina_mesa','actividad_gd_robotina'];
   const actualizLabels = { actualizacion_feli:'FELI', actualizacion_robotina:'ROBOTINA', actualizacion_optimus:'OPTIMUS', actualizacion_lamonita:'LA MONITA', actualizacion_horasextra:'HORAS EXTRA' };
   const actividadLabels = { actividad_dudas_feli:'Sesión Dudas Feli', actividad_dudas_nova:'Sesión Dudas Nova', actividad_api_robotina:'Sesión API Robotina', actividad_api_success_robotina:'API Succes SAP Robotina', actividad_ajustes_nova:'Ajustes adicionales Nova', actividad_estimacion:'Estimación Nova y Feli', actividad_infra:'Sesión con Infra. Alpina', actividad_correos_feli:'Solución correos Feli', actividad_f2_lamonita:'Sesión F2 La Monita' };
   actividadLabels.actividad_entendimiento_lamonita_f2 = 'Sesión de entendimiento La Monita F2';
+  actividadLabels.actividad_validacion_api_robotina = 'Validación API - Robotina';
+  actividadLabels.actividad_ciberseguridad_robotina = 'Revisión Ciberseguridad Robotina';
+  actividadLabels.actividad_ssff_robotina = 'Revisión SSFF Robotina';
+  actividadLabels.actividad_robotina_mesa = 'Revisión Robotina-Mesa';
+  actividadLabels.actividad_gd_robotina = 'Revisión GD-Robotina';
   const filterLabel = filter === 'all' ? 'Todos los meses' : monthNames[parseInt(filter.split('-')[1])-1]+' '+filter.split('-')[0];
   const months = getMonthOptions();
   function cell(v) { return '<td style="padding:4px 8px;border:1px solid #ccc;font-size:11px">'+(v??'')+'</td>'; }
@@ -2973,3 +3002,6 @@ function openGantt(id) {
   </div>
 </footer>
 </body>
+
+
+
