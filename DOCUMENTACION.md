@@ -1120,3 +1120,9 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 
 - Se actualizo la alerta asociada a **Pruebas UAT** con el texto sobre la extension de **7 dias**, los ajustes de reglas fuera del alcance inicial y las reuniones que requieren la asistencia de Javier.
 - No se modificaron fechas, horas, estados ni duraciones del cronograma.
+
+## Diagnostico de estado publico (2026-08-31)
+
+- Se identifico que GitHub Pages estaba sirviendo una version cacheada de public-state.json, distinta de la carga local.
+- Se incremento la version de consulta del archivo para forzar su lectura al actualizar el dashboard.
+- No se modificaron datos ni se sobrescribieron totales desde una fuente diferente.
