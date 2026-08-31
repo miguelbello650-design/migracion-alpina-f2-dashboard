@@ -1115,3 +1115,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 
 - Se actualizo el texto de la alerta asociada a Pruebas UAT para indicar que se extiende **6 dias** por ajustes de reglas fuera del alcance inicial.
 - No se modificaron fechas, horas, estados ni otras alertas.
+
+## Actualizacion de alerta de Pruebas UAT Robotina (2026-08-31)
+
+- Se actualizo la alerta asociada a **Pruebas UAT** con el texto sobre la extension de **7 dias**, los ajustes de reglas fuera del alcance inicial y las reuniones que requieren la asistencia de Javier.
+- No se modificaron fechas, horas, estados ni duraciones del cronograma.

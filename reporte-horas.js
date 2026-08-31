@@ -5,7 +5,7 @@
   const DEFAULT_HORAS_CONTRATADAS = 4320;
   const BOT_KEYS = ['nova', 'feli', 'robotina', 'googlenova'];
   const ACTUALIZ_KEYS = ['actualizacion_feli', 'actualizacion_robotina', 'actualizacion_optimus', 'actualizacion_lamonita', 'actualizacion_horasextra'];
-  const ACTIVIDAD_KEYS = ['actividad_dudas_feli', 'actividad_dudas_nova', 'actividad_api_robotina', 'actividad_api_success_robotina', 'actividad_ajustes_nova', 'actividad_estimacion', 'actividad_infra', 'actividad_correos_feli', 'actividad_f2_lamonita', 'actividad_entendimiento_lamonita_f2', 'actividad_validacion_api_robotina', 'actividad_ciberseguridad_robotina', 'actividad_ssff_robotina', 'actividad_robotina_mesa', 'actividad_gd_robotina'];
+  const ACTIVIDAD_KEYS = ['actividad_dudas_feli', 'actividad_dudas_nova', 'actividad_api_robotina', 'actividad_api_success_robotina', 'actividad_ajustes_nova', 'actividad_estimacion', 'actividad_infra', 'actividad_correos_feli', 'actividad_f2_lamonita', 'actividad_entendimiento_lamonita_f2', 'actividad_validacion_api_robotina', 'actividad_ciberseguridad_robotina', 'actividad_ssff_robotina', 'actividad_robotina_mesa', 'actividad_gd_robotina', 'actividad_revision_proceso_robotina'];
 
   function toDate(value) {
     if (value instanceof Date) {
