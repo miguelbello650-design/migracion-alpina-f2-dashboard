@@ -1751,7 +1751,7 @@
       "2026-5": 73,
       "2026-6": 166,
       "2026-7": 242,
-      "2026-8": 138
+      "2026-8": 151
     },
     "actualizacion_feli": {
       "2025-11": 0,
@@ -1943,6 +1943,9 @@
     },
     "actividad_gd_robotina": {
       "2026-8": 1
+    },
+    "actividad_revision_proceso_robotina": {
+      "2026-8": 2
     }
   },
   "proyectos": [
@@ -2254,20 +2257,26 @@
     "3-Sep-26",
     "4-Sep-26",
     "7-Sep-26",
-    "8-Sep-26"
+    "8-Sep-26",
+    "9-Sep-26",
+    "10-Sep-26",
+    "11-Sep-26",
+    "14-Sep-26",
+    "15-Sep-26",
+    "16-Sep-26"
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4169.4,
-    "restantes": 150.6,
-    "porcentaje": 96.5,
-    "desarrollo": 3300.9,
-    "soporte": 868.5,
+    "consumidas": 4188.4,
+    "restantes": 131.6,
+    "porcentaje": 97,
+    "desarrollo": 3306.9,
+    "soporte": 881.5,
     "bloques": {
-      "Desarrollo": 3179.6,
-      "Soporte": 868.5,
+      "Desarrollo": 3183.6,
+      "Soporte": 881.5,
       "Actualización PDD": 35,
-      "Actividades adicionales": 86.3
+      "Actividades adicionales": 88.3
     },
     "mensuales": [
       {
@@ -2344,12 +2353,34 @@
       },
       {
         "month": "2026-8",
-        "desarrollo": 162.3,
-        "soporte": 138,
+        "desarrollo": 166.3,
+        "soporte": 151,
         "actualizacion": 0,
-        "actividades": 10.2,
-        "total": 310.5
+        "actividades": 12.2,
+        "total": 329.5
       }
-    ]
+    ],
+    "bots": {
+      "nova": {
+        "completed": 550,
+        "inProgress": 0,
+        "total": 550
+      },
+      "feli": {
+        "completed": 798.7,
+        "inProgress": 0,
+        "total": 798.7
+      },
+      "robotina": {
+        "completed": 780.8,
+        "inProgress": 51.1,
+        "total": 831.9
+      },
+      "googlenova": {
+        "completed": 40,
+        "inProgress": 0,
+        "total": 40
+      }
+    }
   }
 }
