@@ -90,7 +90,7 @@ const server = http.createServer((req, res) => {
       ganttDates: reportDates(data.ganttDates),
       contratadas: 4320
     });
-    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store, no-cache, must-revalidate', 'Pragma': 'no-cache', 'Expires': '0' });
     res.end(JSON.stringify(data));
     return;
   }

@@ -1,4 +1,4 @@
-﻿# Documentacion tecnica y funcional del Dashboard
+# Documentacion tecnica y funcional del Dashboard
 
 ## 1. Proposito
 
@@ -230,7 +230,7 @@ El proyecto maneja dos correos independientes. Ambos pueden ejecutarse semanalme
 ### 8.1 Reporte de consumo de horas
 
 - Script: agente/reporte_horas.py.
-- Fuente: GET http://127.0.0.1:3000/api/data.
+- Fuente: GET del `public-state.json` publicado en GitHub Pages, con parámetro de cache para obtener la versión más reciente.
 - Usa directamente reporteHoras, que contiene contratadas, consumidas, restantes, porcentaje, desarrollo y soporte.
 - Valida que desarrollo + soporte coincida con consumidas; no recalcula esos valores con una logica paralela.
 - Genera logos 2NV y Alpina, barra de consumo, KPIs de Desarrollo y Soporte, mensaje de umbral y cierre del correo.
@@ -242,6 +242,7 @@ El proyecto maneja dos correos independientes. Ambos pueden ejecutarse semanalme
 
 - Script Node: generar-correo-semanal.js.
 - Fuente: Gantt del Dashboard y su calendario vigente.
+- Los generadores Python consultan `http://127.0.0.1:3000/api/data` en cada ejecución, con cache deshabilitada, y regeneran el HTML antes de preparar el correo.
 - Calcula la semana laboral, filtra actividades por fecha, agrupa por desarrollador y bot, y genera el asunto con el rango de lunes a viernes.
 - El cuerpo HTML incluye logos, bloques por desarrollador, bot, tareas, fechas, estados En curso, Planificado o Hito, y el texto de seguimiento.
 - Las tareas adicionales se resumen cuando exceden el limite visible de cada bloque.

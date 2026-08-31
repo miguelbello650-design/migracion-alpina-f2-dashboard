@@ -2721,7 +2721,7 @@ if (IS_SERVER) {
   btn.textContent = '⚙';
   btn.onclick = showAdminLogin;
   document.querySelector('.topbar-right').appendChild(btn);
-  loadServerState().then(() => { applyRobotinaLatestOverrides(); if (supportDashboard) syncSupportHours(supportActiveTab); renderAll(); });
+  loadServerState().then(() => { applyRobotinaLatestOverrides(); saveState(); if (supportDashboard) syncSupportHours(supportActiveTab); renderAll(); });
 } else {
   loadServerState().then(() => { applyRobotinaLatestOverrides(); renderAll(); }).catch(() => {
     loadState();

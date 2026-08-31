@@ -9,7 +9,7 @@ from datetime import datetime
 
 BASE = r"C:\Users\2NV\Desktop\Prueba de IPM\agente"
 LOG = os.path.join(BASE, "reporte_horas.log")
-API_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/public-state.json"
+API_URL = "http://127.0.0.1:3000/api/data"
 LOGO_2NV_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/assets/logos/logo-2nv-header.png"
 LOGO_ALPINA_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/assets/logos/logo-alpina-header.png"
 
@@ -34,7 +34,7 @@ data = None
 try:
     import requests
     log_msg("Intentando con requests...")
-    resp = requests.get(SOURCE_URL, timeout=15)
+    resp = requests.get(SOURCE_URL, headers={"Cache-Control": "no-cache", "Pragma": "no-cache"}, timeout=15)
     log_msg("Status Code: %s" % resp.status_code)
     resp.raise_for_status()
     data = resp.json()
@@ -44,7 +44,8 @@ except Exception as e1:
     try:
         import urllib.request
         log_msg("Fallback con urllib...")
-        with urllib.request.urlopen(SOURCE_URL, timeout=15) as f:
+        request = urllib.request.Request(SOURCE_URL, headers={"Cache-Control": "no-cache", "Pragma": "no-cache"})
+        with urllib.request.urlopen(request, timeout=15) as f:
             data = json.loads(f.read().decode("utf-8"))
         log_msg("urllib OK")
     except Exception as e2:
