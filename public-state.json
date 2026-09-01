@@ -2345,13 +2345,13 @@
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4199.2,
-    "restantes": 120.8,
+    "consumidas": 4199.5,
+    "restantes": 120.5,
     "porcentaje": 97.2,
-    "desarrollo": 3317.7,
+    "desarrollo": 3318,
     "soporte": 881.5,
     "bloques": {
-      "Desarrollo": 3194.4,
+      "Desarrollo": 3194.7,
       "Soporte": 881.5,
       "Actualización PDD": 35,
       "Actividades adicionales": 88.3
@@ -2439,11 +2439,11 @@
       },
       {
         "month": "2026-9",
-        "desarrollo": 7.3,
+        "desarrollo": 7.6,
         "soporte": 0,
         "actualizacion": 0,
         "actividades": 0,
-        "total": 7.3
+        "total": 7.6
       }
     ],
     "bots": {
