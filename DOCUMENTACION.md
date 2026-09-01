@@ -15,6 +15,12 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - El reporte se denomina **Reporte de Horas por Hito**. La grafica **Horas por Mes** incluye eje Y y una curva de tendencia que se dibuja desde la primera barra; puntos y valores aparecen de forma escalonada, sin sombra de fondo.
 - La barra superior enlaza a `https://2nv.co/` mediante el texto **Mas informacion sobre nuestra familia 2NV**.
 
+## Correccion de horas al extender UAT Robotina (2026-09-01)
+
+- La tarea **Pruebas UAT** de ROBOTINA conserva la distribución histórica de agosto y suma correctamente la jornada completa de 8 horas del 1 de septiembre.
+- Las horas distribuidas por fecha se almacenan mediante `hoursByIndex`; el cálculo mensual del Gantt, Reporte de horas, Consumo de horas y `/api/data` reutiliza esa distribución sin prorratear nuevamente la fila completa.
+- Al correr el cronograma, los días anteriores no se recalculan ni cambian sus totales. La corrección evita que el Gantt quede vacío y mantiene consistentes tarjeta, gráficos y reporte mensual.
+
 ### Estado operativo reciente
 
 - **FELI**: Documentacion tecnica, documentacion funcional, aprobacion de documentacion y seguimiento postproduccion quedan finalizadas (inProgress:false). Sus horas, fechas y alertas se mantienen sin cambios.

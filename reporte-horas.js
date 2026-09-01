@@ -99,7 +99,13 @@
       for (let i = Math.max(start, firstIdx); i <= Math.min(end, lastIdx); i++) if (!skipSet.has(i)) daysIn++;
       if (daysIn <= 0) return;
       const pct = daysIn / effectiveDays;
-      const taskH = (r.hours || 0) * pct;
+      const hasDateHours = r.hoursByIndex && typeof r.hoursByIndex === 'object';
+      const taskH = hasDateHours
+        ? Array.from({ length: Math.max(0, Math.min(end, lastIdx) - Math.max(start, firstIdx) + 1) }, (_, offset) => Math.max(start, firstIdx) + offset).reduce((sum, i) => skipSet.has(i) ? sum : sum + Number(r.hoursByIndex[i] || 0), 0)
+        : (r.hours || 0) * pct;
+      const taskHToToday = hasDateHours
+        ? Array.from({ length: Math.max(0, Math.min(end, lastIdx, todayIdx) - Math.max(start, firstIdx) + 1) }, (_, offset) => Math.max(start, firstIdx) + offset).reduce((sum, i) => skipSet.has(i) ? sum : sum + Number(r.hoursByIndex[i] || 0), 0)
+        : taskH;
       const deducted = Object.entries(r.hourAdjustments || {}).reduce((sum, [date, value]) => {
         const adjustmentDate = toDate(date);
         const adjustmentIdx = adjustmentDate ? dates.findIndex(d => sameDay(d, adjustmentDate)) : -1;
@@ -112,6 +118,7 @@
       if (month > now.getMonth() + 1 || year > now.getFullYear()) { inProgress += adjustedTaskH; return; }
       if (dates[end] <= now && !r.inProgress) { completed += adjustedTaskH; return; }
       if (dates[start] > now) return;
+      if (hasDateHours) { inProgress += Math.max(0, taskHToToday - deducted); return; }
       let completedDays = 0;
       for (let i = Math.max(start, firstIdx); i <= Math.min(end, todayIdx, lastIdx); i++) if (!skipSet.has(i)) completedDays++;
       const donePct = Math.min(1, completedDays / daysIn);
