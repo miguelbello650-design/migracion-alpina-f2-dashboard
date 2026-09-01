@@ -1750,7 +1750,7 @@ function loadState() {
 }
 async function loadServerState() {
   try {
-    const r = await fetch(IS_SERVER ? '/api/data' : ./public-state.json?v=);
+    const r = await fetch(IS_SERVER ? '/api/data' : `./public-state.json?v=${Date.now()}`);
     const data = await r.json();
     SERVER_REPORTE_HORAS = data.reporteHoras || null;
     if (data.ganttRows) {
