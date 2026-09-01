@@ -22,6 +22,13 @@ def log_msg(msg):
     except Exception as e:
         print("  [log_msg fallo]: %s" % e, flush=True)
 
+def write_atomic(path, content):
+    # Reemplaza el archivo completo para que Outlook nunca lea un HTML parcial.
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        f.write(content)
+    os.replace(tmp_path, path)
+
 log_msg("=== INICIO ===")
 log_msg("Usuario ejecutando: %s" % getpass.getuser())
 log_msg("Python ejecutable: %s" % sys.executable)
@@ -194,20 +201,23 @@ Quedo atento a los comentarios,<br>
     archivo_asunto = os.path.join(BASE, "asunto_horas.txt")
     archivo_html = os.path.join(BASE, "reporte_horas.html")
 
-    if os.path.exists(archivo_asunto):
-        os.remove(archivo_asunto)
+    write_atomic(archivo_asunto, asunto)
+    write_atomic(archivo_html, html)
 
-    if os.path.exists(archivo_html):
-        os.remove(archivo_html)
-
-    with open(archivo_asunto, "w", encoding="utf-8") as f:
-        f.write(asunto)
-
-    with open(archivo_html, "w", encoding="utf-8") as f:
-        f.write(html)
+    # Verifica que el archivo que abrira Power Automate contiene la misma lectura.
+    with open(archivo_html, "r", encoding="utf-8") as f:
+        html_generado = f.read()
+    valores_esperados = [
+        "%.1f h" % total,
+        "%.1f h" % restantes,
+        "%.1f h" % desarrollo,
+        "%.1f h" % soporte,
+    ]
+    if not all(valor in html_generado for valor in valores_esperados):
+        raise Exception("El HTML generado no contiene todos los valores consultados")
 
     log_msg("Archivo asunto escrito: %s" % archivo_asunto)
-    log_msg("Archivo html escrito: %s" % archivo_html)
+    log_msg("Archivo html escrito y validado: %s" % archivo_html)
     log_msg("=== FIN OK ===")
 
     print("OK | %.1f%% consumido (%.1f/%.1f h)" % (pct, total, contratadas))
