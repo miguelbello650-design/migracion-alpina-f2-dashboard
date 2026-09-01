@@ -9,6 +9,7 @@
         "days": 1,
         "fixedIdx": 0,
         "fixedEndIdx": 0,
+        "hourAdjustments": {},
         "notesIdx": [
           48,
           49,
@@ -24,7 +25,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 1,
-        "fixedEndIdx": 1
+        "fixedEndIdx": 1,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -33,7 +35,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 2,
-        "fixedEndIdx": 2
+        "fixedEndIdx": 2,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -42,7 +45,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 3,
-        "fixedEndIdx": 3
+        "fixedEndIdx": 3,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -51,7 +55,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 4,
-        "fixedEndIdx": 4
+        "fixedEndIdx": 4,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -60,7 +65,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 5,
-        "fixedEndIdx": 5
+        "fixedEndIdx": 5,
+        "hourAdjustments": {}
       },
       {
         "phase": "Gestión Outlook",
@@ -69,7 +75,8 @@
         "hours": 12,
         "days": 1.5,
         "fixedIdx": 6,
-        "fixedEndIdx": 7
+        "fixedEndIdx": 7,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -78,7 +85,8 @@
         "hours": 10,
         "days": 1.3,
         "fixedIdx": 8,
-        "fixedEndIdx": 8
+        "fixedEndIdx": 8,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -87,7 +95,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 9,
-        "fixedEndIdx": 9
+        "fixedEndIdx": 9,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -96,7 +105,8 @@
         "hours": 10,
         "days": 1.3,
         "fixedIdx": 10,
-        "fixedEndIdx": 10
+        "fixedEndIdx": 10,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -105,7 +115,8 @@
         "hours": 6,
         "days": 0.8,
         "fixedIdx": 11,
-        "fixedEndIdx": 11
+        "fixedEndIdx": 11,
+        "hourAdjustments": {}
       },
       {
         "phase": "Gestión documental (Local): rutas, movimientos, plantillas y control de estado",
@@ -114,7 +125,8 @@
         "hours": 10,
         "days": 1.3,
         "fixedIdx": 12,
-        "fixedEndIdx": 12
+        "fixedEndIdx": 12,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -123,7 +135,8 @@
         "hours": 12,
         "days": 1.5,
         "fixedIdx": 13,
-        "fixedEndIdx": 14
+        "fixedEndIdx": 14,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -132,7 +145,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 15,
-        "fixedEndIdx": 15
+        "fixedEndIdx": 15,
+        "hourAdjustments": {}
       },
       {
         "phase": "SAP VA01",
@@ -141,7 +155,8 @@
         "hours": 24,
         "days": 3,
         "fixedIdx": 16,
-        "fixedEndIdx": 18
+        "fixedEndIdx": 18,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -150,7 +165,8 @@
         "hours": 16,
         "days": 2,
         "fixedIdx": 19,
-        "fixedEndIdx": 20
+        "fixedEndIdx": 20,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -159,7 +175,8 @@
         "hours": 12,
         "days": 1.5,
         "fixedIdx": 21,
-        "fixedEndIdx": 22
+        "fixedEndIdx": 22,
+        "hourAdjustments": {}
       },
       {
         "phase": "SAP ZSD_NC_Valor",
@@ -168,7 +185,8 @@
         "hours": 24,
         "days": 3,
         "fixedIdx": 23,
-        "fixedEndIdx": 25
+        "fixedEndIdx": 25,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -177,7 +195,8 @@
         "hours": 12,
         "days": 1.5,
         "fixedIdx": 26,
-        "fixedEndIdx": 27
+        "fixedEndIdx": 27,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -186,7 +205,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 28,
-        "fixedEndIdx": 28
+        "fixedEndIdx": 28,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -195,7 +215,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 29,
-        "fixedEndIdx": 29
+        "fixedEndIdx": 29,
+        "hourAdjustments": {}
       },
       {
         "phase": "SAP VA02",
@@ -204,7 +225,8 @@
         "hours": 24,
         "days": 3,
         "fixedIdx": 30,
-        "fixedEndIdx": 32
+        "fixedEndIdx": 32,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -213,7 +235,8 @@
         "hours": 16,
         "days": 2,
         "fixedIdx": 33,
-        "fixedEndIdx": 34
+        "fixedEndIdx": 34,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -222,7 +245,8 @@
         "hours": 12,
         "days": 1.5,
         "fixedIdx": 35,
-        "fixedEndIdx": 36
+        "fixedEndIdx": 36,
+        "hourAdjustments": {}
       },
       {
         "phase": "SAP VF01",
@@ -231,7 +255,8 @@
         "hours": 24,
         "days": 2.5,
         "fixedIdx": 37,
-        "fixedEndIdx": 39
+        "fixedEndIdx": 39,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -240,7 +265,8 @@
         "hours": 12,
         "days": 1,
         "fixedIdx": 40,
-        "fixedEndIdx": 40
+        "fixedEndIdx": 40,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -249,7 +275,8 @@
         "hours": 12,
         "days": 1,
         "fixedIdx": 41,
-        "fixedEndIdx": 41
+        "fixedEndIdx": 41,
+        "hourAdjustments": {}
       },
       {
         "phase": "Grabación + Consolidado",
@@ -258,7 +285,8 @@
         "hours": 10,
         "days": 0.8,
         "fixedIdx": 42,
-        "fixedEndIdx": 42
+        "fixedEndIdx": 42,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -267,7 +295,8 @@
         "hours": 20,
         "days": 2,
         "fixedIdx": 43,
-        "fixedEndIdx": 44
+        "fixedEndIdx": 44,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -277,6 +306,7 @@
         "days": 3,
         "fixedIdx": 49,
         "fixedEndIdx": 52,
+        "hourAdjustments": {},
         "skipIndices": [
           51
         ],
@@ -293,7 +323,8 @@
         "hours": 20,
         "days": 2,
         "fixedIdx": 47,
-        "fixedEndIdx": 48
+        "fixedEndIdx": 48,
+        "hourAdjustments": {}
       },
       {
         "phase": "Cierre",
@@ -303,6 +334,7 @@
         "days": 2,
         "fixedIdx": 57,
         "fixedEndIdx": 58,
+        "hourAdjustments": {},
         "notesIdx": [
           53,
           54,
@@ -317,7 +349,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 59,
-        "fixedEndIdx": 59
+        "fixedEndIdx": 59,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -326,7 +359,8 @@
         "hours": 12,
         "days": 1.5,
         "fixedIdx": 45,
-        "fixedEndIdx": 46
+        "fixedEndIdx": 46,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -335,7 +369,8 @@
         "hours": 2,
         "days": 0.3,
         "fixedIdx": 60,
-        "fixedEndIdx": 60
+        "fixedEndIdx": 60,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -344,7 +379,8 @@
         "hours": 2,
         "days": 0.3,
         "fixedIdx": 60,
-        "fixedEndIdx": 60
+        "fixedEndIdx": 60,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -354,6 +390,7 @@
         "days": 5,
         "fixedIdx": 61,
         "fixedEndIdx": 66,
+        "hourAdjustments": {},
         "skipIndices": [
           63
         ],
@@ -369,6 +406,7 @@
         "days": 2,
         "fixedIdx": 67,
         "fixedEndIdx": 68,
+        "hourAdjustments": {},
         "milestone": true
       },
       {
@@ -378,7 +416,8 @@
         "hours": 56,
         "days": 7,
         "fixedIdx": 69,
-        "fixedEndIdx": 75
+        "fixedEndIdx": 75,
+        "hourAdjustments": {}
       }
     ],
     "feli": [
@@ -389,7 +428,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 0,
-        "fixedEndIdx": 0
+        "fixedEndIdx": 0,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -398,7 +438,8 @@
         "hours": 6,
         "days": 0.8,
         "fixedIdx": 1,
-        "fixedEndIdx": 1
+        "fixedEndIdx": 1,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -407,7 +448,8 @@
         "hours": 11.5,
         "days": 1.5,
         "fixedIdx": 2,
-        "fixedEndIdx": 3
+        "fixedEndIdx": 3,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -416,7 +458,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 4,
-        "fixedEndIdx": 4
+        "fixedEndIdx": 4,
+        "hourAdjustments": {}
       },
       {
         "phase": "FELI",
@@ -426,6 +469,7 @@
         "days": 3,
         "fixedIdx": 7,
         "fixedEndIdx": 19,
+        "hourAdjustments": {},
         "skipIndices": [
           9,
           10,
@@ -451,7 +495,8 @@
         "hours": 19.5,
         "days": 2.5,
         "fixedIdx": 9,
-        "fixedEndIdx": 11
+        "fixedEndIdx": 11,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -460,7 +505,8 @@
         "hours": 15.5,
         "days": 2,
         "fixedIdx": 12,
-        "fixedEndIdx": 13
+        "fixedEndIdx": 13,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -469,7 +515,8 @@
         "hours": 10,
         "days": 1.3,
         "fixedIdx": 14,
-        "fixedEndIdx": 14
+        "fixedEndIdx": 14,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -479,6 +526,7 @@
         "days": 5,
         "fixedIdx": 15,
         "fixedEndIdx": 20,
+        "hourAdjustments": {},
         "skipIndices": [
           19
         ]
@@ -490,7 +538,8 @@
         "hours": 21.1,
         "days": 2.5,
         "fixedIdx": 21,
-        "fixedEndIdx": 23
+        "fixedEndIdx": 23,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -499,7 +548,8 @@
         "hours": 23.1,
         "days": 2.8,
         "fixedIdx": 24,
-        "fixedEndIdx": 26
+        "fixedEndIdx": 26,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -508,7 +558,8 @@
         "hours": 9.1,
         "days": 1,
         "fixedIdx": 27,
-        "fixedEndIdx": 27
+        "fixedEndIdx": 27,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -517,7 +568,8 @@
         "hours": 11.1,
         "days": 1.3,
         "fixedIdx": 28,
-        "fixedEndIdx": 28
+        "fixedEndIdx": 28,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -527,6 +579,7 @@
         "days": 9,
         "fixedIdx": 29,
         "fixedEndIdx": 70,
+        "hourAdjustments": {},
         "skipIndices": [
           31,
           32,
@@ -578,6 +631,7 @@
         "days": 1.5,
         "fixedIdx": 34,
         "fixedEndIdx": 36,
+        "hourAdjustments": {},
         "skipIndices": [
           35
         ]
@@ -590,6 +644,7 @@
         "days": 2,
         "fixedIdx": 37,
         "fixedEndIdx": 47,
+        "hourAdjustments": {},
         "skipIndices": [
           38,
           39,
@@ -612,7 +667,8 @@
         "hours": 15.74,
         "days": 1.8,
         "fixedIdx": 38,
-        "fixedEndIdx": 39
+        "fixedEndIdx": 39,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -622,6 +678,7 @@
         "days": 5,
         "fixedIdx": 40,
         "fixedEndIdx": 50,
+        "hourAdjustments": {},
         "skipIndices": [
           43,
           44,
@@ -643,6 +700,7 @@
         "days": 2,
         "fixedIdx": 52,
         "fixedEndIdx": 53,
+        "hourAdjustments": {},
         "notesIdx": [
           51
         ]
@@ -655,6 +713,7 @@
         "days": 4,
         "fixedIdx": 81,
         "fixedEndIdx": 84,
+        "hourAdjustments": {},
         "notesIdx": [
           81
         ]
@@ -667,6 +726,7 @@
         "days": 5,
         "fixedIdx": 57,
         "fixedEndIdx": 61,
+        "hourAdjustments": {},
         "notesIdx": [
           54,
           55,
@@ -682,6 +742,7 @@
         "days": 17,
         "fixedIdx": 61,
         "fixedEndIdx": 90,
+        "hourAdjustments": {},
         "skipIndices": [
           61,
           65,
@@ -710,6 +771,7 @@
         "days": 8,
         "fixedIdx": 93,
         "fixedEndIdx": 108,
+        "hourAdjustments": {},
         "skipIndices": [
           93,
           99,
@@ -739,6 +801,7 @@
         "days": 2,
         "fixedIdx": 91,
         "fixedEndIdx": 109,
+        "hourAdjustments": {},
         "skipIndices": [
           92,
           93,
@@ -770,6 +833,7 @@
         "days": 3,
         "fixedIdx": 43,
         "fixedEndIdx": 92,
+        "hourAdjustments": {},
         "skipIndices": [
           45,
           46,
@@ -831,6 +895,7 @@
         "days": 3,
         "fixedIdx": 45,
         "fixedEndIdx": 48,
+        "hourAdjustments": {},
         "skipIndices": [
           47
         ]
@@ -842,7 +907,8 @@
         "hours": 2,
         "days": 0.3,
         "fixedIdx": 110,
-        "fixedEndIdx": 110
+        "fixedEndIdx": 110,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -851,7 +917,8 @@
         "hours": 2,
         "days": 0.3,
         "fixedIdx": 110,
-        "fixedEndIdx": 110
+        "fixedEndIdx": 110,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -861,6 +928,7 @@
         "days": 0,
         "fixedIdx": 111,
         "fixedEndIdx": 111,
+        "hourAdjustments": {},
         "milestone": true
       },
       {
@@ -871,6 +939,7 @@
         "days": 11,
         "fixedIdx": 112,
         "fixedEndIdx": 122,
+        "hourAdjustments": {},
         "notesIdx": [
           121,
           122
@@ -1494,10 +1563,10 @@
         "phase": "Cierre",
         "task": "Pruebas UAT",
         "resp": "2NV - ALPINA",
-        "hours": 80.3,
-        "days": 11,
+        "hours": 95.3,
+        "days": 13,
         "fixedIdx": 72,
-        "fixedEndIdx": 134,
+        "fixedEndIdx": 136,
         "hourAdjustments": {},
         "skipIndices": [
           76,
@@ -1603,8 +1672,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 135,
-        "fixedEndIdx": 135,
+        "fixedIdx": 137,
+        "fixedEndIdx": 137,
         "hourAdjustments": {}
       },
       {
@@ -1613,8 +1682,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 135,
-        "fixedEndIdx": 135,
+        "fixedIdx": 137,
+        "fixedEndIdx": 137,
         "hourAdjustments": {}
       },
       {
@@ -1623,8 +1692,8 @@
         "resp": "2NV - ALPINA",
         "hours": 0,
         "days": 0,
-        "fixedIdx": 136,
-        "fixedEndIdx": 136,
+        "fixedIdx": 138,
+        "fixedEndIdx": 138,
         "hourAdjustments": {},
         "milestone": true
       },
@@ -1634,8 +1703,8 @@
         "resp": "2NV - ALPINA",
         "hours": 40,
         "days": 5,
-        "fixedIdx": 137,
-        "fixedEndIdx": 141,
+        "fixedIdx": 139,
+        "fixedEndIdx": 143,
         "hourAdjustments": {}
       }
     ],
@@ -1647,7 +1716,8 @@
         "hours": 6,
         "days": 0.75,
         "fixedIdx": 82,
-        "fixedEndIdx": 82
+        "fixedEndIdx": 82,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1656,7 +1726,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 83,
-        "fixedEndIdx": 83
+        "fixedEndIdx": 83,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1665,7 +1736,8 @@
         "hours": 2,
         "days": 0.25,
         "fixedIdx": 83,
-        "fixedEndIdx": 83
+        "fixedEndIdx": 83,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1674,7 +1746,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 84,
-        "fixedEndIdx": 84
+        "fixedEndIdx": 84,
+        "hourAdjustments": {}
       },
       {
         "phase": "",
@@ -1683,7 +1756,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 84,
-        "fixedEndIdx": 84
+        "fixedEndIdx": 84,
+        "hourAdjustments": {}
       },
       {
         "phase": "Reporte ejecucion + Insight",
@@ -1692,7 +1766,8 @@
         "hours": 4,
         "days": 0.5,
         "fixedIdx": 85,
-        "fixedEndIdx": 85
+        "fixedEndIdx": 85,
+        "hourAdjustments": {}
       },
       {
         "phase": "Pruebas",
@@ -1702,6 +1777,7 @@
         "days": 0,
         "fixedIdx": 86,
         "fixedEndIdx": 86,
+        "hourAdjustments": {},
         "milestone": true
       },
       {
@@ -1711,7 +1787,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 86,
-        "fixedEndIdx": 86
+        "fixedEndIdx": 86,
+        "hourAdjustments": {}
       },
       {
         "phase": "Ajuste documentacion",
@@ -1720,7 +1797,8 @@
         "hours": 8,
         "days": 1,
         "fixedIdx": 87,
-        "fixedEndIdx": 87
+        "fixedEndIdx": 87,
+        "hourAdjustments": {}
       }
     ]
   },
@@ -2267,13 +2345,13 @@
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4188.4,
-    "restantes": 131.6,
-    "porcentaje": 97,
-    "desarrollo": 3306.9,
+    "consumidas": 4199.2,
+    "restantes": 120.8,
+    "porcentaje": 97.2,
+    "desarrollo": 3317.7,
     "soporte": 881.5,
     "bloques": {
-      "Desarrollo": 3183.6,
+      "Desarrollo": 3194.4,
       "Soporte": 881.5,
       "Actualización PDD": 35,
       "Actividades adicionales": 88.3
@@ -2353,11 +2431,19 @@
       },
       {
         "month": "2026-8",
-        "desarrollo": 166.3,
+        "desarrollo": 169.8,
         "soporte": 151,
         "actualizacion": 0,
         "actividades": 12.2,
-        "total": 329.5
+        "total": 333
+      },
+      {
+        "month": "2026-9",
+        "desarrollo": 7.3,
+        "soporte": 0,
+        "actualizacion": 0,
+        "actividades": 0,
+        "total": 7.3
       }
     ],
     "bots": {
@@ -2372,9 +2458,9 @@
         "total": 798.7
       },
       "robotina": {
-        "completed": 780.8,
-        "inProgress": 51.1,
-        "total": 831.9
+        "completed": 835.4,
+        "inProgress": 7.3,
+        "total": 842.8
       },
       "googlenova": {
         "completed": 40,
