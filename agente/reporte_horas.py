@@ -9,7 +9,7 @@ from datetime import datetime
 
 BASE = r"C:\Users\2NV\Desktop\Prueba de IPM\agente"
 LOG = os.path.join(BASE, "reporte_horas.log")
-API_URL = "http://127.0.0.1:3000/api/data"
+API_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/public-state.json"  # Fuente publica del dashboard, igual a Produccion
 LOGO_2NV_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/assets/logos/logo-2nv-header.png"
 LOGO_ALPINA_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/assets/logos/logo-alpina-header.png"
 
