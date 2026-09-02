@@ -431,3 +431,10 @@ Pruebas Python:
 6. Esperar solicitud explicita de push.
 7. Publicar en main.
 8. Validar el ambiente publico.
+
+
+## Actualización reciente (2026-09-02)
+
+- Robotina: Pruebas UAT se extendió hasta el 2 de septiembre de 2026, con 14 días y 103.3 horas.
+- Las actividades posteriores se desplazan un día conservando alertas, estados y datos históricos.
+- Se actualizó la alerta de UAT para indicar una extensión de 8 días.
