@@ -1020,12 +1020,12 @@ Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), {
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:134, fixedEndIdx:134 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:135, fixedEndIdx:139 });
 function applyRobotinaLatestOverrides() {
-  // Robotina: add the 2-Sep-26 UAT day and shift all following activities one day.
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:103.3, days:14, hoursByIndex:Object.fromEntries([[72,7.275],[73,7.275],[74,7.275],[75,7.275],[128,7.275],[129,7.275],[130,7.275],[131,7.275],[132,7.275],[133,7.275],[134,7.275],[135,7.275],[136,8],[137,8]]), fixedIdx:72, fixedEndIdx:137, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:138, fixedEndIdx:138 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:138, fixedEndIdx:138 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:139, fixedEndIdx:139 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:140, fixedEndIdx:144 });
+  // Robotina: add the 3-Sep-26 UAT day and shift all following activities one day.
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:110.3, days:15, hoursByIndex:Object.fromEntries([[72,7.275],[73,7.275],[74,7.275],[75,7.275],[128,7.275],[129,7.275],[130,7.275],[131,7.275],[132,7.275],[133,7.275],[134,7.275],[135,7.275],[136,8],[137,8],[138,7]]), fixedIdx:72, fixedEndIdx:138, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:139, fixedEndIdx:139 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:139, fixedEndIdx:139 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:140, fixedEndIdx:140 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:141, fixedEndIdx:145 });
   refreshReporteHorasFromCurrentState();
 }
 
@@ -1626,7 +1626,7 @@ function renderGanttRobotina() {
   robotinaNotes["Pruebas unitarias|126"] = "Se agrega d\u00eda adicional de pruebas para completar la validaci\u00f3n del flujo autom\u00e1tico completo como paso previo a las pruebas UAT";
   robotinaNotes["Pruebas UAT|108"] = "Día adicional para probar nuevamente con la parte funcional todos los flujos correspondientes a Robotina, la duración de esta actividad se puede extender dependiendo de los ajustes que pueden surgir";
   robotinaNotes["Pruebas UAT|120"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
-  robotinaNotes["Pruebas UAT|131"] = "Se extiende 8 días debido a que Javier tiene que hacer ajustes en reglas que no estaban contempladas dentro del alcance inicial, recordar tambien que se han tenido reuniones donde requieren la asistencia de Javier";
+  robotinaNotes["Pruebas UAT|131"] = "Se extiende 9 días debido a que Javier tiene que hacer ajustes en reglas que no estaban contempladas dentro del alcance inicial, recordar también que se han tenido reuniones donde requieren la asistencia de Javier y adicional necesita tiempo para revisar la documentación y revisar que estén contempladas todas las reglas";
   robotinaNotes["Pruebas UAT|121"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
   robotinaNotes["Pruebas UAT|122"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
   robotinaNotes["Pruebas UAT|123"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
@@ -2197,6 +2197,7 @@ let STATIC_MONTHLY = {
   actividad_robotina_mesa: { '2026-8':2 },
   actividad_gd_robotina: { '2026-8':1 },
   actividad_revision_proceso_robotina: { '2026-8':2 },
+  actividad_revision_usuarios_retail: { '2026-9':2 },
   locked_feli: { '2025-11':0, '2025-12':0, '2026-1':0, '2026-2':99, '2026-3':137, '2026-4':128, '2026-5':152 },
   locked_nova: { '2026-4':126, '2026-5':152, _total:398 },
   locked_robotina: { '2026-3':130, '2026-4':134, '2026-5':148, '2026-6':145.6, '2026-7':128, _total:300 }
@@ -2318,7 +2319,7 @@ function renderReporte() {
   html += '<div class="reporte-block"><h3>Desarrollo</h3>';
   const staticFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
   const actualizKeys = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
-  const actividadKeys = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita','actividad_entendimiento_lamonita_f2','actividad_validacion_api_robotina','actividad_ciberseguridad_robotina','actividad_ssff_robotina','actividad_robotina_mesa','actividad_gd_robotina','actividad_revision_proceso_robotina'];
+  const actividadKeys = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita','actividad_entendimiento_lamonita_f2','actividad_validacion_api_robotina','actividad_ciberseguridad_robotina','actividad_ssff_robotina','actividad_robotina_mesa','actividad_gd_robotina','actividad_revision_proceso_robotina','actividad_revision_usuarios_retail'];
   const maxHrs = [...botKeys, ...staticFin.map(p=>p.key), 'soporte', ...actualizKeys, ...actividadKeys].reduce((mx, k) => {
     if (getBotRows(k)) {
       const rows = getBotRows(k);
@@ -2380,6 +2381,7 @@ function renderReporte() {
   actividadColors.actividad_robotina_mesa = '#f43f5e';
   actividadColors.actividad_gd_robotina = '#14b8a6';
   actividadColors.actividad_revision_proceso_robotina = '#f97316';
+  actividadColors.actividad_revision_usuarios_retail = '#2563eb';
   actividadLabels.actividad_entendimiento_lamonita_f2 = 'Sesión de entendimiento La Monita F2';
   actividadLabels.actividad_validacion_api_robotina = 'Validación API - Robotina';
   actividadLabels.actividad_ciberseguridad_robotina = 'Revisión Ciberseguridad Robotina';
@@ -2387,6 +2389,7 @@ function renderReporte() {
   actividadLabels.actividad_robotina_mesa = 'Revisión Robotina-Mesa';
   actividadLabels.actividad_gd_robotina = 'Revisión GD-Robotina';
   actividadLabels.actividad_revision_proceso_robotina = 'Revisión Proceso de Creación-Selección-Robotina';
+  actividadLabels.actividad_revision_usuarios_retail = 'Revisión Creación de Usuarios-Compensación Retail';
   otherBlocks.forEach(b => {
     html += '<div class="reporte-block"><h3>'+b.label+'</h3>';
     if (b.key === 'soporte') {
@@ -2594,7 +2597,7 @@ function exportReporte() {
   const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const stFin = PROYECTOS.filter(p => p.staticData && p.staticData.status === 'finalizado');
   const actK = ['actualizacion_feli','actualizacion_robotina','actualizacion_optimus','actualizacion_lamonita','actualizacion_horasextra'];
-  const actvK = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita','actividad_entendimiento_lamonita_f2','actividad_validacion_api_robotina','actividad_ciberseguridad_robotina','actividad_ssff_robotina','actividad_robotina_mesa','actividad_gd_robotina','actividad_revision_proceso_robotina'];
+  const actvK = ['actividad_dudas_feli','actividad_dudas_nova','actividad_api_robotina','actividad_api_success_robotina','actividad_ajustes_nova','actividad_estimacion','actividad_infra','actividad_correos_feli','actividad_f2_lamonita','actividad_entendimiento_lamonita_f2','actividad_validacion_api_robotina','actividad_ciberseguridad_robotina','actividad_ssff_robotina','actividad_robotina_mesa','actividad_gd_robotina','actividad_revision_proceso_robotina','actividad_revision_usuarios_retail'];
   const actualizLabels = { actualizacion_feli:'FELI', actualizacion_robotina:'ROBOTINA', actualizacion_optimus:'OPTIMUS', actualizacion_lamonita:'LA MONITA', actualizacion_horasextra:'HORAS EXTRA' };
   const actividadLabels = { actividad_dudas_feli:'Sesión Dudas Feli', actividad_dudas_nova:'Sesión Dudas Nova', actividad_api_robotina:'Sesión API Robotina', actividad_api_success_robotina:'API Succes SAP Robotina', actividad_ajustes_nova:'Ajustes adicionales Nova', actividad_estimacion:'Estimación Nova y Feli', actividad_infra:'Sesión con Infra. Alpina', actividad_correos_feli:'Solución correos Feli', actividad_f2_lamonita:'Sesión F2 La Monita' };
   actividadLabels.actividad_entendimiento_lamonita_f2 = 'Sesión de entendimiento La Monita F2';
@@ -2604,6 +2607,7 @@ function exportReporte() {
   actividadLabels.actividad_robotina_mesa = 'Revisión Robotina-Mesa';
   actividadLabels.actividad_gd_robotina = 'Revisión GD-Robotina';
   actividadLabels.actividad_revision_proceso_robotina = 'Revisión Proceso de Creación-Selección-Robotina';
+  actividadLabels.actividad_revision_usuarios_retail = 'Revisión Creación de Usuarios-Compensación Retail';
   const filterLabel = filter === 'all' ? 'Todos los meses' : monthNames[parseInt(filter.split('-')[1])-1]+' '+filter.split('-')[0];
   const months = getMonthOptions();
   function cell(v) { return '<td style="padding:4px 8px;border:1px solid #ccc;font-size:11px">'+(v??'')+'</td>'; }
