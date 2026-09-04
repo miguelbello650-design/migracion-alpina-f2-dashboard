@@ -1143,4 +1143,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Se corrigio la sobrescritura local historica de **Pruebas UAT** que mostraba 23.0 h en septiembre aunque el ajuste vigente correspondia a 23.5 h.
 - La tarea queda en 110.8 h, con 23.5 h distribuidas en septiembre (8 h + 8 h + 7.5 h), sin modificar los dias ni las demas actividades.
 - La correccion se aplico en index.html para mantener la visual local alineada con el ajuste operativo.
+## Actualizacion de Robotina y alerta de Pruebas UAT (2026-09-04)
 
+- Se agrego el 4 de septiembre de 2026 a **Pruebas UAT**, quedando la tarea en 16 dias y 118.8 horas.
+- Las actividades posteriores se desplazaron un dia, conservando las alertas y los estados existentes.
+- Se actualizo el texto de la alerta asociada a **Pruebas UAT** para indicar una extension de **10 dias**, manteniendo el resto del mensaje sin cambios.

@@ -1020,12 +1020,12 @@ Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), {
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:134, fixedEndIdx:134 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:135, fixedEndIdx:139 });
 function applyRobotinaLatestOverrides() {
-  // Robotina: add the 3-Sep-26 UAT day and shift all following activities one day.
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:110.8, days:15, hoursByIndex:Object.fromEntries([[72,7.275],[73,7.275],[74,7.275],[75,7.275],[128,7.275],[129,7.275],[130,7.275],[131,7.275],[132,7.275],[133,7.275],[134,7.275],[135,7.275],[136,8],[137,8],[138,7.5]]), fixedIdx:72, fixedEndIdx:138, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:139, fixedEndIdx:139 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:139, fixedEndIdx:139 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:140, fixedEndIdx:140 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:141, fixedEndIdx:145 });
+  // Robotina: add the 4-Sep-26 UAT day and shift all following activities one day.
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:118.8, days:16, hoursByIndex:Object.fromEntries([[72,7.275],[73,7.275],[74,7.275],[75,7.275],[128,7.275],[129,7.275],[130,7.275],[131,7.275],[132,7.275],[133,7.275],[134,7.275],[135,7.275],[136,8],[137,8],[138,7.5],[139,8]]), fixedIdx:72, fixedEndIdx:139, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:140, fixedEndIdx:140 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:140, fixedEndIdx:140 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:141, fixedEndIdx:141 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:142, fixedEndIdx:146 });
   refreshReporteHorasFromCurrentState();
 }
 
@@ -1626,7 +1626,7 @@ function renderGanttRobotina() {
   robotinaNotes["Pruebas unitarias|126"] = "Se agrega d\u00eda adicional de pruebas para completar la validaci\u00f3n del flujo autom\u00e1tico completo como paso previo a las pruebas UAT";
   robotinaNotes["Pruebas UAT|108"] = "Día adicional para probar nuevamente con la parte funcional todos los flujos correspondientes a Robotina, la duración de esta actividad se puede extender dependiendo de los ajustes que pueden surgir";
   robotinaNotes["Pruebas UAT|120"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
-  robotinaNotes["Pruebas UAT|131"] = "Se extiende 9 días debido a que Javier tiene que hacer ajustes en reglas que no estaban contempladas dentro del alcance inicial, recordar también que se han tenido reuniones donde requieren la asistencia de Javier y adicional necesita tiempo para revisar la documentación y revisar que estén contempladas todas las reglas";
+  robotinaNotes["Pruebas UAT|131"] = "Se extiende 10 días debido a que Javier tiene que hacer ajustes en reglas que no estaban contempladas dentro del alcance inicial, recordar también que se han tenido reuniones donde requieren la asistencia de Javier y adicional necesita tiempo para revisar la documentación y revisar que estén contempladas todas las reglas";
   robotinaNotes["Pruebas UAT|121"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
   robotinaNotes["Pruebas UAT|122"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
   robotinaNotes["Pruebas UAT|123"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
