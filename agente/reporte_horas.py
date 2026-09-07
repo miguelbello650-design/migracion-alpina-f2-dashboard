@@ -9,7 +9,7 @@ from datetime import datetime
 
 BASE = r"C:\Users\2NV\Desktop\Prueba de IPM\agente"
 LOG = os.path.join(BASE, "reporte_horas.log")
-API_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/public-state.json"  # Fuente publica del dashboard, igual a Produccion
+API_URL = "http://127.0.0.1:3000/api/data"  # Fuente viva del dashboard local
 LOGO_2NV_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/assets/logos/logo-2nv-header.png"
 LOGO_ALPINA_URL = "https://miguelbello650-design.github.io/migracion-alpina-f2-dashboard/assets/logos/logo-alpina-header.png"
 
@@ -76,13 +76,15 @@ try:
     total = float(rh.get("consumidas", 0))
     restantes = float(rh.get("restantes", 0))
     pct = float(rh.get("porcentaje", 0))
-    desarrollo = float(rh.get("desarrollo", 0))
-    soporte = float(rh.get("soporte", 0))
+    bloques = rh.get("bloques", {})
+    desarrollo = float(bloques.get("Desarrollo", rh.get("desarrollo", 0)))
+    soporte = float(bloques.get("Soporte", rh.get("soporte", 0)))
 
     if contratadas <= 0:
         raise Exception("La API no devolvio reporteHoras.contratadas valido")
-    if abs((desarrollo + soporte) - total) > 0.05:
-        raise Exception("El desglose de desarrollo y soporte no coincide con reporteHoras.consumidas")
+    bloques_total = sum(float(bloques.get(k, 0)) for k in ("Desarrollo", "Soporte", "Actualización PDD", "Actividades adicionales"))
+    if abs(bloques_total - total) > 0.05:
+        raise Exception("El desglose de bloques no coincide con reporteHoras.consumidas")
 
     log_msg("Datos tomados directamente de reporteHoras")
     log_msg("HORAS_CONTRATADAS=%.1f" % contratadas)

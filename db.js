@@ -18,7 +18,7 @@ function init() {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       bot TEXT NOT NULL, sort_idx INTEGER,
       phase TEXT, task TEXT, resp TEXT,
-      hours REAL, days REAL,
+      hours REAL, hoursByIndex TEXT, days REAL,
       fixedIdx INTEGER, fixedEndIdx INTEGER,
       skipIndices TEXT, notesIdx TEXT, hourAdjustments TEXT,
       milestone INTEGER DEFAULT 0,
@@ -48,6 +48,7 @@ function init() {
     );
   `);
   try { d.exec('ALTER TABLE gantt_rows ADD COLUMN hourAdjustments TEXT'); } catch (_) {}
+  try { d.exec('ALTER TABLE gantt_rows ADD COLUMN hoursByIndex TEXT'); } catch (_) {}
   return d;
 }
 
@@ -170,7 +171,7 @@ function seedFromHtml() {
   const script = html.substring(s + 8, e);
 
   const botMap = { GANTT_ROWS:'nova', GANTT_ROWS_FELI:'feli', GANTT_ROWS_ROBOTINA:'robotina', GANTT_ROWS_GOOGLE_NOVA:'googlenova' };
-  const insRow = d.prepare('INSERT OR REPLACE INTO gantt_rows (bot,sort_idx,phase,task,resp,hours,days,fixedIdx,fixedEndIdx,skipIndices,notesIdx,hourAdjustments,milestone,inProgress) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+  const insRow = d.prepare('INSERT OR REPLACE INTO gantt_rows (bot,sort_idx,phase,task,resp,hours,hoursByIndex,days,fixedIdx,fixedEndIdx,skipIndices,notesIdx,hourAdjustments,milestone,inProgress) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
   Object.keys(botMap).forEach(varName => {
     const rows = extractJSLiteral(script, varName);
     if (!rows || !Array.isArray(rows)) { console.log('  No data for ' + varName); return; }
@@ -178,7 +179,7 @@ function seedFromHtml() {
     const tx = d.transaction(() => {
       rows.forEach((r, i) => {
         if (!r || !r.task) return;
-        insRow.run(bot, i, r.phase||'', r.task||'', r.resp||'', r.hours||0, r.days||0, r.fixedIdx, r.fixedEndIdx, JSON.stringify(r.skipIndices||[]), JSON.stringify(r.notesIdx||[]), r.milestone?1:0, r.inProgress?1:0);
+        insRow.run(bot, i, r.phase||'', r.task||'', r.resp||'', r.hours||0, r.hoursByIndex ? JSON.stringify(r.hoursByIndex) : null, r.days||0, r.fixedIdx, r.fixedEndIdx, JSON.stringify(r.skipIndices||[]), JSON.stringify(r.notesIdx||[]), JSON.stringify(r.hourAdjustments||{}), r.milestone?1:0, r.inProgress?1:0);
       });
     });
     tx();
@@ -237,6 +238,7 @@ function getGanttRows(bot) {
   const d = open();
   return d.prepare('SELECT * FROM gantt_rows WHERE bot = ? ORDER BY sort_idx').all(bot).map(r => {
     const obj = { phase: r.phase, task: r.task, resp: r.resp, hours: r.hours, days: r.days, fixedIdx: r.fixedIdx, fixedEndIdx: r.fixedEndIdx };
+    if (r.hoursByIndex) obj.hoursByIndex = JSON.parse(r.hoursByIndex);
     if (r.hourAdjustments) obj.hourAdjustments = JSON.parse(r.hourAdjustments);
     const si = JSON.parse(r.skipIndices||'[]');
     if (si.length) obj.skipIndices = si;
@@ -258,6 +260,7 @@ function updateGanttRow(bot, sortIdx, data) {
   if (data.skipIndices) { fields.push('skipIndices=?'); vals.push(JSON.stringify(data.skipIndices)); }
   if (data.notesIdx) { fields.push('notesIdx=?'); vals.push(JSON.stringify(data.notesIdx)); }
   if (data.hourAdjustments) { fields.push('hourAdjustments=?'); vals.push(JSON.stringify(data.hourAdjustments)); }
+  if (data.hoursByIndex) { fields.push('hoursByIndex=?'); vals.push(JSON.stringify(data.hoursByIndex)); }
   if (data.milestone !== undefined) { fields.push('milestone=?'); vals.push(data.milestone?1:0); }
   if (!fields.length) return false;
   vals.push(bot, sortIdx);
@@ -267,12 +270,12 @@ function updateGanttRow(bot, sortIdx, data) {
 
 function replaceGanttRows(bot, rows) {
   const d = open();
-  const insert = d.prepare('INSERT INTO gantt_rows (bot,sort_idx,phase,task,resp,hours,days,fixedIdx,fixedEndIdx,skipIndices,notesIdx,hourAdjustments,milestone,inProgress) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+  const insert = d.prepare('INSERT INTO gantt_rows (bot,sort_idx,phase,task,resp,hours,hoursByIndex,days,fixedIdx,fixedEndIdx,skipIndices,notesIdx,hourAdjustments,milestone,inProgress) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
   d.transaction(() => {
     d.prepare('DELETE FROM gantt_rows WHERE bot=?').run(bot);
     rows.forEach((row, index) => {
       if (!row || !row.task) return;
-      insert.run(bot, index, row.phase||'', row.task, row.resp||'', row.hours||0, row.days||0, row.fixedIdx, row.fixedEndIdx, JSON.stringify(row.skipIndices||[]), JSON.stringify(row.notesIdx||[]), JSON.stringify(row.hourAdjustments||{}), row.milestone?1:0, row.inProgress?1:0);
+      insert.run(bot, index, row.phase||'', row.task, row.resp||'', row.hours||0, row.hoursByIndex ? JSON.stringify(row.hoursByIndex) : null, row.days||0, row.fixedIdx, row.fixedEndIdx, JSON.stringify(row.skipIndices||[]), JSON.stringify(row.notesIdx||[]), JSON.stringify(row.hourAdjustments||{}), row.milestone?1:0, row.inProgress?1:0);
     });
   })();
 }
@@ -284,6 +287,7 @@ function getAllGanttRows() {
   rows.forEach(r => {
     if (!r.task) return;
     const obj = { phase: r.phase, task: r.task, resp: r.resp, hours: r.hours, days: r.days, fixedIdx: r.fixedIdx, fixedEndIdx: r.fixedEndIdx };
+    if (r.hoursByIndex) obj.hoursByIndex = JSON.parse(r.hoursByIndex);
     if (r.hourAdjustments) obj.hourAdjustments = JSON.parse(r.hourAdjustments);
     const si = JSON.parse(r.skipIndices||'[]');
     if (si.length) obj.skipIndices = si;

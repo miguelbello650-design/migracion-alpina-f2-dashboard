@@ -1162,3 +1162,15 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Se incorporo **septiembre de 2026** al HTML de soporte, incluyendo los casos y horas registrados del mes.
 - Se agregaron las solicitudes de septiembre y se actualizaron los estados descriptivos de los bots evolutivos.
 - Se actualizaron los textos de resumen, consolidado mensual y presentacion para cubrir el periodo diciembre 2025 a septiembre 2026.
+
+## Correccion de fuente del correo de consumo (2026-09-07)
+
+- El script agente/reporte_horas.py ahora consulta directamente http://127.0.0.1:3000/api/data en cada ejecucion.
+- Se elimino la dependencia del snapshot estatico public-state.json, que estaba atrasado frente al dashboard local.
+- El HTML del correo queda alimentado por la misma fuente viva que utiliza el dashboard en el puerto 3000.
+
+## Sincronizacion del correo con el calculo del dashboard (2026-09-07)
+
+- Se persistio hoursByIndex en SQLite para conservar las horas distribuidas por fecha en el endpoint /api/data.
+- Se actualizo el correo para usar los bloques visibles del dashboard en el desglose de Desarrollo y Soporte.
+- El resultado validado queda en 4241.5 h consumidas, 78.5 h restantes y 98.2% de consumo.
