@@ -1155,3 +1155,10 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Se agrego el 7 de septiembre de 2026 a **Pruebas UAT**, quedando la tarea en 17 dias y 126.8 horas.
 - Las actividades posteriores se desplazaron un dia: aprobacion y entrega el 8 de septiembre, salida a produccion el 9 de septiembre y soporte postproduccion del 10 al 16 de septiembre.
 - Se actualizo exclusivamente la alerta asociada a **Pruebas UAT** para indicar una extension de **11 dias**, conservando el resto del mensaje y la configuracion existente.
+
+
+## Actualizacion del dashboard de soporte (2026-09-07)
+
+- Se incorporo **septiembre de 2026** al HTML de soporte, incluyendo los casos y horas registrados del mes.
+- Se agregaron las solicitudes de septiembre y se actualizaron los estados descriptivos de los bots evolutivos.
+- Se actualizaron los textos de resumen, consolidado mensual y presentacion para cubrir el periodo diciembre 2025 a septiembre 2026.

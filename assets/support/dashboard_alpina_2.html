@@ -214,7 +214,7 @@
 </div>
 
 <script>
-const MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"];
+const MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre"];
 const DATA = {
   "Enero": [
     { nombre:"Optimus", estado:"Cerrado", fecha:"16/01/2026", descripcion:"Error en bot", causa:"*El bot está llegando correctamente al módulo de envío de correos y la autenticación con O365 se realiza sin inconvenientes. Sin embargo, no se está recibiendo confirmación del envío desde Microsoft Graph, ni tampoco un error explícito por parte del servicio. Por lo que se observa en el log, todo indica que el comportamiento está asociado a un tema externo (permisos, políticas de seguridad o estado de la cuenta de correo en O365), más que a un problema en la lógica del bot. Sería ideal validar los permisos de la aplicación y el estado del usuario remitente en Azure / Exchange para descartar cualquier restricción reciente. *Nuevo Error en ingreso a SAP en simultaneo en el bot, lo que hace que se choquen y no logren procesar juntos arrojando error entre la monita, HE y Optimus", solucion:"* Para el error 1: Revisar permisos del bot y actualizar modulo en Rocketbot, hacer pruebas de ejecución.  * Para el error 2: Optimus se cambió el script que hacía abrir SAP, este script queda en la carpeta de plantillas/script, y su respectiva ruta en el archivo de configuración, ya con este quedó funcionando nuevamente. El otro ajuste que se realizó de esto fue que en las máquinas de producción los títulos de las transacciones habían cambiado, entonces por eso no hacia el correcto exporte de este, ya que se estaba buscando por título 'ZRP_TMS_OPTIMUS' y ahora quedó como \\\"Reporte TMS OPTIMUS\\\"", observaciones:"* Se estabilizan y se hacen pruebas con los ajustes en SAP simultaneo con la Monita y HE, la Monita y Optimus, y ya procesan sin problema,  y se ajusto la actualizacion en ventana en SAP para la descarga del excel ya que cambio el nombre", horas:5.0 },
@@ -344,7 +344,7 @@ const DATA = {
     { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Cerrado", fecha:"01/07/2026", descripcion:"Error de conexión", causa:"No se puede realizar el ingreso mediante la automatización a la página de Alkosto", solucion:"Se valida que, al intentar ingresar a la página de Alkosto mediante la automatización, el sistema arroja una alerta de seguridad que impide el ingreso, se realizan pruebas cambiando las librerías para acceder al navegador y evitar que se esté detectando como un Bot pero no son exitosas.", observaciones:"Se solicita reunión para evaluar un cambio en la lógica de obtención del pago.", horas:2.0 },
     { nombre:"PYG GUARDIAN", estado:"Cerrado", fecha:"01/07/2026", descripcion:"Revisión de código.", causa:"La ejecución notifica errores por correo", solucion:"Se valida que es a causa de intermitencias en SAP, se aumenta el tiempo entre reintentos de conexión a 3 minutos para intentar mitigar el problema.", observaciones:"", horas:0.5 },
     { nombre:"COMPENSASION DE CADENAS MAKRO", estado:"Abierto", fecha:"22/06/2027", descripcion:"Desarrollo", causa:"Desarrollo de Bot python", solucion:"130 horas en total", observaciones:"en el mes de julio se llevan", horas:84.0 },
-    { nombre:"Robxy", estado:"Cerrado", fecha:"06/07/2026", descripcion:"Error de código", causa:"Se notifica que no se está ejecutando correctamente", solucion:"Ajustes", observaciones:"El error proviene de la transacción ZFIQ010 al intentar exportar una gran cantidad de filas. Se añade re ejecuciones de la transacción completa para lo cual se disminuyen los re intentos para evitar que el proceso tarde excesivamente en caso de fallos en SAP.", horas:1.0 },
+    { nombre:"Robxy", estado:"Cerrado", fecha:"06/07/2026", descripcion:"Error de código", causa:"Se notifica que no se está ejecutando correctamente", solucion:"Ajustes", observaciones:"El error proviene de la transacci��n ZFIQ010 al intentar exportar una gran cantidad de filas. Se añade re ejecuciones de la transacción completa para lo cual se disminuyen los re intentos para evitar que el proceso tarde excesivamente en caso de fallos en SAP.", horas:1.0 },
     { nombre:"LA MONITA", estado:"Cerrado", fecha:"06/07/2026", descripcion:"Incidente", causa:"Error de conexión", solucion:"Se presenta error crítico y finaliza el Bot", observaciones:"Se valida que ocurrió un error de conexión con SAP en la creación de uno de los pedidos, se reinicia SAP manualmente y se lanza la ejecución del bot nuevamente.", horas:0.5 },
     { nombre:"MDR", estado:"Cerrado", fecha:"07/07/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Se notifica de un error por correo", observaciones:"Se verifica que el error proviene de la conexión con SAP, la automatización no tiene re intentos mapeados, se agregan 3 re intentos con espera de 3 minutos entre cada uno en caso de requerirse en intermitencias de SAP. Ahora, se intentará la conexión y se hará un Kill App de SAP por cada re intento, si fallan los 3, se notificará la incidencia por correo.", horas:1.0 },
     { nombre:"Seguimiento de Contratos", estado:"Cerrado", fecha:"08/07/2026", descripcion:"Incidente", causa:"Error de código", solucion:"El Bot no se ejecuta correctamente desde la migración de Outlook  a Gmail", observaciones:"Se valida que este flujo utilizaba un Excel de trabajo actualizado por un flujo de power automate el cual quedó inutilizable luego de la migración. Se ajustó para que tanto la lectura de correos, envío y escritura en el excel de trabajo se realicen por medio de la automatización en Python. Se recomienda apagar el flujo de power automate.", horas:8.0 },
@@ -404,6 +404,14 @@ const DATA = {
     { nombre:"CADENA EXITO", estado:"Cerrado", fecha:"26/08/2026", descripcion:"Desarrollo", causa:"Desarrollar código del RPA", solucion:"Ajustes para nuevas reglas de negocio", observaciones:"Se implementan nuevas reglas de negocio para casos de referencias con Y/A y Cruces de cuentas", horas:4.0 },
     { nombre:"COMPENSASION DE CADENAS MAKRO", estado:"Abierto", fecha:"27/08/2026", descripcion:"Desarrollo", causa:"Desarrollar código del RPA", solucion:"Ajustes para nuevas reglas de negocio", observaciones:"Nueva regla de negocio, se debe tener presente de que el pago debe filtrarse por mas de 2 valores, en la prueba del jueves salio una contra 3 valores, por lo que hay que anexar nueva regla de negocio", horas:5.0 },
     { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Cerrado", fecha:"27/08/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Se requiere ajustar una regla de negocio", observaciones:"En caso de que hayan 2 documentos con la misma asignación, se debe distribuir lo que el cliente se descuenta entre las 2. Se realiza una nueva ejecución exitosa.", horas:1.0 },
+  ],
+  "Septiembre": [
+    { nombre:"OPTIMUS", estado:"Cerrado", fecha:"01/09/2026", descripcion:"Incidente", causa:"Error de código", solucion:"El Bot falló procesando un insumo", observaciones:"Se verifica que, dado que Optimus y La Monita están en al misma máquina, intentaron utilizar SAP al tiempo. La Monita tiene en su código un \"Task Kill\" para la aplicación, lo que hizo que Optimus fallara.", horas:0.5 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"01/09/2026", descripcion:"Incidente", causa:"Error de código", solucion:"El Bot falló procesando una OC de Globoshop", observaciones:"El error provino de una desconexión con SAP durante la noche anterior, el pedido no se completó correctamente. Se marca nuevamente para su ejecución y se verifica que se cargue.", horas:0.5 },
+    { nombre:"LA MONITA", estado:"Cerrado", fecha:"01/09/2026", descripcion:"Incidente", causa:"Error de código", solucion:"El Bot falló procesando algunos pedidos", observaciones:"El error se debe a que el material 4454 en SAP contiene valor neto cero. El correo enviado contenía varios Excel de pedido, por lo que se reportó el caso para todos ya que cotenían el mismo SKU y se debían tomar manualmente.", horas:0.5 },
+    { nombre:"PYG GUARDIAN", estado:"Cerrado", fecha:"01/09/2026", descripcion:"Incidente", causa:"Revisión de código.", solucion:"El Bot falló durante su ejecución.", observaciones:"Se re procesa correctamente, el error se debe a una ventana no controlada en llaverio que impidió la autenticación en Sap Secure.", horas:0.5 },
+    { nombre:"FELI", estado:"Cerrado", fecha:"01/09/2026", descripcion:"Incidente", causa:"Revisión de código.", solucion:"El Bot se ejecutó sin detenerse y solo procesó 1 correo de los 4 enviados", observaciones:"Se realizan ajustes para evitar que el Bot no cierre los casos cuando contengan un insumo incorrecto, asi mismo, que continúe con los demás sin detener el proceso. Por otra parte, se verificó un error que causaba que la ejecución no finalizara al realizar reintentos sobre un selector de SAP. Se ejecutan pruebas correctamente.", horas:7.0 },
+    { nombre:"COMPENSACION DE CADENAS - OLIMPICA", estado:"Cerrado", fecha:"04/09/2026", descripcion:"Incidente", causa:"Error de selectores", solucion:"Selectores web del bot desactualizados", observaciones:"Se ajustan los selectores web correspondientes al ingreso al portal. Se ejecuta controladamente la cadena.", horas:1.0 },
   ],
 };
 const SOLICITUDES = {
@@ -479,6 +487,12 @@ const SOLICITUDES = {
     { grupo:"Wanda", estado:"Por recibir", desc:"Por agendar" },
     { grupo:"Alpi Rutas", estado:"Por recibir", desc:"Por agendar" },
   ],
+  "Septiembre": [
+    { grupo:"Bots Cadenas de compensacion", estado:"En proceso", desc:"Porceso de Pruebas" },
+    { grupo:"Ventas", estado:"Seguimiento", desc:"Pruebas en PRD - Pausa" },
+    { grupo:"Wanda", estado:"Por recibir", desc:"Por agendar" },
+    { grupo:"Alpi Rutas", estado:"Por recibir", desc:"Por agendar" },
+  ],
 };
 const BOTS = [
   { cat:"Rocketbot", bot:"Monita", estado:"Migrado a Google" },
@@ -502,10 +516,10 @@ const BOTS = [
   { cat:"Python por recibir", bot:"Alpi Rutas", estado:"Pendiente de recibir en Soporte" },
 
   { cat:"Evolutivos", bot:"Compensación de Cadenas", estado:"Entregado y en PRD", desc:"Entregado y en producción (PRD)." },
-  { cat:"Evolutivos", bot:"Compensación de Cadenas Makro", estado:"En curso", desc:"Inició el 22 de Junio y termina el 20 de Agosto. Horas iniciales de 130 aumentan a 150 por ajustes en nuevas reglas de negocio. Se trabaja 4 horas diarias por prioridades de procesos en paralelo." },
-  { cat:"Evolutivos", bot:"Compensación de Cadenas Cencosud", estado:"En curso", desc:"En revisión de código versus entrega funcional. Horas evolutivo: 50." },
-  { cat:"Evolutivos", bot:"Compensación de Cadenas Éxito", estado:"En curso", desc:"En revisión de código versus entrega funcional. Horas evolutivo: 50." },
-  { cat:"Evolutivos", bot:"Compensación de Cadenas Olimpica", estado:"Aprobado", desc:"Se confirma en sesión de que el bot compensa de manera correcta." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Makro", estado:"En pruebas", desc:"En estado de Pruebas." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Cencosud", estado:"En pruebas", desc:"En estado de Pruebas." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Éxito", estado:"En pruebas", desc:"En estado de Pruebas." },
+  { cat:"Evolutivos", bot:"Compensación de Cadenas Olimpica", estado:"Aprobado y en PRD", desc:"Aprobado y en PRD." },
 ];
 const BOT_CATS = ["Rocketbot","Python entregados","Python por recibir","Evolutivos"];
 const BOT_CAT_LABELS = { "Rocketbot":"Rocketbot (Desarrollo 2NV)", "Python entregados":"Bots Python entregados a Soporte", "Python por recibir":"Bots Python por recibir en Soporte", "Evolutivos":"Bots Python Desarrollados por 2NV soporte - Evolutivos / Mejoras" };
@@ -765,8 +779,8 @@ function renderResumen(){
 
   document.getElementById('tabContent').innerHTML=`
     <div class="kpi-grid">
-      <div class="kpi-card" style="--kpi-color:var(--accent);"><div class="kpi-icon">📋</div><div class="kpi-label">Total Casos (año)</div><div class="kpi-value">${all.length}</div><div class="kpi-sub">Enero – Agosto</div></div>
-      <div class="kpi-card" style="--kpi-color:var(--accent2);"><div class="kpi-icon">⏱</div><div class="kpi-label">Horas Totales</div><div class="kpi-value">${totalHoras}</div><div class="kpi-sub">Diciembre – Agosto</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--accent);"><div class="kpi-icon">📋</div><div class="kpi-label">Total Casos (año)</div><div class="kpi-value">${all.length}</div><div class="kpi-sub">Enero – Septiembre</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--accent2);"><div class="kpi-icon">⏱</div><div class="kpi-label">Horas Totales</div><div class="kpi-value">${totalHoras}</div><div class="kpi-sub">Diciembre – Septiembre</div></div>
       <div class="kpi-card" style="--kpi-color:var(--cerrado);"><div class="kpi-icon">✅</div><div class="kpi-label">Resueltos</div><div class="kpi-value">${cerrados}</div><div class="kpi-sub">${Math.round(cerrados/all.length*100)}% del total</div></div>
       <div class="kpi-card" style="--kpi-color:#c084fc;"><div class="kpi-icon">🤖</div><div class="kpi-label">Bots Soporte</div><div class="kpi-value">${BOTS_SOPORTE}</div><div class="kpi-sub">en gestión 2NV</div></div>
     </div>
@@ -775,7 +789,7 @@ function renderResumen(){
       <div class="chart-card"><div class="chart-title">⏱ Horas por mes</div><div class="chart-wrap"><canvas id="chMesHoras"></canvas></div></div>
     </div>
     <div class="table-card">
-      <div class="table-header"><h3>📄 Consolidado por mes</h3><span>${perMes.filter(m=>m.horas>0).length} meses · ${totalHoras}h (Diciembre – Agosto)</span></div>
+      <div class="table-header"><h3>📄 Consolidado por mes</h3><span>${perMes.filter(m=>m.horas>0).length} meses · ${totalHoras}h (Diciembre – Septiembre)</span></div>
       <div class="table-wrap"><table>
         <thead><tr><th>Mes</th><th>Casos</th><th>Horas</th><th>Promedio h/caso</th></tr></thead>
         <tbody>
@@ -988,9 +1002,9 @@ async function buildPPTX(){
   const totalHoras=Math.round((all.reduce((a,b)=>a+b.horas,0)+DIC_HORAS)*10)/10;
   const cerrados=all.filter(r=>{const x=(r.estado||'').toLowerCase();return x.startsWith('cerrado')||x==='ok';}).length;
   const s0=pptx.addSlide();
-  header(s0,'SEGUIMIENTO DE SOPORTE · ALPINA','Resumen consolidado Diciembre 2025 – Agosto 2026');
+  header(s0,'SEGUIMIENTO DE SOPORTE · ALPINA','Resumen consolidado Diciembre 2025 – Septiembre 2026');
   kpirow(s0,[{l:'Total Casos',v:all.length,c:ACCENT},{l:'Horas Totales',v:totalHoras,c:GREEN},{l:'Resueltos',v:cerrados,c:'34D399'},{l:'Bots Soporte',v:BOTS_SOPORTE,c:'C084FC'}]);
-  s0.addText('CONSOLIDADO POR MES (Diciembre – Agosto)',{x:0.28,y:2.8,w:12.8,h:0.28,fontSize:8,color:MUTED,fontFace:FF,bold:true});
+  s0.addText('CONSOLIDADO POR MES (Diciembre – Septiembre)',{x:0.28,y:2.8,w:12.8,h:0.28,fontSize:8,color:MUTED,fontFace:FF,bold:true});
   const trr=[[{text:'Mes',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},border:{pt:1,color:BDR}}},{text:'Casos',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}},{text:'Horas',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}},{text:'Promedio h/caso',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}}]];
   trr.push([{text:'Diciembre (2025)',options:{color:TEXT,fontSize:9,fill:{color:CARD},bold:true,border:{pt:1,color:BDR}}},{text:'19',options:{color:ACCENT,fontSize:9,fill:{color:CARD},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:DIC_HORAS+'h',options:{color:GREEN,fontSize:9,fill:{color:CARD},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:(DIC_HORAS/19).toFixed(1),options:{color:MUTED,fontSize:9,fill:{color:CARD},align:'center',border:{pt:1,color:BDR}}}]);
   MESES.forEach(m=>{const r=getMes(m);const h=Math.round(r.reduce((a,b)=>a+b.horas,0)*10)/10;
