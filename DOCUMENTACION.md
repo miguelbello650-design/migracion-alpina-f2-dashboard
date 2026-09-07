@@ -1173,4 +1173,13 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 
 - Se persistio hoursByIndex en SQLite para conservar las horas distribuidas por fecha en el endpoint /api/data.
 - Se actualizo el correo para usar los bloques visibles del dashboard en el desglose de Desarrollo y Soporte.
-- El resultado validado queda en 4241.5 h consumidas, 78.5 h restantes y 98.2% de consumo.
+- El resultado validado queda en 4241.5 h consumidas, 78.5 h restantes y 98.2% de consumo.## Validacion de notificacion de consumo (2026-09-07)
+
+- La notificacion consulta el endpoint vivo del dashboard local en `http://127.0.0.1:3000/api/data`.
+- Se valido el HTML generado con 4241.5 h consumidas, 78.5 h restantes, 3226.2 h de Desarrollo y 891.5 h de Soporte.
+- El correo usa el mismo desglose de bloques visible en el dashboard.
+
+## Actualizacion de Robotina Fase 2 (2026-09-07)
+
+- Se agrego el punto "Incluir proceso de Asignación de Cupo" a la tarjeta ROBOTINA - FASE 2 en la pestaña Proyectos.
+- Se conservaron los dos puntos existentes de la tarjeta.
