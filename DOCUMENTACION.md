@@ -1183,3 +1183,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 
 - Se agrego el punto "Incluir proceso de Asignación de Cupo" a la tarjeta ROBOTINA - FASE 2 en la pestaña Proyectos.
 - Se conservaron los dos puntos existentes de la tarjeta.
+
+## Actualizacion de alerta de Pruebas UAT (2026-09-08)
+
+- Se actualizo la nota de la duracion de Pruebas UAT para indicar una extension de 12 dias con el texto solicitado.
+- Se conservaron sin cambios las demas alertas y configuraciones del Gantt.
