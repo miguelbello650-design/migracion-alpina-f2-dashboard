@@ -1188,3 +1188,7 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 
 - Se actualizo la nota de la duracion de Pruebas UAT para indicar una extension de 12 dias con el texto solicitado.
 - Se conservaron sin cambios las demas alertas y configuraciones del Gantt.
+## Actualizacion de alerta UAT de Robotina (2026-09-09)
+
+- Se actualizo la alerta de Pruebas UAT a 13 dias e incorporo la necesidad de realizar pruebas internas de los ajustes realizados.
+- Se mantuvieron las fechas, horas y demas alertas del Gantt sin cambios adicionales.
