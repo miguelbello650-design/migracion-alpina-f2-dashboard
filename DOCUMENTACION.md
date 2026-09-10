@@ -1192,3 +1192,9 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 
 - Se actualizo la alerta de Pruebas UAT a 13 dias e incorporo la necesidad de realizar pruebas internas de los ajustes realizados.
 - Se mantuvieron las fechas, horas y demas alertas del Gantt sin cambios adicionales.
+## Alertas UAT del 9 y 10 de septiembre (2026-09-10)
+
+- Se agregaron los días 10 y 11 de septiembre a Pruebas UAT y se desplazaron dos días las actividades posteriores de Robotina.
+- La alerta de extensión de 13 días quedó ubicada el 9 de septiembre.
+- Se agregó la alerta del 10 de septiembre: "Se inician pruebas UAT con el equipo operativo y revisar la entrada de casos a procesar".
+- El renderer posiciona las alertas dentro de la celda exacta de su fecha, incluso en segmentos con días omitidos.
