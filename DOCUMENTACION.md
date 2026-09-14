@@ -7,6 +7,11 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - **% AVANCE** — Progreso por fase y total por bot; los nombres de los bots son clickeables y navegan al Gantt correspondiente
 - **GANTT NOVA / FELI / ROBOTINA** — Diagramas Gantt con barras, notas y columnas especiales (accesibles solo desde % Avance, no desde la barra de pestañas)
 
+## Actualización de UAT Robotina (2026-09-14)
+
+- Se agregó el 14 de septiembre de 2026 como día adicional de **Pruebas UAT** en el Gantt de ROBOTINA, conservando las horas y alertas existentes.
+- El cronograma posterior se desplazó un día: aprobación y entrega quedan el 15 de septiembre, salida a producción el 16 de septiembre y soporte postproducción inicia el 17 de septiembre.
+- Se añadió la alerta del 14 de septiembre: **Se agrega día para iniciar a probar con los casos que ya se encuentran en la consulta de la API**.
 ## Actualizacion visual 2NV
 
 - Fondo de video local en `assets/video/dashboard-background.mp4`, con veladura para mantener la legibilidad.
