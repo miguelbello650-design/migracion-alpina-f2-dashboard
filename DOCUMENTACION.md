@@ -12,6 +12,11 @@ Dashboard web para tracking de proyectos RPA con tres bots activos (NOVA, FELI, 
 - Se agregó el 14 de septiembre de 2026 como día adicional de **Pruebas UAT** en el Gantt de ROBOTINA, conservando las horas y alertas existentes.
 - El cronograma posterior se desplazó un día: aprobación y entrega quedan el 15 de septiembre, salida a producción el 16 de septiembre y soporte postproducción inicia el 17 de septiembre.
 - Se añadió la alerta del 14 de septiembre: **Se agrega día para iniciar a probar con los casos que ya se encuentran en la consulta de la API**.
+## Actualización de UAT Robotina (2026-09-15)
+
+- Se agregó el 15 de septiembre de 2026 como día adicional de **Pruebas UAT** en el Gantt de ROBOTINA, sumando 8 horas y conservando las alertas existentes.
+- El cronograma posterior se desplazó un día: aprobación y entrega quedan el 16 de septiembre, salida a producción el 17 de septiembre y soporte postproducción queda del 18 al 24 de septiembre.
+- Se agregaron cinco días laborables vacíos al final del cronograma: 25, 28, 29 y 30 de septiembre, y 1 de octubre de 2026.
 ## Actualización del HTML de soporte (2026-09-14)
 
 - Se actualizó assets/support/dashboard_alpina_2.html desde localhost:3000 con la información de soporte cargada hasta el 11 de septiembre de 2026.
