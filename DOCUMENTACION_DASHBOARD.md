@@ -438,3 +438,11 @@ Pruebas Python:
 - Robotina: Pruebas UAT se extendió hasta el 2 de septiembre de 2026, con 14 días y 103.3 horas.
 - Las actividades posteriores se desplazan un día conservando alertas, estados y datos históricos.
 - Se actualizó la alerta de UAT para indicar una extensión de 8 días.
+
+## Actualización reciente (2026-09-16)
+
+- Robotina: Pruebas UAT se extendió hasta el 16 de septiembre de 2026; las actividades posteriores quedan pendientes desde el 17 de septiembre.
+- La tarjeta de avance conserva el cálculo por fases: Estructura 100%, Gestión Usuarios 99%, Cierre 42% y avance total 80%.
+- Se corrigió la animación de porcentajes para no reutilizar valores anteriores almacenados en data-progress-target.
+- Las alertas del 15 y 16 de septiembre mantienen el mismo texto y el tooltip evita repetir mensajes idénticos.
+- El orden de meses se calcula numéricamente para evitar que octubre aparezca antes de febrero.

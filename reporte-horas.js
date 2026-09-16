@@ -38,8 +38,9 @@
     months.add('2025-11');
     months.add('2025-12');
     months.add('2026-1');
-    const curKey = now.getFullYear() + '-' + (now.getMonth() + 1);
-    return Array.from(months).filter(m => m <= curKey).sort();
+    const currentMonth = now.getFullYear() * 12 + now.getMonth() + 1;
+    const monthNumber = m => { const [year, month] = m.split('-').map(Number); return year * 12 + month; };
+    return Array.from(months).filter(m => monthNumber(m) <= currentMonth).sort((a, b) => monthNumber(a) - monthNumber(b));
   }
 
   function lockedBotHours(key, filter, staticMonthly, monthOptions) {
