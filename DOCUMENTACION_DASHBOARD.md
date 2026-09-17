@@ -446,3 +446,9 @@ Pruebas Python:
 - Se corrigió la animación de porcentajes para no reutilizar valores anteriores almacenados en data-progress-target.
 - Las alertas del 15 y 16 de septiembre mantienen el mismo texto y el tooltip evita repetir mensajes idénticos.
 - El orden de meses se calcula numéricamente para evitar que octubre aparezca antes de febrero.
+## Actualización reciente (2026-09-17)
+
+- Robotina: Pruebas UAT se separan en dos tramos, hasta el 15 y nuevamente el 17 de septiembre; el 16 queda como día gris sin actividad.
+- La alerta del 16 indica que no se realizan pruebas por falta de casos, y el 17 registra la reanudación con casos nuevos.
+- El corte diario incluye las 8 horas del 17 como horas en curso; no suma el 16 ni las actividades posteriores.
+- El lanzador local ejecuta Node oculto para que cerrar una ventana auxiliar no detenga el servidor en el puerto 3000.
