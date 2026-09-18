@@ -1021,7 +1021,7 @@ Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:134, fi
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:135, fixedEndIdx:139 });
 function applyRobotinaLatestOverrides() {
   // Robotina: split UAT around the no-work day on 16-Sep-26 and shift following activities one day.
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:190.8, days:25, hoursByIndex:Object.fromEntries([[72,7.275],[73,7.275],[74,7.275],[75,7.275],[128,7.275],[129,7.275],[130,7.275],[131,7.275],[132,7.275],[133,7.275],[134,7.275],[135,7.275],[136,8],[137,8],[138,7.5],[139,8],[140,8],[141,8],[142,8],[143,8],[144,8],[145,8],[146,8],[148,8],[149,8]]), fixedIdx:72, fixedEndIdx:149, skipIndices:Array.from({ length:52 }, (_, i) => i + 76).concat([147]), notesIdx:[120,121,122,123,124,142,143,144,145,146,147,148], inProgress:true });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:182.8, days:24, hoursByIndex:Object.fromEntries([[72,7.275],[73,7.275],[74,7.275],[75,7.275],[128,7.275],[129,7.275],[130,7.275],[131,7.275],[132,7.275],[133,7.275],[134,7.275],[135,7.275],[136,8],[137,8],[138,7.5],[139,8],[140,8],[141,8],[142,8],[143,8],[144,8],[145,8],[146,8],[147,8]]), fixedIdx:72, fixedEndIdx:149, skipIndices:Array.from({ length:52 }, (_, i) => i + 76).concat([148,149]), notesIdx:[120,121,122,123,124,142,143,144,145,146,147,148,149], inProgress:true });
   Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:150, fixedEndIdx:150 });
   Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:150, fixedEndIdx:150 });
   Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:151, fixedEndIdx:151 });
@@ -1596,7 +1596,7 @@ function renderGanttRobotina() {
   const ROBOTINA_HOLIDAYS = [125]; // 17-Aug-26; solo se excluye de este Gantt
   const dates = GANTT_DATES.slice(startIdx).filter((_, i) => !ROBOTINA_HOLIDAYS.includes(i + startIdx));
   const toRobotinaIdx = globalIdx => globalIdx - startIdx - ROBOTINA_HOLIDAYS.filter(i => i < globalIdx).length;
-  const GRAY_DAYS_ROBOTINA = [25, 26, 31, 60, 76, 89, 94, 96, 98, 99, 100, 101, 120, 121, 122, 123, 124, 147];
+  const GRAY_DAYS_ROBOTINA = [25, 26, 31, 60, 76, 89, 94, 96, 98, 99, 100, 101, 120, 121, 122, 123, 124, 148, 149];
   const robotinaNotes = {};
   robotinaNotes[25] = "Retrazo ya que no se entrega Apí de consulta a Helix";
   robotinaNotes[26] = "Retrazo ya que no se entrega Apí de consulta a Helix";
@@ -1632,8 +1632,9 @@ function renderGanttRobotina() {
   robotinaNotes["Pruebas UAT|144"] = "No se realizan pruebas debido a que los casos solo estarán disponibles el 14 de septiembre, Javier estará dedicado en revisar el código de la automatización para evitar encontrar hallazgos en el análisis de seguridad de Alpina";
   robotinaNotes["Pruebas UAT|145"] = "Se agrega día para iniciar a probar con los casos que ya se encuentran en la consulta de la API";
   robotinaNotes["Pruebas UAT|146"] = "Pruebas internas y ajustes de las novedades encontradas durante las pruebas";
-  robotinaNotes["Pruebas UAT|147"] = "No se realizan pruebas debido a que no se cuentan con casos para probar";
-  robotinaNotes["Pruebas UAT|148"] = "Se retoma pruebas con casos nuevos a procesar";
+  robotinaNotes["Pruebas UAT|147"] = "Se retoma pruebas con casos nuevos a procesar";
+  robotinaNotes["Pruebas UAT|148"] = "No se realizan pruebas debido a que no se cuentan con casos para probar";
+  robotinaNotes["Pruebas UAT|149"] = "No se realizan pruebas debido a que no se cuentan con casos para probar";
   robotinaNotes["Pruebas UAT|121"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
   robotinaNotes["Pruebas UAT|122"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
   robotinaNotes["Pruebas UAT|123"] = "Cat\u00e1strofe Nacional, p\u00e9rdida de conectividad y energ\u00eda en donde vive Javier";
