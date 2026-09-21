@@ -458,3 +458,4 @@ Pruebas Python:
 - La alerta de reanudación con casos nuevos permanece ubicada el 16 de septiembre.
 - El total de UAT queda en 25 días y 190.8 horas.
 - El cronograma posterior se desplaza un día: aprobación y entrega quedan el 22, salida a producción el 23 y soporte inicia el 24 de septiembre.
+- El HTML de soporte incorpora los registros recientes de septiembre y actualiza el seguimiento de Bots Cadenas de compensación.
