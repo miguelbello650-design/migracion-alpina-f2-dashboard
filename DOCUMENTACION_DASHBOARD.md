@@ -452,10 +452,10 @@ Pruebas Python:
 - La alerta del 16 indica que no se realizan pruebas por falta de casos, y el 17 registra la reanudación con casos nuevos.
 - El corte diario incluye las 8 horas del 17 como horas en curso; no suma el 16 ni las actividades posteriores.
 - El lanzador local ejecuta Node oculto para que cerrar una ventana auxiliar no detenga el servidor en el puerto 3000.
-## Actualización reciente (2026-09-21)
+## Actualización reciente (2026-09-22)
 
-- Robotina: Pruebas UAT se extiende hasta el 21 de septiembre de 2026, manteniendo los días 17 y 18 como grises sin actividad ni horas.
+- Robotina: Pruebas UAT se extiende hasta el 22 de septiembre de 2026, manteniendo los días 17 y 18 como grises sin actividad ni horas.
 - La alerta de reanudación con casos nuevos permanece ubicada el 16 de septiembre.
-- El total de UAT queda en 25 días y 190.8 horas.
-- El cronograma posterior se desplaza un día: aprobación y entrega quedan el 22, salida a producción el 23 y soporte inicia el 24 de septiembre.
+- El total de UAT queda en 26 días y 198.8 horas.
+- El cronograma posterior se desplaza un día: aprobación y entrega quedan el 23, salida a producción el 24 y soporte inicia el 25 de septiembre.
 - El HTML de soporte incorpora los registros recientes de septiembre y actualiza el seguimiento de Bots Cadenas de compensación.
