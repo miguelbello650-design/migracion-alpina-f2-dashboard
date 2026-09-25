@@ -1219,3 +1219,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Septiembre de Robotina queda en **132.6 h**, incluyendo la diferencia necesaria para reconciliar el total global.
 - El donut de Horas de Desarrollo por Proyecto y el bloque Desarrollo quedan alineados: **3319.3 h**.
 - La API `/api/data` publica el desglose mensual de Robotina y el frontend lo utiliza en el filtro de Reporte de Horas.
+## Sincronizacion del respaldo publico de Robotina (2026-09-25)
+
+- GitHub Pages no puede consultar la API local del puerto 3000, por lo que se actualizo el respaldo estatico de `index.html`.
+- Robotina queda publicada con **967.58 h totales** y septiembre con **132.6 h**.
+- El donut de Desarrollo y el reporte publico usan ahora los mismos valores que el ambiente local.
