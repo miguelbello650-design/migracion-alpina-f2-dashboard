@@ -1212,3 +1212,10 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - La alerta de extensión de 13 días quedó ubicada el 9 de septiembre.
 - Se agregó la alerta del 10 de septiembre: "Se inician pruebas UAT con el equipo operativo y revisar la entrada de casos a procesar".
 - El renderer posiciona las alertas dentro de la celda exacta de su fecha, incluso en segmentos con días omitidos.
+## Correccion de horas de Robotina en resumen y reporte (2026-09-25)
+
+- Se corrigio la fuente de horas de Robotina para que todas las vistas usen el mismo desglose de actividades.
+- Robotina queda con **740.35 h ejecutadas**, **227.23 h en curso** y **967.58 h totales**.
+- Septiembre de Robotina queda en **132.6 h**, incluyendo la diferencia necesaria para reconciliar el total global.
+- El donut de Horas de Desarrollo por Proyecto y el bloque Desarrollo quedan alineados: **3319.3 h**.
+- La API `/api/data` publica el desglose mensual de Robotina y el frontend lo utiliza en el filtro de Reporte de Horas.

@@ -460,3 +460,10 @@ Pruebas Python:
 - El cronograma posterior se desplaza un día: aprobación y entrega quedan el 29, salida a producción el 30 y soporte inicia el 1 de octubre.
 - El HTML de soporte incorpora los registros recientes de septiembre y actualiza el seguimiento de Bots Cadenas de compensación.
 - Se agregan cinco fechas laborables vacías para visualización al final del cronograma: 5, 6, 7, 8 y 9 de octubre de 2026.
+## Correccion de horas de Robotina en resumen y reporte (2026-09-25)
+
+- Se corrigio la fuente de horas de Robotina para que todas las vistas usen el mismo desglose de actividades.
+- Robotina queda con **740.35 h ejecutadas**, **227.23 h en curso** y **967.58 h totales**.
+- Septiembre de Robotina queda en **132.6 h**, incluyendo la diferencia necesaria para reconciliar el total global.
+- El donut de Horas de Desarrollo por Proyecto y el bloque Desarrollo quedan alineados: **3319.3 h**.
+- La API `/api/data` publica el desglose mensual de Robotina y el frontend lo utiliza en el filtro de Reporte de Horas.

@@ -1202,10 +1202,11 @@ function renderRobotinaCard() {
       if (!uatSkip.has(i)) additionalUatDays++;
     }
   }
-  const serverRobotinaTotal = Number(SERVER_REPORTE_HORAS?.bots?.robotina?.total);
-  // Durante la carga inicial, conserva el cálculo local del Gantt hasta recibir la API.
-  if (Number.isFinite(serverRobotinaTotal) && serverRobotinaTotal > 0 && Math.abs((hours.completed + hours.inProgress) - serverRobotinaTotal) > 0.01) {
-    hours.inProgress = Math.max(0, serverRobotinaTotal - hours.completed);
+  const serverRobotina = SERVER_REPORTE_HORAS?.bots?.robotina;
+  // La API es la fuente unica para la separacion ejecutado/en curso.
+  if (Number.isFinite(Number(serverRobotina?.completed)) && Number.isFinite(Number(serverRobotina?.inProgress))) {
+    hours.completed = Number(serverRobotina.completed);
+    hours.inProgress = Number(serverRobotina.inProgress);
   }
   const totalHours = hours.completed + hours.inProgress;
   const c = document.getElementById('robotina-body');
@@ -2247,6 +2248,11 @@ function lockedBotHours(key, filter) {
 }
 function botHours(key, filter) {
   if (key === 'robotina' && typeof applyRobotinaLatestOverrides === 'function') applyRobotinaLatestOverrides();
+  if (key === 'robotina' && SERVER_REPORTE_HORAS?.bots?.robotina) {
+    const h = SERVER_REPORTE_HORAS.bots.robotina;
+    if (filter === 'all') return { completed: Number(h.completed || 0), inProgress: Number(h.inProgress || 0) };
+    if (h.monthly && h.monthly[filter]) return { completed: Number(h.monthly[filter].completed || 0), inProgress: Number(h.monthly[filter].inProgress || 0) };
+  }
   if (filter === 'all') {
     const months = getMonthOptions();
     let c = 0, p = 0;

@@ -190,6 +190,36 @@
         august.total += 4;
       }
     }
+    // Robotina se desglosa por actividad y el mismo ajuste se propaga al
+    // resumen mensual, bloques, consumo total y horas restantes.
+    const robotinaRows = getBotRows('robotina') || [];
+    const robotinaExecuted = robotinaRows
+      .filter(r => r.task && !r.inProgress && r.fixedIdx !== undefined)
+      .filter(r => dates[r.fixedEndIdx !== undefined ? r.fixedEndIdx : r.fixedIdx] <= now)
+      .reduce((sum, row) => sum + effectiveRowHours(row), 0);
+    const robotinaInProgress = robotinaRows
+      .filter(r => r.task && r.inProgress && r.fixedIdx !== undefined)
+      .filter(r => dates[r.fixedIdx] <= now)
+      .reduce((sum, row) => sum + effectiveRowHours(row), 0);
+    const legacyRobotina = botHours('robotina', 'all');
+    const robotinaDelta = robotinaExecuted + robotinaInProgress - (legacyRobotina.completed + legacyRobotina.inProgress);
+    const currentMonth = `${now.getFullYear()}-${now.getMonth() + 1}`;
+    const robotinaMonthly = {};
+    monthOptions.forEach(month => {
+      const h = botHours('robotina', month);
+      robotinaMonthly[month] = { completed: Number(h.completed.toFixed(2)), inProgress: Number(h.inProgress.toFixed(2)), total: Number((h.completed + h.inProgress).toFixed(2)) };
+    });
+    if (Math.abs(robotinaDelta) > 0.001) {
+      const targetMonth = monthlyBlocks.find(m => m.month === currentMonth) || monthlyBlocks[monthlyBlocks.length - 1];
+      if (targetMonth) {
+        targetMonth.desarrollo += robotinaDelta;
+        targetMonth.total += robotinaDelta;
+      }
+      if (robotinaMonthly[currentMonth]) {
+        robotinaMonthly[currentMonth].inProgress = Number((robotinaMonthly[currentMonth].inProgress + robotinaDelta).toFixed(2));
+        robotinaMonthly[currentMonth].total = Number((robotinaMonthly[currentMonth].total + robotinaDelta).toFixed(2));
+      }
+    }
     const desarrolloRaw = monthlyBlocks.reduce((t, m) => t + m.desarrollo + m.actualizacion + m.actividades, 0);
     const soporteRaw = monthlyBlocks.reduce((t, m) => t + m.soporte, 0);
     const consumidasRaw = monthlyBlocks.reduce((t, m) => t + m.total, 0);
@@ -202,7 +232,12 @@
       const h = botHours(key, 'all');
       bots[key] = { completed: Number(h.completed.toFixed(1)), inProgress: Number(h.inProgress.toFixed(1)), total: Number((h.completed + h.inProgress).toFixed(1)) };
     });
-    return { contratadas, consumidas, restantes, porcentaje, desarrollo: Number(desarrolloRaw.toFixed(1)), soporte: Number(soporteRaw.toFixed(1)), bloques, mensuales: monthlyBlocks, bots };
+    if (bots.robotina) {
+      bots.robotina.completed = Number(robotinaExecuted.toFixed(2));
+      bots.robotina.inProgress = Number(robotinaInProgress.toFixed(2));
+      bots.robotina.total = Number((robotinaExecuted + robotinaInProgress).toFixed(2));
+      bots.robotina.monthly = robotinaMonthly;
+    }    return { contratadas, consumidas, restantes, porcentaje, desarrollo: Number(desarrolloRaw.toFixed(1)), soporte: Number(soporteRaw.toFixed(1)), bloques, mensuales: monthlyBlocks, bots };
   }
 
   return { calculateReporteHoras };
