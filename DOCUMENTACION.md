@@ -1224,3 +1224,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - GitHub Pages no puede consultar la API local del puerto 3000, por lo que se actualizo el respaldo estatico de `index.html`.
 - Robotina queda publicada con **967.58 h totales** y septiembre con **132.6 h**.
 - El donut de Desarrollo y el reporte publico usan ahora los mismos valores que el ambiente local.
+## Actualizacion del HTML de soporte (2026-09-28)
+
+- Se actualizo `assets/support/dashboard_alpina_2.html` con los registros de soporte del 21 y 23 de septiembre.
+- Se agrego el incidente de reinicio de maquinas, el ajuste de FELI, la migracion de Cadenas de Compensacion y la actualizacion de la agenda de Makro para el 28 de septiembre.
+- El HTML actualizado queda disponible para el ambiente publico junto con el dashboard.

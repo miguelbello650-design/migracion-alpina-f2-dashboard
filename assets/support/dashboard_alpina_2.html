@@ -425,6 +425,10 @@ const DATA = {
     { nombre:"COMPENSACION DE CADENAS - ALKOSTO", estado:"Cerrado", fecha:"14/09/2026", descripcion:"Incidente", causa:"Desarrollar código del RPA", solucion:"Se requiere actualizar las reglas de negocio para el bot", observaciones:"Se aplican nuevas reglas de negocio cuando hay documentos con la misma asignación se distribuye el valor del cliente entre ambas.", horas:1.0 },
     { nombre:"LA MONITA", estado:"Cerrado", fecha:"17/09/2026", descripcion:"Requerimiento", causa:"Actualizacion archivo configuración", solucion:"Se requieren nuevos códigos SKU para la integración de los pedidos de Atlantic", observaciones:"Se actualiza el archivo de parámetros", horas:0.5 },
     { nombre:"NOVA", estado:"Cerrado", fecha:"18/09/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Todas las notas se estan rechazando", observaciones:"Los datos del canal provenientes del insumo se estaban tomando como decimales y el código del Bot no los permite. Se ajusta para hacer la limpieza y forzar un número entero en este campo.", horas:1.0 },
+    { nombre:"REINICIO DE MÁQUINAS", estado:"Cerrado", fecha:"21/09/2026", descripcion:"Incidente", causa:"Reinicio No Programado", solucion:"Se encuentran inhabilitados los NOCs de los RPA", observaciones:"Se ingresa a cada máquina a levantar nuevamente los procesos y ejecutar el Sap Secure Login en caso de ser necesario", horas:0.5 },
+    { nombre:"FELI", estado:"Cerrado", fecha:"21/09/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Se notifica que un correo de liberación adjunto centros en un material que no correspondía", observaciones:"Se valida que pudo provenir de un centro residual desde un ticket anterior, se aplica en el código una limpiza de la variable que contiene los centros por cada material, una validación en el temporal y a su vez en la creación del excel formato de liberación a fin de registrar en logs si algun centro se elimina, dejándo aquellos que sí corresponden y evitando este comportamiento.", horas:6.0 },
+    { nombre:"CADENAS DE COMPENSACIÓN", estado:"Cerrado", fecha:"21/09/2026", descripcion:"Migración", causa:"Migración", solucion:"Se solicita migrar las automatizaciones de cadenas a la máquina .37", observaciones:"Se ambientan rutas locales y se prueba funcionamiento mediante la cadena de Makro.", horas:1.5 },
+    { nombre:"FELI", estado:"Cerrado", fecha:"23/09/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Un insumo de extensión no ejecutó", observaciones:"Se verifica que el error proviene al obtener dato del material desde el insumo, el cual lo convierte a un decimal y SAP no permite el dato. Se nomaliza desde el script que lee los datos y se re ejecuta correctamente.", horas:2.0 },
   ],
 };
 const SOLICITUDES = {
@@ -501,7 +505,7 @@ const SOLICITUDES = {
     { grupo:"Alpi Rutas", estado:"Por recibir", desc:"Por agendar" },
   ],
   "Septiembre": [
-    { grupo:"Bots Cadenas de compensacion", estado:"En proceso", desc:"Bots: Cenco-Olimpica- Alkosto- Éxito Entregado con pruebas a Usuaria, Pendiente bot Makro realizar pruebas en conjunto con usuaria para corroborar ultimo ajuste solicitado por cambio de reglas de negocio" },
+    { grupo:"Bots Cadenas de compensacion", estado:"En proceso", desc:"Bots: Cenco-Olimpica- Alkosto- Éxito Entregad, Pendiente bot Makro realizar pruebas en conjunto con usuaria se agenda entrega lunes 28 de septiembre" },
     { grupo:"Ventas", estado:"Seguimiento", desc:"Pruebas en PRD - Pausa" },
     { grupo:"Wanda", estado:"Por recibir", desc:"Por agendar" },
     { grupo:"Alpi Rutas", estado:"Por recibir", desc:"Por agendar" },
