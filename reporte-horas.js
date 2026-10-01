@@ -65,6 +65,21 @@
     return Math.max(0, (row.hours || 0) - deducted);
   }
 
+  function rowHoursThroughIndex(row, dates, limitIdx) {
+    const start = row.fixedIdx;
+    const end = row.fixedEndIdx !== undefined ? row.fixedEndIdx : start;
+    if (start === undefined || end === undefined || limitIdx < start) return 0;
+    const last = Math.min(end, limitIdx);
+    const skipSet = new Set(row.skipIndices || []);
+    const activeDays = [];
+    for (let i = start; i <= end; i++) if (!skipSet.has(i)) activeDays.push(i);
+    if (!activeDays.length) return 0;
+    if (row.hoursByIndex && typeof row.hoursByIndex === 'object') {
+      return activeDays.filter(i => i <= last).reduce((sum, i) => sum + Number(row.hoursByIndex[i] || 0), 0);
+    }
+    const elapsedDays = activeDays.filter(i => i <= last).length;
+    return effectiveRowHours(row) * Math.min(1, elapsedDays / activeDays.length);
+  }
   function calcBotHoursMonth(rows, filter, dates, now, monthOptions) {
     if (!rows) return { completed: 0, inProgress: 0 };
     if (filter === 'all') {
@@ -197,10 +212,10 @@
       .filter(r => r.task && !r.inProgress && r.fixedIdx !== undefined)
       .filter(r => dates[r.fixedEndIdx !== undefined ? r.fixedEndIdx : r.fixedIdx] <= now)
       .reduce((sum, row) => sum + effectiveRowHours(row), 0);
+    const todayIdx = dates.findIndex(d => sameDay(d, now));
     const robotinaInProgress = robotinaRows
       .filter(r => r.task && r.inProgress && r.fixedIdx !== undefined)
-      .filter(r => dates[r.fixedIdx] <= now)
-      .reduce((sum, row) => sum + effectiveRowHours(row), 0);
+      .reduce((sum, row) => sum + rowHoursThroughIndex(row, dates, todayIdx), 0);
     const legacyRobotina = botHours('robotina', 'all');
     const robotinaDelta = robotinaExecuted + robotinaInProgress - (legacyRobotina.completed + legacyRobotina.inProgress);
     const currentMonth = `${now.getFullYear()}-${now.getMonth() + 1}`;
@@ -210,14 +225,17 @@
       robotinaMonthly[month] = { completed: Number(h.completed.toFixed(2)), inProgress: Number(h.inProgress.toFixed(2)), total: Number((h.completed + h.inProgress).toFixed(2)) };
     });
     if (Math.abs(robotinaDelta) > 0.001) {
-      const targetMonth = monthlyBlocks.find(m => m.month === currentMonth) || monthlyBlocks[monthlyBlocks.length - 1];
+      // La diferencia histórica corresponde al acumulado de UAT asignado a septiembre.
+      // No debe cargarse al mes actual ni inflar las horas futuras.
+      const correctionMonth = '2026-9';
+      const targetMonth = monthlyBlocks.find(m => m.month === correctionMonth) || monthlyBlocks[monthlyBlocks.length - 1];
       if (targetMonth) {
         targetMonth.desarrollo += robotinaDelta;
         targetMonth.total += robotinaDelta;
       }
-      if (robotinaMonthly[currentMonth]) {
-        robotinaMonthly[currentMonth].inProgress = Number((robotinaMonthly[currentMonth].inProgress + robotinaDelta).toFixed(2));
-        robotinaMonthly[currentMonth].total = Number((robotinaMonthly[currentMonth].total + robotinaDelta).toFixed(2));
+      if (robotinaMonthly[correctionMonth]) {
+        robotinaMonthly[correctionMonth].inProgress = Number((robotinaMonthly[correctionMonth].inProgress + robotinaDelta).toFixed(2));
+        robotinaMonthly[correctionMonth].total = Number((robotinaMonthly[correctionMonth].total + robotinaDelta).toFixed(2));
       }
     }
     const desarrolloRaw = monthlyBlocks.reduce((t, m) => t + m.desarrollo + m.actualizacion + m.actividades, 0);

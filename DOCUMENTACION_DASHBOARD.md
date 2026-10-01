@@ -477,3 +477,11 @@ Pruebas Python:
 - Se actualizo `assets/support/dashboard_alpina_2.html` con los registros de soporte del 21 y 23 de septiembre.
 - Se agrego el incidente de reinicio de maquinas, el ajuste de FELI, la migracion de Cadenas de Compensacion y la actualizacion de la agenda de Makro para el 28 de septiembre.
 - El HTML actualizado queda disponible para el ambiente publico junto con el dashboard.
+## Corrección de corte mensual de Robotina (2026-10-01)
+
+- Las horas en curso se contabilizan únicamente hasta la fecha actual; las horas futuras permanecen visibles en el Gantt, pero no inflan los totales.
+- Se corrigió la reconciliación mensual que trasladaba una diferencia histórica de UAT al mes actual.
+- Mayo de 2026 conserva **535.8 h** totales.
+- Septiembre de 2026 concentra las **29.1 h** históricas de UAT y Robotina queda en **124.6 h** para el mes.
+- Octubre de 2026 inicia con únicamente **8 h** correspondientes al 1 de octubre.
+- El total acumulado de Robotina se mantiene en **967.58 h**.
