@@ -998,37 +998,37 @@ Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.includes('flujo principal
   inProgress:false
 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:16, days:2, fixedIdx:128, fixedEndIdx:129, skipIndices:[], notesIdx:[120,121,122,123,124], inProgress:true });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:130, fixedEndIdx:130 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:130, fixedEndIdx:130 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:131, fixedEndIdx:131 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:160, fixedEndIdx:160 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:160, fixedEndIdx:160 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:161, fixedEndIdx:161 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:132, fixedEndIdx:136 });
 // Robotina: one extra unit-testing day on 6-Aug-26.
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas unitarias'), { hours:152, days:19, fixedEndIdx:127, skipIndices:[72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,96,97,98,99,100,101,102,103,104,105,106,113,114,115,116,120,121,122,123,124], notesIdx:[71,94,95,107,108,118,119,126], inProgress:false });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:16, days:2, fixedIdx:128, fixedEndIdx:129, skipIndices:[], notesIdx:[120,121,122,123,124], inProgress:true });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:130, fixedEndIdx:130 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:130, fixedEndIdx:130 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:131, fixedEndIdx:131 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:160, fixedEndIdx:160 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:160, fixedEndIdx:160 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:161, fixedEndIdx:161 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:132, fixedEndIdx:136 });
 
 // Robotina: add UAT workday on 25-Aug-26 and shift downstream activities from 26-Aug-26.
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:64, days:8, fixedIdx:72, fixedEndIdx:131, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:132, fixedEndIdx:132 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:132, fixedEndIdx:132 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:133, fixedEndIdx:133 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:160, fixedEndIdx:160 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:160, fixedEndIdx:160 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:161, fixedEndIdx:161 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:134, fixedEndIdx:138 });
 // Robotina: add UAT workday on 26-Aug-26 and shift downstream activities from 27-Aug-26.
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:72, days:9, fixedIdx:72, fixedEndIdx:132, skipIndices:Array.from({ length:52 }, (_, i) => i + 76), notesIdx:[120,121,122,123,124,131], inProgress:true });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:133, fixedEndIdx:133 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:133, fixedEndIdx:133 });
-Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:134, fixedEndIdx:134 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:160, fixedEndIdx:160 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:160, fixedEndIdx:160 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:161, fixedEndIdx:161 });
 Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:135, fixedEndIdx:139 });
 function applyRobotinaLatestOverrides() {
   // Robotina: split UAT around the no-work day on 16-Sep-26 and shift following activities one day.
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:190.8, days:25, hoursByIndex:Object.fromEntries([[72,7.275],[73,7.275],[74,7.275],[75,7.275],[128,7.275],[129,7.275],[130,7.275],[131,7.275],[132,7.275],[133,7.275],[134,7.275],[135,7.275],[136,8],[137,8],[138,7.5],[139,8],[140,8],[141,8],[142,8],[143,8],[144,8],[145,8],[146,8],[147,8],[158,8]]), fixedIdx:72, fixedEndIdx:158, skipIndices:Array.from({ length:52 }, (_, i) => i + 76).concat([148,149,150,151,152,153,154,155,156,157]), notesIdx:[120,121,122,123,124,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157], inProgress:true });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:159, fixedEndIdx:159 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:159, fixedEndIdx:159 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:160, fixedEndIdx:160 });
-  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:161, fixedEndIdx:165 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task === 'Pruebas UAT'), { hours:198.8, days:26, hoursByIndex:Object.fromEntries([[72,7.275],[73,7.275],[74,7.275],[75,7.275],[128,7.275],[129,7.275],[130,7.275],[131,7.275],[132,7.275],[133,7.275],[134,7.275],[135,7.275],[136,8],[137,8],[138,7.5],[139,8],[140,8],[141,8],[142,8],[143,8],[144,8],[145,8],[146,8],[147,8],[158,8],[159,8]]), fixedIdx:72, fixedEndIdx:159, skipIndices:Array.from({ length:52 }, (_, i) => i + 76).concat([148,149,150,151,152,153,154,155,156,157]), notesIdx:[120,121,122,123,124,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157], inProgress:true });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Aprobaci')), { fixedIdx:160, fixedEndIdx:160 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Entrega')), { fixedIdx:160, fixedEndIdx:160 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.milestone), { fixedIdx:161, fixedEndIdx:161 });
+  Object.assign(GANTT_ROWS_ROBOTINA.find(row => row.task.startsWith('Soporte post')), { fixedIdx:162, fixedEndIdx:166 });
   refreshReporteHorasFromCurrentState();
 }
 // The report must use the same post-override Gantt state as the cards and charts.

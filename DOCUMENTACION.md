@@ -1237,3 +1237,10 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Septiembre de 2026 concentra las **29.1 h** históricas de UAT y Robotina queda en **124.6 h** para el mes.
 - Octubre de 2026 inicia con únicamente **8 h** correspondientes al 1 de octubre.
 - El total acumulado de Robotina se mantiene en **967.58 h**.
+## Actualización de UAT Robotina al 2 de octubre de 2026 (2026-10-02)
+
+- Se agregó el 2 de octubre de 2026 como día adicional de **Pruebas UAT**.
+- UAT queda en **26 días y 198.8 h**.
+- El cronograma posterior se desplazó un día: aprobación y entrega quedan en el índice siguiente, el hito y el soporte también se recorren.
+- Al corte del 2 de octubre, octubre contabiliza **16 h** de Robotina: 8 h del 1 y 8 h del 2.
+- El total acumulado de Robotina queda en **975.58 h**.
