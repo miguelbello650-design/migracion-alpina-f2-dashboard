@@ -507,3 +507,7 @@ Pruebas Python:
 ## Actualización del HTML de soporte (2026-10-05)
 - Se incorporó la nueva versión de `assets/support/dashboard_alpina_2.html` cargada en el ambiente local.
 - El archivo queda versionado para que el ambiente público utilice la misma información de soporte.
+
+## Corrección de caché del estado público (2026-10-05)
+- Se reforzó la carga de public-state.json con cache: no-store y una versión explícita para evitar que el ambiente público reutilice una copia anterior frente a localhost:3000.
+- La verificación confirmó que ambos ambientes contienen 3 horas de Actualización PDD Robotina en octubre y 206.8 horas de UAT.
