@@ -1884,7 +1884,8 @@
       "2026-6": 166,
       "2026-7": 242,
       "2026-8": 151,
-      "2026-9": 42.5
+      "2026-9": 43.5,
+      "2026-10": 2.5
     },
     "actualizacion_feli": {
       "2025-11": 0,
@@ -2429,14 +2430,14 @@
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4387.1,
+    "consumidas": 4390.6,
     "restantes": 0,
     "porcentaje": 100,
     "desarrollo": 3463.1,
-    "soporte": 924,
+    "soporte": 927.5,
     "bloques": {
       "Desarrollo": 3335.3,
-      "Soporte": 924,
+      "Soporte": 927.5,
       "Actualización PDD": 38,
       "Actividades adicionales": 89.8
     },
@@ -2524,18 +2525,18 @@
       {
         "month": "2026-9",
         "desarrollo": 124.59699999999998,
-        "soporte": 42.5,
+        "soporte": 43.5,
         "actualizacion": 0,
         "actividades": 1.5,
-        "total": 168.59699999999998
+        "total": 169.59699999999998
       },
       {
         "month": "2026-10",
         "desarrollo": 24,
-        "soporte": 0,
+        "soporte": 2.5,
         "actualizacion": 3,
         "actividades": 0,
-        "total": 27
+        "total": 29.5
       }
     ],
     "bots": {

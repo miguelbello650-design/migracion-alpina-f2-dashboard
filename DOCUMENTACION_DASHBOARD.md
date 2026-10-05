@@ -511,3 +511,7 @@ Pruebas Python:
 ## Corrección de caché del estado público (2026-10-05)
 - Se reforzó la carga de public-state.json con cache: no-store y una versión explícita para evitar que el ambiente público reutilice una copia anterior frente a localhost:3000.
 - La verificación confirmó que ambos ambientes contienen 3 horas de Actualización PDD Robotina en octubre y 206.8 horas de UAT.
+
+## Corrección del estado público frente a localhost:3000 (2026-10-05)
+- Se regeneró `public-state.json` directamente desde `/api/data` del ambiente local.
+- El resumen público queda alineado con el 3000: total 4390.6 h, Desarrollo 3335.3 h, Soporte 927.5 h, Actualización PDD 38 h y Actividades adicionales 89.8 h.
