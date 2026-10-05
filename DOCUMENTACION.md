@@ -1256,3 +1256,6 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 ## Actualización PDD Robotina en octubre de 2026 (2026-10-05)
 - Se agregaron 3 horas a `Actualización PDD - Robotina` para octubre de 2026.
 - El valor se sincronizó en la base local y en `public-state.json`.
+## Actualización del HTML de soporte (2026-10-05)
+- Se incorporó la nueva versión de `assets/support/dashboard_alpina_2.html` cargada en el ambiente local.
+- El archivo queda versionado para que el ambiente público utilice la misma información de soporte.

@@ -214,7 +214,7 @@
 </div>
 
 <script>
-const MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre"];
+const MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre"];
 const DATA = {
   "Enero": [
     { nombre:"Optimus", estado:"Cerrado", fecha:"16/01/2026", descripcion:"Error en bot", causa:"*El bot está llegando correctamente al módulo de envío de correos y la autenticación con O365 se realiza sin inconvenientes. Sin embargo, no se está recibiendo confirmación del envío desde Microsoft Graph, ni tampoco un error explícito por parte del servicio. Por lo que se observa en el log, todo indica que el comportamiento está asociado a un tema externo (permisos, políticas de seguridad o estado de la cuenta de correo en O365), más que a un problema en la lógica del bot. Sería ideal validar los permisos de la aplicación y el estado del usuario remitente en Azure / Exchange para descartar cualquier restricción reciente. *Nuevo Error en ingreso a SAP en simultaneo en el bot, lo que hace que se choquen y no logren procesar juntos arrojando error entre la monita, HE y Optimus", solucion:"* Para el error 1: Revisar permisos del bot y actualizar modulo en Rocketbot, hacer pruebas de ejecución.  * Para el error 2: Optimus se cambió el script que hacía abrir SAP, este script queda en la carpeta de plantillas/script, y su respectiva ruta en el archivo de configuración, ya con este quedó funcionando nuevamente. El otro ajuste que se realizó de esto fue que en las máquinas de producción los títulos de las transacciones habían cambiado, entonces por eso no hacia el correcto exporte de este, ya que se estaba buscando por título 'ZRP_TMS_OPTIMUS' y ahora quedó como \\\"Reporte TMS OPTIMUS\\\"", observaciones:"* Se estabilizan y se hacen pruebas con los ajustes en SAP simultaneo con la Monita y HE, la Monita y Optimus, y ya procesan sin problema,  y se ajusto la actualizacion en ventana en SAP para la descarga del excel ya que cambio el nombre", horas:5.0 },
@@ -429,6 +429,12 @@ const DATA = {
     { nombre:"FELI", estado:"Cerrado", fecha:"21/09/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Se notifica que un correo de liberación adjunto centros en un material que no correspondía", observaciones:"Se valida que pudo provenir de un centro residual desde un ticket anterior, se aplica en el código una limpiza de la variable que contiene los centros por cada material, una validación en el temporal y a su vez en la creación del excel formato de liberación a fin de registrar en logs si algun centro se elimina, dejándo aquellos que sí corresponden y evitando este comportamiento.", horas:6.0 },
     { nombre:"CADENAS DE COMPENSACIÓN", estado:"Cerrado", fecha:"21/09/2026", descripcion:"Migración", causa:"Migración", solucion:"Se solicita migrar las automatizaciones de cadenas a la máquina .37", observaciones:"Se ambientan rutas locales y se prueba funcionamiento mediante la cadena de Makro.", horas:1.5 },
     { nombre:"FELI", estado:"Cerrado", fecha:"23/09/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Un insumo de extensión no ejecutó", observaciones:"Se verifica que el error proviene al obtener dato del material desde el insumo, el cual lo convierte a un decimal y SAP no permite el dato. Se nomaliza desde el script que lee los datos y se re ejecuta correctamente.", horas:2.0 },
+    { nombre:"OLIMPICA", estado:"Cerrado", fecha:"29/09/2026", descripcion:"Migración", causa:"Migración", solucion:"El usuario solicita ejecución del bot y se evidencia que faltan dependencias/librerías en la máquina ya que se migró", observaciones:"Se ambienta entorno de Python en la máquina a la que se migró para que pueda ejecutar los scripts correctamente", horas:0.5 },
+    { nombre:"OLIMPICA", estado:"Cerrado", fecha:"30/09/2026", descripcion:"Revisión", causa:"Revisión de código.", solucion:"Usuario solicita ejecución manual del bot", observaciones:"Se realiza la ejecución y se valida que termina sin interrupciones ni fallos por dependencias o librerías en la nueva máquina", horas:0.5 },
+  ],
+  "Octubre": [
+    { nombre:"Feli", estado:"Cerrado", fecha:"02/10/2026", descripcion:"Incidente", causa:"Error de código", solucion:"Se notifica que el rpa se detuvo y necesita ejecución manual", observaciones:"Se evidencia falla en procesamiento de materiales, se realiza este ajuste y otro adicional para que cierre las solicitudes de manera correcta y no detenga la ejecución cuando falle uno solo, sino que pueda continuar con los siguientes. Se realiza la ejecución y se confirma que terminó correctamente, usuario confirma ejecución correcta", horas:2.0 },
+    { nombre:"Optimus", estado:"Cerrado", fecha:"02/10/2026", descripcion:"Revisión", causa:"Error de credenciales", solucion:"Bot no envía correos y no procesa nada de lo pendiente por cambio de contraseña", observaciones:"Se entra a máquina y se valida que el correo que usa el bot tuvo un cambio de contraseña, por lo tanto se tuvo que actualizar la contraseña de aplicación para el bot en el config para procesar correctamente, una vez actualizada el bot queda procesando correctamente", horas:0.5 },
   ],
 };
 const SOLICITUDES = {
@@ -506,6 +512,12 @@ const SOLICITUDES = {
   ],
   "Septiembre": [
     { grupo:"Bots Cadenas de compensacion", estado:"En proceso", desc:"Bots: Cenco-Olimpica- Alkosto- Éxito Entregad, Pendiente bot Makro realizar pruebas en conjunto con usuaria se agenda entrega lunes 28 de septiembre" },
+    { grupo:"Ventas", estado:"Seguimiento", desc:"Pruebas en PRD - Pausa" },
+    { grupo:"Wanda", estado:"Por recibir", desc:"Por agendar" },
+    { grupo:"Alpi Rutas", estado:"Por recibir", desc:"Por agendar" },
+  ],
+  "Octubre": [
+    { grupo:"Bots Cadenas de compensacion", estado:"En proceso", desc:"Bots: Cenco-Olimpica- Alkosto- Éxito Entregado, Pendiente bot Makro realizar pruebas en conjunto con usuaria se agenda entrega lunes 28 de septiembre" },
     { grupo:"Ventas", estado:"Seguimiento", desc:"Pruebas en PRD - Pausa" },
     { grupo:"Wanda", estado:"Por recibir", desc:"Por agendar" },
     { grupo:"Alpi Rutas", estado:"Por recibir", desc:"Por agendar" },
@@ -796,8 +808,8 @@ function renderResumen(){
 
   document.getElementById('tabContent').innerHTML=`
     <div class="kpi-grid">
-      <div class="kpi-card" style="--kpi-color:var(--accent);"><div class="kpi-icon">📋</div><div class="kpi-label">Total Casos (año)</div><div class="kpi-value">${all.length}</div><div class="kpi-sub">Enero – Septiembre</div></div>
-      <div class="kpi-card" style="--kpi-color:var(--accent2);"><div class="kpi-icon">⏱</div><div class="kpi-label">Horas Totales</div><div class="kpi-value">${totalHoras}</div><div class="kpi-sub">Diciembre – Septiembre</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--accent);"><div class="kpi-icon">📋</div><div class="kpi-label">Total Casos (año)</div><div class="kpi-value">${all.length}</div><div class="kpi-sub">Enero – Octubre</div></div>
+      <div class="kpi-card" style="--kpi-color:var(--accent2);"><div class="kpi-icon">⏱</div><div class="kpi-label">Horas Totales</div><div class="kpi-value">${totalHoras}</div><div class="kpi-sub">Diciembre – Octubre</div></div>
       <div class="kpi-card" style="--kpi-color:var(--cerrado);"><div class="kpi-icon">✅</div><div class="kpi-label">Resueltos</div><div class="kpi-value">${cerrados}</div><div class="kpi-sub">${Math.round(cerrados/all.length*100)}% del total</div></div>
       <div class="kpi-card" style="--kpi-color:#c084fc;"><div class="kpi-icon">🤖</div><div class="kpi-label">Bots Soporte</div><div class="kpi-value">${BOTS_SOPORTE}</div><div class="kpi-sub">en gestión 2NV</div></div>
     </div>
@@ -806,7 +818,7 @@ function renderResumen(){
       <div class="chart-card"><div class="chart-title">⏱ Horas por mes</div><div class="chart-wrap"><canvas id="chMesHoras"></canvas></div></div>
     </div>
     <div class="table-card">
-      <div class="table-header"><h3>📄 Consolidado por mes</h3><span>${perMes.filter(m=>m.horas>0).length} meses · ${totalHoras}h (Diciembre – Septiembre)</span></div>
+      <div class="table-header"><h3>📄 Consolidado por mes</h3><span>${perMes.filter(m=>m.horas>0).length} meses · ${totalHoras}h (Diciembre – Octubre)</span></div>
       <div class="table-wrap"><table>
         <thead><tr><th>Mes</th><th>Casos</th><th>Horas</th><th>Promedio h/caso</th></tr></thead>
         <tbody>
@@ -1019,9 +1031,9 @@ async function buildPPTX(){
   const totalHoras=Math.round((all.reduce((a,b)=>a+b.horas,0)+DIC_HORAS)*10)/10;
   const cerrados=all.filter(r=>{const x=(r.estado||'').toLowerCase();return x.startsWith('cerrado')||x==='ok';}).length;
   const s0=pptx.addSlide();
-  header(s0,'SEGUIMIENTO DE SOPORTE · ALPINA','Resumen consolidado Diciembre 2025 – Septiembre 2026');
+  header(s0,'SEGUIMIENTO DE SOPORTE · ALPINA','Resumen consolidado Diciembre 2025 – Octubre 2026');
   kpirow(s0,[{l:'Total Casos',v:all.length,c:ACCENT},{l:'Horas Totales',v:totalHoras,c:GREEN},{l:'Resueltos',v:cerrados,c:'34D399'},{l:'Bots Soporte',v:BOTS_SOPORTE,c:'C084FC'}]);
-  s0.addText('CONSOLIDADO POR MES (Diciembre – Septiembre)',{x:0.28,y:2.8,w:12.8,h:0.28,fontSize:8,color:MUTED,fontFace:FF,bold:true});
+  s0.addText('CONSOLIDADO POR MES (Diciembre – Octubre)',{x:0.28,y:2.8,w:12.8,h:0.28,fontSize:8,color:MUTED,fontFace:FF,bold:true});
   const trr=[[{text:'Mes',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},border:{pt:1,color:BDR}}},{text:'Casos',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}},{text:'Horas',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}},{text:'Promedio h/caso',options:{bold:true,color:MUTED,fontSize:9,fill:{color:'0A1525'},align:'center',border:{pt:1,color:BDR}}}]];
   trr.push([{text:'Diciembre (2025)',options:{color:TEXT,fontSize:9,fill:{color:CARD},bold:true,border:{pt:1,color:BDR}}},{text:'19',options:{color:ACCENT,fontSize:9,fill:{color:CARD},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:DIC_HORAS+'h',options:{color:GREEN,fontSize:9,fill:{color:CARD},bold:true,align:'center',border:{pt:1,color:BDR}}},{text:(DIC_HORAS/19).toFixed(1),options:{color:MUTED,fontSize:9,fill:{color:CARD},align:'center',border:{pt:1,color:BDR}}}]);
   MESES.forEach(m=>{const r=getMes(m);const h=Math.round(r.reduce((a,b)=>a+b.horas,0)*10)/10;
