@@ -1244,3 +1244,15 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - El cronograma posterior se desplazó un día: aprobación y entrega quedan en el índice siguiente, el hito y el soporte también se recorren.
 - Al corte del 2 de octubre, octubre contabiliza **16 h** de Robotina: 8 h del 1 y 8 h del 2.
 - El total acumulado de Robotina queda en **975.58 h**.
+## Actualización de UAT Robotina al 5 de octubre de 2026 (2026-10-05)
+- Se agregó el 5 de octubre de 2026 como día adicional de Pruebas UAT, con 8 horas.
+- Pruebas UAT queda en 27 días y 206.8 horas.
+- El cronograma posterior se desplazó una semana laboral: aprobación y entrega pasan al 12 de octubre, salida a producción al 13 de octubre y soporte postproducción inicia el 14 de octubre.
+- Se sincronizó la información en la base local y en `public-state.json` para mantener alineados localhost:3000 y el ambiente público.
+## Corrección de desplazamiento posterior a UAT Robotina (2026-10-05)
+- Se corrigió el desplazamiento de las tareas pendientes: ahora comienzan el siguiente día hábil después de UAT.
+- Aprobación y entrega quedan el 6 de octubre, salida a producción el 7 de octubre y soporte desde el 8 de octubre.
+- Se sincronizaron la base local y `public-state.json`.
+## Actualización PDD Robotina en octubre de 2026 (2026-10-05)
+- Se agregaron 3 horas a `Actualización PDD - Robotina` para octubre de 2026.
+- El valor se sincronizó en la base local y en `public-state.json`.
