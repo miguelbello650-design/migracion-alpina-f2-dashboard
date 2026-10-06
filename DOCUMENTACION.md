@@ -1267,3 +1267,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 ## Corrección del estado público frente a localhost:3000 (2026-10-05)
 - Se regeneró `public-state.json` directamente desde `/api/data` del ambiente local.
 - El resumen público queda alineado con el 3000: total 4390.6 h, Desarrollo 3335.3 h, Soporte 927.5 h, Actualización PDD 38 h y Actividades adicionales 89.8 h.
+## Día adicional de UAT Robotina: 6 de octubre de 2026
+- Se agregó el 6 de octubre como día adicional de Pruebas UAT, con 8 horas.
+- UAT queda en 28 días y 214.8 horas.
+- El cronograma posterior se desplazó un día hábil: aprobación y entrega el 7 de octubre, salida a producción el 8 de octubre y soporte desde el 9 de octubre.
+- Se actualizó la base local y `public-state.json`.
