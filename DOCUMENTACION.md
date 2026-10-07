@@ -1272,3 +1272,8 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - UAT queda en 28 días y 214.8 horas.
 - El cronograma posterior se desplazó un día hábil: aprobación y entrega el 7 de octubre, salida a producción el 8 de octubre y soporte desde el 9 de octubre.
 - Se actualizó la base local y `public-state.json`.
+## Día adicional de UAT Robotina: 7 de octubre de 2026
+- Se agregó el 7 de octubre como día adicional de Pruebas UAT, con 8 horas.
+- UAT queda en 29 días y 222.8 horas.
+- El cronograma posterior se desplazó un día hábil: aprobación y entrega el 8 de octubre, salida a producción el 9 de octubre y soporte desde el 12 de octubre.
+- Se actualizó la base local y `public-state.json`.
