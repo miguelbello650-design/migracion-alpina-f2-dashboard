@@ -1566,7 +1566,7 @@
         "hours": 222.8,
         "days": 29,
         "fixedIdx": 72,
-        "fixedEndIdx": 162,
+        "fixedEndIdx": 164,
         "hoursByIndex": {
           "72": 7.275,
           "73": 7.275,
@@ -1661,7 +1661,9 @@
           154,
           155,
           156,
-          157
+          157,
+          163,
+          164
         ],
         "notesIdx": [
           120,
@@ -1684,7 +1686,9 @@
           154,
           155,
           156,
-          157
+          157,
+          163,
+          164
         ],
         "inProgress": true
       },
@@ -1728,8 +1732,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 163,
-        "fixedEndIdx": 163,
+        "fixedIdx": 166,
+        "fixedEndIdx": 166,
         "hourAdjustments": {}
       },
       {
@@ -1738,8 +1742,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 163,
-        "fixedEndIdx": 163,
+        "fixedIdx": 166,
+        "fixedEndIdx": 166,
         "hourAdjustments": {}
       },
       {
@@ -1748,8 +1752,8 @@
         "resp": "2NV - ALPINA",
         "hours": 0,
         "days": 0,
-        "fixedIdx": 164,
-        "fixedEndIdx": 164,
+        "fixedIdx": 167,
+        "fixedEndIdx": 167,
         "hourAdjustments": {},
         "milestone": true
       },
@@ -1759,8 +1763,8 @@
         "resp": "2NV - ALPINA",
         "hours": 40,
         "days": 5,
-        "fixedIdx": 165,
-        "fixedEndIdx": 169,
+        "fixedIdx": 168,
+        "fixedEndIdx": 172,
         "hourAdjustments": {}
       }
     ],
@@ -2428,7 +2432,12 @@
     "15-Oct-26",
     "16-Oct-26",
     "19-Oct-26",
-    "20-Oct-26"
+    "20-Oct-26",
+    "21-Oct-26",
+    "22-Oct-26",
+    "23-Oct-26",
+    "26-Oct-26",
+    "27-Oct-26"
   ],
   "reporteHoras": {
     "contratadas": 4320,

@@ -525,3 +525,25 @@ Pruebas Python:
 - UAT queda en 29 días y 222.8 horas.
 - El cronograma posterior se desplazó un día hábil: aprobación y entrega el 8 de octubre, salida a producción el 9 de octubre y soporte desde el 12 de octubre.
 - Se actualizó la base local y `public-state.json`.
+## Día no laborado en UAT Robotina: 8 de octubre de 2026
+- Se marcó el 8 de octubre como columna gris de día perdido, replicando la regla aplicada al 30 de septiembre.
+- Se agregó en la duración de UAT la nota: `No se realizan pruebas debido a que no se cuentan con casos para probar`.
+- El cronograma posterior se desplazó un día hábil: aprobación y entrega el 9 de octubre, salida a producción el 12 de octubre y soporte desde el 13 de octubre.
+- Se actualizó la base local y `public-state.json`.
+## Día no laborado en UAT Robotina: 9 de octubre de 2026
+- Se marcó el 9 de octubre como columna gris de día perdido, replicando la regla aplicada al 30 de septiembre y al 8 de octubre.
+- Se agregó la misma nota de UAT: `No se realizan pruebas debido a que no se cuentan con casos para probar`.
+- El cronograma posterior se desplazó un día hábil: aprobación y entrega el 12 de octubre, salida a producción el 13 de octubre y soporte desde el 14 de octubre.
+- Se actualizó la base local y `public-state.json`.
+## Corrección de alertas y festivo del 12 de octubre de 2026
+- Se añadieron las alertas de UAT para el 8 y 9 de octubre con el mismo texto del día perdido del 30 de septiembre.
+- El 12 de octubre se marcó como festivo y el cronograma se desplazó al siguiente día hábil.
+- Aprobación y entrega quedan el 13 de octubre, salida a producción el 14 de octubre y soporte desde el 15 de octubre.
+## Extensión visual del cronograma Robotina (2026-10-08)
+- Se agregaron cinco días hábiles vacíos al final del calendario: 21, 22, 23, 26 y 27 de octubre de 2026.
+- Las fechas se agregaron únicamente para visualización y no están asociadas a ninguna tarea ni suman horas.
+
+## Correccion final: festivo y alertas UAT del 8 y 9 de octubre de 2026
+- Se excluyo el 12 de octubre de 2026 del cronograma de Robotina por ser festivo.
+- Se extendio visualmente la duracion de Pruebas UAT para que las alertas del 8 y 9 de octubre queden dentro de la tarea.
+- Los dias 8 y 9 permanecen sin horas adicionales; solo muestran el estado y la alerta correspondiente.
