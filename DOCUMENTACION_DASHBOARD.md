@@ -547,3 +547,8 @@ Pruebas Python:
 - Se excluyo el 12 de octubre de 2026 del cronograma de Robotina por ser festivo.
 - Se extendio visualmente la duracion de Pruebas UAT para que las alertas del 8 y 9 de octubre queden dentro de la tarea.
 - Los dias 8 y 9 permanecen sin horas adicionales; solo muestran el estado y la alerta correspondiente.
+## Pruebas UAT Robotina: 13 de octubre de 2026
+- Se agrego el 13 de octubre como dia adicional de Pruebas UAT, con 8 horas.
+- UAT queda en 30 dias y 230.8 horas.
+- El cronograma posterior se desplazo un dia: aprobacion y entrega el 14 de octubre, salida a produccion el 15 de octubre y soporte desde el 16 de octubre.
+- Se mantuvo el 12 de octubre excluido por ser festivo.
