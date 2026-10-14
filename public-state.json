@@ -1563,10 +1563,10 @@
         "phase": "Cierre",
         "task": "Pruebas UAT",
         "resp": "2NV - ALPINA",
-        "hours": 230.8,
-        "days": 30,
+        "hours": 222.8,
+        "days": 29,
         "fixedIdx": 72,
-        "fixedEndIdx": 166,
+        "fixedEndIdx": 169,
         "hoursByIndex": {
           "72": 7.275,
           "73": 7.275,
@@ -1596,8 +1596,7 @@
           "159": 8,
           "160": 8,
           "161": 8,
-          "162": 8,
-          "166": 8
+          "162": 8
         },
         "hourAdjustments": {},
         "skipIndices": [
@@ -1664,7 +1663,11 @@
           156,
           157,
           163,
-          164
+          164,
+          166,
+          167,
+          168,
+          169
         ],
         "notesIdx": [
           120,
@@ -1689,7 +1692,11 @@
           156,
           157,
           163,
-          164
+          164,
+          166,
+          167,
+          168,
+          169
         ],
         "inProgress": true
       },
@@ -1733,8 +1740,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 167,
-        "fixedEndIdx": 167,
+        "fixedIdx": 170,
+        "fixedEndIdx": 170,
         "hourAdjustments": {}
       },
       {
@@ -1743,8 +1750,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 167,
-        "fixedEndIdx": 167,
+        "fixedIdx": 170,
+        "fixedEndIdx": 170,
         "hourAdjustments": {}
       },
       {
@@ -1753,8 +1760,8 @@
         "resp": "2NV - ALPINA",
         "hours": 0,
         "days": 0,
-        "fixedIdx": 168,
-        "fixedEndIdx": 168,
+        "fixedIdx": 171,
+        "fixedEndIdx": 171,
         "hourAdjustments": {},
         "milestone": true
       },
@@ -1764,8 +1771,8 @@
         "resp": "2NV - ALPINA",
         "hours": 40,
         "days": 5,
-        "fixedIdx": 169,
-        "fixedEndIdx": 173,
+        "fixedIdx": 172,
+        "fixedEndIdx": 176,
         "hourAdjustments": {}
       }
     ],
@@ -2442,13 +2449,13 @@
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4414.6,
+    "consumidas": 4406.6,
     "restantes": 0,
     "porcentaje": 100,
-    "desarrollo": 3487.1,
+    "desarrollo": 3479.1,
     "soporte": 927.5,
     "bloques": {
-      "Desarrollo": 3359.3,
+      "Desarrollo": 3351.3,
       "Soporte": 927.5,
       "Actualización PDD": 38,
       "Actividades adicionales": 89.8
@@ -2544,11 +2551,11 @@
       },
       {
         "month": "2026-10",
-        "desarrollo": 48,
+        "desarrollo": 40,
         "soporte": 2.5,
         "actualizacion": 3,
         "actividades": 0,
-        "total": 53.5
+        "total": 45.5
       }
     ],
     "bots": {
@@ -2564,8 +2571,8 @@
       },
       "robotina": {
         "completed": 740.35,
-        "inProgress": 267.23,
-        "total": 1007.58,
+        "inProgress": 259.23,
+        "total": 999.58,
         "monthly": {
           "2025-11": {
             "completed": 0,
@@ -2624,8 +2631,8 @@
           },
           "2026-10": {
             "completed": 0,
-            "inProgress": 48,
-            "total": 48
+            "inProgress": 40,
+            "total": 40
           }
         }
       },

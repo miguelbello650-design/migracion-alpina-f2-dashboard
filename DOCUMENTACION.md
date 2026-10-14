@@ -1304,3 +1304,7 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - UAT queda en 30 dias y 230.8 horas.
 - El cronograma posterior se desplazo un dia: aprobacion y entrega el 14 de octubre, salida a produccion el 15 de octubre y soporte desde el 16 de octubre.
 - Se mantuvo el 12 de octubre excluido por ser festivo.
+## D�as perdidos en UAT Robotina: 13 al 16 de octubre de 2026
+- Se retir� la duraci�n efectiva del 13 de octubre; UAT queda en 29 d�as y 222.8 horas.
+- Del 13 al 16 de octubre se aplic� la regla de d�a perdido: columnas grises, sin horas y alerta de que no se realizan pruebas por falta de casos.
+- Las actividades posteriores se desplazaron al siguiente d�a h�bil: aprobaci�n y entrega el 19 de octubre, salida a producci�n el 20 de octubre y soporte desde el 21 de octubre.
