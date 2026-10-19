@@ -559,3 +559,7 @@ Pruebas Python:
 ## Extension visual del cronograma Robotina: 28 de octubre al 2 de noviembre de 2026
 - Se agregaron cuatro dias habiles vacios al final del Gantt: 28, 29 y 30 de octubre, y 2 de noviembre.
 - Las fechas se agregaron solo para visualizacion; no estan asociadas a ninguna tarea ni suman horas.
+## Actualizacion del dashboard de soporte: octubre de 2026
+- Se ajusto la barra de pestanas para permitir varias filas y evitar que las opciones finales queden ocultas por desplazamiento horizontal.
+- Se agregaron registros de soporte de octubre para Feli, Cadenas de Compensacion, Nova, Cadenas de Compensacion - Makro y revision de estados de SAP en bots.
+- Los nuevos registros incluyen incidentes, reuniones, requerimientos y ajustes de desarrollo con sus horas y observaciones.
