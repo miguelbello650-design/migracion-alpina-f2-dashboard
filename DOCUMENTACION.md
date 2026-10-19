@@ -1319,3 +1319,6 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Actualizaci�n de PDD Robotina: se agrego 1 hora; octubre queda en 4 horas.
 - Revisi�n Ciberseguridad Robotina: se agregaron 2 horas para octubre.
 - Los totales quedaron en 39 horas para Actualizaci�n PDD y 91.8 horas para Actividades adicionales.
+## Correccion de inicio del cronograma Robotina: 20 de octubre de 2026
+- Se ajusto el cronograma para que aprobacion y entrega inicien el 20 de octubre.
+- Salida a produccion queda el 21 de octubre y soporte inicia el 22 de octubre.
