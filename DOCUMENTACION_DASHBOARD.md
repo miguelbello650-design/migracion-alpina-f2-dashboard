@@ -556,3 +556,6 @@ Pruebas Python:
 - Se retir� la duraci�n efectiva del 13 de octubre; UAT queda en 29 d�as y 222.8 horas.
 - Del 13 al 16 de octubre se aplic� la regla de d�a perdido: columnas grises, sin horas y alerta de que no se realizan pruebas por falta de casos.
 - Las actividades posteriores se desplazaron al siguiente d�a h�bil: aprobaci�n y entrega el 19 de octubre, salida a producci�n el 20 de octubre y soporte desde el 21 de octubre.
+## Extension visual del cronograma Robotina: 28 de octubre al 2 de noviembre de 2026
+- Se agregaron cuatro dias habiles vacios al final del Gantt: 28, 29 y 30 de octubre, y 2 de noviembre.
+- Las fechas se agregaron solo para visualizacion; no estan asociadas a ninguna tarea ni suman horas.
