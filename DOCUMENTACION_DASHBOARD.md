@@ -563,3 +563,7 @@ Pruebas Python:
 - Se ajusto la barra de pestanas para permitir varias filas y evitar que las opciones finales queden ocultas por desplazamiento horizontal.
 - Se agregaron registros de soporte de octubre para Feli, Cadenas de Compensacion, Nova, Cadenas de Compensacion - Makro y revision de estados de SAP en bots.
 - Los nuevos registros incluyen incidentes, reuniones, requerimientos y ajustes de desarrollo con sus horas y observaciones.
+## Ajuste de horas Robotina en octubre de 2026
+- Actualizaci�n de PDD Robotina: se agrego 1 hora; octubre queda en 4 horas.
+- Revisi�n Ciberseguridad Robotina: se agregaron 2 horas para octubre.
+- Los totales quedaron en 39 horas para Actualizaci�n PDD y 91.8 horas para Actividades adicionales.

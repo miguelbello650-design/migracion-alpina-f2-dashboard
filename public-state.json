@@ -1900,7 +1900,7 @@
       "2026-7": 242,
       "2026-8": 151,
       "2026-9": 43.5,
-      "2026-10": 2.5
+      "2026-10": 18.5
     },
     "actualizacion_feli": {
       "2025-11": 0,
@@ -1922,7 +1922,7 @@
       "2026-5": 0,
       "2026-6": 0,
       "2026-7": 0.5,
-      "2026-10": 3
+      "2026-10": 4
     },
     "actualizacion_optimus": {
       "2025-11": 0,
@@ -2084,7 +2084,8 @@
     },
     "actividad_ciberseguridad_robotina": {
       "2026-8": 2.5,
-      "2026-9": 1
+      "2026-9": 1,
+      "2026-10": 2
     },
     "actividad_ssff_robotina": {
       "2026-8": 2
@@ -2454,16 +2455,16 @@
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4414.6,
+    "consumidas": 4433.6,
     "restantes": 0,
     "porcentaje": 100,
-    "desarrollo": 3487.1,
-    "soporte": 927.5,
+    "desarrollo": 3490.1,
+    "soporte": 943.5,
     "bloques": {
       "Desarrollo": 3359.3,
-      "Soporte": 927.5,
-      "Actualización PDD": 38,
-      "Actividades adicionales": 89.8
+      "Soporte": 943.5,
+      "Actualización PDD": 39,
+      "Actividades adicionales": 91.8
     },
     "mensuales": [
       {
@@ -2557,10 +2558,10 @@
       {
         "month": "2026-10",
         "desarrollo": 48,
-        "soporte": 2.5,
-        "actualizacion": 3,
-        "actividades": 0,
-        "total": 53.5
+        "soporte": 18.5,
+        "actualizacion": 4,
+        "actividades": 2,
+        "total": 72.5
       }
     ],
     "bots": {
