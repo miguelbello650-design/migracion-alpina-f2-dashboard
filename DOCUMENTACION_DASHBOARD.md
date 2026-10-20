@@ -570,3 +570,7 @@ Pruebas Python:
 ## Correccion de inicio del cronograma Robotina: 20 de octubre de 2026
 - Se ajusto el cronograma para que aprobacion y entrega inicien el 20 de octubre.
 - Salida a produccion queda el 21 de octubre y soporte inicia el 22 de octubre.
+## Actividad de empalme Robotina: 20 de octubre de 2026
+- Se agrego la actividad "Empalme Nuevo desarrollador" encima de Pruebas UAT, con inicio el 20 de octubre y 8 horas.
+- Las actividades posteriores se desplazaron un dia: aprobacion y entrega el 21 de octubre, salida a produccion el 22 de octubre y soporte desde el 23 de octubre.
+- Se corrigio la sintaxis JavaScript de la nueva fila para restablecer la navegacion del dashboard.
