@@ -1326,3 +1326,7 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - Se agrego la actividad "Empalme Nuevo desarrollador" encima de Pruebas UAT, con inicio el 20 de octubre y 8 horas.
 - Las actividades posteriores se desplazaron un dia: aprobacion y entrega el 21 de octubre, salida a produccion el 22 de octubre y soporte desde el 23 de octubre.
 - Se corrigio la sintaxis JavaScript de la nueva fila para restablecer la navegacion del dashboard.
+## Extension del empalme Robotina: 21 de octubre de 2026
+- La actividad "Empalme Nuevo desarrollador" se amplio a los dias 20 y 21 de octubre, con un total de 16 horas.
+- Las actividades posteriores se desplazaron un dia adicional: aprobacion y entrega el 22 de octubre, salida a produccion el 23 de octubre y soporte desde el 26 de octubre.
+- Se restauro y sincronizo la informacion completa de las filas de Robotina despues del ajuste.
