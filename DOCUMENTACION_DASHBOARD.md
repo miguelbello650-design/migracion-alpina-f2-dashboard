@@ -578,3 +578,6 @@ Pruebas Python:
 - La actividad "Empalme Nuevo desarrollador" se amplio a los dias 20 y 21 de octubre, con un total de 16 horas.
 - Las actividades posteriores se desplazaron un dia adicional: aprobacion y entrega el 22 de octubre, salida a produccion el 23 de octubre y soporte desde el 26 de octubre.
 - Se restauro y sincronizo la informacion completa de las filas de Robotina despues del ajuste.
+## Extension del empalme Robotina: 22 de octubre de 2026
+- La actividad "Empalme Nuevo desarrollador" se amplio a los dias 20, 21 y 22 de octubre, con un total de 24 horas.
+- Las actividades posteriores se desplazaron un dia adicional: aprobacion y entrega el 23 de octubre, salida a produccion el 26 de octubre y soporte desde el 27 de octubre.
