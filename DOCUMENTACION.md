@@ -1340,3 +1340,6 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 ## Extension visual del cronograma Robotina: 5 al 10 de noviembre de 2026
 - Se agregaron cuatro dias habiles vacios al final del Gantt: 5, 6, 9 y 10 de noviembre.
 - Las fechas son solo de referencia visual; no estan asociadas a ninguna tarea ni suman horas.
+## Responsable de Robotina: Angel Gabriel Sabino
+- La tarjeta de avance y la pestaña de proyectos muestran a **Angel Gabriel Sabino** como responsable de ROBOTINA.
+- La notificacion semanal conserva temporalmente el responsable y correo anteriores hasta confirmar el correo corporativo de Angel Gabriel.
