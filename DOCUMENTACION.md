@@ -1343,3 +1343,7 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 ## Responsable de Robotina: Angel Gabriel Sabino
 - La tarjeta de avance y la pestaña de proyectos muestran a **Angel Gabriel Sabino** como responsable de ROBOTINA.
 - La notificacion semanal conserva temporalmente el responsable y correo anteriores hasta confirmar el correo corporativo de Angel Gabriel.
+## Dia perdido en UAT Robotina: 27 de octubre de 2026
+- El 27 de octubre se aplico la misma regla del 26: columna gris, alerta dentro de **Pruebas UAT** y cero horas contabilizadas.
+- Las actividades posteriores se desplazaron un dia: aprobacion y entrega quedan en el 28 de octubre, salida a produccion el 29 de octubre y soporte desde el 30 de octubre.
+- Se agrego el 11 de noviembre como fecha vacia para mantener visible el cronograma extendido.
