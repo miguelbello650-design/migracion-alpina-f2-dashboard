@@ -595,3 +595,7 @@ Pruebas Python:
 - El 27 de octubre se aplico la misma regla del 26: columna gris, alerta dentro de **Pruebas UAT** y cero horas contabilizadas.
 - Las actividades posteriores se desplazaron un dia: aprobacion y entrega quedan en el 28 de octubre, salida a produccion el 29 de octubre y soporte desde el 30 de octubre.
 - Se agrego el 11 de noviembre como fecha vacia para mantener visible el cronograma extendido.
+## Dia perdido en UAT Robotina: 28 de octubre de 2026
+- El 28 de octubre se aplico la misma regla del 27: columna gris, alerta dentro de **Pruebas UAT** y cero horas contabilizadas.
+- Las actividades posteriores se desplazaron un dia: aprobacion y entrega quedan en el 29 de octubre, salida a produccion el 30 de octubre y soporte desde el 2 de noviembre.
+- Se agrego el 12 de noviembre como fecha vacia para mantener visible el cronograma extendido.
