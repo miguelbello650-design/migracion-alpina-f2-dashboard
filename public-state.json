@@ -1574,10 +1574,10 @@
         "phase": "Cierre",
         "task": "Pruebas UAT",
         "resp": "2NV - ALPINA",
-        "hours": 222.8,
-        "days": 29,
+        "hours": 230.8,
+        "days": 30,
         "fixedIdx": 72,
-        "fixedEndIdx": 170,
+        "fixedEndIdx": 181,
         "hoursByIndex": {
           "72": 7.275,
           "73": 7.275,
@@ -1607,7 +1607,8 @@
           "159": 8,
           "160": 8,
           "161": 8,
-          "162": 8
+          "162": 8,
+          "181": 8
         },
         "hourAdjustments": {},
         "skipIndices": [
@@ -1679,7 +1680,16 @@
           167,
           168,
           169,
-          170
+          170,
+          171,
+          172,
+          173,
+          174,
+          175,
+          176,
+          177,
+          178,
+          179
         ],
         "notesIdx": [
           120,
@@ -1713,7 +1723,10 @@
           174,
           175,
           176,
-          177
+          177,
+          178,
+          179,
+          181
         ],
         "inProgress": true
       },
@@ -1757,8 +1770,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 178,
-        "fixedEndIdx": 178,
+        "fixedIdx": 182,
+        "fixedEndIdx": 182,
         "hourAdjustments": {}
       },
       {
@@ -1767,8 +1780,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 178,
-        "fixedEndIdx": 178,
+        "fixedIdx": 182,
+        "fixedEndIdx": 182,
         "hourAdjustments": {}
       },
       {
@@ -1777,8 +1790,8 @@
         "resp": "2NV - ALPINA",
         "hours": 0,
         "days": 0,
-        "fixedIdx": 179,
-        "fixedEndIdx": 179,
+        "fixedIdx": 183,
+        "fixedEndIdx": 183,
         "hourAdjustments": {},
         "milestone": true
       },
@@ -1788,8 +1801,8 @@
         "resp": "2NV - ALPINA",
         "hours": 40,
         "days": 5,
-        "fixedIdx": 180,
-        "fixedEndIdx": 184,
+        "fixedIdx": 184,
+        "fixedEndIdx": 188,
         "hourAdjustments": {}
       }
     ],
@@ -2475,7 +2488,8 @@
     "9-Nov-26",
     "10-Nov-26",
     "11-Nov-26",
-    "12-Nov-26"
+    "12-Nov-26",
+    "13-Nov-26"
   ],
   "reporteHoras": {
     "contratadas": 4320,
@@ -2673,4 +2687,4 @@
       }
     }
   }
-}
+}\n

@@ -1351,3 +1351,10 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - El 28 de octubre se aplico la misma regla del 27: columna gris, alerta dentro de **Pruebas UAT** y cero horas contabilizadas.
 - Las actividades posteriores se desplazaron un dia: aprobacion y entrega quedan en el 29 de octubre, salida a produccion el 30 de octubre y soporte desde el 2 de noviembre.
 - Se agrego el 12 de noviembre como fecha vacia para mantener visible el cronograma extendido.
+## UAT Robotina: dias perdidos del 29 y 30 de octubre de 2026
+- El 29 y 30 de octubre quedan como dias perdidos: columnas grises, alerta dentro de **Pruebas UAT** y sin horas.
+- La barra azul de UAT no muestra duracion entre el 20 y el 28 de octubre; el 3 de noviembre conserva la unica jornada activa agregada.
+## UAT Robotina y festivo del 2 de noviembre de 2026
+- Se agrego una jornada de **Pruebas UAT** el 3 de noviembre con 8 horas.
+- El 2 de noviembre se excluyo del Gantt por ser festivo y las tareas posteriores se desplazaron un dia adicional.
+- Aprobacion y entrega quedan el 4 de noviembre, salida a produccion el 5 de noviembre y soporte desde el 6 de noviembre.
