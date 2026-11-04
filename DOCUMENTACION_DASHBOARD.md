@@ -609,3 +609,6 @@ Pruebas Python:
 ## Validacion visual de UAT Robotina al 3 de noviembre de 2026
 - El 3 de noviembre es el unico dia del tramo con duracion azul visible en **Pruebas UAT**, con 8 horas.
 - Del 20 al 30 de octubre no se muestran horas azules de UAT ni se suman horas por dias no trabajados; el 2 de noviembre permanece excluido por festivo.
+## Dias perdidos de UAT Robotina: 4 al 6 de noviembre de 2026
+- Los dias 4, 5 y 6 de noviembre quedan con columna gris, alerta dentro de **Pruebas UAT** y cero horas contabilizadas porque no se cuenta con casos para procesar.
+- El cronograma posterior se desplaza tres dias: aprobacion y entrega quedan el 9 de noviembre, salida a produccion el 10 de noviembre y soporte inicia el 11 de noviembre.
