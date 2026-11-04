@@ -1929,7 +1929,7 @@
       "2026-7": 242,
       "2026-8": 151,
       "2026-9": 43.5,
-      "2026-10": 29
+      "2026-10": 37
     },
     "actualizacion_feli": {
       "2025-11": 0,
@@ -2493,14 +2493,14 @@
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4460.1,
+    "consumidas": 4476.1,
     "restantes": 0,
     "porcentaje": 100,
-    "desarrollo": 3506.1,
-    "soporte": 954,
+    "desarrollo": 3514.1,
+    "soporte": 962,
     "bloques": {
-      "Desarrollo": 3375.3,
-      "Soporte": 954,
+      "Desarrollo": 3383.3,
+      "Soporte": 962,
       "Actualización PDD": 39,
       "Actividades adicionales": 91.8
     },
@@ -2596,10 +2596,18 @@
       {
         "month": "2026-10",
         "desarrollo": 64,
-        "soporte": 29,
+        "soporte": 37,
         "actualizacion": 4,
         "actividades": 2,
-        "total": 99
+        "total": 107
+      },
+      {
+        "month": "2026-11",
+        "desarrollo": 8,
+        "soporte": 0,
+        "actualizacion": 0,
+        "actividades": 0,
+        "total": 8
       }
     ],
     "bots": {
@@ -2615,8 +2623,8 @@
       },
       "robotina": {
         "completed": 740.35,
-        "inProgress": 283.23,
-        "total": 1023.58,
+        "inProgress": 291.23,
+        "total": 1031.58,
         "monthly": {
           "2025-11": {
             "completed": 0,
@@ -2674,9 +2682,14 @@
             "total": 124.6
           },
           "2026-10": {
-            "completed": 0,
-            "inProgress": 64,
+            "completed": 64,
+            "inProgress": 0,
             "total": 64
+          },
+          "2026-11": {
+            "completed": 0,
+            "inProgress": 8,
+            "total": 8
           }
         }
       },
@@ -2687,4 +2700,4 @@
       }
     }
   }
-}\n
+}
