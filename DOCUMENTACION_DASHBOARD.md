@@ -606,3 +606,6 @@ Pruebas Python:
 - Se agrego una jornada de **Pruebas UAT** el 3 de noviembre con 8 horas.
 - El 2 de noviembre se excluyo del Gantt por ser festivo y las tareas posteriores se desplazaron un dia adicional.
 - Aprobacion y entrega quedan el 4 de noviembre, salida a produccion el 5 de noviembre y soporte desde el 6 de noviembre.
+## Validacion visual de UAT Robotina al 3 de noviembre de 2026
+- El 3 de noviembre es el unico dia del tramo con duracion azul visible en **Pruebas UAT**, con 8 horas.
+- Del 20 al 30 de octubre no se muestran horas azules de UAT ni se suman horas por dias no trabajados; el 2 de noviembre permanece excluido por festivo.
