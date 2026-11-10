@@ -1692,7 +1692,12 @@
           179,
           182,
           183,
-          184
+          184,
+          185,
+          186,
+          187,
+          188,
+          189
         ],
         "notesIdx": [
           120,
@@ -1729,10 +1734,14 @@
           177,
           178,
           179,
-          181,
           182,
           183,
-          184
+          184,
+          185,
+          186,
+          187,
+          188,
+          189
         ],
         "inProgress": true
       },
@@ -1776,8 +1785,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 185,
-        "fixedEndIdx": 185,
+        "fixedIdx": 190,
+        "fixedEndIdx": 190,
         "hourAdjustments": {}
       },
       {
@@ -1786,8 +1795,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 185,
-        "fixedEndIdx": 185,
+        "fixedIdx": 190,
+        "fixedEndIdx": 190,
         "hourAdjustments": {}
       },
       {
@@ -1796,8 +1805,8 @@
         "resp": "2NV - ALPINA",
         "hours": 0,
         "days": 0,
-        "fixedIdx": 186,
-        "fixedEndIdx": 186,
+        "fixedIdx": 191,
+        "fixedEndIdx": 191,
         "hourAdjustments": {},
         "milestone": true
       },
@@ -1807,8 +1816,8 @@
         "resp": "2NV - ALPINA",
         "hours": 40,
         "days": 5,
-        "fixedIdx": 187,
-        "fixedEndIdx": 191,
+        "fixedIdx": 192,
+        "fixedEndIdx": 196,
         "hourAdjustments": {}
       }
     ],
@@ -1935,7 +1944,8 @@
       "2026-7": 242,
       "2026-8": 151,
       "2026-9": 43.5,
-      "2026-10": 37
+      "2026-10": 37,
+      "2026-11": 6.5
     },
     "actualizacion_feli": {
       "2025-11": 0,
@@ -2497,18 +2507,23 @@
     "12-Nov-26",
     "13-Nov-26",
     "16-Nov-26",
-    "17-Nov-26"
+    "17-Nov-26",
+    "18-Nov-26",
+    "19-Nov-26",
+    "20-Nov-26",
+    "23-Nov-26",
+    "24-Nov-26"
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4476.1,
+    "consumidas": 4482.6,
     "restantes": 0,
     "porcentaje": 100,
     "desarrollo": 3514.1,
-    "soporte": 962,
+    "soporte": 968.5,
     "bloques": {
       "Desarrollo": 3383.3,
-      "Soporte": 962,
+      "Soporte": 968.5,
       "Actualización PDD": 39,
       "Actividades adicionales": 91.8
     },
@@ -2612,10 +2627,10 @@
       {
         "month": "2026-11",
         "desarrollo": 8,
-        "soporte": 0,
+        "soporte": 6.5,
         "actualizacion": 0,
         "actividades": 0,
-        "total": 8
+        "total": 14.5
       }
     ],
     "bots": {
