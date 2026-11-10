@@ -1369,3 +1369,5 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 ## Dias perdidos de UAT Robotina: 9 al 13 de noviembre de 2026
 - Los dias 9, 10, 11, 12 y 13 de noviembre quedan con columna gris, alerta dentro de **Pruebas UAT** y cero horas contabilizadas porque no se cuenta con casos para procesar.
 - El cronograma posterior se desplaza cinco dias laborables: aprobacion y entrega quedan el 16 de noviembre, salida a produccion el 17 de noviembre y soporte inicia el 18 de noviembre.
+## Extension visual del cronograma Robotina (2026-11-10)
+- Se agregaron cinco fechas vacias al final del Gantt, sin asociarlas a ninguna actividad: 25, 26, 27 y 30 de noviembre, y 1 de diciembre de 2026.
