@@ -1371,3 +1371,7 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - El cronograma posterior se desplaza cinco dias laborables: aprobacion y entrega quedan el 16 de noviembre, salida a produccion el 17 de noviembre y soporte inicia el 18 de noviembre.
 ## Extension visual del cronograma Robotina (2026-11-10)
 - Se agregaron cinco fechas vacias al final del Gantt, sin asociarlas a ninguna actividad: 25, 26, 27 y 30 de noviembre, y 1 de diciembre de 2026.
+## Festivo y jornada UAT Robotina del 16 y 17 de noviembre de 2026
+- El 16 de noviembre se excluye del Gantt como festivo y no suma horas.
+- El 17 de noviembre se agrega como jornada activa de **Pruebas UAT** con 8 horas.
+- El cronograma posterior se desplaza dos dias: aprobacion y entrega quedan el 18 de noviembre, salida a produccion el 19 de noviembre y soporte inicia el 20 de noviembre.
