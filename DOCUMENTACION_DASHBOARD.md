@@ -623,3 +623,5 @@ Pruebas Python:
 - El 16 de noviembre se excluye del Gantt como festivo y no suma horas.
 - El 17 de noviembre se agrega como jornada activa de **Pruebas UAT** con 8 horas.
 - El cronograma posterior se desplaza dos dias: aprobacion y entrega quedan el 18 de noviembre, salida a produccion el 19 de noviembre y soporte inicia el 20 de noviembre.
+## Actualizacion del HTML de soporte (2026-11-17)
+- Se cargo un nuevo HTML de soporte desde el servidor local `3000` y se actualizo la version de carga del dashboard para evitar cache en produccion.
