@@ -1742,7 +1742,11 @@
           186,
           187,
           188,
-          189
+          189,
+          192,
+          193,
+          194,
+          195
         ],
         "inProgress": true
       },
@@ -1786,8 +1790,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 192,
-        "fixedEndIdx": 192,
+        "fixedIdx": 196,
+        "fixedEndIdx": 196,
         "hourAdjustments": {}
       },
       {
@@ -1796,8 +1800,8 @@
         "resp": "2NV",
         "hours": 2,
         "days": 0.3,
-        "fixedIdx": 192,
-        "fixedEndIdx": 192,
+        "fixedIdx": 196,
+        "fixedEndIdx": 196,
         "hourAdjustments": {}
       },
       {
@@ -1806,8 +1810,8 @@
         "resp": "2NV - ALPINA",
         "hours": 0,
         "days": 0,
-        "fixedIdx": 193,
-        "fixedEndIdx": 193,
+        "fixedIdx": 197,
+        "fixedEndIdx": 197,
         "hourAdjustments": {},
         "milestone": true
       },
@@ -1817,8 +1821,8 @@
         "resp": "2NV - ALPINA",
         "hours": 40,
         "days": 5,
-        "fixedIdx": 194,
-        "fixedEndIdx": 198,
+        "fixedIdx": 198,
+        "fixedEndIdx": 202,
         "hourAdjustments": {}
       }
     ],
@@ -1946,7 +1950,7 @@
       "2026-8": 151,
       "2026-9": 43.5,
       "2026-10": 37,
-      "2026-11": 6.5
+      "2026-11": 18.5
     },
     "actualizacion_feli": {
       "2025-11": 0,
@@ -2518,18 +2522,23 @@
     "26-Nov-26",
     "27-Nov-26",
     "30-Nov-26",
-    "1-Dec-26"
+    "1-Dec-26",
+    "2-Dec-26",
+    "3-Dec-26",
+    "4-Dec-26",
+    "7-Dec-26",
+    "8-Dec-26"
   ],
   "reporteHoras": {
     "contratadas": 4320,
-    "consumidas": 4490.6,
+    "consumidas": 4502.6,
     "restantes": 0,
     "porcentaje": 100,
     "desarrollo": 3522.1,
-    "soporte": 968.5,
+    "soporte": 980.5,
     "bloques": {
       "Desarrollo": 3391.3,
-      "Soporte": 968.5,
+      "Soporte": 980.5,
       "Actualización PDD": 39,
       "Actividades adicionales": 91.8
     },
@@ -2633,10 +2642,10 @@
       {
         "month": "2026-11",
         "desarrollo": 16,
-        "soporte": 6.5,
+        "soporte": 18.5,
         "actualizacion": 0,
         "actividades": 0,
-        "total": 22.5
+        "total": 34.5
       }
     ],
     "bots": {

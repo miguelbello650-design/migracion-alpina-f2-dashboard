@@ -1377,3 +1377,7 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 - El cronograma posterior se desplaza dos dias: aprobacion y entrega quedan el 18 de noviembre, salida a produccion el 19 de noviembre y soporte inicia el 20 de noviembre.
 ## Actualizacion del HTML de soporte (2026-11-17)
 - Se cargo un nuevo HTML de soporte desde el servidor local `3000` y se actualizo la version de carga del dashboard para evitar cache en produccion.
+## Dias perdidos de UAT Robotina: 18 al 20 y 23 de noviembre de 2026
+- Los dias 18, 19, 20 y 23 de noviembre quedan con columna gris, la misma alerta del 13 de noviembre y cero horas contabilizadas porque no se cuenta con casos para procesar.
+- El cronograma posterior se desplaza cuatro dias en total: aprobacion y entrega quedan el 24 de noviembre, salida a produccion el 25 de noviembre y soporte inicia el 26 de noviembre.
+- Se agregaron cinco fechas vacias al final del Gantt: 2, 3, 4, 7 y 8 de diciembre, sin asociarlas a ninguna actividad.
