@@ -1384,3 +1384,7 @@ Pruebas UAT queda programada únicamente para el 20 de agosto, con 8 horas y 1 d
 ## Actualizacion del HTML de soporte y Robotina Fase 2 (2026-11-23)
 - Se cargo un nuevo HTML de soporte desde el servidor local `3000` y se actualizo la version de carga para evitar cache en produccion.
 - La tarjeta **ROBOTINA - FASE 2** incorpora el flujo de actualizacion de usuario en Susi cuando el usuario ya existe; actualmente el Bot reasigna el caso a la mesa de ayuda.
+## Nuevas tarjetas de migracion a Python (2026-11-24)
+- Se agrego en **Proximos** la tarjeta **Migracion Feli - Python**, con el detalle: migracion a Python del bot actual, incorporando las nuevas reglas de negocio segun la funcionalidad.
+- Se agrego la tarjeta **Migracion Nova - Python**, con el detalle: migracion a Python del bot actual.
+- Se agrego la tarjeta **Migracion Robotina - Python**, con el detalle: migracion a Python del bot actual.
