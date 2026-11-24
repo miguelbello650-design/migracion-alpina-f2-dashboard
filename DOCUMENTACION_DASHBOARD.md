@@ -636,3 +636,6 @@ Pruebas Python:
 - Se agrego en **Proximos** la tarjeta **Migracion Feli - Python**, con el detalle: migracion a Python del bot actual, incorporando las nuevas reglas de negocio segun la funcionalidad.
 - Se agrego la tarjeta **Migracion Nova - Python**, con el detalle: migracion a Python del bot actual.
 - Se agrego la tarjeta **Migracion Robotina - Python**, con el detalle: migracion a Python del bot actual.
+## Actualizacion de tarjetas de migracion a Python (2026-11-24)
+- Se agrego en **Proximos** la tarjeta **Migracion La Monita - Python**, con el detalle: migracion a Python del bot actual.
+- Se retiro el item **Migracion del Bot a Python** de la tarjeta **La Monita Fase 2**.
